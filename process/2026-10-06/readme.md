@@ -14,6 +14,7 @@ Mise en place de l'outil de documentation : un repository GitHub synchronisé av
 `git push` → envoie sur GitHub
 
 ## Mes réflexions
+## Mes réflexions
 
 ### Eschatology / Eschatologie
 **Définition** : l'eschatologie (nom féminin) est l'étude des fins dernières de l'homme et du monde. C'est une branche de la théologie ou de la philosophie qui s'intéresse à la destinée ultime de l'être humain après la mort et au devenir de l'univers (la fin des temps, la fin du monde).
@@ -23,3 +24,4 @@ Mise en place de l'outil de documentation : un repository GitHub synchronisé av
 **Étymologie** : du grec ancien *eskhatos* (« dernier ») et *logos* (« discours, étude »).
 
 Sources : [Wikipédia](https://fr.wikipedia.org/wiki/Eschatologie), [Larousse](https://www.larousse.fr/dictionnaires/francais/eschatologie/30966), [Le Robert](https://dictionnaire.lerobert.com/definition/eschatologique), [Académie française](https://www.dictionnaire-academie.fr/article/A9E2576)
+
