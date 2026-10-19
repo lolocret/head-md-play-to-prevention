@@ -23,7 +23,7 @@ Echo was looking for a label to prove they are worth something. They discover th
 
 Echo, a hologram everyone calls “fake,” sets out in search of what’s real, and discovers that their worth doesn’t depend on the label others stick on them.
 
-The message isn’t preachy, and it speaks directly to a teenager who feels excluded, who needed to understand that what she was going through wasn’t normal.
+The message isn’t preachy, and it speaks directly to a teenager who feels excluded, who needed to understand that what was going on wasn’t normal.
 
 ## Visual references
 
