@@ -1,12 +1,18 @@
-# First idea Echo
+# Echo
 
-## The core concept
+Echo, a hologram everyone calls “fake,” sets out in search of what’s real, and discovers that their worth doesn’t depend on the label others stick on them.
+
+![Moodboard](images/moodboard.png)
+
+## Pitch
 
 A world where AI makes everything, and where what’s real is worth more than gold.
 Echo, a teenage hologram, neither boy nor girl, not quite real.
 Their quest is to find the last human creations.
 Their questions, Who am I ? What makes something human?
 The ending, Echo is also a human creation, and the treasure was partly inside them all along.
+
+The message isn’t preachy, and it speaks directly to a teenager who feels excluded, who needed to understand that what was going on wasn’t normal.
 
 ## Where cyberbullying comes in
 
@@ -19,13 +25,7 @@ During the quest, Echo comes across objects with a fake “real” label. Among 
 3. **The ending becomes the prevention message.**
 Echo was looking for a label to prove they are worth something. They discover that they already are a human creation, that no one has the power to certify who they are, and that the bullies’ labels don’t tell the truth. The treasure was inside them.
 
-## In one sentence
-
-Echo, a hologram everyone calls “fake,” sets out in search of what’s real, and discovers that their worth doesn’t depend on the label others stick on them.
-
-The message isn’t preachy, and it speaks directly to a teenager who feels excluded, who needed to understand that what was going on wasn’t normal.
-
-## Visual references
+## Moodboard
 
 ### The world
 AI makes everything images, voices, music, memories, even the feeling of sun on your skin. The rarest things have a small label, *real, made by a human*. They are worth more than gold.
@@ -33,4 +33,16 @@ AI makes everything images, voices, music, memories, even the feeling of sun on 
 ### Echo
 A teenage hologram, made by AI, not a man and not a woman. You can see it is not fully real translucent, half-body, half-flower, half-machine.
 
-![Moodboard](images/moodboard.png)
+## Influences
+
+- Solarpunk
+- GTA
+- *The Warriors* (1979)
+- *Firewatch*
+
+## Presentation
+
+At 2026-10-19-16:00 we will open up each github process folder and go through each first idea.
+
+- 5 minutes (or less) per idea
+- You can put text, image(s), whatever
