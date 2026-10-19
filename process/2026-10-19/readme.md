@@ -27,4 +27,10 @@ The message isn’t preachy, and it speaks directly to a teenager who feels excl
 
 ## Visual references
 
+### The world
+AI makes everything images, voices, music, memories, even the feeling of sun on your skin. The rarest things have a small label, *real, made by a human*. They are worth more than gold.
+
+### Echo
+A teenage hologram, made by AI, not a man and not a woman. You can see it is not fully real translucent, half-body, half-flower, half-machine.
+
 ![Moodboard](images/moodboard.png)
