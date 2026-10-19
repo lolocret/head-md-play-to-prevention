@@ -3,8 +3,8 @@
 ## Consequences
 What are the consequences of it? What can we do?
 
-![IMG_7194](images/IMG_7194.HEIC) <!-- TODO: convert HEIC -->
-![IMG_7195](images/IMG_7195.HEIC) <!-- TODO -->
+![IMG_7194](images/IMG_7194.jpg)
+![IMG_7195](images/IMG_7195.jpg)
 
 ## Story frameworks
 Story frameworks can reveal recurring patterns, but they should not be treated as recipes. Begin with the heart of the story: what a character wants, what stands in their way, and whose perspective the audience follows.
@@ -21,8 +21,8 @@ A trope named by writer Gail Simone in 1999: female characters are killed, injur
 - **Origin:** *Green Lantern* #54 (1994, Ron Marz): Kyle Rayner finds his girlfriend Alexandra DeWitt murdered and stuffed in a refrigerator by the villain Major Force.
 - **Impact:** Simone compiled a list of 100+ female comic characters with similar fates, sparking a lasting debate on sexism and the objectification of women in pop culture.
 
-![IMG_7283](images/IMG_7283.HEIC) <!-- TODO -->
-![IMG_7284](images/IMG_7284.HEIC) <!-- TODO -->
+![IMG_7283](images/IMG_7283.jpg)
+![IMG_7284](images/IMG_7284.jpg)
 
 ## Worldbuilding and speculative design
 The real world is only one of many imaginable worlds. Speculative design uses possible futures, not just likely ones, to explore how things might be different. Every story or designed artifact implies a universe with its own assumptions and rules.

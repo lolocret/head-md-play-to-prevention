@@ -1,6 +1,6 @@
 # Exercise 2 — Create a character
 
-![IMG_7285](images/IMG_7285.HEIC) <!-- TODO: convert HEIC -->
+![IMG_7285](images/IMG_7285.jpg)
 
 ## ID card: Echo
 **Question:** *If I'm not the funny one, not the smart one, not the popular one… then who am I?*

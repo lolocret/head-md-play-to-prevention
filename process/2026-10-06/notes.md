@@ -19,16 +19,16 @@ Today we're going to create a virtual world and understand what kind of bullying
 - Swiss gangsta game: G-NEV, *Swiss City Gangsta*
 - *The Warriors* (1979)
 
-![IMG_7121](images/IMG_7121.HEIC) <!-- TODO: convert HEIC to JPG/PNG -->
-![IMG_7122](images/IMG_7122.HEIC) <!-- TODO -->
+![IMG_7121](images/IMG_7121.jpg)
+![IMG_7122](images/IMG_7122.jpg)
 
 ## Rules
 - What can the system be used for as bullying?
 - What will impact the real world?
 - Go back through the game.
 
-![IMG_7192](images/IMG_7192.HEIC) <!-- TODO -->
-![IMG_7193](images/IMG_7193.HEIC) <!-- TODO -->
+![IMG_7192](images/IMG_7192.jpg)
+![IMG_7193](images/IMG_7193.jpg)
 
 ## Mechanics of harassment
 - Permanent comparison, anxiety, self-esteem that depends on the "slay bar"
