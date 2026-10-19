@@ -14,7 +14,7 @@ The ending, Echo is also a human creation, and the treasure was partly inside th
 In a world obsessed with being “certified real,” the other teens mock Echo: “you’re not even real,” “fake,” “glitch.” They stick a label on Echo, just like on the objects. This is the identity-based bullying, being excluded for being different.
 
 2. **Fake treasures = deepfakes.**
-During the quest, Echo comes across objects with a fake “real” label. Among them is a doctored image of Echo that is being shared around. Learning to tell real from fake is the game mechanic, and it’s also what Arpège wants to teach young people.
+During the quest, Echo comes across objects with a fake “real” label. Among them is a doctored image of Echo that is being shared around. Learning to tell real from fake is the game mechanic.
 
 3. **The ending becomes the prevention message.**
 Echo was looking for a label to prove they are worth something. They discover that they already are a human creation, that no one has the power to certify who they are, and that the bullies’ labels don’t tell the truth. The treasure was inside them.
