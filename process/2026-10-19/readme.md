@@ -1,14 +1,3 @@
-# 19.10.2026
-
-at 2026-10-19-16:00 we will open up github process folder and see the first idea.
-
-5 minutes or less per idea 
-
-you can put text images
-
-
----
-
 # First idea — Echo
 
 ## The core concept
@@ -35,9 +24,6 @@ Echo was looking for a label to prove they are worth something. They discover th
 Echo, a hologram everyone calls “fake,” sets out in search of what’s real, and discovers that their worth doesn’t depend on the label others stick on them.
 
 The message isn’t preachy, and it speaks directly to a teenager who feels excluded, like Emma, who needed to understand that what she was going through wasn’t normal.
-
-
-
 
 ## Visual references
 Translucent, half-real bodies: the look of Echo, a hologram you can see is not fully real.
