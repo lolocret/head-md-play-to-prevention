@@ -1,6 +1,6 @@
 # 19.10.2026
 
-at 2026-10-19-16:00 we will open up your github process folder and see your first idea.
+at 2026-10-19-16:00 we will open up github process folder and see the first idea.
 
 5 minutes or less per idea 
 
@@ -15,14 +15,14 @@ you can put text images
 
 A world where AI makes everything, and where what’s real is worth more than gold.
 Echo, a teenage hologram, neither boy nor girl, not quite real.
-Their quest: to find the last human creations.
-Their questions: Who am I? What makes something human?
-The ending: Echo is also a human creation, and the treasure was partly inside them all along.
+Their quest is to find the last human creations.
+Their questions, Who am I? What makes something human?
+The ending, Echo is also a human creation, and the treasure was partly inside them all along.
 
 ## Where cyberbullying comes in
 
 1. **Echo is bullied for what they are.**
-In a world obsessed with being “certified real,” the other teens mock Echo: “you’re not even real,” “fake,” “glitch.” They stick a label on Echo, just like on the objects. This is the identity-based bullying Zoé talked about: being excluded for being different.
+In a world obsessed with being “certified real,” the other teens mock Echo: “you’re not even real,” “fake,” “glitch.” They stick a label on Echo, just like on the objects. This is the identity-based bullying, being excluded for being different.
 
 2. **Fake treasures = deepfakes.**
 During the quest, Echo comes across objects with a fake “real” label. Among them is a doctored image of Echo that is being shared around. Learning to tell real from fake is the game mechanic, and it’s also what Arpège wants to teach young people.
