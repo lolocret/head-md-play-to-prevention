@@ -58,7 +58,6 @@ In the familiar version of the Greek myth, Achilles’ mother, Thetis, dipped hi
 
 As a storytelling example, Achilles is nearly invincible yet has one exposed weakness. The contrast makes him more vulnerable and creates tension. In a character, an “Achilles’ heel” can mean a specific weakness that complicates their strengths—not necessarily a literal flaw or the only contradiction they have.
 
-![Capture d’écran 2026-10-12 à 14.49.16](images/capture-2026-10-12-14.49.16.png)
 
 contradition in a character 
 
@@ -82,7 +81,6 @@ Echo is a hologram/unreal cyber character
 
 stasis vs change
 
-<!-- 5 × image.png (not saved) -->
 
 Hell’s paradise god no gender woman men 
 
@@ -106,7 +104,6 @@ the question of this character is → who Am I what is human how can we get it w
 
 **Its main questions →** Who am I? What makes someone human? Why can’t AI make it?
 
-<!-- image.png (not saved) -->
 
 **Its contradiction →** an artificial being obsessed with what is real. It looks for something it can never be.
 

@@ -20,7 +20,6 @@ this virtual word able to touch our kids and teenagers
 
 appeal to them synical
 
-<!-- image.png (not saved) -->
 
 we want to bring hope coming from a good place 
 
@@ -28,7 +27,6 @@ Solarpunk
 
 GTA
 
-<!-- image.png (not saved) -->
 
 swiss gangsta game
 
