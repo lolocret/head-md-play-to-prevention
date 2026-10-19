@@ -5,7 +5,7 @@
 A world where AI makes everything, and where what’s real is worth more than gold.
 Echo, a teenage hologram, neither boy nor girl, not quite real.
 Their quest is to find the last human creations.
-Their questions, Who am I? What makes something human?
+Their questions, Who am I ? What makes something human?
 The ending, Echo is also a human creation, and the treasure was partly inside them all along.
 
 ## Where cyberbullying comes in
@@ -23,10 +23,10 @@ Echo was looking for a label to prove they are worth something. They discover th
 
 Echo, a hologram everyone calls “fake,” sets out in search of what’s real, and discovers that their worth doesn’t depend on the label others stick on them.
 
-The message isn’t preachy, and it speaks directly to a teenager who feels excluded, like Emma, who needed to understand that what she was going through wasn’t normal.
+The message isn’t preachy, and it speaks directly to a teenager who feels excluded, who needed to understand that what she was going through wasn’t normal.
 
 ## Visual references
-Translucent, half-real bodies: the look of Echo, a hologram you can see is not fully real.
+Translucent, half-real bodies, the look of Echo, a hologram you can see is not fully real.
 
 ![Translucent figure with a poppy head](images/image%20(2).png)
 
