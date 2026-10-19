@@ -19,7 +19,7 @@ During the quest, Echo comes across objects with a fake “real” label. Among 
 3. **The ending becomes the prevention message.**
 Echo was looking for a label to prove they are worth something. They discover that they already are a human creation, that no one has the power to certify who they are, and that the bullies’ labels don’t tell the truth. The treasure was inside them.
 
-## In one sentence for the jury
+## In one sentence
 
 Echo, a hologram everyone calls “fake,” sets out in search of what’s real, and discovers that their worth doesn’t depend on the label others stick on them.
 
