@@ -1,4 +1,4 @@
-# First idea — Echo
+# First idea Echo
 
 ## The core concept
 
