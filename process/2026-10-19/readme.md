@@ -6,11 +6,7 @@ Echo, a hologram everyone calls “fake,” sets out in search of what’s real,
 
 ## Pitch
 
-A world where AI makes everything, and where what’s real is worth more than gold.
-Echo, a teenage hologram, neither boy nor girl, not quite real.
-Their quest is to find the last human creations.
-Their questions, Who am I ? What makes something human?
-The ending, Echo is also a human creation, and the treasure was partly inside them all along.
+In a world where AI makes everything (images, voices, music, even the feeling of sun on your skin), the only things that still matter are those labelled “real, made by a human,” worth more than gold. Echo, a teenage hologram who is neither boy nor girl and not quite real, searches for the last human creations while the other teens mock them as “fake” and stick a label on them, just like on the objects. In the end Echo discovers that they are themselves a human creation, that nobody has the power to certify who they are, and that the treasure was inside them all along.
 
 The message isn’t preachy, and it speaks directly to a teenager who feels excluded, who needed to understand that what was going on wasn’t normal.
 
