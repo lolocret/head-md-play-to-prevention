@@ -37,3 +37,19 @@ Echo, a hologram everyone calls “fake,” sets out in search of what’s real,
 The message isn’t preachy, and it speaks directly to a teenager who feels excluded, like Emma, who needed to understand that what she was going through wasn’t normal.
 
 
+
+
+## Visual references
+Translucent, half-real bodies: the look of Echo, a hologram you can see is not fully real.
+
+![Translucent figure with a poppy head](images/image%20(2).png)
+
+![Translucent skeleton with a pink flower head](images/image%20(3).png)
+
+![Flower, ribcage and body floating](images/image%20(4).png)
+
+![Glowing figure with a galaxy-patterned body](images/image%20(5).png)
+
+![Primal Projection, game screenshot](images/images.jpeg)
+
+![Primal Projection, glitched portrait](images/PPC-Primal_Projection-Portrait.webp)
