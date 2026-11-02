@@ -6,305 +6,316 @@
 <title>Echo — From Play to Prevention</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#07050f;
-  --bg2:#120a22;
-  --violet:#9b5cff;
-  --magenta:#ff3dac;
-  --teal:#2cf2c4;
-  --text:#f2eefc;
-  --muted:#b6abd4;
-  --glass:rgba(255,255,255,.06);
-  --glass-line:rgba(255,255,255,.18);
-  --display:"Chakra Petch","Arial Narrow",Impact,sans-serif;
-  --body:"Outfit","Helvetica Neue",Arial,sans-serif;
+  --bg:#0a1c1a;
+  --bg2:#12322d;
+  --cream:#f6f1e7;
+  --muted:#a9c2b8;
+  --rose:#ff9cc2;
+  --mint:#8ff0c8;
+  --lilac:#b9a2ff;
+  --panel:rgba(246,241,231,.07);
+  --line:rgba(246,241,231,.16);
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Nunito","Helvetica Neue",Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:var(--body)}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--cream);font-family:var(--body)}
 body{
   background:
-    radial-gradient(60vw 50vh at 85% 0%,rgba(155,92,255,.28),transparent 70%),
-    radial-gradient(55vw 55vh at 5% 100%,rgba(44,242,196,.18),transparent 70%),
-    radial-gradient(40vw 40vh at 100% 100%,rgba(255,61,172,.16),transparent 70%),
-    var(--bg);
+    radial-gradient(55vw 55vh at 90% 5%,rgba(185,162,255,.20),transparent 70%),
+    radial-gradient(55vw 55vh at 0% 100%,rgba(143,240,200,.18),transparent 70%),
+    radial-gradient(40vw 40vh at 100% 100%,rgba(255,156,194,.14),transparent 70%),
+    linear-gradient(160deg,var(--bg),var(--bg2));
 }
-/* scanlines over everything */
-body::after{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
-  background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 4px);
-  mix-blend-mode:multiply;
-}
-
 .slide{
-  position:absolute;inset:0;padding:6vh 7vw;
+  position:absolute;inset:0;padding:7vh 7vw;
   display:flex;flex-direction:column;justify-content:center;
-  opacity:0;visibility:hidden;transform:translateY(1.5vh);
-  transition:opacity .5s ease,transform .5s ease,visibility 0s .5s;
+  opacity:0;visibility:hidden;transform:translateY(1.2vh);
+  transition:opacity .45s ease,transform .45s ease,visibility 0s .45s;
 }
-.slide.active{opacity:1;visibility:visible;transform:none;transition:opacity .5s ease,transform .5s ease}
+.slide.active{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .45s ease}
 
-h1,h2{font-family:var(--display);font-weight:700;line-height:1;letter-spacing:.02em}
-h2{font-size:clamp(34px,5.4vw,84px);margin-bottom:4vh;position:relative;display:inline-block;align-self:flex-start}
-h2::after{content:"";display:block;height:.07em;margin-top:.25em;width:60%;background:linear-gradient(90deg,var(--magenta),var(--violet),var(--teal));box-shadow:0 0 14px var(--magenta)}
-.kicker{font-family:var(--display);color:var(--teal);letter-spacing:.3em;text-transform:uppercase;font-size:clamp(14px,1.5vw,22px);margin-bottom:2vh}
-p,li{font-size:clamp(20px,2.5vw,38px);line-height:1.35;font-weight:300}
-em{color:var(--teal);font-style:italic;font-weight:400}
-strong{font-weight:600;color:#fff}
-.pink{color:var(--magenta)}.teal{color:var(--teal)}.violet{color:var(--violet)}
+h1,h2{font-family:var(--display);font-weight:600;line-height:1.05;letter-spacing:-.01em}
+h2{font-size:clamp(36px,5.2vw,80px);margin-bottom:4vh}
+p,li{font-size:clamp(20px,2.5vw,38px);line-height:1.38;font-weight:400}
+strong{font-weight:800}
+em{font-family:var(--display);font-style:italic;font-weight:500;color:var(--mint)}
+.rose{color:var(--rose)}.mint{color:var(--mint)}.lilac{color:var(--lilac)}
+.kicker{font-weight:800;color:var(--mint);letter-spacing:.2em;text-transform:uppercase;font-size:clamp(13px,1.4vw,20px);margin-bottom:2.4vh}
 
-/* glitch on titles */
-.glitch{position:relative;display:inline-block;text-shadow:0 0 24px rgba(155,92,255,.7)}
-.glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;overflow:hidden;pointer-events:none}
-.glitch::before{color:var(--magenta);animation:g1 5s infinite steps(1);mix-blend-mode:screen}
-.glitch::after{color:var(--teal);animation:g2 5s infinite steps(1);mix-blend-mode:screen}
-@keyframes g1{0%,90%,100%{transform:none;clip-path:inset(0 0 100% 0)}91%{transform:translate(-4px,0);clip-path:inset(15% 0 60% 0)}93%{transform:translate(3px,0);clip-path:inset(55% 0 20% 0)}95%{clip-path:inset(0 0 100% 0)}}
-@keyframes g2{0%,92%,100%{transform:none;clip-path:inset(0 0 100% 0)}93%{transform:translate(4px,0);clip-path:inset(40% 0 35% 0)}96%{transform:translate(-3px,0);clip-path:inset(10% 0 75% 0)}98%{clip-path:inset(0 0 100% 0)}}
-
-.glass{
-  background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
-  border:1px solid var(--glass-line);border-radius:18px;
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  box-shadow:0 0 40px rgba(155,92,255,.18),inset 0 0 30px rgba(255,255,255,.03);
+/* moodboard crops (coords from the 1000x609 preview of moodboard.png) */
+.crop{
+  --x:0;--y:0;--w:100;--h:100;
+  aspect-ratio:calc(var(--w) / var(--h));
+  background-image:url("moodboard.png");
+  background-repeat:no-repeat;
+  background-size:calc(1000 / var(--w) * 100%) auto;
+  background-position:calc(var(--x) / (1000 - var(--w)) * 100%) calc(var(--y) / (609 - var(--h)) * 100%);
+  border-radius:22px;border:1px solid var(--line);
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
 }
 
 /* 1 — title */
-.title h1{font-size:clamp(90px,19vw,300px);margin-bottom:3vh}
-.title .sub{font-size:clamp(22px,3vw,46px);max-width:20em;color:var(--text)}
-.title .meta{margin-top:7vh;font-size:clamp(16px,1.9vw,28px);color:var(--muted)}
-.title .meta b{color:var(--text);font-weight:600}
-.orb{position:absolute;right:8vw;top:50%;width:min(34vw,56vh);aspect-ratio:1;transform:translateY(-50%);border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,rgba(44,242,196,.55),rgba(155,92,255,.35) 45%,rgba(255,61,172,.12) 70%,transparent 72%);
-  filter:blur(1px);opacity:.75;animation:float 7s ease-in-out infinite}
-.orb::after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,255,255,.3);
-  background:repeating-linear-gradient(0deg,rgba(255,255,255,.12) 0 2px,transparent 2px 9px)}
-@keyframes float{50%{transform:translateY(-54%)}}
+.title{display:grid;grid-template-columns:1.5fr 1fr;gap:5vw;align-items:center}
+.title h1{font-size:clamp(100px,20vw,320px);line-height:.9;margin-bottom:3vh;color:var(--cream)}
+.title .sub{font-size:clamp(22px,3vw,46px);max-width:19em}
+.title .meta{margin-top:6vh;font-size:clamp(16px,1.9vw,28px);color:var(--muted)}
+.title .meta b{color:var(--cream);font-weight:800}
+.title .crop{height:74vh;justify-self:center;transform:rotate(2deg)}
 
 /* 2 — world */
-.world{display:grid;grid-template-columns:1.15fr 1fr;gap:5vw;align-items:center}
-.world ul{list-style:none;display:grid;gap:3vh}
-.world li::before{content:"";display:inline-block;width:.5em;height:.5em;margin-right:.6em;background:var(--magenta);box-shadow:0 0 12px var(--magenta);transform:rotate(45deg)}
-.label{padding:4vh 3vw;text-align:center;transform:rotate(-3deg);border-color:rgba(44,242,196,.6);
-  box-shadow:0 0 60px rgba(44,242,196,.28),inset 0 0 30px rgba(44,242,196,.08)}
-.label .stamp{font-family:var(--display);color:var(--teal);font-size:clamp(28px,3.8vw,60px);letter-spacing:.08em;text-shadow:0 0 18px rgba(44,242,196,.8)}
-.label .zero{font-family:var(--display);font-size:clamp(20px,2.4vw,38px);margin-top:2vh;color:var(--text);letter-spacing:.08em}
-.label .hole{width:1.2em;height:1.2em;border-radius:50%;border:2px solid var(--teal);margin:0 auto 2vh;box-shadow:0 0 14px var(--teal)}
-.label small{display:block;margin-top:2.5vh;color:var(--muted);font-size:clamp(14px,1.5vw,22px)}
+.world{display:grid;grid-template-columns:1.2fr 1fr;gap:5vw;align-items:center}
+.world .lines{display:grid;gap:3.4vh}
+.world .big{font-family:var(--display);font-size:clamp(28px,3.6vw,56px);line-height:1.15}
+.tag{padding:4.5vh 3vw;text-align:center;transform:rotate(-3deg);border-radius:20px;background:var(--cream);color:#10302a;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.tag .hole{width:1.1em;height:1.1em;border-radius:50%;background:var(--bg);margin:0 auto 2.2vh}
+.tag .stamp{font-family:var(--display);font-size:clamp(28px,3.8vw,60px);letter-spacing:.04em}
+.tag .zero{font-weight:800;font-size:clamp(18px,2.2vw,34px);margin-top:1.6vh;letter-spacing:.06em;color:#1f7a60}
+.tag small{display:block;margin-top:2vh;font-size:clamp(14px,1.5vw,22px);opacity:.65}
 
-/* 3 — echo */
+/* 3 — classroom */
+.class-svg{width:100%;max-height:48vh}
+.class p{margin-top:3vh;max-width:30em}
+
+/* 4 — echo */
 .echo{display:grid;grid-template-columns:.8fr 1.4fr;gap:4vw;align-items:center}
 .holo{height:72vh;display:flex;justify-content:center}
-.holo svg{height:100%;filter:drop-shadow(0 0 22px rgba(44,242,196,.55));animation:flick 6s infinite}
-@keyframes flick{0%,94%,100%{opacity:.95}95%{opacity:.5}96%{opacity:.95}97%{opacity:.6}}
-.chips{display:flex;flex-wrap:wrap;gap:1.2vh 1vw;margin:2vh 0 3vh}
-.chip{font-size:clamp(16px,1.9vw,28px);padding:.3em .8em;border-radius:99px;border:1px solid var(--glass-line);background:var(--glass);font-weight:400}
-.chip:nth-child(3n+1){border-color:var(--teal);color:var(--teal)}
-.chip:nth-child(3n+2){border-color:var(--magenta);color:var(--magenta)}
-.chip:nth-child(3n){border-color:var(--violet);color:#c9a8ff}
-.contra{font-size:clamp(20px,2.4vw,36px)}
-.questions{margin-top:3vh;font-family:var(--display);font-size:clamp(24px,3.2vw,50px);line-height:1.2}
+.holo svg{height:100%;filter:drop-shadow(0 0 20px rgba(143,240,200,.45))}
+.chips{display:flex;flex-wrap:wrap;gap:1.2vh 1vw;margin:2.2vh 0 3vh}
+.chip{font-size:clamp(16px,1.9vw,28px);padding:.28em .85em;border-radius:99px;border:1.5px solid var(--line);font-weight:600}
+.chip:nth-child(3n+1){border-color:var(--mint);color:var(--mint)}
+.chip:nth-child(3n+2){border-color:var(--rose);color:var(--rose)}
+.chip:nth-child(3n){border-color:var(--lilac);color:var(--lilac)}
+.questions{margin-top:3vh;font-family:var(--display);font-style:italic;font-size:clamp(26px,3.4vw,54px);line-height:1.2}
 
-/* 4 — cyberbullying */
-.steps{display:grid;gap:2.4vh}
-.step{display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:center;padding:2.4vh 2.2vw}
-.num{font-family:var(--display);font-size:clamp(40px,5vw,80px);font-weight:700;line-height:1;color:var(--magenta);text-shadow:0 0 20px var(--magenta)}
-.step:nth-child(2) .num{color:var(--violet);text-shadow:0 0 20px var(--violet)}
-.step:nth-child(3) .num{color:var(--teal);text-shadow:0 0 20px var(--teal)}
+/* 5 — labels */
+.labels{display:grid;grid-template-columns:1.25fr 1fr;gap:5vw;align-items:center}
+.steps{display:grid;gap:3vh}
+.step{display:grid;grid-template-columns:auto 1fr;gap:1.6vw;align-items:baseline}
+.num{font-family:var(--display);font-size:clamp(40px,5vw,78px);color:var(--rose);line-height:1}
+.step:nth-child(2) .num{color:var(--lilac)}
+.step:nth-child(3) .num{color:var(--mint)}
 .step p{font-size:clamp(19px,2.3vw,34px)}
-.quote{color:var(--magenta);font-weight:400}
+.quote{color:var(--rose);font-weight:600}
+.stickerbox{position:relative;display:flex;justify-content:center}
+.stickerbox .crop{width:min(26vw,40vh)}
+.sticker{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-8deg);width:min(24vw,38vh);padding:2.4vh 1.4vw 2vh;text-align:center;
+  background:#fff;color:#10302a;border-radius:28px;box-shadow:0 0 0 6px #fff,0 18px 50px rgba(0,0,0,.55)}
+.sticker svg{width:46%}
+.sticker b{display:block;font-family:var(--display);font-size:clamp(28px,3.4vw,52px);color:#e2437f;letter-spacing:.04em}
+.fwd{position:absolute;right:-2vw;bottom:-2vh;background:var(--cream);color:#10302a;font-weight:800;font-size:clamp(13px,1.4vw,20px);padding:.4em .9em;border-radius:99px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
 
-/* 5 — how you play */
+/* 6 — how you play */
 .play{display:grid;grid-template-columns:1.3fr 1fr;gap:4vw;align-items:center}
+.slide.s6{padding-top:4vh;padding-bottom:4vh}
+.slide.s6 h2{margin-bottom:2.5vh;font-size:clamp(32px,4.2vw,64px)}
 .play .col{display:grid;gap:2vh}
 .play p{font-size:clamp(17px,2vw,30px);line-height:1.3}
-.slide.s5 h2{margin-bottom:2.5vh;font-size:clamp(30px,4.2vw,64px)}
-.slide.s5{padding-top:4vh;padding-bottom:4vh}
-.choices{display:flex;flex-wrap:wrap;gap:1.2vh 1vw;margin-top:1.2vh}
-.btn{font-size:clamp(16px,1.9vw,28px);padding:.45em 1em;border-radius:12px;border:1px solid var(--teal);color:var(--teal);background:rgba(44,242,196,.07);box-shadow:0 0 18px rgba(44,242,196,.2)}
-.btn.alt{border-color:var(--magenta);color:var(--magenta);background:rgba(255,61,172,.07);box-shadow:0 0 18px rgba(255,61,172,.2)}
-.tag{font-family:var(--display);color:var(--muted);letter-spacing:.2em;text-transform:uppercase;font-size:clamp(13px,1.4vw,20px);margin-bottom:1vh;display:block}
-.kisho{display:grid;grid-template-columns:repeat(4,1fr);gap:.8vw;margin-top:1vh}
-.kisho div{padding:1.4vh .6vw;text-align:center;font-family:var(--display);font-size:clamp(14px,1.6vw,24px);border-radius:10px;border:1px solid var(--glass-line);background:var(--glass)}
-.kisho div:nth-child(3){border-color:var(--magenta);color:var(--magenta)}
+.help{display:flex;align-items:center;gap:1.6vw;padding:1.6vh 1.6vw;border-radius:18px;background:var(--panel);border:1px solid var(--rose)}
+.help .big{font-family:var(--display);font-size:clamp(46px,5.6vw,92px);color:var(--rose);line-height:1}
+.help p{font-size:clamp(16px,1.8vw,28px);margin:0}
 .phone-wrap{display:flex;justify-content:center}
-.phone{width:min(24vw,34vh);aspect-ratio:9/18;border-radius:28px;padding:10px;background:#0c0818;border:2px solid var(--violet);box-shadow:0 0 50px rgba(155,92,255,.45),0 0 14px rgba(255,61,172,.3);position:relative}
+.phone{width:min(24vw,34vh);aspect-ratio:9/18;border-radius:30px;padding:10px;background:#071513;border:2px solid var(--mint);box-shadow:0 20px 60px rgba(0,0,0,.5);position:relative}
 .notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:34%;height:12px;border-radius:8px;background:#000;z-index:2}
-.screen{height:100%;border-radius:20px;padding:30px 12px 12px;display:flex;flex-direction:column;gap:7px;font-size:clamp(11px,1.15vw,17px);
-  background:linear-gradient(160deg,rgba(155,92,255,.25),rgba(44,242,196,.08) 60%,rgba(255,61,172,.15))}
-.msg{display:grid;gap:2px;padding:7px 9px;border-radius:10px;background:var(--glass);border:1px solid var(--glass-line);line-height:1.25}
-.msg b{font-family:var(--display);color:var(--teal);font-weight:500}
-.img{flex:1;border-radius:10px;border:1px dashed var(--magenta);display:flex;align-items:center;justify-content:center;
-  background:repeating-linear-gradient(0deg,rgba(255,61,172,.18) 0 2px,transparent 2px 7px);color:var(--magenta);font-style:italic}
+.screen{height:100%;border-radius:22px;padding:30px 12px 12px;display:flex;flex-direction:column;gap:7px;font-size:clamp(11px,1.15vw,17px);background:linear-gradient(170deg,#173f38,#0e2824)}
+.msg{display:grid;gap:2px;padding:7px 9px;border-radius:12px;background:var(--panel);line-height:1.25}
+.msg b{color:var(--mint);font-weight:800}
+.stk{flex:1;display:flex;align-items:center;justify-content:center;position:relative}
+.stk .s{background:#fff;color:#10302a;border-radius:16px;padding:.6em 1em;transform:rotate(-6deg);box-shadow:0 0 0 4px #fff;font-family:var(--display);font-size:1.6em;color:#e2437f}
+.stk small{position:absolute;bottom:2px;right:4px;color:var(--muted)}
 .q{font-family:var(--display);text-align:center;font-size:1.15em}
-.opt{padding:.6em;border-radius:10px;text-align:center;border:1px solid var(--magenta);color:var(--magenta);background:rgba(255,61,172,.08)}
-.opt.a{border-color:var(--teal);color:var(--teal);background:rgba(44,242,196,.08)}
-.opt.b{border-color:var(--violet);color:#c9a8ff;background:rgba(155,92,255,.1)}
-.opt.c{border-color:var(--glass-line);color:var(--muted);background:var(--glass)}
-.tree{padding:2vh 1.5vw;display:grid;gap:1vh}
-.tree svg{width:100%;max-height:34vh}
-.help{display:flex;align-items:center;gap:1.6vw;padding:1.6vh 1.6vw;border-color:rgba(255,61,172,.6);box-shadow:0 0 50px rgba(255,61,172,.22)}
-.help .big{font-family:var(--display);font-size:clamp(50px,6vw,100px);color:var(--magenta);text-shadow:0 0 28px var(--magenta);line-height:1}
-.help p{font-size:clamp(16px,1.8vw,28px)!important;margin:0}
+.opt{padding:.6em;border-radius:12px;text-align:center;font-weight:600;border:1.5px solid var(--rose);color:var(--rose)}
+.opt.a{border-color:var(--mint);color:var(--mint)}
+.opt.b{border-color:var(--lilac);color:var(--lilac)}
+.opt.c{border-color:var(--line);color:var(--muted)}
 
-/* 6 — moodboard */
+/* 7 — moodboard */
 .mood{padding:4vh 4vw}
 .mood h2{margin-bottom:2.5vh;font-size:clamp(30px,4.2vw,64px)}
-.mood img{display:block;max-width:100%;max-height:66vh;margin:0 auto;border-radius:14px;border:1px solid var(--glass-line);box-shadow:0 0 70px rgba(155,92,255,.35)}
-.infl{display:flex;flex-wrap:wrap;gap:1vh 2vw;justify-content:center;margin-top:3vh;font-family:var(--display);font-size:clamp(18px,2.4vw,36px)}
-.infl span:nth-child(odd){color:var(--teal)}.infl span:nth-child(even){color:var(--magenta)}
+.mood img{display:block;max-width:100%;max-height:66vh;margin:0 auto;border-radius:16px;border:1px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.infl{display:flex;flex-wrap:wrap;gap:1vh 1.6vw;justify-content:center;margin-top:3vh;font-family:var(--display);font-style:italic;font-size:clamp(18px,2.4vw,36px)}
+.infl span:nth-child(odd){color:var(--mint)}.infl span:nth-child(even){color:var(--rose)}
 .infl i{font-style:normal;color:var(--muted)}
 
-/* 7 — feedback */
-.fb{list-style:none;display:grid;gap:1.8vh;counter-reset:q}
-.fb li{counter-increment:q;padding:1.8vh 2vw 1.8vh 5.2vw;position:relative;font-size:clamp(18px,2.3vw,36px)}
-.fb li::before{content:"0" counter(q);position:absolute;left:1.6vw;top:50%;transform:translateY(-50%);font-family:var(--display);font-weight:700;color:var(--teal);text-shadow:0 0 14px var(--teal);font-size:1.1em}
-.thanks{margin-top:4vh;font-family:var(--display);color:var(--muted);font-size:clamp(16px,1.8vw,26px);letter-spacing:.1em}
+/* 8 — final */
+.final{align-items:center;text-align:center}
+.final p{font-family:var(--display);font-style:italic;font-weight:500;font-size:clamp(44px,7vw,120px);line-height:1.1;max-width:14em}
+.final p span{color:var(--mint)}
 
-/* speaker notes (toggle with N) */
+/* speaker notes (N) */
 .notes{display:none}
 body.show-notes .slide.active .notes{display:block;position:fixed;left:3vw;right:3vw;bottom:5vh;z-index:70;padding:2vh 2vw;
-  background:rgba(7,5,15,.92);border:1px solid var(--teal);border-radius:14px;font-size:clamp(16px,1.9vw,28px);line-height:1.4;color:var(--text);box-shadow:0 0 30px rgba(44,242,196,.3)}
-body.show-notes .slide.active .notes::before{content:"NOTES";display:block;font-family:var(--display);color:var(--teal);letter-spacing:.3em;font-size:.6em;margin-bottom:.5em}
+  background:rgba(7,21,19,.95);border:1px solid var(--mint);border-radius:14px;font-size:clamp(16px,1.9vw,28px);line-height:1.4;color:var(--cream);text-align:left;font-family:var(--body)}
+body.show-notes .slide.active .notes::before{content:"NOTES";display:block;color:var(--mint);letter-spacing:.3em;font-weight:800;font-size:.6em;margin-bottom:.5em}
+
 /* chrome */
-#count{position:fixed;right:2.2vw;bottom:2.6vh;z-index:60;font-family:var(--display);font-size:15px;letter-spacing:.2em;color:rgba(242,238,252,.45)}
-#bar{position:fixed;left:0;bottom:0;height:3px;z-index:60;background:linear-gradient(90deg,var(--magenta),var(--violet),var(--teal));transition:width .4s;box-shadow:0 0 10px var(--violet)}
+#count{position:fixed;right:2.2vw;bottom:2.6vh;z-index:60;font-weight:600;font-size:15px;letter-spacing:.2em;color:rgba(246,241,231,.45)}
+#bar{position:fixed;left:0;bottom:0;height:3px;z-index:60;background:linear-gradient(90deg,var(--rose),var(--lilac),var(--mint));transition:width .4s}
 
 @media (max-width:900px){
-  .world,.echo,.play{grid-template-columns:1fr}
-  .holo{height:30vh}.orb{display:none}
+  .title,.world,.echo,.labels,.play{grid-template-columns:1fr}
+  .holo{height:30vh}.title .crop{display:none}
 }
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
-}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 
+<!-- shared Echo drawing -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="hg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8ff0c8" stop-opacity=".5"/>
+      <stop offset=".6" stop-color="#b9a2ff" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#ff9cc2" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="left"><rect x="0" y="0" width="120" height="420"/></clipPath>
+    <clipPath id="right"><rect x="120" y="0" width="120" height="420"/></clipPath>
+    <symbol id="echo" viewBox="0 0 240 420">
+      <g stroke="#f6f1e7" stroke-opacity=".8" stroke-width="1.8" fill="url(#hg)">
+        <circle cx="120" cy="105" r="46"/>
+        <path d="M30 400 C30 235 70 170 120 170 C170 170 210 235 210 400 Z"/>
+      </g>
+      <g clip-path="url(#left)" stroke="#ff9cc2" stroke-width="2.4" fill="rgba(255,156,194,.28)">
+        <ellipse cx="96" cy="48" rx="13" ry="30" transform="rotate(-35 96 48)"/>
+        <ellipse cx="78" cy="78" rx="13" ry="30" transform="rotate(-75 78 78)"/>
+        <ellipse cx="104" cy="30" rx="11" ry="26" transform="rotate(-10 104 30)"/>
+        <path d="M120 170 C100 230 70 290 50 340" fill="none" stroke="#8ff0c8"/>
+        <ellipse cx="62" cy="290" rx="10" ry="22" transform="rotate(-50 62 290)" stroke="#8ff0c8" fill="rgba(143,240,200,.2)"/>
+        <ellipse cx="88" cy="318" rx="9" ry="20" transform="rotate(30 88 318)" stroke="#8ff0c8" fill="rgba(143,240,200,.2)"/>
+      </g>
+      <g clip-path="url(#right)" stroke="#b9a2ff" stroke-width="2.4" fill="none">
+        <path d="M120 70 H152 V92 H168 V118"/>
+        <path d="M120 130 H146 V150"/>
+        <circle cx="168" cy="122" r="4" fill="#b9a2ff"/>
+        <circle cx="146" cy="154" r="4" fill="#b9a2ff"/>
+        <path d="M120 260 H160 V300 H190 V350" stroke="#8ff0c8"/>
+        <path d="M120 290 H140 V330" stroke="#8ff0c8"/>
+        <rect x="150" y="238" width="30" height="18" rx="3"/>
+        <circle cx="190" cy="354" r="5" fill="#8ff0c8"/>
+      </g>
+      <line x1="120" y1="40" x2="120" y2="400" stroke="#fff" stroke-opacity=".25" stroke-dasharray="3 6"/>
+      <circle cx="104" cy="108" r="4" fill="#fff"/><circle cx="138" cy="108" r="4" fill="#8ff0c8"/>
+    </symbol>
+  </defs>
+</svg>
+
 <!-- 1 — Title -->
 <section class="slide title active">
-  <div class="orb"></div>
-  <div class="kicker">A game concept</div>
-  <h1 class="glitch" data-text="Echo">Echo</h1>
-  <p class="sub"><em>A hologram everyone calls “fake” sets out in search of what’s real.</em></p>
-  <p class="meta"><b>Lorie Crettex</b> · From Play to Prevention — HEAD Master Media Design</p>
-  <aside class="notes">Hi everyone, this is Echo, my idea for the From Play to Prevention workshop. It's a game about cyberbullying for teens between 12 and 16. Echo is a hologram that everyone calls "fake", and the story follows their search for what's real.</aside>
+  <div>
+    <div class="kicker">A game concept</div>
+    <h1>Echo</h1>
+    <p class="sub"><em>A hologram everyone calls “fake” sets out in search of what’s real.</em></p>
+    <p class="meta"><b>Lorie Crettex</b> · From Play to Prevention — HEAD Master Media Design</p>
+  </div>
+  <div class="crop" style="--x:136;--y:11;--w:106;--h:162" role="img" aria-label="Moodboard detail: a flower-headed figure"></div>
+  <aside class="notes">Hi everyone, this is Echo, my idea for the From Play to Prevention workshop. It's a game about cyberbullying for teens between 12 and 16. Echo is a hologram that everyone calls "fake", and they set out in search of what's real.</aside>
 </section>
 
 <!-- 2 — The world -->
 <section class="slide">
-  <h2 class="glitch" data-text="The world">The world</h2>
   <div class="world">
-    <ul>
-      <li><strong>AI makes everything:</strong> images, voices, music, memories, even the feeling of sun on your skin.</li>
-      <li>The rarest things carry a small label: <em>real, made by a human.</em> They’re worth more than gold.</li>
-    </ul>
-    <div class="glass label">
+    <div class="lines">
+      <h2 style="margin-bottom:0">The world</h2>
+      <p class="big">AI makes almost everything: <span class="mint">images, voices, music, memories,</span> even the feeling of sun on your skin.</p>
+      <p><strong>But humans are still here.</strong> The rarest things carry a small label: <em>real, made by a human.</em> They’re worth more than gold.</p>
+    </div>
+    <div class="tag">
       <div class="hole"></div>
       <div class="stamp">CERTIFIED REAL</div>
       <div class="zero">0% generated content</div>
       <small>one small label tells the whole world</small>
     </div>
   </div>
-  <aside class="notes">Imagine a world where AI makes everything: images, voices, music, even the feeling of sun on your skin. In that world, the only things that still matter carry a small label that says "real, made by a human". One tiny label is enough to show how this whole world thinks.</aside>
+  <aside class="notes">In this world, AI makes almost everything: images, voices, music, even the feeling of sun on your skin. But humans are still here, and the rarest things carry a small label that says "real, made by a human". They're worth more than gold.</aside>
 </section>
 
-<!-- 3 — Echo -->
+<!-- 3 — The classroom -->
+<section class="slide class">
+  <h2>A classroom full of humans</h2>
+  <svg class="class-svg" viewBox="0 0 900 300" role="img" aria-label="A row of students looking uneasily at the new student, Echo, a translucent hologram">
+    <g>
+      <g transform="translate(70 0)"><circle cx="40" cy="90" r="30" fill="#ff9cc2"/><path d="M0 300 C0 190 20 140 40 140 C60 140 80 190 80 300Z" fill="#ff9cc2" opacity=".85"/></g>
+      <g transform="translate(190 20)"><circle cx="40" cy="90" r="30" fill="#b9a2ff"/><path d="M0 280 C0 190 20 140 40 140 C60 140 80 190 80 280Z" fill="#b9a2ff" opacity=".85"/></g>
+      <g transform="translate(310 0)"><circle cx="40" cy="90" r="30" fill="#f6f1e7"/><path d="M0 300 C0 190 20 140 40 140 C60 140 80 190 80 300Z" fill="#f6f1e7" opacity=".85"/></g>
+      <g transform="translate(430 20)"><circle cx="40" cy="90" r="30" fill="#8ff0c8"/><path d="M0 280 C0 190 20 140 40 140 C60 140 80 190 80 280Z" fill="#8ff0c8" opacity=".85"/></g>
+      <g transform="translate(550 0)"><circle cx="40" cy="90" r="30" fill="#ffd9a8"/><path d="M0 300 C0 190 20 140 40 140 C60 140 80 190 80 300Z" fill="#ffd9a8" opacity=".85"/></g>
+    </g>
+    <g fill="#f6f1e7" font-family="Fraunces,Georgia,serif" font-size="30" text-anchor="middle" opacity=".7">
+      <text x="140" y="52">…</text><text x="380" y="52">…</text><text x="620" y="52">…</text>
+    </g>
+    <svg x="720" y="10" width="150" height="270" viewBox="0 0 240 420"><use href="#echo"/></svg>
+  </svg>
+  <p>The class welcomes <strong>Echo</strong>, the new student. Nobody says it out loud, but <span class="rose">everyone feels it: Echo is different.</span></p>
+  <aside class="notes">The story starts in a classroom full of humans, where Echo arrives as the new student. Nobody is cruel at first, but everybody is uneasy. You can feel it in the silence: Echo is different, and everyone notices.</aside>
+</section>
+
+<!-- 4 — Echo -->
 <section class="slide">
   <div class="echo">
-    <div class="holo">
-      <svg viewBox="0 0 240 420" fill="none" aria-label="Echo, a translucent hologram, half flower, half machine">
-        <defs>
-          <linearGradient id="hg" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#2cf2c4" stop-opacity=".55"/>
-            <stop offset=".6" stop-color="#9b5cff" stop-opacity=".3"/>
-            <stop offset="1" stop-color="#ff3dac" stop-opacity="0"/>
-          </linearGradient>
-          <pattern id="sl" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="1.4" fill="#fff" opacity=".18"/></pattern>
-          <clipPath id="left"><rect x="0" y="0" width="120" height="420"/></clipPath>
-          <clipPath id="right"><rect x="120" y="0" width="120" height="420"/></clipPath>
-        </defs>
-        <!-- body: head + shoulders, fading out (half-body) -->
-        <g stroke="#e9fff9" stroke-opacity=".8" stroke-width="1.5">
-          <circle cx="120" cy="105" r="46" fill="url(#hg)"/>
-          <path d="M30 400 C30 235 70 170 120 170 C170 170 210 235 210 400 Z" fill="url(#hg)"/>
-          <circle cx="120" cy="105" r="46" fill="url(#sl)" stroke="none"/>
-          <path d="M30 400 C30 235 70 170 120 170 C170 170 210 235 210 400 Z" fill="url(#sl)" stroke="none"/>
-        </g>
-        <!-- left: flower -->
-        <g clip-path="url(#left)" stroke="#ff3dac" stroke-width="2" fill="rgba(255,61,172,.25)">
-          <ellipse cx="96" cy="48" rx="13" ry="30" transform="rotate(-35 96 48)"/>
-          <ellipse cx="78" cy="78" rx="13" ry="30" transform="rotate(-75 78 78)"/>
-          <ellipse cx="104" cy="30" rx="11" ry="26" transform="rotate(-10 104 30)"/>
-          <path d="M120 170 C100 230 70 290 50 340" fill="none" stroke="#2cf2c4"/>
-          <ellipse cx="62" cy="290" rx="10" ry="22" transform="rotate(-50 62 290)" stroke="#2cf2c4" fill="rgba(44,242,196,.2)"/>
-          <ellipse cx="88" cy="318" rx="9" ry="20" transform="rotate(30 88 318)" stroke="#2cf2c4" fill="rgba(44,242,196,.2)"/>
-        </g>
-        <!-- right: machine -->
-        <g clip-path="url(#right)" stroke="#9b5cff" stroke-width="2" fill="none">
-          <path d="M120 70 H152 V92 H168 V118"/>
-          <path d="M120 130 H146 V150"/>
-          <circle cx="168" cy="122" r="4" fill="#9b5cff"/>
-          <circle cx="146" cy="154" r="4" fill="#9b5cff"/>
-          <path d="M120 260 H160 V300 H190 V350" stroke="#2cf2c4"/>
-          <path d="M120 290 H140 V330" stroke="#2cf2c4"/>
-          <rect x="150" y="238" width="30" height="18" rx="3"/>
-          <circle cx="190" cy="354" r="5" fill="#2cf2c4"/>
-        </g>
-        <line x1="120" y1="40" x2="120" y2="400" stroke="#fff" stroke-opacity=".25" stroke-dasharray="3 6"/>
-        <!-- eyes -->
-        <circle cx="104" cy="108" r="4" fill="#fff"/><circle cx="138" cy="108" r="4" fill="#2cf2c4"/>
-      </svg>
-    </div>
+    <div class="holo"><svg viewBox="0 0 240 420" role="img" aria-label="Echo, a translucent hologram, half flower, half machine"><use href="#echo"/></svg></div>
     <div>
-      <h2 class="glitch" data-text="Echo">Echo</h2>
+      <h2 style="margin-bottom:2.5vh">Echo</h2>
       <p>A teenage hologram made by AI, <strong>neither boy nor girl</strong>, visibly not quite real: translucent, half-body, half-flower, half-machine.</p>
       <div class="chips">
         <span class="chip">clumsy</span><span class="chip">caring</span><span class="chip">creative</span>
         <span class="chip">funny</span><span class="chip">curious</span><span class="chip">easily scared</span><span class="chip">loves adventure</span>
       </div>
-      <p class="contra">An artificial being <span class="pink">obsessed with what’s real.</span></p>
-      <p class="questions"><span class="teal">Who am I?</span> <span class="violet">What makes someone human?</span></p>
+      <p>An artificial being <span class="rose">obsessed with what’s real.</span></p>
+      <p class="questions"><span class="mint">Who am I?</span> <span class="lilac">What makes someone human?</span></p>
     </div>
   </div>
-  <aside class="notes">Echo is a teenage hologram made by AI, neither boy nor girl, and you can see they're not quite real. They're clumsy, caring, curious, and easily scared, but they love adventure. The twist is that an artificial being is obsessed with what's real, and Echo keeps asking: who am I, and what makes someone human?</aside>
+  <aside class="notes">Echo is a teenage hologram made by AI, neither boy nor girl, and visibly not quite real. They're clumsy, caring, and curious, and they love adventure. The twist is that an artificial being is obsessed with what's real: who am I, and what makes someone human?</aside>
 </section>
 
-<!-- 4 — Cyberbullying -->
+<!-- 5 — Labels -->
 <section class="slide">
-  <h2 class="glitch" data-text="Where cyberbullying comes in">Where cyberbullying comes in</h2>
-  <div class="steps">
-    <div class="glass step"><span class="num">1</span>
-      <p>Echo is bullied for what they are: <span class="quote">“you’re not even real”, “fake”, “glitch”.</span> The teens stick a label on Echo, like on the objects.</p></div>
-    <div class="glass step"><span class="num">2</span>
-      <p><strong>Fake treasures = deepfakes.</strong> A doctored image of Echo is being shared. Telling real from fake is a game mechanic.</p></div>
-    <div class="glass step"><span class="num">3</span>
-      <p><strong>The ending is the message:</strong> no one has the power to certify who you are. <em>The treasure was inside Echo.</em></p></div>
+  <h2>Then the labels start</h2>
+  <div class="labels">
+    <div class="steps">
+      <div class="step"><span class="num">1</span>
+        <p>Echo is bullied for what they are: <span class="quote">“you’re not even real”, “fake”, “glitch”.</span> The class sticks a label on Echo, like on the objects.</p></div>
+      <div class="step"><span class="num">2</span>
+        <p>A mocking <strong>sticker of Echo</strong> spreads in the class chat. Everyone has it in their pocket.</p></div>
+      <div class="step"><span class="num">3</span>
+        <p>On their quest, Echo finds objects with a fake “real” label. <em>Telling real from fake is a game mechanic.</em></p></div>
+    </div>
+    <div class="stickerbox">
+      <div class="crop" style="--x:383;--y:173;--w:106;--h:192" role="img" aria-label="Moodboard detail: a neon city"></div>
+      <div class="sticker">
+        <svg viewBox="0 0 240 420" aria-hidden="true"><use href="#echo"/></svg>
+        <b>GLITCH</b>
+      </div>
+      <div class="fwd">forwarded ×47</div>
+    </div>
   </div>
-  <aside class="notes">This is where cyberbullying comes in. The other teens stick a label on Echo, "fake", "glitch", just like on the objects, and that's bullying for being different. Then a doctored image of Echo starts spreading, so telling real from fake becomes part of the game. At the end, Echo learns that nobody has the power to certify who they are.</aside>
+  <aside class="notes">Then the labels start. The class calls Echo "fake" and "glitch", just like the labels on objects, and a mocking sticker of Echo spreads in the group chat. That's identity-based bullying: being excluded for being different.</aside>
 </section>
 
-<!-- 5 — How you play -->
-<section class="slide s5">
-  <h2 class="glitch" data-text="How you play">How you play</h2>
+<!-- 6 — How you play -->
+<section class="slide s6">
+  <h2>How you play</h2>
   <div class="play">
     <div class="col">
       <p>A <strong>choice-based narrative game</strong>, inspired by <em>Detroit: Become Human</em>, at a much smaller scale.</p>
-      <p>You also play <strong>the people around Echo:</strong> the teacher and the other students. Each one sees a different part of what’s happening, and <strong>each one has a choice to make.</strong></p>
-      <p><span class="teal">Platform: mobile.</span> That’s where teens live, and where cyberbullying happens.</p>
-      <div class="glass help">
+      <p>You play Echo, and <strong>the people around Echo:</strong> the teacher and the other students. Each one sees a different part of what’s happening, and <strong>each one has a choice to make.</strong></p>
+      <p><span class="mint">Platform: mobile.</span> That’s where teens live, and where cyberbullying happens.</p>
+      <div class="help">
         <div class="big">147</div>
-        <p>The ending points to <strong>147</strong>, help for young people in Switzerland.</p>
+        <p>Every ending points to <strong>147</strong>, help for young people in Switzerland.</p>
       </div>
     </div>
     <div class="phone-wrap">
       <div class="phone">
         <div class="notch"></div>
         <div class="screen">
-          <div class="msg"><b>#class-chat</b><span>Someone shared a picture of Echo.</span></div>
-          <div class="img"><i>edited image</i></div>
+          <div class="msg"><b>#class-chat</b><span>Someone sent a sticker of Echo.</span></div>
+          <div class="stk"><div class="s">GLITCH</div><small>forwarded ×47</small></div>
           <div class="q">What do you do?</div>
-          <div class="opt">Share it</div>
+          <div class="opt">Forward it</div>
           <div class="opt a">Say something</div>
           <div class="opt b">Reach out to Echo</div>
           <div class="opt c">Look away</div>
@@ -312,30 +323,23 @@ body.show-notes .slide.active .notes::before{content:"NOTES";display:block;font-
       </div>
     </div>
   </div>
-  <aside class="notes">It's a choice-based game for mobile, because that's where teens live and where cyberbullying happens. It's inspired by Detroit: Become Human, but at a much smaller scale. You don't only play Echo: you also play the teacher and the other students, and each one sees a different part of the story and has a choice to make. Our actions and choices have consequences.</aside>
+  <aside class="notes">It's a choice-based game for mobile, because that's where teens live and where cyberbullying happens. It's inspired by Detroit: Become Human, but at a much smaller scale. You play Echo, but also the teacher and the other students: each sees a different part of the story, and each has a choice to make. The endings point to 147, the help line for young people in Switzerland. Our actions and choices have consequences.</aside>
 </section>
 
-<!-- 6 — Moodboard -->
+<!-- 7 — Moodboard -->
 <section class="slide mood">
-  <h2 class="glitch" data-text="Moodboard &amp; influences">Moodboard &amp; influences</h2>
+  <h2>Moodboard &amp; influences</h2>
   <img src="moodboard.png" alt="Echo moodboard: neon cities overgrown with flowers, holograms, glass and plants">
   <div class="infl">
     <span>Solarpunk</span><i>·</i><span>Detroit: Become Human</span><i>·</i><span>GTA</span><i>·</i><span>The Warriors (1979)</span><i>·</i><span>Firewatch</span>
   </div>
-  <aside class="notes">This is my moodboard: neon cities, flowers growing through glass, and translucent figures. It mixes cyberpunk and solarpunk, so nature and technology live in the same place. My influences are Solarpunk, Detroit: Become Human, GTA, The Warriors, and Firewatch.</aside>
+  <aside class="notes">This is my moodboard: neon cities, flowers growing through glass, and translucent figures. It mixes cyberpunk and solarpunk, with nature and technology in the same place. My influences are Solarpunk, Detroit: Become Human, GTA, The Warriors, and Firewatch.</aside>
 </section>
 
-<!-- 7 — Feedback -->
-<section class="slide">
-  <h2 class="glitch" data-text="Feedback I’m looking for">Feedback I’m looking for</h2>
-  <ul class="fb">
-    <li class="glass">Is the “label” metaphor clear for 12–16 year olds?</li>
-    <li class="glass">Playing both Echo and society: does switching perspectives work, or is it confusing?</li>
-    <li class="glass">Is the teacher a good playable role, or should adults stay in the background?</li>
-    <li class="glass">Which choices would feel real to you at that age?</li>
-    <li class="glass">Is a choice-based game realistic for the workshop’s scope?</li>
-  </ul>
-  <aside class="notes">Now I'd love your feedback. Is the label metaphor clear for 12 to 16 year olds? Does switching between Echo and the people around them work, and is the teacher a good playable role, or should adults stay in the background? Which choices would feel real at that age, and is a choice-based game realistic for the workshop? Thank you!</aside>
+<!-- 8 — Final -->
+<section class="slide final">
+  <p>No one has the power to <span>certify who you are.</span></p>
+  <aside class="notes">The ending is the message: no one has the power to certify who you are. Echo was looking for a label to prove they were worth something, but the treasure was inside them all along. Thank you.</aside>
 </section>
 
 <div id="bar"></div>
