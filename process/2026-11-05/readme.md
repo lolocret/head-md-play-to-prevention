@@ -26,6 +26,8 @@ It is a choice-based narrative game for mobile (teens aged 12 to 16), inspired b
 
 ## Personas
 
+Three personas. Each already has character traits, but our choices in the game redefine them.
+
 - **Echo**: a teenage hologram made by AI, neither boy nor girl, visibly not quite real (translucent, half-body, half-flower, half-machine). Clumsy, caring, creative, funny, curious, easily scared, loves adventure. Echo wants to be accepted and to find a “real” label that proves they are worth something. They are in conflict with the class, and with themselves: *Who am I? What makes someone human? Am I worth anything?*
-- **The students**: the class that rejects Echo. They want to belong and to keep what is “real” for humans, so they label Echo “fake” and “glitch” and forward a mocking sticker in the group chat. Each one sees a different part of the story and has a choice to make: forward it, say something, reach out to Echo, or look away.
-- **The teacher**: the adult who sees part of what is going on and has a choice to make too: step in, or let it go.
+- **The teacher**: wants a calm class and to do the right thing. Sees only part of what is going on, and has a choice to make: step in, or let it go.
+- **A student**: wants to belong and not to be next. Part of the class that labels Echo “fake” and “glitch”, with a choice to make: forward the sticker, say something, reach out to Echo, or look away.
