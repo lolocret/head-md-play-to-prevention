@@ -100,8 +100,11 @@ section.in .d1{transition-delay:.12s}section.in .d2{transition-delay:.26s}sectio
 .opt.c{color:var(--grey)}
 
 /* 7 — moodboard */
-.mood h2{font-size:clamp(36px,5vw,76px)}
-.mood img{display:block;max-width:100%;max-height:58vh;margin:3vh auto 0;border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.mood h2{font-size:clamp(44px,7vw,112px)}
+.mood{justify-content:flex-end;padding-bottom:12vh}
+.mood .bgimg{position:absolute!important;inset:0;z-index:0!important;width:100%;height:100%;object-fit:cover;max-height:none;margin:0;border-radius:0;box-shadow:none}
+.mood .shade{position:absolute!important;inset:0;z-index:1!important;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.35) 45%,rgba(0,0,0,.88) 100%)}
+.mood .eyebrow,.mood .infl{color:#d2d2d7}
 .infl{margin-top:3.4vh;font-size:clamp(17px,2.1vw,30px);font-weight:500;color:var(--grey)}
 .infl b{color:var(--text);font-weight:600}
 .infl i{font-style:normal;margin:0 .6em;opacity:.5}
@@ -235,21 +238,21 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
   <aside class="notes">It's a choice-based game for mobile, because that's where teens live and where cyberbullying happens. It's inspired by Detroit: Become Human, but at a much smaller scale. You play Echo, but also the teacher and the other students: each sees a different part of the story, and each has a choice to make. The endings point to 147, the help line for young people in Switzerland. Our actions and choices have consequences.</aside>
 </section>
 
-<!-- 7 — Moodboard -->
-<section id="s7" class="mood">
-  <div class="glow b"></div>
-  <div class="eyebrow rv">The mood</div>
-  <h2 class="rv d1">Moodboard &amp; influences.</h2>
-  <img class="rv d2" src="moodboard.png" alt="Echo moodboard: neon cities overgrown with flowers, holograms, glass and plants">
-  <p class="infl rv d3"><b>Solarpunk</b><i>·</i><b>Detroit: Become Human</b><i>·</i><b>GTA</b><i>·</i><b>The Warriors (1979)</b><i>·</i><b>Firewatch</b></p>
-  <aside class="notes">This is my moodboard: neon cities, flowers growing through glass, and translucent figures. It mixes cyberpunk and solarpunk, with nature and technology in the same place. My influences are Solarpunk, Detroit: Become Human, GTA, The Warriors, and Firewatch.</aside>
-</section>
-
 <!-- 8 — Final -->
-<section id="s8" class="final">
+<section id="s7" class="final">
   <div class="glow a"></div><div class="glow c"></div>
   <h2 class="rv d1">No one has the power to <span class="g">certify who you are.</span></h2>
-  <aside class="notes">The ending is the message: no one has the power to certify who you are. Echo was looking for a label to prove they were worth something, but the treasure was inside them all along. Thank you.</aside>
+  <aside class="notes">The ending is the message: no one has the power to certify who you are. Echo was looking for a label to prove they were worth something, but the treasure was inside them all along.</aside>
+</section>
+
+<!-- 8 — Moodboard (last) -->
+<section id="s8" class="mood">
+  <img class="bgimg" src="moodboard.jpg" alt="Echo moodboard: neon cities overgrown with flowers, holograms, glass and plants">
+  <div class="shade"></div>
+  <div class="eyebrow rv">The mood</div>
+  <h2 class="rv d1">Moodboard &amp; influences.</h2>
+  <p class="infl rv d3"><b>Solarpunk</b><i>·</i><b>Detroit: Become Human</b><i>·</i><b>GTA</b><i>·</i><b>The Warriors (1979)</b><i>·</i><b>Firewatch</b></p>
+  <aside class="notes">This is my moodboard: neon cities, flowers growing through glass, and translucent figures. It mixes cyberpunk and solarpunk, with nature and technology in the same place. My influences are Solarpunk, Detroit: Become Human, GTA, The Warriors, and Firewatch. Thank you.</aside>
 </section>
 
 <div id="bar"></div>
