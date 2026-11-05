@@ -49,6 +49,15 @@ h3{font-size:clamp(30px,4.2vw,64px);font-weight:700;letter-spacing:-.03em;line-h
 section.in .rv{opacity:1;transform:none}
 section.in .d1{transition-delay:.12s}section.in .d2{transition-delay:.26s}section.in .d3{transition-delay:.4s}section.in .d4{transition-delay:.56s}
 
+/* pitch */
+.pitch{display:grid;gap:4vh;max-width:22em;text-align:left}
+.pitch p{font-size:clamp(24px,3.4vw,52px);font-weight:600;letter-spacing:-.02em;line-height:1.15;color:var(--grey)}
+.pitch b{color:var(--text);font-weight:700}
+
+.kw{display:flex;gap:1.2vw;flex-wrap:wrap;justify-content:center;margin-top:6vh}
+.kw span{padding:.45em 1.1em;border-radius:99px;background:var(--panel);font-size:clamp(14px,1.6vw,24px);font-weight:600;color:var(--grey)}
+#s1 .tag{max-width:19em;text-wrap:balance;font-size:clamp(22px,3vw,46px)}
+#s1 .meta{margin-top:4.5vh}
 /* 2 — rivalry */
 .versus{display:grid;grid-template-columns:1fr auto 1fr;gap:4vw;align-items:start;width:100%;max-width:1400px;text-align:left}
 .versus .col{display:grid;gap:2.6vh}
@@ -134,17 +143,38 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
 <!-- 1 — Title -->
 <section id="s1" class="in">
   <div class="glow a"></div><div class="glow b"></div>
-  <div class="eyebrow rv">A game concept</div>
+  <p class="sub tag rv" style="margin-bottom:3vh">A hologram everyone calls “fake” sets out in search of what’s real.</p>
   <h1 class="rv d1">Echo</h1>
-  <p class="sub rv d2" style="margin-top:3vh">A hologram everyone calls “fake” sets out in search of what’s real.</p>
   <p class="meta rv d3"><b>Lorie Crettex &amp; Nouria Da Ros</b> · From Play to Prevention — HEAD Master Media Design</p>
   <aside class="notes">Hi everyone, this is Echo, my idea for the From Play to Prevention workshop. It's a game about cyberbullying for teens between 12 and 16. Echo is a hologram that everyone calls "fake", and they set out in search of what's real.</aside>
+</section>
+
+<!-- 2 — Project -->
+<section id="s-project">
+  <div class="glow c"></div>
+  <div class="eyebrow rv">Project</div>
+  <h2 class="rv d1">A hologram everyone calls <span class="g">“fake”</span> sets out in search of what’s real.</h2>
+  <p class="sub rv d3" style="margin-top:4vh">And discovers that their worth doesn’t depend on the label others stick on them.</p>
+  <aside class="notes">The project in one sentence: Echo, a hologram everyone calls fake, sets out in search of what's real, and discovers that their worth doesn't depend on the label others stick on them.</aside>
+</section>
+
+<!-- 3 — Pitch -->
+<section id="s-pitch">
+  <div class="glow b"></div>
+  <div class="eyebrow rv">Pitch</div>
+  <div class="pitch">
+    <p class="rv d1">In a world where AI makes everything, <b>only what’s “real, made by a human” still matters.</b></p>
+    <p class="rv d2"><b>Echo,</b> a teenage hologram, is rejected by a class of humans who mock them as <b>“fake.”</b></p>
+    <p class="rv d3">In the end, Echo discovers that <span class="g">nobody has the power to certify who they are.</span></p>
+  </div>
+  <div class="kw rv d4"><span>Identity</span><span>Body</span><span>Boundaries</span><span>Homophobia</span></div>
+  <aside class="notes">In a world where AI makes everything, only what is real, made by a human, still matters. Echo, a teenage hologram, is rejected by a class of humans who mock them as fake. In the end Echo discovers that nobody has the power to certify who they are. Our four keywords: identity (Who am I?), body (a translucent, half-flower, half-machine hologram), boundaries (a label or a sticker forwarded without asking crosses a line) and homophobia (Echo is neither boy nor girl and is excluded for not fitting the boxes).</aside>
 </section>
 
 <!-- 2 — Humans vs AI -->
 <section id="s2">
   <div class="glow c"></div>
-  <div class="eyebrow rv">The world</div>
+  <div class="eyebrow rv">Setup · the world</div>
   <div class="versus">
     <div class="col">
       <h3 class="rv d1">Humans keep<br>what’s real.</h3>
@@ -164,7 +194,7 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
 <!-- 3 — Invited, rejected -->
 <section id="s3" class="invited">
   <div class="glow b"></div>
-  <div class="eyebrow rv">The class</div>
+  <div class="eyebrow rv">Setup · the scene</div>
   <h2 class="rv d1">Echo is invited into<br>a class of humans.</h2>
   <h2 class="rv d3 g">They reject Echo.</h2>
   <aside class="notes">Echo, a hologram, is invited into a class of humans, because the world is trying to mix everyone together. But the class rejects them. Nobody has to say it out loud: Echo is not one of them.</aside>
@@ -173,7 +203,7 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
 <!-- 4 — Echo -->
 <section id="s4">
   <div class="glow a"></div>
-  <div class="eyebrow rv">Meet</div>
+  <div class="eyebrow rv">Personas · Echo</div>
   <h2 class="rv d1">Echo.</h2>
   <p class="sub echo-sub rv d2" style="margin-top:2vh">A teenage hologram made by AI. <b>Neither boy nor girl.</b> Visibly not quite real: translucent, half-body, half-flower, half-machine.</p>
   <p class="traits rv d3">clumsy<i>·</i>caring<i>·</i>creative<i>·</i>funny<i>·</i>curious<i>·</i>easily scared<i>·</i>loves adventure</p>
@@ -188,7 +218,7 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
 <!-- 5 — Labels -->
 <section id="s5">
   <div class="glow c"></div>
-  <div class="eyebrow rv">Cyberbullying</div>
+  <div class="eyebrow rv">Personas · the class</div>
   <h2 class="rv d1" style="margin-bottom:5vh">Then the labels start.</h2>
   <div class="labels">
     <div class="chat rv d2">
@@ -208,7 +238,7 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
 <!-- 6 — How you play -->
 <section id="s6">
   <div class="glow a"></div>
-  <div class="eyebrow rv">The game</div>
+  <div class="eyebrow rv">Setup · the game</div>
   <h2 class="rv d1" style="margin-bottom:5vh">How you play.</h2>
   <div class="play">
     <div class="col rv d2">

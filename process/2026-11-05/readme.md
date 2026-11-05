@@ -11,6 +11,13 @@ Echo, a hologram everyone calls “fake,” sets out in search of what’s real,
 
 In a world where AI makes everything, the only things that still matter are those labelled “real, made by a human.” Echo, a teenage hologram who is neither boy nor girl and not quite real, is rejected by a class of humans, who mock them as “fake” and stick a label on them, just like on the objects. In the end Echo discovers that nobody has the power to certify who they are, and that the treasure was inside them all along.
 
+## Keywords
+
+- **Identity**: *Who am I? What makes someone human?* The class decides who is “real” and who is “fake.”
+- **Body**: Echo is a hologram, visibly not fully real (translucent, half-body, half-flower, half-machine), and is mocked for it.
+- **Boundaries**: sticking a label on someone, or forwarding a mocking sticker of them, crosses a line. Each character chooses whether to forward, say something, reach out or look away.
+- **Homophobia**: Echo is neither boy nor girl and is excluded for not fitting the boxes, the same mechanism as homophobic bullying.
+
 ## Setup
 
 A near future where humans and AI are rivals. AI and robots make almost everything: images, voices, music, memories, even the feeling of sun on your skin. What is real, made by a human, is worth more than gold, and humans want to keep it for themselves. Still, the world keeps trying to mix humans, holograms and machines, so Echo is invited into a class of humans.
