@@ -9,7 +9,7 @@ Echo, a hologram everyone calls “fake,” sets out in search of what’s real,
 
 ## Pitch
 
-In a world where AI makes everything, the only things that still matter are those labelled “real, made by a human.” Echo, a teenage hologram who is neither boy nor girl and not quite real, is rejected by a class of humans, who mock them as “fake” and stick a label on them, just like on the objects. In the end Echo discovers that nobody has the power to certify who they are, and that the treasure was inside them all along.
+In a world where technology makes everything, the only things that still matter are those labelled “real, made by a human.” Echo, a teenage hologram who is neither boy nor girl and not quite real, is rejected by a class of humans, who mock them as “fake” and stick a label on them, just like on the objects. In the end Echo discovers that nobody has the power to certify who they are, and that the treasure was inside them all along.
 
 ## Keywords
 
@@ -20,7 +20,7 @@ In a world where AI makes everything, the only things that still matter are thos
 
 ## Setup
 
-A near future where humans and AI are rivals. AI and robots make almost everything: images, voices, music, memories, even the feeling of sun on your skin. What is real, made by a human, is worth more than gold, and humans want to keep it for themselves. Still, the world keeps trying to mix humans, holograms and machines, so Echo is invited into a class of humans.
+A near future where humans and technology live side by side. AI, robots and holograms make almost everything: images, voices, music, memories, even the feeling of sun on your skin. What is real, made by a human, is worth more than gold, and humans want to keep it for themselves. Still, the world keeps trying to mix humans, holograms and machines, so Echo is invited into a class of humans.
 
 It is a choice-based narrative game for mobile (teens aged 12 to 16), inspired by *Detroit: Become Human* at a much smaller scale, with a solarpunk / cyberpunk mood: neon cities overgrown with flowers, glass, plants and translucent figures. The class group chat is where the bullying happens, and every ending points to 147, the help line for young people in Switzerland.
 
