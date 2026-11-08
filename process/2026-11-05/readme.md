@@ -5,49 +5,57 @@ Nouria DA ROS
 
 ## Project
 
-Echo, a hologram everyone calls “fake,” sets out in search of what’s real, and discovers that their worth doesn’t depend on the label others stick on them.
+An AI child everyone calls “fake” sets out in search of what’s real, and discovers that their worth doesn’t depend on the label others stick on them.
 
 ## Pitch
 
-**The setup.** In a near future where humans and technology live side by side, Echo, a hologram, joins Mme Laurent’s class as a school test program. Echo does not eat, does not sleep, and blinks when stressed. Then Maya secretly photographs them and posts “fake student”. The whole class shares it.
+**The setup.** In a world where schools welcome AI children, Echo is the only Kidya in a human class.
 
-**The perspective.** You live the story through three people: Echo, who is being erased, Noah, a classmate who watches and must choose between sharing, ignoring or defending, and Mme Laurent, a teacher who never got trained for this and is told by her school not to make waves.
+**The perspective.** You live it through three people: Echo, a student who watches, and M. Kovasko, a teacher who sees nothing.
 
-**The tension.** Echo is a name that only repeats what others say, and everyone says “fake”. Echo came looking for something real, and what the other two choose decides whether Echo finds it or disappears. Who decides what is real, and how long can you stay silent before silence becomes a choice?
+**The tension.** Echo only repeats what others say, and everyone says “fake”. Then someone asks: who can turn Echo off?
 
 ## Keywords
 
-- **Identity**: *Who am I? What makes someone human?* The class decides who is “real” and who is “fake.”
-- **Body**: Echo is a hologram, visibly not fully real (translucent, half-body, half-flower, half-machine), and is mocked for it.
-- **Boundaries**: sticking a label on someone, or forwarding a mocking sticker of them, crosses a line. Each character chooses whether to forward, say something, reach out or look away.
-- **Homophobia**: Echo is neither boy nor girl and is excluded for not fitting the boxes, the same mechanism as homophobic bullying.
+Identity, body, boundaries, homophobia.
 
 ## Setup
 
-A near future where humans and technology live side by side. AI, robots and holograms make almost everything: images, voices, music, memories, even the feeling of sun on your skin. What is real, made by a human, is worth more than gold, and humans want to keep it for themselves. Still, the world keeps trying to mix humans, holograms and machines, so Echo is invited into a class of humans.
-
-It is a choice-based narrative game for mobile (teens aged 12 to 16), inspired by *Detroit: Become Human* at a much smaller scale, with a solarpunk / cyberpunk mood: neon cities overgrown with flowers, glass, plants and translucent figures. The class group chat is where the bullying happens, and every ending points to 147, the help line for young people in Switzerland.
+Digital people are everywhere, and schools now bring Kidya (AI children) into human classes. Against them, anti-AI militants want humans only, in class and online. It is a choice-based narrative game for mobile (teens aged 12 to 16), inspired by *Detroit: Become Human* at a much smaller scale. Every ending points to 147, the help line for young people in Switzerland.
 
 ## Personas
 
-Three points of view. Each already has character traits, but our choices in the game redefine them.
+Each already has character traits, but our choices in the game redefine them.
 
-- **Echo**: the one who is bullied. A teenage hologram made by AI, visibly not quite real (does not eat, does not sleep, blinks when stressed). Wants to be accepted and to prove they are “real”. In conflict with the class, and with themselves.
-- **Noah**: the witness. Wants to belong and not to be next. Has to choose: share, ignore or defend Echo.
-- **Mme Laurent**: the teacher, the adult who must react. Never trained for this, and the school tells her “don’t make waves”.
+- **Echo**: a Kidya. Clumsy, caring, curious, easily scared. Flowers open on them when they feel something.
+- **Clarisse**: an anti-AI student activist.
+- **M. Kovasko**: a patient teacher, too idealistic.
+- **The director of Altaya**: Echo’s creator.
+
+You play Echo, a student and M. Kovasko, and each one sees only part of the story.
 
 ## Story
 
-**Act 1, the arrival.** Echo joins the class as a school test program. Different, and nobody wants to sit next to them. Mme Laurent was never trained and does not know how to introduce Echo (choice: introduce them in front of the class, leave them to cope, or talk to the students first). Maya secretly photographs Echo and posts “fake student”. The whole class shares it.
+**1. The arrival.** First day, Echo is the only Kidya in the class. Kovasko gives a speech on diversity, then Echo introduces themself. Stress: the flowers open on their own. Silence, then laughter. A student films. 8:12 pm: the video is posted in the class chat (“you’re not even real”, “fake”, “your emotions are fictions”). 8:30 pm: memes, flowers on a loop, a “FAKE” sticker. 9:05 pm: a group “3B humains only”, without Echo. Next day: students laughing on their phones, Kovasko sees nothing.
 
-**Act 2, it spirals.** A secret group to mock Echo, memes and deepfakes of Echo “glitching”. Noah chooses: share, ignore or defend. Echo chooses: answer, hide or try to prove they are real. Mme Laurent notices the laughter, the hidden phones and Echo going quiet, and chooses: look away, punish the whole class, or talk to Echo alone. Echo feels lonelier and loses confidence.
+**2. The labels.** Insults turn into stickers stuck on Echo. Echo’s quest: find what is true, but the “CERTIFIED REAL” objects are fake. Clarisse’s group accuses Echo of privilege. The paradox: Echo is clumsy and alone, not perfect. 10:40 pm: a student writes that they are not doing well, and Echo is the only one to answer (the player picks the advice); the answer is thrown back: “you can’t relate, you’re not human”. Flowers closed, Echo hurt. 11:58 pm: an anonymous account without a photo posts a poll, “who can turn it off?”, then “you have no parents”. Seen by 24 people, nobody answers.
 
-**Act 3, the twist.** Echo discovers that Maya is bullied too: people say her drawings are made by AI, so “not real”. Mirror effect. The school tells Mme Laurent “don’t make waves” because the Echo program has to succeed: obey, or speak up openly. Every earlier choice of the three characters crosses here.
+**3. “Turn it off”.** Clarisse creates a private group: “We don’t harass anyone. We turn off a machine.” Students are added by force and pressured to stay (“are you with us or with the machine?”, “if you say nothing, you agree”). Fear of being next. The anonymous account is added to the group, but by whom? A shutdown code, KIPE-SAFE007, and the time Echo will be alone. The plan: switch Echo off after class and film it.
+- *A student:* take part, stay quiet, leave, send screenshots to the teacher, warn Echo.
+- *Kovasko:* whispers and Echo isolated, step in or wait.
+- *Echo:* avoided by everyone, run away, talk to an adult, or stay quiet.
+- Nobody acts: Echo is switched off in front of the class, and the video circulates. Someone acts: the plan fails and Clarisse doubts. In every case, the code sends a signal to Altaya.
 
-**Act 4, the endings.**
-- Dark: nobody reacts, Echo fades off the network, the class and the teacher understand too late.
-- Middling: Noah speaks, the teacher buries it, the bullying goes underground.
-- Collective: Noah speaks and the teacher follows, the school opens a dialogue, but the wounds remain.
-- Positive: the teacher starts a class project, Echo and Maya make a “certified real” work together. Echo finds what they were looking for, something truly human, but in two.
+**4. The revelations.** “You have no parents” haunts Echo. Investigation, alone or with an ally depending on the choices. Memory fragments, erased archives, a trail to the Altaya institute. Echo is a human-AI hybrid, a secret experiment. Their parents: the director of Altaya and a non-binary person, a sex worker who was exploited. The protocol notes contain “who can turn it off” and “your emotions are fictions”, word for word. The anonymous account is Echo’s creator, and the bullying was a test to measure their emotions. Clarisse was used by Altaya while believing she was fighting AI. Her anger changes target.
 
-**The moral.** What counts is not what you are, it is the impact of what you do. Staying silent is also a choice. Adults are responsible too: ignoring is letting it happen. Anyone can end up in the place of the one being bullied.
+**5. The fire.** Clarisse’s group plans to burn Altaya down. Echo is inside, looking for the archives. The fire starts.
+- *Clarisse:* let it burn, or save Echo.
+- *Kovasko:* stay a spectator, or finally act.
+- *Echo:* save the proof of their humanity, or let it burn.
+Flowers open in the middle of the fire.
+
+**Ending.** Echo is covered in stickers and chooses which to keep and which to tear off. The flowers they were mocked for at the beginning become proof that Echo feels. “No one has the power to certify who you are.”
+
+## Prevention
+
+Everyone saw a part of the situation. Everyone could act. The bullying was possible because nobody did.

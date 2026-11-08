@@ -100,12 +100,29 @@ section.in .d1{transition-delay:.12s}section.in .d2{transition-delay:.26s}sectio
 @media (max-width:900px){.ends{grid-template-columns:1fr 1fr}}
 
 /* moral */
-.moral h2{font-size:clamp(40px,6.2vw,100px);max-width:13em}
-.mrows{margin-top:6vh;width:100%;max-width:1100px;text-align:left;display:grid}
+.moral h2{font-size:clamp(40px,6vw,96px);max-width:13em}
+.mrows{margin-top:5vh;width:100%;max-width:1100px;text-align:left;display:grid}
 .mrow{display:grid;grid-template-columns:clamp(120px,14vw,220px) 1fr;gap:2vw;align-items:baseline;padding:2.2vh 0;border-top:1px solid var(--line)}
 .mrow b{font-size:clamp(20px,2.4vw,36px);font-weight:700;letter-spacing:-.02em}
 .mrow span{font-size:clamp(16px,1.9vw,28px);color:var(--grey);font-weight:500;line-height:1.3}
 
+.cards.four{grid-template-columns:repeat(4,1fr);gap:1.4vw;max-width:1380px}
+.cards.four .card{padding:3vh 1.3vw}
+.cards.four .card h3{font-size:clamp(22px,2.4vw,38px)}
+.cards.four .card p{font-size:clamp(13px,1.3vw,19px)}
+.card .fl{color:var(--text)!important;font-style:normal}
+.acts.five{grid-template-columns:repeat(5,1fr);gap:1.1vw;max-width:1420px}
+.acts.five .act{padding:3vh 1.1vw}
+.acts.five .act p{font-size:clamp(13px,1.4vw,21px)}
+.acts.five .act .n{color:var(--text);font-size:clamp(14px,1.5vw,22px);letter-spacing:.02em;text-transform:none;font-weight:700}
+#s-choices .act .ch{margin-top:0;padding-top:0;border-top:none;gap:1.2vh}
+#s-choices .act .ch span{font-size:clamp(15px,1.6vw,23px)}
+.outs{display:grid;grid-template-columns:1fr 1fr;gap:2vw;width:100%;max-width:1350px;margin-top:3.5vh;text-align:left}
+.outs p{font-size:clamp(15px,1.6vw,24px);color:var(--grey);font-weight:500;line-height:1.3}
+.outs b{color:var(--text);font-weight:600}
+.screen .q{margin-top:auto}
+.mrow strong{color:var(--text);font-weight:700}
+@media (max-width:900px){.cards.four,.acts.five,.outs{grid-template-columns:1fr}}
 /* 2 — rivalry */
 .versus{display:grid;grid-template-columns:1fr auto 1fr;gap:2vw;align-items:stretch;width:100%;max-width:1300px;text-align:left}
 .versus .col{display:flex;flex-direction:column;gap:2.4vh;background:var(--panel);border-radius:28px;padding:4vh 2.4vw}
@@ -193,127 +210,148 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
 <section id="s1" class="in">
   <div class="glow a"></div><div class="glow b"></div>
   <div class="hero">
-    <p class="sub tag rv">A hologram everyone calls <span class="g">“fake”</span> sets out in search of what’s real.</p>
+    <p class="sub tag rv">An AI child everyone calls <span class="g">“fake”</span> sets out in search of what’s real.</p>
     <h1 class="rv d1">Echo</h1>
     <p class="meta rv d3"><b>Lorie Crettex &amp; Nouria Da Ros</b><span>From Play to Prevention — HEAD Master Media Design</span></p>
   </div>
-  <aside class="notes">Hi everyone, this is Echo, my idea for the From Play to Prevention workshop. It's a game about cyberbullying for teens between 12 and 16. Echo is a hologram that everyone calls "fake", and they set out in search of what's real.</aside>
+  <aside class="notes">Hi everyone, this is Echo, our idea for the From Play to Prevention workshop. It is a game about cyberbullying for teens between 12 and 16. Echo is an AI child, a Kidya, whom everyone calls fake, and who sets out in search of what is real.</aside>
 </section>
 
-<!-- 3 — Pitch -->
+<!-- Pitch -->
 <section id="s-pitch">
   <div class="glow b"></div>
   <div class="eyebrow rv">Pitch</div>
   <div class="pitch">
-    <div class="rv d1"><span class="lab">The setup</span><p>A hologram called <b>Echo</b> joins a class of humans as a school test, and the class calls them <b>“fake”.</b></p></div>
-    <div class="rv d2"><span class="lab">The perspective</span><p>You live it through <b>three people:</b> Echo, who is bullied, Noah, who watches, and Mme Laurent, who must react.</p></div>
-    <div class="rv d3"><span class="lab">The tension</span><p>Echo only repeats what others say, and everyone says “fake”. <span class="g">Who decides what’s real?</span></p></div>
+    <div class="rv d1"><span class="lab">The setup</span><p>In a world where schools welcome AI children, <b>Echo</b> is the only <b>Kidya</b> in a human class.</p></div>
+    <div class="rv d2"><span class="lab">The perspective</span><p>You live it through <b>three people:</b> Echo, a student who watches, and M. Kovasko, a teacher who sees nothing.</p></div>
+    <div class="rv d3"><span class="lab">The tension</span><p>Echo only repeats what others say, and everyone says “fake”. Then someone asks: <span class="g">who can turn Echo off?</span></p></div>
   </div>
   <div class="kw rv d4"><span>Identity</span><span>Body</span><span>Boundaries</span><span>Homophobia</span></div>
-  <aside class="notes">Echo is a hologram who joins a class of humans as a school test. Echo does not eat, does not sleep, and blinks when stressed. Then someone secretly posts their photo with the words “fake student”, and the whole class shares it. You live this story through three people: Echo, who is being erased, Noah, a classmate who watches and has to decide whether to share, ignore or defend, and Mme Laurent, a teacher who never got trained for this and is told by her school not to make waves. Echo is a name that only repeats what others say, and everyone says “fake”. Echo came looking for something real, and what the other two choose decides whether Echo finds it or disappears. Who decides what is real, and how long can you stay silent before silence becomes a choice? Our four keywords: identity, body, boundaries and homophobia.</aside>
+  <aside class="notes">In a world where schools welcome Kidya, AI children, Echo is the only Kidya in a human class. You live the story through three people: Echo, a student who watches and has to choose, and M. Kovasko, a patient but idealistic teacher who sees nothing. Echo is a name that only repeats what others say, and everyone says fake. Then an anonymous account asks: who can turn Echo off? Our four keywords: identity, body, boundaries and homophobia.</aside>
 </section>
 
-<!-- 2 — Humans and technology -->
+<!-- World -->
 <section id="s2">
   <div class="glow c"></div>
   <div class="eyebrow rv">Setup · the world</div>
   <div class="versus">
     <div class="col">
-      <h3 class="rv d1">Humans keep<br>what’s real.</h3>
-      <p class="sub rv d2">Real, made by a human: <b>worth more than gold.</b> They want to keep it for themselves.</p>
-      <span class="cert rv d3">Certified real · 0% generated content</span>
+      <h3 class="rv d1">Digital people<br>are everywhere.</h3>
+      <p class="sub rv d2">Schools now bring <b>Kidya</b>, AI children, into human classes.</p>
+      <span class="cert rv d3">Welcomed · diversity programs</span>
     </div>
-    <div class="vs rv d3">+</div>
+    <div class="vs rv d3">vs</div>
     <div class="col">
-      <h3 class="rv d1">Technology<br>makes everything.</h3>
-      <p class="sub rv d2">AI, robots, holograms: <b>images, voices, music, memories,</b> even the feeling of sun on your skin.</p>
-      <span class="cert rv d3">Generated · 0% human-made</span>
+      <h3 class="rv d1">Anti-AI militants<br>push back.</h3>
+      <p class="sub rv d2">They want <b>humans only</b>, in class and online.</p>
+      <span class="cert rv d3">Rejected · “turn it off”</span>
     </div>
   </div>
-  <p class="mixline rv d4">And the world keeps trying to <span class="g">mix them together.</span></p>
-  <aside class="notes">In this world, humans and technology live side by side. AI, robots and holograms make almost everything: images, voices, music, even the feeling of sun on your skin. Humans treat what is real, made by a human, like gold, and they want to keep it for themselves. Still, the world keeps trying to mix humans, holograms and machines.</aside>
+  <aside class="notes">The world is split in two. Digital people are everywhere, and schools now bring Kidya, AI children, into human classes. Against them, anti-AI militants want humans only, in class and online.</aside>
 </section>
 
-<!-- Personas -->
+<!-- Cast -->
 <section id="s-personas">
   <div class="glow a"></div>
   <div class="eyebrow rv">Personas</div>
-  <h2 class="rv d1" style="margin-bottom:5vh">The cast.</h2>
-  <div class="cards rv d2">
+  <h2 class="rv d1" style="margin-bottom:4.5vh">The cast.</h2>
+  <div class="cards four rv d2">
     <div class="card">
       <h3>Echo</h3>
-      <p class="role">The one who is bullied</p>
-      <p><b>Wants</b> to be accepted, and to prove they’re “real”.</p>
-      <p><b>Conflict</b> with the class, and with themselves.</p>
+      <p class="role">The Kidya</p>
+      <p><b>Wants</b> to find what’s real, and to be accepted.</p>
+      <p><b>Conflict</b> with the class, and with who they are.</p>
       <p class="tr">clumsy · caring · curious · easily scared</p>
+      <p class="fl">Flowers open on them when they feel.</p>
     </div>
     <div class="card">
-      <h3>Noah</h3>
-      <p class="role">The witness</p>
-      <p><b>Wants</b> to belong, and not to be next.</p>
-      <p><b>Conflict</b> share it, ignore it, or defend Echo?</p>
-      <p class="tr">social · curious · afraid of being left out</p>
+      <h3>Clarisse</h3>
+      <p class="role">The anti-AI student</p>
+      <p><b>Wants</b> a human-only school.</p>
+      <p><b>Conflict</b> her fight pulls the whole class along.</p>
+      <p class="tr">convinced · charismatic · angry</p>
     </div>
     <div class="card">
-      <h3>Mme Laurent</h3>
-      <p class="role">The adult who must react</p>
-      <p><b>Wants</b> a calm class, and to do the right thing.</p>
-      <p><b>Conflict</b> never trained for this, and the school says “don’t make waves”.</p>
-      <p class="tr">well-meaning · untrained · under pressure</p>
+      <h3>M. Kovasko</h3>
+      <p class="role">The teacher</p>
+      <p><b>Wants</b> every student included.</p>
+      <p><b>Conflict</b> too idealistic: he doesn’t see what’s happening.</p>
+      <p class="tr">patient · idealistic · blind</p>
+    </div>
+    <div class="card">
+      <h3>The director</h3>
+      <p class="role">Of Altaya, Echo’s creator</p>
+      <p><b>Wants</b> the program to work.</p>
+      <p><b>Conflict</b> what she hides.</p>
+      <p class="tr">brilliant · distant · watching</p>
     </div>
   </div>
-  <p class="sub rv d3" style="margin-top:5vh">They each already have character traits, <b>but our choices redefine them.</b></p>
-  <aside class="notes">Three points of view: Echo, who is bullied, Noah, the witness, and Mme Laurent, the adult who has to react. Each of them already has character traits, but depending on our choices in the game, those traits get redefined.</aside>
+  <p class="sub rv d3" style="margin-top:4.5vh">They each already have character traits, <b>but our choices redefine them.</b></p>
+  <aside class="notes">The cast. Echo is a Kidya: clumsy, caring, curious and easily scared, with flowers that open when they feel something. Clarisse is an anti-AI student who leads the fight. M. Kovasko is a patient, idealistic teacher. And the director of Altaya is Echo's creator. They each already have character traits, but depending on our choices, those traits get redefined.</aside>
 </section>
 
 <!-- Story -->
 <section id="s-story">
   <div class="glow c"></div>
   <div class="eyebrow rv">The story</div>
-  <div class="acts">
+  <h2 class="rv d1" style="margin-bottom:4vh">Five steps.</h2>
+  <div class="acts five">
     <div class="act rv d1">
-      <span class="n">Act 1</span>
-      <h3>The arrival</h3>
-      <p>Echo joins the class as a school test. Different: <b>doesn’t eat, doesn’t sleep, blinks when stressed.</b> Nobody sits next to them.</p>
-      <p>Maya secretly photographs Echo and posts <b>“fake student”.</b> The whole class shares it.</p>
-      <div class="ch"><span><i>Mme Laurent</i> introduces Echo, lets them cope, or talks to the students first</span></div>
+      <span class="n">1 · The arrival</span>
+      <p>First day, Echo is the only Kidya. Stress: <b>flowers open on their own.</b> Silence, then laughter. A student films.</p>
+      <p><b>8:12 pm:</b> the video hits the class chat.</p>
+    </div>
+    <div class="act rv d1">
+      <span class="n">2 · The labels</span>
+      <p>Insults become <b>stickers</b> stuck on Echo. Their quest: find what’s true, but the “CERTIFIED REAL” objects are fake.</p>
+      <p><b>11:58 pm:</b> an anonymous poll, “who can turn it off?”</p>
     </div>
     <div class="act rv d2">
-      <span class="n">Act 2</span>
-      <h3>It spirals</h3>
-      <p>A secret group made to mock Echo. <b>Memes and deepfakes</b> of Echo “glitching”. Echo gets lonelier and loses confidence.</p>
-      <div class="ch">
-        <span><i>Noah</i> shares, ignores, or defends</span>
-        <span><i>Echo</i> answers, hides, or tries to prove they’re real</span>
-        <span><i>Mme Laurent</i> looks away, punishes everyone, or talks to Echo alone</span>
-      </div>
+      <span class="n">3 · “Turn it off”</span>
+      <p>Clarisse’s private group: <b>“We don’t harass anyone. We turn off a machine.”</b> Students added by force.</p>
+      <p>The plan: switch Echo off after class, and film it.</p>
     </div>
     <div class="act rv d3">
-      <span class="n">Act 3</span>
-      <h3>The twist</h3>
-      <p>Echo finds out <b>Maya is bullied too:</b> her drawings are called AI-made, so “not real”. The one who said “fake” lives the same thing.</p>
-      <p>The school tells Mme Laurent <b>“don’t make waves”.</b> Every earlier choice crosses here.</p>
-      <div class="ch"><span><i>Mme Laurent</i> obeys the school, or speaks up</span></div>
+      <span class="n">4 · The revelations</span>
+      <p><b>“You have no parents”</b> haunts Echo. The trail leads to Altaya: Echo is a human-AI hybrid, a secret experiment.</p>
+      <p>The anonymous account is their creator. The bullying was a test.</p>
+    </div>
+    <div class="act rv d4">
+      <span class="n">5 · The fire</span>
+      <p>Clarisse, now angry at Altaya, plans to burn it down. Echo is inside, looking for the archives.</p>
+      <p><b>Flowers open in the middle of the fire.</b></p>
     </div>
   </div>
-  <aside class="notes">Act one: Echo joins the class as a school test. They are different: they don't eat, don't sleep and blink when stressed. Maya secretly photographs Echo and posts "fake student", and the whole class shares it. Act two: a secret group, memes and deepfakes. Each of the three characters has a choice, and Echo gets lonelier. Act three, the twist: Echo discovers that Maya is bullied too, because people say her drawings are made by AI, so not real. The one who called Echo fake lives the exact same thing. And Mme Laurent is told by the school not to make waves.</aside>
+  <aside class="notes">Act one: Echo is the only Kidya on their first day. When they are stressed, flowers open on their own. Silence, then laughter, and a student films. At 8:12 pm the video is in the class chat. Act two: insults become stickers stuck on Echo. Echo goes on a quest to find what is true, but the objects labeled certified real are fake. At 11:58 pm an anonymous poll asks: who can turn it off? Act three: Clarisse's private group says "we don't harass anyone, we turn off a machine", and students are added by force. The plan is to switch Echo off after class and film it. Act four: you have no parents haunts Echo, and the trail leads to Altaya. Echo is a human and AI hybrid, a secret experiment, the anonymous account is their creator, and the bullying was a test. Clarisse was used by Altaya without knowing. Act five: Clarisse's group plans to burn Altaya down, with Echo inside looking for the archives. The fire starts, and the flowers open in the middle of it.</aside>
 </section>
 
-<!-- Endings -->
-<section id="s-endings">
+<!-- Choices -->
+<section id="s-choices">
   <div class="glow b"></div>
-  <div class="eyebrow rv">Endings</div>
-  <h2 class="rv d1" style="margin-bottom:5vh">Four endings.</h2>
-  <div class="ends">
-    <div class="end rv d1"><span class="dot"></span><h3>Dark</h3><p>Nobody reacts. Echo fades off the network. The class and Mme Laurent understand too late.</p></div>
-    <div class="end rv d2"><span class="dot"></span><h3>Middling</h3><p>Noah speaks, Mme Laurent buries it. The bullying goes underground.</p></div>
-    <div class="end rv d3"><span class="dot"></span><h3>Collective</h3><p>Noah speaks, Mme Laurent follows. The school opens a dialogue, but the wounds remain.</p></div>
-    <div class="end best rv d4"><span class="dot"></span><h3>Positive</h3><p>A class project: Echo and Maya make a <b>“certified real”</b> work together. Echo finds what they were looking for: something truly human, but <b>in two.</b></p></div>
+  <div class="eyebrow rv">The choices</div>
+  <h2 class="rv d1" style="margin-bottom:4vh">Everyone can act.</h2>
+  <div class="acts">
+    <div class="act rv d1">
+      <h3>A student</h3>
+      <div class="ch"><span>Take part</span><span>Stay quiet</span><span>Leave the group</span><span>Send screenshots to the teacher</span><span>Warn Echo</span></div>
+    </div>
+    <div class="act rv d2">
+      <h3>M. Kovasko</h3>
+      <div class="ch"><span>Hear the whispers, see Echo isolated</span><span>Step in, or wait</span></div>
+    </div>
+    <div class="act rv d3">
+      <h3>Echo</h3>
+      <div class="ch"><span>Avoided by everyone</span><span>Run away, talk to an adult, or stay quiet</span></div>
+    </div>
   </div>
-  <aside class="notes">There are four endings. In the dark one, nobody reacts and Echo fades off the network. In the middling one, Noah speaks but Mme Laurent buries it. In the collective one, Noah speaks and Mme Laurent follows, the school opens a dialogue, but the wounds remain. In the positive one, Mme Laurent starts a class project and Echo and Maya make a work together that is certified real. Echo finally finds what they were looking for: something truly human, but in two.</aside>
+  <div class="outs rv d4">
+    <p><b>Nobody acts:</b> Echo is switched off in front of the class, and the video spreads.</p>
+    <p><b>Someone acts:</b> the plan fails, and Clarisse starts to doubt.</p>
+  </div>
+  <aside class="notes">At the turning point, each of the three has a choice. A student can take part, stay quiet, leave the group, send screenshots to the teacher, or warn Echo. M. Kovasko hears whispers and sees Echo isolated: he can step in or wait. Echo is avoided by everyone and can run away, talk to an adult, or stay quiet. If nobody acts, Echo is switched off in front of the class and the video spreads. If someone acts, the plan fails and Clarisse starts to doubt. In every case, the code sends a signal to Altaya.</aside>
 </section>
 
-<!-- 6 — How you play -->
+<!-- Game -->
 <section id="s6">
   <div class="glow a"></div>
   <div class="eyebrow rv">Setup · the game</div>
@@ -321,6 +359,7 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
   <div class="play">
     <div class="col rv d2">
       <p>A <b>choice-based narrative game</b>, inspired by <b>Detroit: Become Human</b>, at a much smaller scale.</p>
+      <p>You play <b>Echo, a student, and M. Kovasko.</b> Each one sees only part of the story.</p>
       <p><b>Platform: mobile.</b> That’s where teens live, and where cyberbullying happens.</p>
       <div class="help">
         <div class="big g">147</div>
@@ -331,30 +370,30 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
       <div class="phone">
         <div class="island"></div>
         <div class="screen">
-          <div class="msg"><b>class-chat · Maya</b>New photo of Echo.</div>
-          <div class="stk2"><div class="s">FAKE STUDENT</div><small>forwarded ×47</small></div>
-          <div class="q">What do you do, Noah?</div>
-          <div class="opt">Share</div>
-          <div class="opt c">Ignore</div>
-          <div class="opt a">Defend Echo</div>
+          <div class="msg"><b>3B humains only</b>Are you with us or with the machine?</div>
+          <div class="msg"><b>Clarisse</b>If you say nothing, you agree.</div>
+          <div class="q">What do you do?</div>
+          <div class="opt c">Take part</div>
+          <div class="opt">Stay quiet</div>
+          <div class="opt">Leave the group</div>
+          <div class="opt a">Warn Echo</div>
         </div>
       </div>
     </div>
   </div>
-  <aside class="notes">It's a choice-based game for mobile, because that's where teens live and where cyberbullying happens, inspired by Detroit: Become Human at a much smaller scale. Every ending points to 147, the help line for young people in Switzerland.</aside>
+  <aside class="notes">It's a choice-based game for mobile, because that's where teens live and where cyberbullying happens, inspired by Detroit: Become Human at a much smaller scale. You play Echo, a student, and M. Kovasko, and each sees only part of the story. Every ending points to 147, the help line for young people in Switzerland.</aside>
 </section>
 
-<!-- Moral -->
+<!-- Ending -->
 <section id="s7" class="moral">
   <div class="glow a"></div><div class="glow c"></div>
-  <div class="eyebrow rv">The moral</div>
-  <h2 class="rv d1">What counts isn’t what you are. <span class="g">It’s what you do.</span></h2>
+  <div class="eyebrow rv">The ending</div>
+  <h2 class="rv d1">No one has the power to <span class="g">certify who you are.</span></h2>
+  <p class="sub rv d2" style="margin-top:3vh">Echo, covered in stickers, chooses which to keep and which to tear off. The flowers they were mocked for become <b>proof that they feel.</b></p>
   <div class="mrows">
-    <div class="mrow rv d2"><b>Witness</b><span>Staying silent is also a choice, with consequences.</span></div>
-    <div class="mrow rv d3"><b>Adult</b><span>Ignoring is letting it happen.</span></div>
-    <div class="mrow rv d4"><b>Empathy</b><span>Anyone can end up in the place of the one being bullied.</span></div>
+    <div class="mrow rv d3"><b>Prevention</b><span>Everyone saw a part of the situation. Everyone could act. The bullying was possible because <strong>nobody did.</strong></span></div>
   </div>
-  <aside class="notes">The moral: what counts isn't what you are, it's the impact of what you do. Staying silent is also a choice, and it has consequences. Adults have a responsibility too: ignoring is letting it happen. And anyone can end up in the place of the one being bullied. Thank you.</aside>
+  <aside class="notes">The ending is the message. Echo, covered in stickers, chooses which ones to keep and which ones to tear off. The flowers they were mocked for at the beginning become proof that Echo feels. No one has the power to certify who you are. And for prevention: everyone saw a part of the situation, everyone could act, and the bullying was possible because nobody did. Thank you.</aside>
 </section>
 
 <!-- 8 — Moodboard (last) -->
