@@ -21,7 +21,7 @@ Identity, body, boundaries, homophobia.
 
 ## Setup
 
-Digital people are everywhere, and schools now bring Kidya (AI children) into human classes. Against them, anti-AI militants want humans only, in class and online. It is a choice-based narrative game for mobile (teens aged 12 to 16), inspired by *Detroit: Become Human* at a much smaller scale. Every ending points to 147, the help line for young people in Switzerland.
+Digital people are everywhere, and schools now bring Kidya (AI children) into human classes. Against them, anti-AI militants fight in the name of ethical values: humans only, in class and online. It is a choice-based narrative game for mobile (teens aged 12 to 16), inspired by *Detroit: Become Human* at a much smaller scale. Every ending points to 147, the help line for young people in Switzerland.
 
 ## Personas
 
@@ -55,6 +55,10 @@ You play Echo, a student and M. Kovasko, and each one sees only part of the stor
 Flowers open in the middle of the fire.
 
 **Ending.** Echo is covered in stickers and chooses which to keep and which to tear off. The flowers they were mocked for at the beginning become proof that Echo feels. “No one has the power to certify who you are.”
+
+## The paradox
+
+People fight AI in the name of ethical values, yet they reproduce discrimination and even harassment. Once we understand that Echo is real, even a human-AI hybrid, it questions what gets accepted or rejected according to norms and group pressure.
 
 ## Prevention
 
