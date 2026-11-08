@@ -28,7 +28,7 @@ Digital people are everywhere, and schools now bring Kidya (AI children) into hu
 Each already has character traits, but our choices in the game redefine them.
 
 - **Echo**: a Kidya. Clumsy, caring, curious, easily scared. Flowers open on them when they feel something.
-- **Clarisse**: an anti-AI student activist.
+- **Clarisse**: an anti-AI student activist. She harasses Echo, but she is bullied herself, for other reasons.
 - **M. Kovasko**: a patient teacher, too idealistic.
 - **The director of Altaya**: Echo’s creator.
 
@@ -58,7 +58,7 @@ Flowers open in the middle of the fire.
 
 ## The paradox
 
-People fight AI in the name of ethical values, yet they reproduce discrimination and even harassment. Once we understand that Echo is real, even a human-AI hybrid, it questions what gets accepted or rejected according to norms and group pressure.
+People fight AI in the name of ethical values, yet they reproduce discrimination and even harassment. The one who harasses is also harassed, for other reasons. Once we understand that Echo is real, even a human-AI hybrid, it questions what gets accepted or rejected according to norms and group pressure.
 
 ## Prevention
 
