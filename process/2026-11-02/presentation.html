@@ -50,8 +50,9 @@ section.in .rv{opacity:1;transform:none}
 section.in .d1{transition-delay:.12s}section.in .d2{transition-delay:.26s}section.in .d3{transition-delay:.4s}section.in .d4{transition-delay:.56s}
 
 /* pitch */
-.pitch{display:grid;gap:4vh;width:100%;max-width:1100px;text-align:left}
-.pitch p{font-size:clamp(24px,3.4vw,52px);font-weight:600;letter-spacing:-.02em;line-height:1.15;color:var(--grey)}
+.pitch{display:grid;gap:3.6vh;width:100%;max-width:1100px;text-align:left}
+.pitch .lab{display:block;margin-bottom:.8vh;font-size:clamp(12px,1.2vw,17px);font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.pitch p{font-size:clamp(22px,3vw,46px);font-weight:600;letter-spacing:-.02em;line-height:1.15;color:var(--grey)}
 .pitch b{color:var(--text);font-weight:700}
 
 .kw{display:flex;gap:1.2vw;flex-wrap:wrap;justify-content:center;margin-top:6vh}
@@ -204,12 +205,12 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
   <div class="glow b"></div>
   <div class="eyebrow rv">Pitch</div>
   <div class="pitch">
-    <p class="rv d1">In a world where <b>humans and technology live side by side,</b></p>
-    <p class="rv d2">a hologram called <b>Echo</b> joins a class of humans as a school test.</p>
-    <p class="rv d3">A story about cyberbullying, <span class="g">where every choice counts.</span></p>
+    <div class="rv d1"><span class="lab">The setup</span><p>A hologram called <b>Echo</b> joins a class of humans as a school test, and the class calls them <b>“fake”.</b></p></div>
+    <div class="rv d2"><span class="lab">The perspective</span><p>You live it through <b>three people:</b> Echo, who is bullied, Noah, who watches, and Mme Laurent, who must react.</p></div>
+    <div class="rv d3"><span class="lab">The tension</span><p>Echo only repeats what others say, and everyone says “fake”. <span class="g">Who decides what’s real?</span></p></div>
   </div>
   <div class="kw rv d4"><span>Identity</span><span>Body</span><span>Boundaries</span><span>Homophobia</span></div>
-  <aside class="notes">In a world where humans and technology live side by side, a hologram called Echo joins a class of humans as a school test. It is a story about cyberbullying, where every choice counts. Our four keywords: identity (real or fake?), body (Echo does not eat, does not sleep, and blinks when stressed), boundaries (a photo taken in secret, a private group, deepfakes) and homophobia (being excluded for who you are).</aside>
+  <aside class="notes">Echo is a hologram who joins a class of humans as a school test. Echo does not eat, does not sleep, and blinks when stressed. Then someone secretly posts their photo with the words “fake student”, and the whole class shares it. You live this story through three people: Echo, who is being erased, Noah, a classmate who watches and has to decide whether to share, ignore or defend, and Mme Laurent, a teacher who never got trained for this and is told by her school not to make waves. Echo is a name that only repeats what others say, and everyone says “fake”. Echo came looking for something real, and what the other two choose decides whether Echo finds it or disappears. Who decides what is real, and how long can you stay silent before silence becomes a choice? Our four keywords: identity, body, boundaries and homophobia.</aside>
 </section>
 
 <!-- 2 — Humans and technology -->
@@ -237,7 +238,7 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
 <section id="s-personas">
   <div class="glow a"></div>
   <div class="eyebrow rv">Personas</div>
-  <h2 class="rv d1" style="margin-bottom:5vh">Three points of view.</h2>
+  <h2 class="rv d1" style="margin-bottom:5vh">The cast.</h2>
   <div class="cards rv d2">
     <div class="card">
       <h3>Echo</h3>

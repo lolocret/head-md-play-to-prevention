@@ -9,7 +9,11 @@ Echo, a hologram everyone calls “fake,” sets out in search of what’s real,
 
 ## Pitch
 
-In a world where technology makes everything, the only things that still matter are those labelled “real, made by a human.” Echo, a teenage hologram who is neither boy nor girl and not quite real, is rejected by a class of humans, who mock them as “fake” and stick a label on them, just like on the objects. In the end Echo discovers that nobody has the power to certify who they are, and that the treasure was inside them all along.
+**The setup.** In a near future where humans and technology live side by side, Echo, a hologram, joins Mme Laurent’s class as a school test program. Echo does not eat, does not sleep, and blinks when stressed. Then Maya secretly photographs them and posts “fake student”. The whole class shares it.
+
+**The perspective.** You live the story through three people: Echo, who is being erased, Noah, a classmate who watches and must choose between sharing, ignoring or defending, and Mme Laurent, a teacher who never got trained for this and is told by her school not to make waves.
+
+**The tension.** Echo is a name that only repeats what others say, and everyone says “fake”. Echo came looking for something real, and what the other two choose decides whether Echo finds it or disappears. Who decides what is real, and how long can you stay silent before silence becomes a choice?
 
 ## Keywords
 
