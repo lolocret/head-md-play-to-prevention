@@ -97,7 +97,8 @@ section.in .d1{transition-delay:.12s}section.in .d2{transition-delay:.26s}sectio
 .end h3{font-size:clamp(24px,2.6vw,40px)}
 .end p{font-size:clamp(14px,1.4vw,20px);line-height:1.3;color:var(--grey);font-weight:500}
 .end p b{color:var(--text);font-weight:600}
-@media (max-width:900px){.ends{grid-template-columns:1fr 1fr}}
+.ends.three{grid-template-columns:repeat(3,1fr)}
+@media (max-width:900px){.ends,.ends.three{grid-template-columns:1fr}}
 
 /* moral */
 .moral h2{font-size:clamp(38px,5.4vw,88px);max-width:13em}
@@ -290,6 +291,55 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
   <aside class="notes">The cast. Echo is a Kidya: clumsy, caring, curious and easily scared, with flowers that open when they feel something. Clarisse is an anti-AI student who leads the fight. She harasses Echo, but she is bullied herself, for other reasons. M. Kovasko is a patient, idealistic teacher. And the director of Altaya is Echo's creator. They each already have character traits, but depending on our choices, those traits get redefined.</aside>
 </section>
 
+<!-- Story -->
+<section id="s-story">
+  <div class="glow c"></div>
+  <div class="eyebrow rv">The story</div>
+  <h2 class="rv d1" style="margin-bottom:4vh">Five steps.</h2>
+  <div class="acts five">
+    <div class="act rv d1">
+      <span class="n">1 · The arrival</span>
+      <p>First day, Echo is the only Kidya. Stress: <b>flowers open on their own.</b> Silence, then laughter. A student films.</p>
+      <p><b>8:12 pm:</b> the video hits the class chat.</p>
+    </div>
+    <div class="act rv d1">
+      <span class="n">2 · The labels</span>
+      <p>Insults become <b>stickers</b> stuck on Echo. Their quest: find what’s true, but the “CERTIFIED REAL” objects are fake.</p>
+      <p><b>11:58 pm:</b> an anonymous poll, “who can turn it off?”</p>
+    </div>
+    <div class="act rv d2">
+      <span class="n">3 · “Turn it off”</span>
+      <p>Clarisse’s private group: <b>“We don’t harass anyone. We turn off a machine.”</b> Students added by force.</p>
+      <p>The plan: switch Echo off after class, and film it.</p>
+    </div>
+    <div class="act rv d3">
+      <span class="n">4 · The revelations</span>
+      <p><b>“You have no parents”</b> haunts Echo. The trail leads to Altaya: Echo is a human-AI hybrid, a secret experiment.</p>
+      <p>The anonymous account is their creator. The bullying was a test.</p>
+    </div>
+    <div class="act rv d4">
+      <span class="n">5 · The fire</span>
+      <p>Clarisse, now angry at Altaya, plans to burn it down. Echo is inside, looking for the archives.</p>
+      <p><b>Flowers open in the middle of the fire.</b></p>
+    </div>
+  </div>
+  <aside class="notes">Act one: Echo is the only Kidya on their first day. When they are stressed, flowers open on their own. Silence, then laughter, and a student films. At 8:12 pm the video is in the class chat. Act two: insults become stickers stuck on Echo. Echo goes on a quest to find what is true, but the objects labeled certified real are fake. At 11:58 pm an anonymous poll asks: who can turn it off? Act three: Clarisse's private group says "we don't harass anyone, we turn off a machine", and students are added by force. The plan is to switch Echo off after class and film it. Act four: you have no parents haunts Echo, and the trail leads to Altaya. Echo is a human and AI hybrid, a secret experiment, the anonymous account is their creator, and the bullying was a test. Clarisse was used by Altaya without knowing. Act five: Clarisse's group plans to burn Altaya down, with Echo inside looking for the archives. The fire starts, and the flowers open in the middle of it.</aside>
+</section>
+
+<!-- Endings -->
+<section id="s-endings">
+  <div class="glow b"></div>
+  <div class="eyebrow rv">Endings</div>
+  <h2 class="rv d1" style="margin-bottom:4.5vh">It depends on who acts.</h2>
+  <div class="ends three">
+    <div class="end rv d1"><span class="dot"></span><h3>Nobody acts</h3><p>Echo is <b>switched off in front of the class.</b> The video circulates.</p></div>
+    <div class="end best rv d2"><span class="dot"></span><h3>Someone acts</h3><p>The plan fails. <b>Clarisse starts to doubt.</b></p></div>
+    <div class="end rv d3"><span class="dot"></span><h3>The fire</h3><p>Clarisse lets it burn, or saves Echo. Kovasko watches, or finally acts. Echo saves the proof of their humanity, or lets it burn.</p></div>
+  </div>
+  <p class="sub rv d4" style="margin-top:4vh">In every case, the code sends a signal to <b>Altaya.</b></p>
+  <aside class="notes">The ending depends on who acts. If nobody acts, Echo is switched off in front of the class and the video circulates. If someone acts, the plan fails and Clarisse starts to doubt. In every case, the shutdown code sends a signal to Altaya. Later, at the fire, Clarisse chooses to let it burn or to save Echo, Kovasko chooses to stay a spectator or finally act, and Echo chooses to save the proof of their humanity or let it burn.</aside>
+</section>
+
 <!-- Game -->
 <section id="s6">
   <div class="glow a"></div>
@@ -323,13 +373,26 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
   <aside class="notes">It's a choice-based game for mobile, because that's where teens live and where cyberbullying happens, inspired by Detroit: Become Human at a much smaller scale. You play Echo, a student, and M. Kovasko, and each sees only part of the story. Every ending points to 147, the help line for young people in Switzerland.</aside>
 </section>
 
+<!-- Ending -->
+<section id="s7" class="moral">
+  <div class="glow a"></div><div class="glow c"></div>
+  <div class="eyebrow rv">The ending</div>
+  <h2 class="rv d1">No one has the power to <span class="g">certify who you are.</span></h2>
+  <p class="sub rv d2" style="margin-top:3vh">Echo, covered in stickers, chooses which to keep and which to tear off. The flowers they were mocked for become <b>proof that they feel.</b></p>
+  <div class="mrows">
+    <div class="mrow rv d3"><b>The paradox</b><span>Fighting AI in the name of ethics, the militants reproduce <strong>discrimination and harassment.</strong> And if Echo is real, even a human-AI hybrid, who gets <strong>accepted or rejected</strong> is only a norm, kept alive by group pressure.</span></div>
+    <div class="mrow rv d4"><b>Prevention</b><span>Everyone saw a part of the situation. Everyone could act. The bullying was possible because <strong>nobody did.</strong></span></div>
+  </div>
+  <aside class="notes">The ending is the message. Echo, covered in stickers, chooses which ones to keep and which ones to tear off. The flowers they were mocked for at the beginning become proof that Echo feels. No one has the power to certify who you are. The paradox: the militants fight AI in the name of ethical values, yet they reproduce discrimination and harassment. And if Echo is real, even a human and AI hybrid, then who gets accepted or rejected is only a norm, kept alive by group pressure. And for prevention: everyone saw a part of the situation, everyone could act, and the bullying was possible because nobody did. Thank you.</aside>
+</section>
+
 <!-- 8 — Moodboard (last) -->
 <section id="s8" class="mood">
   <div class="eyebrow rv">The mood</div>
   <h2 class="rv d1">Moodboard &amp; influences.</h2>
   <img class="rv d2" src="moodboard.jpg" alt="Echo moodboard: neon cities overgrown with flowers, holograms, glass and plants">
   <p class="infl rv d3"><b>Solarpunk</b><i>·</i><b>Detroit: Become Human</b><i>·</i><b>Hell’s Paradise</b></p>
-  <aside class="notes">This is my moodboard: neon cities, flowers growing through glass, and translucent figures. It mixes cyberpunk and solarpunk, with nature and technology in the same place. My influences are Solarpunk, Detroit: Become Human, and Hell’s Paradise. Thank you.</aside>
+  <aside class="notes">This is my moodboard: neon cities, flowers growing through glass, and translucent figures. It mixes cyberpunk and solarpunk, with nature and technology in the same place. My influences are Solarpunk, Detroit: Become Human, and Hell’s Paradise.</aside>
 </section>
 
 <div id="bar"></div>
