@@ -26,8 +26,24 @@ It is a choice-based narrative game for mobile (teens aged 12 to 16), inspired b
 
 ## Personas
 
-Three personas. Each already has character traits, but our choices in the game redefine them.
+Three points of view. Each already has character traits, but our choices in the game redefine them.
 
-- **Echo**: a teenage hologram made by AI, neither boy nor girl, visibly not quite real (translucent, half-body, half-flower, half-machine). Clumsy, caring, creative, funny, curious, easily scared, loves adventure. Echo wants to be accepted and to find a “real” label that proves they are worth something. They are in conflict with the class, and with themselves: *Who am I? What makes someone human? Am I worth anything?*
-- **The teacher**: wants a calm class and to do the right thing. Sees only part of what is going on, and has a choice to make: step in, or let it go.
-- **A student**: wants to belong and not to be next. Part of the class that labels Echo “fake” and “glitch”, with a choice to make: forward the sticker, say something, reach out to Echo, or look away.
+- **Echo**: the one who is bullied. A teenage hologram made by AI, visibly not quite real (does not eat, does not sleep, blinks when stressed). Wants to be accepted and to prove they are “real”. In conflict with the class, and with themselves.
+- **Noah**: the witness. Wants to belong and not to be next. Has to choose: share, ignore or defend Echo.
+- **Mme Laurent**: the teacher, the adult who must react. Never trained for this, and the school tells her “don’t make waves”.
+
+## Story
+
+**Act 1, the arrival.** Echo joins the class as a school test program. Different, and nobody wants to sit next to them. Mme Laurent was never trained and does not know how to introduce Echo (choice: introduce them in front of the class, leave them to cope, or talk to the students first). Maya secretly photographs Echo and posts “fake student”. The whole class shares it.
+
+**Act 2, it spirals.** A secret group to mock Echo, memes and deepfakes of Echo “glitching”. Noah chooses: share, ignore or defend. Echo chooses: answer, hide or try to prove they are real. Mme Laurent notices the laughter, the hidden phones and Echo going quiet, and chooses: look away, punish the whole class, or talk to Echo alone. Echo feels lonelier and loses confidence.
+
+**Act 3, the twist.** Echo discovers that Maya is bullied too: people say her drawings are made by AI, so “not real”. Mirror effect. The school tells Mme Laurent “don’t make waves” because the Echo program has to succeed: obey, or speak up openly. Every earlier choice of the three characters crosses here.
+
+**Act 4, the endings.**
+- Dark: nobody reacts, Echo fades off the network, the class and the teacher understand too late.
+- Middling: Noah speaks, the teacher buries it, the bullying goes underground.
+- Collective: Noah speaks and the teacher follows, the school opens a dialogue, but the wounds remain.
+- Positive: the teacher starts a class project, Echo and Maya make a “certified real” work together. Echo finds what they were looking for, something truly human, but in two.
+
+**The moral.** What counts is not what you are, it is the impact of what you do. Staying silent is also a choice. Adults are responsible too: ignoring is letting it happen. Anyone can end up in the place of the one being bullied.

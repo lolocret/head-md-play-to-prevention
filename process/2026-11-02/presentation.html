@@ -73,6 +73,38 @@ section.in .d1{transition-delay:.12s}section.in .d2{transition-delay:.26s}sectio
 .card .tr{margin-top:1vh;color:var(--text);font-weight:600}
 @media (max-width:900px){.cards{grid-template-columns:1fr}}
 
+/* story */
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;width:100%;max-width:1350px;text-align:left;margin-top:3vh}
+.act{background:var(--panel);border-radius:26px;padding:3.4vh 1.8vw;display:flex;flex-direction:column;gap:1.6vh}
+.act .n{font-size:clamp(12px,1.2vw,17px);font-weight:600;color:var(--grey);text-transform:uppercase;letter-spacing:.14em}
+.act h3{font-size:clamp(26px,3vw,46px)}
+.act p{font-size:clamp(14px,1.45vw,21px);line-height:1.3;color:var(--grey);font-weight:500}
+.act p b{color:var(--text);font-weight:600}
+.act .ch{margin-top:auto;padding-top:1.8vh;border-top:1px solid var(--line);display:grid;gap:.9vh}
+.act .ch span{font-size:clamp(13px,1.3vw,18px);line-height:1.3;color:var(--text);font-weight:500}
+.act .ch i{font-style:normal;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+@media (max-width:900px){.acts{grid-template-columns:1fr}}
+
+/* endings */
+.ends{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6vw;width:100%;max-width:1350px;text-align:left}
+.end{background:var(--panel);border-radius:26px;padding:3.4vh 1.5vw;display:flex;flex-direction:column;gap:1.4vh}
+.end .dot{width:14px;height:14px;border-radius:50%;background:#48484a}
+.end:nth-child(2) .dot{background:#86868b}
+.end:nth-child(3) .dot{background:#5ee6ff}
+.end.best{background:linear-gradient(#1c1c1e,#1c1c1e) padding-box,var(--grad) border-box;border:2px solid transparent}
+.end.best .dot{background:var(--grad)}
+.end h3{font-size:clamp(24px,2.6vw,40px)}
+.end p{font-size:clamp(14px,1.4vw,20px);line-height:1.3;color:var(--grey);font-weight:500}
+.end p b{color:var(--text);font-weight:600}
+@media (max-width:900px){.ends{grid-template-columns:1fr 1fr}}
+
+/* moral */
+.moral h2{font-size:clamp(40px,6.2vw,100px);max-width:13em}
+.mrows{margin-top:6vh;width:100%;max-width:1100px;text-align:left;display:grid}
+.mrow{display:grid;grid-template-columns:clamp(120px,14vw,220px) 1fr;gap:2vw;align-items:baseline;padding:2.2vh 0;border-top:1px solid var(--line)}
+.mrow b{font-size:clamp(20px,2.4vw,36px);font-weight:700;letter-spacing:-.02em}
+.mrow span{font-size:clamp(16px,1.9vw,28px);color:var(--grey);font-weight:500;line-height:1.3}
+
 /* 2 — rivalry */
 .versus{display:grid;grid-template-columns:1fr auto 1fr;gap:2vw;align-items:stretch;width:100%;max-width:1300px;text-align:left}
 .versus .col{display:flex;flex-direction:column;gap:2.4vh;background:var(--panel);border-radius:28px;padding:4vh 2.4vw}
@@ -111,7 +143,7 @@ section.in .d1{transition-delay:.12s}section.in .d2{transition-delay:.26s}sectio
 .help .big{font-size:clamp(46px,5.6vw,92px);font-weight:700;letter-spacing:-.04em;line-height:1}
 .help p{font-size:clamp(16px,1.8vw,26px)}
 .phone-wrap{display:flex;justify-content:center}
-.phone{width:min(24vw,36vh);aspect-ratio:9/18.5;border-radius:42px;padding:9px;background:#0b0b0d;border:2px solid #3a3a3c;box-shadow:0 30px 80px rgba(0,0,0,.6);position:relative}
+.phone{width:min(19vw,27vh);aspect-ratio:9/18.5;border-radius:42px;padding:9px;background:#0b0b0d;border:2px solid #3a3a3c;box-shadow:0 30px 80px rgba(0,0,0,.6);position:relative}
 .island{position:absolute;top:15px;left:50%;transform:translateX(-50%);width:30%;height:14px;border-radius:10px;background:#000;z-index:2}
 .screen{height:100%;border-radius:34px;padding:38px 12px 14px;display:flex;flex-direction:column;gap:8px;font-size:clamp(11px,1.15vw,17px);background:#111113}
 .msg{padding:7px 10px;border-radius:14px;background:var(--bubble);line-height:1.25}
@@ -173,11 +205,11 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
   <div class="eyebrow rv">Pitch</div>
   <div class="pitch">
     <p class="rv d1">In a world where <b>humans and technology live side by side,</b></p>
-    <p class="rv d2"><b>Echo,</b> a teenage hologram, is rejected by a class of humans who call them <b>“fake.”</b></p>
-    <p class="rv d3">So Echo sets out on a quest, and <span class="g">our choices decide who Echo becomes.</span></p>
+    <p class="rv d2">a hologram called <b>Echo</b> joins a class of humans as a school test.</p>
+    <p class="rv d3">A story about cyberbullying, <span class="g">where every choice counts.</span></p>
   </div>
   <div class="kw rv d4"><span>Identity</span><span>Body</span><span>Boundaries</span><span>Homophobia</span></div>
-  <aside class="notes">In a world where humans and technology live side by side, Echo, a teenage hologram, is rejected by a class of humans who call them fake. So Echo sets out on a quest, and our choices decide who Echo becomes. Our four keywords: identity (Who am I?), body (a translucent, half-flower, half-machine hologram), boundaries (a label or a sticker forwarded without asking crosses a line) and homophobia (Echo is neither boy nor girl and is excluded for not fitting the boxes).</aside>
+  <aside class="notes">In a world where humans and technology live side by side, a hologram called Echo joins a class of humans as a school test. It is a story about cyberbullying, where every choice counts. Our four keywords: identity (real or fake?), body (Echo does not eat, does not sleep, and blinks when stressed), boundaries (a photo taken in secret, a private group, deepfakes) and homophobia (being excluded for who you are).</aside>
 </section>
 
 <!-- 2 — Humans and technology -->
@@ -205,62 +237,89 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
 <section id="s-personas">
   <div class="glow a"></div>
   <div class="eyebrow rv">Personas</div>
-  <h2 class="rv d1" style="margin-bottom:5vh">Three people. <span class="g">One story.</span></h2>
+  <h2 class="rv d1" style="margin-bottom:5vh">Three points of view.</h2>
   <div class="cards rv d2">
     <div class="card">
       <h3>Echo</h3>
-      <p class="role">The hologram</p>
-      <p><b>Wants</b> to be accepted, and to find a label that proves they’re worth something.</p>
-      <p><b>Conflict</b> with the class, and with themselves: <i style="font-style:normal;color:var(--text)">Who am I? Am I worth anything?</i></p>
+      <p class="role">The one who is bullied</p>
+      <p><b>Wants</b> to be accepted, and to prove they’re “real”.</p>
+      <p><b>Conflict</b> with the class, and with themselves.</p>
       <p class="tr">clumsy · caring · curious · easily scared</p>
     </div>
     <div class="card">
-      <h3>The teacher</h3>
-      <p class="role">The adult</p>
-      <p><b>Wants</b> a calm class and to do the right thing.</p>
-      <p><b>Conflict</b> sees only part of what’s happening: step in, or let it go?</p>
-      <p class="tr">well-meaning · busy · hesitant</p>
+      <h3>Noah</h3>
+      <p class="role">The witness</p>
+      <p><b>Wants</b> to belong, and not to be next.</p>
+      <p><b>Conflict</b> share it, ignore it, or defend Echo?</p>
+      <p class="tr">social · curious · afraid of being left out</p>
     </div>
     <div class="card">
-      <h3>A student</h3>
-      <p class="role">The classmate</p>
-      <p><b>Wants</b> to belong and not to be next.</p>
-      <p><b>Conflict</b> forward it, say something, reach out, or look away?</p>
-      <p class="tr">social · curious · afraid of being left out</p>
+      <h3>Mme Laurent</h3>
+      <p class="role">The adult who must react</p>
+      <p><b>Wants</b> a calm class, and to do the right thing.</p>
+      <p><b>Conflict</b> never trained for this, and the school says “don’t make waves”.</p>
+      <p class="tr">well-meaning · untrained · under pressure</p>
     </div>
   </div>
   <p class="sub rv d3" style="margin-top:5vh">They each already have character traits, <b>but our choices redefine them.</b></p>
-  <aside class="notes">Our three personas are Echo, the teacher and a student. Each of them already has character traits, but depending on our choices in the game, those traits get redefined: a hesitant teacher can step in, a student who forwards a sticker can also reach out, and Echo can believe the labels or not. Echo is a teenage hologram made by AI, neither boy nor girl, visibly not quite real: translucent, half-body, half-flower, half-machine.</aside>
+  <aside class="notes">Three points of view: Echo, who is bullied, Noah, the witness, and Mme Laurent, the adult who has to react. Each of them already has character traits, but depending on our choices in the game, those traits get redefined.</aside>
 </section>
 
-<!-- 5 — Labels -->
-<section id="s5">
+<!-- Story -->
+<section id="s-story">
   <div class="glow c"></div>
-  <div class="eyebrow rv">Cyberbullying</div>
-  <h2 class="rv d1" style="margin-bottom:5vh">Then the labels start.</h2>
-  <div class="labels">
-    <div class="chat rv d2">
-      <div class="who">class-chat</div>
-      <div class="bub">“you’re not even real”</div>
-      <div class="bub">“fake”</div>
-      <div class="bub stk">GLITCH<small>sticker · forwarded ×47</small></div>
+  <div class="eyebrow rv">The story</div>
+  <div class="acts">
+    <div class="act rv d1">
+      <span class="n">Act 1</span>
+      <h3>The arrival</h3>
+      <p>Echo joins the class as a school test. Different: <b>doesn’t eat, doesn’t sleep, blinks when stressed.</b> Nobody sits next to them.</p>
+      <p>Maya secretly photographs Echo and posts <b>“fake student”.</b> The whole class shares it.</p>
+      <div class="ch"><span><i>Mme Laurent</i> introduces Echo, lets them cope, or talks to the students first</span></div>
     </div>
-    <div class="txt rv d3">
-      <p>Echo is bullied <b>for what they are.</b> The class sticks a label on Echo, like on the objects.</p>
+    <div class="act rv d2">
+      <span class="n">Act 2</span>
+      <h3>It spirals</h3>
+      <p>A secret group made to mock Echo. <b>Memes and deepfakes</b> of Echo “glitching”. Echo gets lonelier and loses confidence.</p>
+      <div class="ch">
+        <span><i>Noah</i> shares, ignores, or defends</span>
+        <span><i>Echo</i> answers, hides, or tries to prove they’re real</span>
+        <span><i>Mme Laurent</i> looks away, punishes everyone, or talks to Echo alone</span>
+      </div>
+    </div>
+    <div class="act rv d3">
+      <span class="n">Act 3</span>
+      <h3>The twist</h3>
+      <p>Echo finds out <b>Maya is bullied too:</b> her drawings are called AI-made, so “not real”. The one who said “fake” lives the same thing.</p>
+      <p>The school tells Mme Laurent <b>“don’t make waves”.</b> Every earlier choice crosses here.</p>
+      <div class="ch"><span><i>Mme Laurent</i> obeys the school, or speaks up</span></div>
     </div>
   </div>
-  <aside class="notes">Then the labels start. The class calls Echo "fake" and "glitch", just like the labels on objects, and a mocking sticker of Echo spreads in the group chat. That's identity-based bullying: being excluded for being different, until Echo starts to believe it.</aside>
+  <aside class="notes">Act one: Echo joins the class as a school test. They are different: they don't eat, don't sleep and blink when stressed. Maya secretly photographs Echo and posts "fake student", and the whole class shares it. Act two: a secret group, memes and deepfakes. Each of the three characters has a choice, and Echo gets lonelier. Act three, the twist: Echo discovers that Maya is bullied too, because people say her drawings are made by AI, so not real. The one who called Echo fake lives the exact same thing. And Mme Laurent is told by the school not to make waves.</aside>
+</section>
+
+<!-- Endings -->
+<section id="s-endings">
+  <div class="glow b"></div>
+  <div class="eyebrow rv">Endings</div>
+  <h2 class="rv d1" style="margin-bottom:5vh">Four endings.</h2>
+  <div class="ends">
+    <div class="end rv d1"><span class="dot"></span><h3>Dark</h3><p>Nobody reacts. Echo fades off the network. The class and Mme Laurent understand too late.</p></div>
+    <div class="end rv d2"><span class="dot"></span><h3>Middling</h3><p>Noah speaks, Mme Laurent buries it. The bullying goes underground.</p></div>
+    <div class="end rv d3"><span class="dot"></span><h3>Collective</h3><p>Noah speaks, Mme Laurent follows. The school opens a dialogue, but the wounds remain.</p></div>
+    <div class="end best rv d4"><span class="dot"></span><h3>Positive</h3><p>A class project: Echo and Maya make a <b>“certified real”</b> work together. Echo finds what they were looking for: something truly human, but <b>in two.</b></p></div>
+  </div>
+  <aside class="notes">There are four endings. In the dark one, nobody reacts and Echo fades off the network. In the middling one, Noah speaks but Mme Laurent buries it. In the collective one, Noah speaks and Mme Laurent follows, the school opens a dialogue, but the wounds remain. In the positive one, Mme Laurent starts a class project and Echo and Maya make a work together that is certified real. Echo finally finds what they were looking for: something truly human, but in two.</aside>
 </section>
 
 <!-- 6 — How you play -->
 <section id="s6">
   <div class="glow a"></div>
   <div class="eyebrow rv">Setup · the game</div>
-  <h2 class="rv d1" style="margin-bottom:5vh">How you play.</h2>
+  <h2 class="rv d1" style="margin-bottom:4vh">How you play.</h2>
   <div class="play">
     <div class="col rv d2">
       <p>A <b>choice-based narrative game</b>, inspired by <b>Detroit: Become Human</b>, at a much smaller scale.</p>
-      <p>You play Echo, and <b>the people around Echo:</b> the teacher and the other students. Each one sees a different part of what’s happening, and <b>each one has a choice to make.</b></p>
       <p><b>Platform: mobile.</b> That’s where teens live, and where cyberbullying happens.</p>
       <div class="help">
         <div class="big g">147</div>
@@ -271,25 +330,30 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
       <div class="phone">
         <div class="island"></div>
         <div class="screen">
-          <div class="msg"><b>class-chat</b>Someone sent a sticker of Echo.</div>
-          <div class="stk2"><div class="s">GLITCH</div><small>forwarded ×47</small></div>
-          <div class="q">What do you do?</div>
-          <div class="opt">Forward it</div>
-          <div class="opt a">Say something</div>
-          <div class="opt">Reach out to Echo</div>
-          <div class="opt c">Look away</div>
+          <div class="msg"><b>class-chat · Maya</b>New photo of Echo.</div>
+          <div class="stk2"><div class="s">FAKE STUDENT</div><small>forwarded ×47</small></div>
+          <div class="q">What do you do, Noah?</div>
+          <div class="opt">Share</div>
+          <div class="opt c">Ignore</div>
+          <div class="opt a">Defend Echo</div>
         </div>
       </div>
     </div>
   </div>
-  <aside class="notes">It's a choice-based game for mobile, because that's where teens live and where cyberbullying happens. It's inspired by Detroit: Become Human, but at a much smaller scale. You play Echo, but also the teacher and the other students: each sees a different part of the story, and each has a choice to make. The endings point to 147, the help line for young people in Switzerland. Our actions and choices have consequences.</aside>
+  <aside class="notes">It's a choice-based game for mobile, because that's where teens live and where cyberbullying happens, inspired by Detroit: Become Human at a much smaller scale. Every ending points to 147, the help line for young people in Switzerland.</aside>
 </section>
 
-<!-- 8 — Final -->
-<section id="s7" class="final">
+<!-- Moral -->
+<section id="s7" class="moral">
   <div class="glow a"></div><div class="glow c"></div>
-  <h2 class="rv d1">No one has the power to <span class="g">certify who you are.</span></h2>
-  <aside class="notes">The ending is the message: no one has the power to certify who you are. Echo was looking for a label to prove they were worth something, but the treasure was inside them all along.</aside>
+  <div class="eyebrow rv">The moral</div>
+  <h2 class="rv d1">What counts isn’t what you are. <span class="g">It’s what you do.</span></h2>
+  <div class="mrows">
+    <div class="mrow rv d2"><b>Witness</b><span>Staying silent is also a choice, with consequences.</span></div>
+    <div class="mrow rv d3"><b>Adult</b><span>Ignoring is letting it happen.</span></div>
+    <div class="mrow rv d4"><b>Empathy</b><span>Anyone can end up in the place of the one being bullied.</span></div>
+  </div>
+  <aside class="notes">The moral: what counts isn't what you are, it's the impact of what you do. Staying silent is also a choice, and it has consequences. Adults have a responsibility too: ignoring is letting it happen. And anyone can end up in the place of the one being bullied. Thank you.</aside>
 </section>
 
 <!-- 8 — Moodboard (last) -->
@@ -298,7 +362,7 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
   <h2 class="rv d1">Moodboard &amp; influences.</h2>
   <img class="rv d2" src="moodboard.jpg" alt="Echo moodboard: neon cities overgrown with flowers, holograms, glass and plants">
   <p class="infl rv d3"><b>Solarpunk</b><i>·</i><b>Detroit: Become Human</b><i>·</i><b>Hell’s Paradise</b></p>
-  <aside class="notes">This is my moodboard: neon cities, flowers growing through glass, and translucent figures. It mixes cyberpunk and solarpunk, with nature and technology in the same place. My influences are Solarpunk, Detroit: Become Human, and Hell’s Paradise. Thank you.</aside>
+  <aside class="notes">This is my moodboard: neon cities, flowers growing through glass, and translucent figures. It mixes cyberpunk and solarpunk, with nature and technology in the same place. My influences are Solarpunk, Detroit: Become Human, and Hell’s Paradise.</aside>
 </section>
 
 <div id="bar"></div>
