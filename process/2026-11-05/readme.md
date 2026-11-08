@@ -13,7 +13,7 @@ An AI child everyone calls “fake” sets out in search of what’s real, and d
 
 **The perspective.** You live it through three people: Echo, a student who watches, and M. Kovasko, a teacher who sees nothing.
 
-**The tension.** Echo only repeats what others say, and everyone says “fake”. Then someone asks: who can turn Echo off?
+**The tension.** Everyone calls Echo “fake”, and the group follows. Then someone asks: who can turn Echo off?
 
 ## Keywords
 
