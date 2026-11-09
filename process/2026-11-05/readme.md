@@ -31,7 +31,7 @@ Each already has character traits, but our choices in the game redefine them.
 - **Clarisse**: an anti-technology student activist. She comes from a poor family working in the tertiary sector, which is why she is against technology: it replaced their jobs. She harasses Echo, but she is mocked herself for being poor.
 - **A student**: the witness. Wants to belong and not to be next. Can be kind or cruel depending on our choices: take part, stay quiet, leave the group, send screenshots to the teacher, or warn Echo.
 - **M. Kovasko**: a patient teacher, too idealistic.
-- **The director of Altaya**: Echo’s creator.
+- **The director of Altaya**: Echo’s creator. The program’s original goal is to help children stop isolating and accept their emotions.
 
 ## Story
 
