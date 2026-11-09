@@ -58,7 +58,7 @@ Flowers open in the middle of the fire.
 ## Ideas
 
 - The player customizes their own avatar (the student).
-- The game could be integrated into players’ daily life: they can also document things they experience themselves.
+- The game is integrated into players’ daily life: a mood journal, where flowers open or close like Echo’s, lets them document what they experience.
 - Depending on the ending, the player is given a role.
 
 ## The paradox
