@@ -21,14 +21,14 @@ Identity, body, boundaries, homophobia.
 
 ## Setup
 
-Digital people are everywhere, and schools now bring Kidya (technological holographic kids with a physical presence) into human classes. Against them, anti-AI militants fight in the name of ethical values: humans only, in class and online.
+Digital people are everywhere, and schools now bring Kidya (technological holographic kids with a physical presence) into human classes. Against them, anti-technology militants fight in the name of ethical values: humans only, in class and online.
 
 ## Personas
 
 Each already has character traits, but our choices in the game redefine them.
 
 - **Echo**: a Kidya, a technological holographic kid with a physical presence. Clumsy, caring, curious, easily scared. Flowers open on them when they feel something.
-- **Clarisse**: an anti-AI student activist. She comes from a poor family working in the primary sector, which is why she is against AI: it threatens their jobs. She harasses Echo, but she is mocked herself for being poor.
+- **Clarisse**: an anti-technology student activist. She comes from a poor family working in the primary sector, which is why she is against technology: it threatens their jobs. She harasses Echo, but she is mocked herself for being poor.
 - **M. Kovasko**: a patient teacher, too idealistic.
 - **The director of Altaya**: Echo’s creator.
 
@@ -44,7 +44,7 @@ Each already has character traits, but our choices in the game redefine them.
 - *Echo:* avoided by everyone, run away, talk to an adult, or stay quiet.
 - Nobody acts: Echo is switched off in front of the class, and the video circulates. Someone acts: the plan fails and Clarisse doubts. In every case, the code sends a signal to Altaya.
 
-**4. The revelations.** “You have no parents” haunts Echo. Investigation, alone or with an ally depending on the choices. Memory fragments, erased archives, a trail to the Altaya institute. Echo is a human-AI hybrid, a secret experiment. Their parents: the director of Altaya and a non-binary person, a sex worker who was exploited. The protocol notes contain “who can turn it off” and “your emotions are fictions”, word for word. The anonymous account is Echo’s creator, and the bullying was a test to measure their emotions. Clarisse was used by Altaya while believing she was fighting AI. Her anger changes target.
+**4. The revelations.** “You have no parents” haunts Echo. Investigation, alone or with an ally depending on the choices. Memory fragments, erased archives, a trail to the Altaya institute. Echo is a human-AI hybrid, a secret experiment. Their parents: the director of Altaya and a non-binary person, a sex worker who was exploited. The protocol notes contain “who can turn it off” and “your emotions are fictions”, word for word. The anonymous account is Echo’s creator, and the bullying was a test to measure their emotions. Clarisse was used by Altaya while believing she was fighting technology. Her anger changes target.
 
 **5. The fire.** Clarisse’s group plans to burn Altaya down. Echo is inside, looking for the archives. The fire starts.
 - *Clarisse:* let it burn, or save Echo.
@@ -56,7 +56,7 @@ Flowers open in the middle of the fire.
 
 ## The paradox
 
-People fight AI in the name of ethical values, yet they reproduce discrimination and even harassment. The one who harasses is also harassed: Clarisse is mocked for being poor. Once we understand that Echo is real, even a human-AI hybrid, it questions what gets accepted or rejected according to norms and group pressure.
+People fight technology in the name of ethical values, yet they reproduce discrimination and even harassment. The one who harasses is also harassed: Clarisse is mocked for being poor. Once we understand that Echo is real, even a human-AI hybrid, it questions what gets accepted or rejected according to norms and group pressure.
 
 ## Prevention
 
