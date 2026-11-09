@@ -59,7 +59,7 @@ Flowers open in the middle of the fire.
 
 - The player customizes their own avatar (the student).
 - The game is integrated into players’ daily life: a mood journal, where flowers open or close like Echo’s, lets them document what they experience.
-- Depending on the ending, the player is given a role.
+- At the end, the player is given a role, based on the choices they made.
 
 ## The paradox
 
