@@ -45,9 +45,9 @@ Each already has character traits, but our choices in the game redefine them.
 - *Echo:* avoided by everyone, run away, talk to an adult, or stay quiet.
 - Nobody acts: Echo is switched off in front of the class, and the video circulates. Someone acts: the plan fails and Clarisse doubts. In every case, the code sends a signal to Altaya.
 
-**4. The revelations.** “You have no parents” haunts Echo. Investigation, alone or with an ally depending on the choices. Memory fragments, erased archives, a trail to the Altaya institute. Echo is a human-AI hybrid, a secret experiment. Their parents: the director of Altaya and a non-binary person, a sex worker who was exploited. The protocol notes contain “who can turn it off” and “your emotions are fictions”, word for word. The anonymous account is Echo’s creator, and the bullying was a test to measure their emotions. Clarisse was used by Altaya while believing she was fighting technology. Her anger changes target.
+**4. The revelations.** “You have no parents” haunts Echo. Investigation, alone or with an ally depending on the choices. Memory fragments, erased archives, a trail to the Altaya institute. Echo is a human-AI hybrid, a secret experiment. Their parents: the director of Altaya and a non-binary person, a sex worker who was exploited. The protocol notes contain “who can turn it off” and “your emotions are fictions”, word for word. The anonymous account is the director: Echo’s own parent led the bullying, as a test to measure their emotions. Echo is hurt. Clarisse was used by Altaya while believing she was fighting technology. She realizes that Echo was never the problem: Altaya is. Her anger changes target.
 
-**5. The fire.** Clarisse’s group plans to burn Altaya down. Echo is inside, looking for the archives. The fire starts.
+**5. The fire.** Clarisse’s anger changes target: her group plans to burn Altaya down. Echo, hurt, goes in to find the archives. The fire starts.
 - *Clarisse:* let it burn, or save Echo.
 - *Kovasko:* stay a spectator, or finally act.
 - *Echo:* save the proof of their humanity, or let it burn.
