@@ -5,13 +5,13 @@ Nouria DA ROS
 
 ## Project
 
-An AI child everyone calls “fake” sets out in search of what’s real, and discovers that their worth doesn’t depend on the label others stick on them.
+A holographic AI kid everyone calls “fake” sets out in search of what’s real, and discovers that their worth doesn’t depend on the label others stick on them.
 
 ## Pitch
 
-**The setup.** In a world where schools welcome AI children, Echo is the only Kidya in a human class.
+**The setup.** In a world where schools welcome holographic AI kids, Echo is the only Kidya (a holographic AI kid) in a human class.
 
-**The perspective.** You live it through three people: Echo, a student who watches, and M. Kovasko, a teacher who sees nothing.
+**The perspective.** We follow three people: Echo, a student who watches, and M. Kovasko, a teacher who sees nothing.
 
 **The tension.** Everyone calls Echo “fake”, and the group follows. Then someone asks: who can turn Echo off?
 
@@ -21,22 +21,20 @@ Identity, body, boundaries, homophobia.
 
 ## Setup
 
-Digital people are everywhere, and schools now bring Kidya (AI children) into human classes. Against them, anti-AI militants fight in the name of ethical values: humans only, in class and online. It is a choice-based narrative game for mobile (teens aged 12 to 16), inspired by *Detroit: Become Human* at a much smaller scale. Every ending points to 147, the help line for young people in Switzerland.
+Digital people are everywhere, and schools now bring Kidya (holographic AI kids with a physical presence) into human classes. Against them, anti-AI militants fight in the name of ethical values: humans only, in class and online.
 
 ## Personas
 
 Each already has character traits, but our choices in the game redefine them.
 
-- **Echo**: a Kidya. Clumsy, caring, curious, easily scared. Flowers open on them when they feel something.
+- **Echo**: a Kidya, a holographic AI kid with a physical presence. Clumsy, caring, curious, easily scared. Flowers open on them when they feel something.
 - **Clarisse**: an anti-AI student activist. She harasses Echo, but she is bullied herself, for other reasons.
 - **M. Kovasko**: a patient teacher, too idealistic.
 - **The director of Altaya**: Echo’s creator.
 
-You play Echo, a student and M. Kovasko, and each one sees only part of the story.
-
 ## Story
 
-**1. The arrival.** First day, Echo is the only Kidya in the class. Kovasko gives a speech on diversity, then Echo introduces themself. Stress: the flowers open on their own. Silence, then laughter. A student films. 8:12 pm: the video is posted in the class chat (“you’re not even real”, “fake”, “your emotions are fictions”). 8:30 pm: memes, flowers on a loop, a “FAKE” sticker. 9:05 pm: a group “3B humains only”, without Echo. Next day: students laughing on their phones, Kovasko sees nothing.
+**1. The arrival.** First day, Echo is the only Kidya in the class. Kovasko gives a speech on diversity, then Echo introduces themself. To say hello, Echo reaches out to a student, and their hand passes right through the student’s. The awkwardness is instant, and the flowers open on their own. Silence, then laughter. A student films. 8:12 pm: the video is posted in the class chat (“you’re not even real”, “fake”, “your emotions are fictions”). 8:30 pm: memes, flowers on a loop, a “FAKE” sticker. 9:05 pm: a group “3B humains only”, without Echo. Next day: students laughing on their phones, Kovasko sees nothing.
 
 **2. The labels.** Insults turn into stickers stuck on Echo. Clarisse’s group accuses Echo of privilege. The paradox: Echo is clumsy and alone, not perfect. 10:40 pm: a student writes that they are not doing well, and Echo is the only one to answer (the player picks the advice); the answer is thrown back: “you can’t relate, you’re not human”. Flowers closed, Echo hurt. 11:58 pm: an anonymous account without a photo posts a poll, “who can turn it off?”, then “you have no parents”. Seen by 24 people, nobody answers.
 
