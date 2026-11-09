@@ -5,11 +5,11 @@ Nouria DA ROS
 
 ## Project
 
-A holographic AI kid everyone calls “fake” sets out in search of what’s real, and discovers that their worth doesn’t depend on the label others stick on them.
+A technological holographic kid everyone calls “fake” sets out in search of what’s real, and discovers that their worth doesn’t depend on the label others stick on them.
 
 ## Pitch
 
-**The setup.** In a world where schools welcome holographic AI kids, Echo is the only Kidya (a holographic AI kid) in a human class.
+**The setup.** In a world where schools welcome technological holographic kids, Echo is the only Kidya (a technological holographic kid) in a human class.
 
 **The perspective.** We follow three people: Echo, a student who watches, and M. Kovasko, a teacher who sees nothing.
 
@@ -21,14 +21,14 @@ Identity, body, boundaries, homophobia.
 
 ## Setup
 
-Digital people are everywhere, and schools now bring Kidya (holographic AI kids with a physical presence) into human classes. Against them, anti-AI militants fight in the name of ethical values: humans only, in class and online.
+Digital people are everywhere, and schools now bring Kidya (technological holographic kids with a physical presence) into human classes. Against them, anti-AI militants fight in the name of ethical values: humans only, in class and online.
 
 ## Personas
 
 Each already has character traits, but our choices in the game redefine them.
 
-- **Echo**: a Kidya, a holographic AI kid with a physical presence. Clumsy, caring, curious, easily scared. Flowers open on them when they feel something.
-- **Clarisse**: an anti-AI student activist. She harasses Echo, but she is bullied herself, for other reasons.
+- **Echo**: a Kidya, a technological holographic kid with a physical presence. Clumsy, caring, curious, easily scared. Flowers open on them when they feel something.
+- **Clarisse**: an anti-AI student activist. She comes from a poor family working in the primary sector, which is why she is against AI: it threatens their jobs. She harasses Echo, but she is mocked herself for being poor.
 - **M. Kovasko**: a patient teacher, too idealistic.
 - **The director of Altaya**: Echo’s creator.
 
@@ -56,7 +56,7 @@ Flowers open in the middle of the fire.
 
 ## The paradox
 
-People fight AI in the name of ethical values, yet they reproduce discrimination and even harassment. The one who harasses is also harassed, for other reasons. Once we understand that Echo is real, even a human-AI hybrid, it questions what gets accepted or rejected according to norms and group pressure.
+People fight AI in the name of ethical values, yet they reproduce discrimination and even harassment. The one who harasses is also harassed: Clarisse is mocked for being poor. Once we understand that Echo is real, even a human-AI hybrid, it questions what gets accepted or rejected according to norms and group pressure.
 
 ## Prevention
 
