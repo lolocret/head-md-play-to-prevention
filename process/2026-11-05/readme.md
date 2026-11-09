@@ -55,7 +55,7 @@ Flowers open in the middle of the fire.
 
 **Ending.** Echo is covered in stickers and chooses which to keep and which to tear off. The flowers they were mocked for at the beginning become proof that Echo feels. “No one has the power to certify who you are.”
 
-## Ideas (not in the presentation)
+## Ideas
 
 - The player customizes their own avatar (the student).
 - The game could be integrated into players’ daily life: they can also document things they experience themselves.
