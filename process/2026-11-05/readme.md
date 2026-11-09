@@ -28,7 +28,7 @@ Digital people are everywhere, and schools now bring Kidya (technological hologr
 Each already has character traits, but our choices in the game redefine them.
 
 - **Echo**: a Kidya, a technological holographic kid with a physical presence. Clumsy, caring, curious, easily scared. Flowers open on them when they feel something.
-- **Clarisse**: an anti-technology student activist. She comes from a poor family working in the primary sector, which is why she is against technology: it threatens their jobs. She harasses Echo, but she is mocked herself for being poor.
+- **Clarisse**: an anti-technology student activist. She comes from a poor family working in the tertiary sector, which is why she is against technology: it replaced their jobs. She harasses Echo, but she is mocked herself for being poor.
 - **A student**: the witness. Wants to belong and not to be next. Can be kind or cruel depending on our choices: take part, stay quiet, leave the group, send screenshots to the teacher, or warn Echo.
 - **M. Kovasko**: a patient teacher, too idealistic.
 - **The director of Altaya**: Echo’s creator.
