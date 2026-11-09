@@ -112,6 +112,12 @@ section.in .d1{transition-delay:.12s}section.in .d2{transition-delay:.26s}sectio
 .cards.four .card h3{font-size:clamp(22px,2.4vw,38px)}
 .cards.four .card p{font-size:clamp(13px,1.3vw,19px)}
 .card .fl{color:var(--text)!important;font-style:normal}
+.cards.five{grid-template-columns:repeat(5,1fr);gap:1.1vw;max-width:1420px}
+.cards.five .card{padding:2.8vh 1vw}
+.cards.five .card h3{font-size:clamp(19px,1.95vw,31px)}
+.cards.five .card .role{font-size:clamp(10px,.95vw,14px);letter-spacing:.1em}
+.cards.five .card p{font-size:clamp(12px,1.12vw,17px)}
+.card.var{background:linear-gradient(#1c1c1e,#1c1c1e) padding-box,var(--grad) border-box;border:2px solid transparent}
 .acts.five{grid-template-columns:repeat(5,1fr);gap:1.1vw;max-width:1420px}
 .acts.five .act{padding:3vh 1.1vw}
 .acts.five .act p{font-size:clamp(13px,1.4vw,21px)}
@@ -123,7 +129,7 @@ section.in .d1{transition-delay:.12s}section.in .d2{transition-delay:.26s}sectio
 .outs b{color:var(--text);font-weight:600}
 .screen .q{margin-top:auto}
 .mrow strong{color:var(--text);font-weight:700}
-@media (max-width:900px){.cards.four,.acts.five,.outs{grid-template-columns:1fr}}
+@media (max-width:900px){.cards.four,.cards.five,.acts.five,.outs{grid-template-columns:1fr}}
 /* 2 — rivalry */
 .versus{display:grid;grid-template-columns:1fr auto 1fr;gap:2vw;align-items:stretch;width:100%;max-width:1300px;text-align:left}
 .versus .col{display:flex;flex-direction:column;gap:2.4vh;background:var(--panel);border-radius:28px;padding:4vh 2.4vw}
@@ -261,7 +267,7 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
   <div class="glow a"></div>
   <div class="eyebrow rv">Personas</div>
   <h2 class="rv d1" style="margin-bottom:4.5vh" data-fr='Les personnages.'>The cast.</h2>
-  <div class="cards four rv d2">
+  <div class="cards five rv d2">
     <div class="card">
       <h3>Echo</h3>
       <p class="role" data-fr='Enfant holographique technologique'>A technological holographic kid</p>
@@ -277,6 +283,14 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
       <p data-fr='<b>Conflit</b> elle harcèle Echo, mais est <b>elle-même moquée parce qu’elle est pauvre.</b>'><b>Conflict</b> she harasses Echo, yet is <b>mocked herself for being poor.</b></p>
       <p class="tr" data-fr='convaincue · fière · en colère'>convinced · proud · angry</p>
       <p class="fl" data-fr='Famille pauvre, qui travaille dans le secteur primaire : la technologie menace leurs emplois.'>Poor family, working in the primary sector: technology threatens their jobs.</p>
+    </div>
+    <div class="card var">
+      <h3 data-fr='Un·e élève'>A student</h3>
+      <p class="role" data-fr='Le·la témoin'>The witness</p>
+      <p data-fr='<b>Veut</b> appartenir au groupe, et ne pas être le·la prochain·e.'><b>Wants</b> to belong, and not to be next.</p>
+      <p data-fr='<b>Conflit</b> participer, se taire, ou prévenir Echo ?'><b>Conflict</b> take part, stay quiet, or warn Echo?</p>
+      <p class="tr" data-fr='sociable · indécis·e · peur d’être le·la prochain·e'>social · undecided · afraid of being next</p>
+      <p class="fl" data-fr='Gentil·le ou cruel·le : ça dépend de nos choix.'>Kind or cruel: it depends on our choices.</p>
     </div>
     <div class="card">
       <h3>M. Kovasko</h3>
@@ -294,7 +308,7 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
     </div>
   </div>
   <p class="sub rv d3" style="margin-top:4.5vh" data-fr='Chacun·e a déjà des traits de caractère, <b>mais nos choix les redéfinissent.</b>'>They each already have character traits, <b>but our choices redefine them.</b></p>
-  <aside class="notes" data-fr='Les personnages. Echo est un·e Kidya : maladroit·e, attentionné·e, curieux·se et vite effrayé·e, avec des fleurs qui s’ouvrent quand Echo ressent quelque chose. Clarisse vient d’une famille pauvre qui travaille dans le secteur primaire, c’est pourquoi elle est contre la technologie : elle menace leurs emplois. Elle mène le combat et harcèle Echo, mais elle est elle-même moquée parce qu’elle est pauvre. M. Kovasko est un prof patient et idéaliste. Et la directrice d’Altaya est la créatrice d’Echo. Chacun·e a déjà des traits de caractère, mais selon nos choix, ces traits sont redéfinis.'>The cast. Echo is a Kidya: clumsy, caring, curious and easily scared, with flowers that open when they feel something. Clarisse comes from a poor family working in the primary sector, which is why she is against technology: it threatens their jobs. She leads the fight and harasses Echo, but she is mocked herself for being poor. M. Kovasko is a patient, idealistic teacher. And the director of Altaya is Echo's creator. They each already have character traits, but depending on our choices, those traits get redefined.</aside>
+  <aside class="notes" data-fr='Les personnages. Echo est un·e Kidya : maladroit·e, attentionné·e, curieux·se et vite effrayé·e, avec des fleurs qui s’ouvrent quand Echo ressent quelque chose. Clarisse vient d’une famille pauvre qui travaille dans le secteur primaire, c’est pourquoi elle est contre la technologie : elle menace leurs emplois. Elle mène le combat et harcèle Echo, mais elle est elle-même moquée parce qu’elle est pauvre. Un·e élève est le·la témoin : iel veut appartenir au groupe et ne pas être le·la prochain·e, et peut être gentil·le ou cruel·le selon nos choix. M. Kovasko est un prof patient et idéaliste. Et la directrice d’Altaya est la créatrice d’Echo. Chacun·e a déjà des traits de caractère, mais selon nos choix, ces traits sont redéfinis.'>The cast. Echo is a Kidya: clumsy, caring, curious and easily scared, with flowers that open when they feel something. Clarisse comes from a poor family working in the primary sector, which is why she is against technology: it threatens their jobs. She leads the fight and harasses Echo, but she is mocked herself for being poor. A student is the witness: they want to belong and not be next, and can be kind or cruel depending on our choices. M. Kovasko is a patient, idealistic teacher. And the director of Altaya is Echo's creator. They each already have character traits, but depending on our choices, those traits get redefined.</aside>
 </section>
 
 <!-- Story -->
