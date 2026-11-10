@@ -29,7 +29,7 @@ Apps: Bouquet (class and group chats), Vitrine (stories), Pollen (anonymous acco
 
 ## Personas
 
-You only play one student of the class, with your own avatar; the other characters are all there. Each character already has traits, but our choices in the game redefine them.
+We play a student of the class, with your own avatar. Each character already has traits, but our choices in the game redefine them.
 
 - **Echo**: a holokid, a technological holographic kid with a physical presence. Clumsy, caring, curious, easily scared. Flowers open on them when they feel something.
 - **Clarisse**: an anti-technology student activist. She comes from a poor family working in the tertiary sector, which is why she is against technology: it replaced their jobs. She is not in La Serre either: she is mocked for being poor. She harasses Echo to find a place there.
