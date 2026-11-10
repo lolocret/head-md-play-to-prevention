@@ -21,7 +21,7 @@ Identity, body, boundaries, nomophobia.
 
 ## Setup
 
-Digital people are everywhere, and schools now bring Kidya (technological holographic kids with a physical presence) into human classes. Against them, anti-technology militants fight in the name of ethical values: humans only, in class and online.
+Digital people are everywhere, and schools now bring Kidya (technological holographic kids with a physical presence) into human classes. Against them, anti-technology militants fight in the name of ethical values: humans only, in class and online. Humans now only talk through their phones, no longer in real life (nomophobia).
 
 ## Personas
 
@@ -35,7 +35,7 @@ Each already has character traits, but our choices in the game redefine them.
 
 ## Story
 
-**1. The arrival.** First day, Echo is the only Kidya in the class. Kovasko gives a speech on diversity, then Echo introduces themself. To say hello, Echo reaches out to a student, and their hand passes right through the student’s. The awkwardness is instant, and the flowers open on their own. Silence, then laughter. A student films. 8:12 pm: the video is posted in the class chat (“you’re not even real”, “fake”, “your emotions are fictions”). 8:30 pm: memes, flowers on a loop, a “FAKE” sticker. 9:05 pm: a group “3B humains only”, without Echo. Next day: students laughing on their phones, Kovasko sees nothing.
+**1. The arrival.** First day, Echo is the only Kidya in the class, and nobody speaks out loud: humans only talk through their phones. Kovasko gives a speech on diversity, then Echo introduces themself. To say hello, Echo reaches out to a student, and their hand passes right through the student’s. The awkwardness is instant, and the flowers open on their own. Silence, then laughter. A student films. 8:12 pm: the video is posted in the class chat (“you’re not even real”, “fake”, “your emotions are fictions”). 8:30 pm: memes, flowers on a loop, a “FAKE” sticker. 9:05 pm: a group “3B humains only”, without Echo. Next day: students laughing on their phones, Kovasko sees nothing.
 
 **2. The labels.** Insults turn into stickers stuck on Echo. Clarisse’s group accuses Echo of privilege. The paradox: Echo is clumsy and alone, not perfect. 10:40 pm: a student writes that they are not doing well, and Echo is the only one to answer; the answer is thrown back: “you can’t relate, you’re not human”. Flowers closed, Echo hurt. 11:58 pm: an anonymous account without a photo posts a poll, “who can turn it off?”, then “you have no parents”. Seen by 24 people, nobody answers.
 
