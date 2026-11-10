@@ -21,7 +21,7 @@ Identity, body, boundaries, nomophobia.
 
 ## Setup
 
-Digital people are everywhere, and schools now bring Kidya (technological holographic kids with a physical presence) into human classes. Against them, anti-technology militants fight in the name of ethical values: humans only, in class and online. Humans now only talk through their phones, no longer in real life (nomophobia).
+Digital people are everywhere, and schools now bring Kidya (holographic and AI kids with a physical presence) into human classes. Kidya were created in the first place to help isolated children open up and accept their emotions. Against them, anti-technology militants fight in the name of ethical values: humans only, in class and online. Humans now only talk through their phones, no longer in real life (nomophobia).
 
 **La Serre.** A glass greenhouse on the roof of the school, where the popular students meet. It is also the name of their group on Bouquet. Being added is being “picked” (cueilli). Those in La Serre have access to everything that happens outside class. Echo stays outside, and so does Clarisse.
 
