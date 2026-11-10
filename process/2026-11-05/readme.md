@@ -11,7 +11,7 @@ A technological holographic kid everyone calls “fake” sets out in search of 
 
 **The setup.** In a world where schools welcome technological holographic kids, Echo is the only holokid in a human class.
 
-**The perspective.** All the characters are there, but we play only one: you, a student of the class, with your own avatar.
+**The perspective.** We play a student of the class, with your own avatar.
 
 **The tension.** Everyone calls Echo “fake”, and the group follows. Then someone asks: who can turn Echo off?
 
