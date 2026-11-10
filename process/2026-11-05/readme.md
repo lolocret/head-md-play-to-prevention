@@ -17,7 +17,7 @@ A technological holographic kid everyone calls “fake” sets out in search of 
 
 ## Keywords
 
-Identity, body, boundaries, homophobia.
+Identity, body, boundaries, nomophobia.
 
 ## Setup
 
