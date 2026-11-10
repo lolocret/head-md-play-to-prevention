@@ -146,7 +146,7 @@ section.in .d1{transition-delay:.12s}section.in .d2{transition-delay:.26s}sectio
 .versus .col{display:flex;flex-direction:column;gap:2.4vh;background:var(--panel);border-radius:28px;padding:4vh 2.4vw}
 .versus .col h3{font-size:clamp(30px,4vw,62px)}
 .versus .vs{align-self:center;display:grid;place-items:center;width:clamp(40px,4vw,64px);aspect-ratio:1;border-radius:50%;background:var(--bubble);color:var(--text);font-size:clamp(22px,2.6vw,40px);font-weight:500;line-height:1}
-#s2 .versus .col h3{font-size:clamp(26px,3.1vw,48px)}#s2 .versus .col .sub{font-size:clamp(16px,1.75vw,26px)}#s2>.sub{font-size:clamp(16px,1.75vw,26px);max-width:36em}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4vw;width:100%;max-width:1300px;margin-top:2.4vh;text-align:left}.facts>div{background:var(--panel);border-radius:20px;padding:2.2vh 1.6vw}.facts span{display:block;font-size:clamp(11px,1.1vw,16px);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-bottom:1vh}.facts p{font-size:clamp(14px,1.45vw,22px);line-height:1.3;color:var(--grey);font-weight:500}.facts b{color:var(--text);font-weight:600}#s2 .versus .col h3{font-size:clamp(28px,3.6vw,56px)}#s2 .versus .col .sub{font-size:clamp(16px,1.9vw,28px)}
 .cert{margin-top:auto;padding-top:2vh;font-size:clamp(12px,1.25vw,18px);font-weight:600;letter-spacing:.14em;color:var(--grey);text-transform:uppercase}
 .mixline{margin-top:6vh;text-align:center;font-size:clamp(20px,2.6vw,40px);font-weight:600;letter-spacing:-.01em}
 
@@ -222,7 +222,7 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
 #bar{position:fixed;left:0;top:0;height:2px;z-index:60;background:var(--grad);transition:width .4s}
 
 @media (max-width:900px){
-  .versus,.labels,.play{grid-template-columns:1fr}
+  .versus,.labels,.play,.facts{grid-template-columns:1fr}
   section{height:auto;min-height:100vh}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{transition:none;opacity:1;transform:none}}
@@ -261,7 +261,7 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
   <div class="versus">
     <div class="col">
       <h3 class="rv d1" data-fr='Le digital<br>est partout.'>Digital<br>is everywhere.</h3>
-      <p class="sub rv d2" data-fr='Les écoles intègrent des <b>holokids</b>, des enfants holographiques, dans les classes d’humains. Ils ont été créés pour <b>aider les enfants isolés</b> à s’ouvrir et à accepter leurs émotions.'>Schools bring <b>holokids</b>, holographic kids, into human classes. They were created to <b>help isolated children</b> open up and accept their emotions.</p>
+      <p class="sub rv d2" data-fr='Les écoles intègrent des <b>holokids</b> dans les classes d’humains. Créés pour <b>aider les enfants isolés</b> à s’ouvrir et à accepter leurs émotions.'>Schools bring <b>holokids</b> into human classes. Created to <b>help isolated children</b> open up and accept their emotions.</p>
       <span class="cert rv d3" data-fr='Conçus pour aider · programmes de diversité'>Made to help · diversity programs</span>
     </div>
     <div class="vs rv d3">vs</div>
@@ -271,8 +271,11 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
       <span class="cert rv d3" data-fr='Rejetés · « turn it off »'>Rejected · “turn it off”</span>
     </div>
   </div>
-  <p class="sub rv d4" style="margin-top:4vh" data-fr='Dans ce monde, <b>presque tout est généré.</b> Ce qui est fait par des humains, <b>non généré,</b> est ce qui a de la valeur : le <b>secteur primaire</b> est devenu le plus précieux, le <b>tertiaire</b> le plus dévalorisé, remplacé par la technologie.'>In this world, <b>almost everything is generated.</b> What is made by humans, <b>not generated,</b> is what has value: the <b>primary sector</b> became the most valuable, the <b>tertiary sector</b> the most devalued, replaced by technology.</p>
-  <p class="sub rv d4" style="margin-top:2.5vh" data-fr='Et les humains <b>ne se parlent plus que par téléphone</b>, plus dans la vraie vie.'>And humans <b>only talk through their phones</b>, no longer in real life.</p>
+  <div class="facts">
+    <div class="rv d4"><span data-fr='Généré'>Generated</span><p data-fr='Presque tout est généré. Ce que font les humains, <b>non généré,</b> a de la valeur.'>Almost everything is generated. What humans make, <b>not generated,</b> has value.</p></div>
+    <div class="rv d4"><span data-fr='Secteurs'>Sectors</span><p data-fr='Le <b>primaire</b> est devenu le plus précieux. Le <b>tertiaire</b> le plus dévalorisé, remplacé par la technologie.'>The <b>primary</b> sector became the most valuable. The <b>tertiary</b> the most devalued, replaced by technology.</p></div>
+    <div class="rv d5"><span data-fr='Téléphones'>Phones</span><p data-fr='Les humains <b>ne se parlent plus que par téléphone,</b> plus dans la vraie vie.'>Humans <b>only talk through their phones,</b> no longer in real life.</p></div>
+  </div>
   <aside class="notes" data-fr='Le monde est coupé en deux. Le digital est partout, et les écoles intègrent désormais des holokids, des enfants holographiques, dans les classes d’humains. Ils ont été créés à l’origine pour aider les enfants isolés à s’ouvrir et à accepter leurs émotions. Dans ce monde, presque tout est généré : ce qui est fait par des humains, non généré, a de la valeur. Le secteur primaire est devenu le plus précieux, le tertiaire le plus dévalorisé, remplacé par la technologie. Face à eux, des militants anti-technologie se battent au nom de leur perception de l’éthique : humains seulement, en classe et en ligne. Et les humains ne se parlent plus que par téléphone, plus dans la vraie vie.'>The world is split in two. Digital is everywhere, and schools now bring holokids, holographic kids, into human classes. They were created in the first place to help isolated children open up and accept their emotions. In this world almost everything is generated: what is made by humans, not generated, has value. The primary sector became the most valuable, the tertiary sector the most devalued, replaced by technology. Against them, anti-technology militants fight in the name of their perception of ethics: humans only, in class and online. And humans now only talk through their phones, no longer in real life.</aside>
 </section>
 
