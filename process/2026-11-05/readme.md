@@ -43,7 +43,7 @@ We play a student of the class, with your own avatar. Each character already has
 - First impression: curiosity, surprise or unease (“weird”).
 - Attitude: look at Echo with curiosity or with disdain.
 
-**2. The first “Hello”.** Echo greets the class and nobody answers. Echo reaches out to a student, but the program glitches and their hand passes through. An awkward moment, laughter in the class. Under stress, their flowers open clumsily. A student films the scene and posts the video in the class group, with “You’re not real” and “You’re a fake”.
+**2. The first “Hello”.** Echo greets the class and nobody answers. He reaches out to a student, but his program glitches and his hand passes through. An awkward moment, laughter in the class. Under stress, his flowers open clumsily. A student films the scene and posts the video in the class WhatsApp group, with “You’re not real” and “You’re a fake”.
 
 **3. The Bouquet.** The Bouquet is the class’s private group, and Echo is excluded from it. A meme mocking Echo circulates.
 - Like the post.
