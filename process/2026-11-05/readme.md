@@ -5,7 +5,7 @@ Nouria DA ROS
 
 ## Project
 
-A technological holographic kid everyone calls “fake” sets out in search of what’s real, and discovers that their worth doesn’t depend on the label others stick on them.
+A technological holographic kid everyone calls “fake” sets out in search of what’s real, wants above all to be accepted, and discovers that their worth doesn’t depend on the label others stick on them.
 
 ## Pitch
 
