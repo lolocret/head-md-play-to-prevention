@@ -40,8 +40,9 @@ We play a student of the class, with your own avatar. Each character already has
 ## Story
 
 **1. The arrival.** First day, Echo is the only holokid of 3B. Kovasko gives a speech on diversity, then Echo introduces themself out loud, while no one speaks in class anymore. To say hello, Echo reaches out to a boy, and their hand passes through his. The awkwardness is instant, and the flowers open on their own. Silence, then laughter. A student films.
+- Choices along the story: first impression (curiosity or disdain); like, comment or stay out of the Bouquet meme; tell Kovasko, say nothing or laugh along; stop the hack of Echo’s mocking stickers, watch, or make a sticker too.
 - 8:12 pm: the video is posted on Bouquet, in the class group (“you’re not even real”, “fake”, “your emotions are fictions”).
-- 8:30 pm: memes, flowers on a loop, the “FAKE” sticker. The flowers become “fleurette”, a coded homophobic insult.
+- 8:30 pm: memes, flowers on a loop, the “FAKE” sticker. The flowers become “fleurette”, a mocking nickname.
 - 9:05 pm: a group “Humans of 3B only” is created, without Echo.
 
 **2. La Serre.** Next day, the class is silent but laughs on their phones. Kovasko sees nothing. At break, Echo follows the others to the roof. At the door of La Serre, a student blocks the way: “It’s reserved for the real ones.” Echo tries to enter anyway: their hologram crackles against the glass, the laughter starts again, and the door closes. Echo sees the stories of La Serre on Vitrine: photos of parties and outings where they never appear. You, the witness, are picked: you join La Serre. Staying has a price: react to the posts, laugh with the others, not defend Echo. Otherwise your Roots with the group weaken. Clarisse is not in La Serre either: she is mocked for being poor, and harassing Echo is her way to find a place there.
@@ -77,6 +78,7 @@ If someone reacts, the plan fails. The witness can open the door to Echo, even i
 
 - The player customizes their own avatar (the student).
 - The game is integrated into players’ daily life: a mood journal, where flowers open or close like Echo’s, lets them document what they experience.
+- Each choice quietly changes the bond between the player and Echo: close enough, and Echo’s own story (their lore) unlocks; otherwise that part stays closed.
 - At the end, each player gets a role based on their choices (witness, accomplice or ally), to open a conversation, not to judge.
 
 ## The paradox
