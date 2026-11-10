@@ -60,6 +60,14 @@ We play a student of the class, with your own avatar. Each character already has
 - Watch without acting.
 - Make a sticker too.
 
+## Endings
+
+A harassment gauge tracks how much the player harasses Echo.
+
+- **If you harass:** go too far and Echo short-circuits and starts harassing the harassers.
+- **If you stay passive:** the plan to turn Echo off goes ahead.
+- **If you help Echo:** the plan doesn’t happen. You go through Echo’s family story with them, and things get better in class: no more bullying, no to cyberbullying.
+
 ## What La Serre brings
 
 - The witness has an interest in staying quiet: they risk losing their place in La Serre, not only being afraid.
