@@ -123,6 +123,7 @@ section.in .d1{transition-delay:.12s}section.in .d2{transition-delay:.26s}sectio
 .acts.three .act .n{color:var(--text);font-size:clamp(16px,1.9vw,28px);letter-spacing:0;text-transform:none;font-weight:700}
 .acts.three .act p{font-size:clamp(13px,1.32vw,19px)}
 .acts.three .act .ch span{font-size:clamp(13px,1.3vw,19px)}
+.acts.one{grid-template-columns:1fr;max-width:1000px}.acts.one .act p{font-size:clamp(14px,1.5vw,21px)}.act p.r{color:var(--text);font-weight:500}.act p.r i{font-style:normal;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .acts.two{grid-template-columns:repeat(2,1fr);gap:1.8vw;max-width:1100px}
 .acts.two .act{padding:3.6vh 2vw}
 .acts.two .act p{font-size:clamp(15px,1.6vw,23px)}
@@ -274,63 +275,95 @@ body.show-notes section.in .notes::before{content:"NOTES";display:block;color:va
   <aside class="notes" data-fr='Programme Holo’Kids, bientôt dans votre classe. Echo est le premier enfant hologramme du programme Holo’Kids, développé par Altaya, un institut de recherche expérimentale sur les nouvelles technologies. Les Holo’Kids sont intégrés dans les écoles comme outils pédagogiques. Echo exprime ses émotions par des fleurs qui s’ouvrent ou se referment. Chaque choix modifie discrètement le lien entre le joueur et Echo, et un lien suffisant débloque l’histoire d’Echo.'>Holo’Kids program, coming soon to your class. Echo is the first hologram child of the Holo’Kids program, developed by Altaya, an experimental research institute on new technologies. Holo’Kids are integrated into schools as teaching tools. Echo expresses their emotions through flowers that open or close. Each choice quietly changes the bond between the player and Echo, and a strong enough bond unlocks Echo’s story.</aside>
 </section>
 
-<!-- Story -->
 <section id="s-story">
   <div class="glow c"></div>
   <div class="eyebrow rv" data-fr='L’histoire'>The story</div>
-  <h2 class="rv d1" style="margin-bottom:4vh" data-fr='Déroulé.'>Walkthrough.</h2>
-  <div class="acts three">
+  <div class="acts one">
     <div class="act rv d1">
-      <span class="n" data-fr='Scène 1 : L’arrivée'>Scene 1: The arrival</span>
-      <p data-fr='Lors d’une intervention sur le thème de la diversité, le professeur M. Kovasko présente Echo à la classe pour la première fois.'>During a talk on diversity, the teacher M. Kovasko introduces Echo to the class for the first time.</p>
-      <div class="ch">
-        <span data-fr='<i>Première impression :</i> curiosité, étonnement ou malaise (« bizarre »)'><i>First impression:</i> curiosity, surprise or unease (“weird”)</span>
-        <span data-fr='<i>Attitude :</i> regarder Echo avec curiosité ou avec dédain'><i>Attitude:</i> look at Echo with curiosity or with disdain</span>
-      </div>
-    </div>
-    <div class="act rv d2">
-      <span class="n" data-fr='Scène 2 : Le premier « Bonjour »'>Scene 2: The first “Hello”</span>
-      <p data-fr='Echo salue la classe et personne ne lui répond. Il tend la main à un·e élève, mais son programme bugue et sa main passe à travers. Moment gênant, rires dans la classe. Sous le stress, ses fleurs s’ouvrent maladroitement. Un·e élève filme la scène et poste la vidéo dans le groupe WhatsApp de la classe, accompagnée de « You’re not real » et « You’re a fake ».'>Echo greets the class and nobody answers. He reaches out to a student, but his program glitches and his hand passes through. An awkward moment, laughter in the class. Under stress, his flowers open clumsily. A student films the scene and posts the video in the class WhatsApp group, with “You’re not real” and “You’re a fake”.</p>
-    </div>
-    <div class="act rv d3">
-      <span class="n" data-fr='Scène 3 : Le Bouquet'>Scene 3: The Bouquet</span>
-      <p data-fr='« Le Bouquet » est le groupe privé de la classe, dont Echo est exclu. Un mème moquant Echo y circule.'>“The Bouquet” is the class’s private group, which Echo is excluded from. A meme mocking Echo circulates there.</p>
-      <div class="ch">
-        <span data-fr='Aimer la publication'>Like the post</span>
-        <span data-fr='Écrire un commentaire'>Write a comment</span>
-        <span data-fr='Ne pas réagir et observer'>Don’t react and watch</span>
-      </div>
+      <span class="n" data-fr='L’arrivée.'>The arrival.</span>
+      <p data-fr='Premier jour, Echo est le seul holokid de la classe 3B. Kovasko fait un discours sur la diversité, puis Echo se présente à voix haute, tandis que plus personne ne parle en classe.'>First day, Echo is the only holokid in class 3B. Kovasko gives a speech on diversity, then Echo introduces themself out loud, while no one speaks in class anymore.</p>
+      <p class="r" data-fr='<i>Réagir →</i> regarder avec dédain, sourire, pas de réaction'><i>React →</i> look with disdain, smile, no reaction</p>
+      <p data-fr='Pour dire bonjour, Echo tend la main vers un garçon, et leurs mains se croisent. Le malaise est immédiat, et les fleurs s’ouvrent d’elles-mêmes. Silence, puis rires. Un élève filme.'>To say hello, Echo reaches out to a boy, and their hands cross. The unease is immediate, and the flowers open on their own. Silence, then laughter. A student films.</p>
+      <p class="r" data-fr='<i>Réagir :</i> rigoler avec la classe → oui/non'><i>React:</i> laugh with the class → yes/no</p>
+      <p data-fr='<b>0h12 :</b> la vidéo est publiée sur 3B groupe, dans le groupe de classe (« tu n’es même pas réel », « faux », « tes émotions sont des fictions »).'><b>0:12:</b> the video is posted on the 3B group, in the class group (“you’re not even real”, “fake”, “your emotions are fictions”).</p>
+      <p data-fr='<b>0h30 :</b> mème d’Echo qui se fait traverser en boucle, avec écrit (get out of here u’re not even real).'><b>0:30:</b> a meme of Echo being walked through on a loop, captioned (get out of here u’re not even real).</p>
+      <p class="r" data-fr='<i>Réaction →</i> liker le mème, ne pas réagir, écrire que c’est méchant'><i>Reaction →</i> like the meme, don’t react, write that it’s mean</p>
+      <p data-fr='<b>1h05 :</b> un groupe « Humains de 3B uniquement » est créé, sans Echo.'><b>1:05:</b> a group “Humans of 3B only” is created, without Echo.</p>
     </div>
   </div>
-  <aside class="notes" data-fr='Scène 1, l’arrivée : lors d’une intervention sur la diversité, M. Kovasko présente Echo à la classe pour la première fois. Scène 2, le premier bonjour : Echo salue, personne ne répond, sa main passe à travers celle d’un·e élève, ses fleurs s’ouvrent maladroitement, et la vidéo est postée dans le groupe WhatsApp de la classe avec « You’re not real » et « You’re a fake ». Scène 3, le Bouquet : le groupe privé de la classe, dont Echo est exclu, fait circuler un mème.'>Scene 1, the arrival: during a talk on diversity, M. Kovasko introduces Echo to the class for the first time. Scene 2, the first hello: Echo greets the class, nobody answers, his hand passes through a student's, his flowers open clumsily, and the video is posted in the class WhatsApp group with "You're not real" and "You're a fake". Scene 3, the Bouquet: the class's private group, which Echo is excluded from, passes around a meme.</aside>
+  <aside class="notes" data-fr='Premier jour, Echo est le seul holokid de la classe 3B. Kovasko fait un discours sur la diversité, puis Echo se présente à voix haute, tandis que plus personne ne parle en classe. Réagir → regarder avec dédain, sourire, pas de réaction Pour dire bonjour, Echo tend la main vers un garçon, et leurs mains se croisent. Le malaise est immédiat, et les fleurs s’ouvrent d’elles-mêmes. Silence, puis rires. Un élève filme. Réagir : rigoler avec la classe → oui/non 0h12 : la vidéo est publiée sur 3B groupe, dans le groupe de classe (« tu n’es même pas réel », « faux », « tes émotions sont des fictions »). 0h30 : mème d’Echo qui se fait traverser en boucle, avec écrit (get out of here u’re not even real). Réaction → liker le mème, ne pas réagir, écrire que c’est méchant 1h05 : un groupe « Humains de 3B uniquement » est créé, sans Echo.'>First day, Echo is the only holokid in class 3B. Kovasko gives a speech on diversity, then Echo introduces themself out loud, while no one speaks in class anymore. React → look with disdain, smile, no reaction To say hello, Echo reaches out to a boy, and their hands cross. The unease is immediate, and the flowers open on their own. Silence, then laughter. A student films. React: laugh with the class → yes/no 0:12: the video is posted on the 3B group, in the class group (“you’re not even real”, “fake”, “your emotions are fictions”). 0:30: a meme of Echo being walked through on a loop, captioned (get out of here u’re not even real). Reaction → like the meme, don’t react, write that it’s mean 1:05: a group “Humans of 3B only” is created, without Echo.</aside>
 </section>
 
-<!-- Story 2 -->
 <section id="s-story2">
   <div class="glow a"></div>
   <div class="eyebrow rv" data-fr='L’histoire'>The story</div>
-  <h2 class="rv d1" style="margin-bottom:4vh" data-fr='Déroulé (suite).'>Walkthrough (continued).</h2>
   <div class="acts two">
     <div class="act rv d1">
-      <span class="n" data-fr='Scène 4 : Le lendemain'>Scene 4: The next day</span>
-      <p data-fr='Les moqueries contre Echo continuent en classe.'>The mockery of Echo goes on in class.</p>
-      <div class="ch">
-        <span data-fr='En parler au professeur'>Tell the teacher</span>
-        <span data-fr='Ne rien dire'>Say nothing</span>
-        <span data-fr='Rire avec les autres'>Laugh along</span>
-      </div>
+      <span class="n" data-fr='La Serre.'>La Serre.</span>
+      <p data-fr='Le lendemain, la classe est silencieuse, mais des rires fusent sur leurs téléphones. Kovasko ne remarque rien.'>The next day, the class is silent, but laughter bursts out on their phones. Kovasko notices nothing.</p>
+      <p class="r" data-fr='<i>Réaction →</i> parler à M. Kovasko, ne rien faire, rire avec les autres'><i>Reaction →</i> talk to Mr. Kovasko, do nothing, laugh with the others</p>
+      <p data-fr='À la récréation, Echo suit les autres sur le toit. Devant la porte de La Serre, un élève lui barre le passage : « C’est réservé aux vrais. » Echo tente d’entrer malgré tout.'>At break, Echo follows the others to the roof. In front of La Serre’s door, a student blocks the way: “It’s reserved for the real ones.” Echo tries to enter anyway.</p>
+      <p class="r" data-fr='<i>Réactions →</i> lui ouvrir, ne rien faire, hacker la porte de La Serre pour créer un piège qui électrocute Echo et le prendre en photo'><i>Reactions →</i> open it for them, do nothing, hack La Serre’s door to create a trap that electrocutes Echo and take a photo</p>
+      <p data-fr='Clarisse n’est pas à La Serre non plus : moquée pour sa pauvreté, elle harcèle Echo pour tenter de s’y faire une place.'>Clarisse isn’t in La Serre either: mocked for her poverty, she harasses Echo to try to make a place for herself there.</p>
     </div>
     <div class="act rv d2">
-      <span class="n" data-fr='Scène 5 : Le piratage'>Scene 5: The hack</span>
-      <p data-fr='Un·e élève pirate le système d’Echo pour lui envoyer des stickers numériques moqueurs.'>A student hacks Echo’s system to send it mocking digital stickers.</p>
-      <div class="ch">
-        <span data-fr='Intervenir pour l’en empêcher'>Step in to stop it</span>
-        <span data-fr='Regarder sans agir'>Watch without acting</span>
-        <span data-fr='Créer un sticker à son tour'>Make a sticker too</span>
-      </div>
+      <span class="n" data-fr='Les étiquettes.'>The labels.</span>
+      <p data-fr='Les élèves arrivent à pirater le système d’Echo pour écrire dans son dos des insultes.'>The students manage to hack Echo’s system to write insults behind their back.</p>
+      <p class="r" data-fr='<i>Réaction →</i> écrire une insulte, prévenir Echo, ne pas réagir, retirer les insultes'><i>Reaction →</i> write an insult, warn Echo, don’t react, remove the insults</p>
+      <p data-fr='Clarisse qualifie Echo de « voleuse de vie » : elle explique que c’est à cause de gens comme iel que sa famille est devenue pauvre et qu’elle se fait moquer. Le paradoxe : Echo est gentil·le et veut juste aider.'>Clarisse calls Echo a “life thief”: she explains that it’s because of people like them that her family became poor and that she gets mocked. The paradox: Echo is kind and just wants to help.</p>
+      <p data-fr='<b>2h40 :</b> dans le groupe WhatsApp, un élève écrit qu’il ne va pas bien. Echo est le seul à répondre.'><b>2:40:</b> in the WhatsApp group, a student writes that he is not okay. Echo is the only one to answer.</p>
+      <p data-fr='La réponse est rejetée : « Tu ne peux pas comprendre, tu n’es pas humain. » Echo est blessé.'>The answer is rejected: “You can’t understand, you’re not human.” Echo is hurt.</p>
     </div>
   </div>
-  <aside class="notes" data-fr='Scène 4, le lendemain : les moqueries contre Echo continuent en classe. Scène 5, le piratage : un·e élève pirate le système d’Echo pour lui envoyer des stickers numériques moqueurs.'>Scene 4, the next day: the mockery of Echo goes on in class. Scene 5, the hack: a student hacks Echo's system to send it mocking digital stickers.</aside>
+  <aside class="notes" data-fr='Le lendemain, la classe est silencieuse, mais des rires fusent sur leurs téléphones. Kovasko ne remarque rien. Réaction → parler à M. Kovasko, ne rien faire, rire avec les autres À la récréation, Echo suit les autres sur le toit. Devant la porte de La Serre, un élève lui barre le passage : « C’est réservé aux vrais. » Echo tente d’entrer malgré tout. Réactions → lui ouvrir, ne rien faire, hacker la porte de La Serre pour créer un piège qui électrocute Echo et le prendre en photo Clarisse n’est pas à La Serre non plus : moquée pour sa pauvreté, elle harcèle Echo pour tenter de s’y faire une place. Les élèves arrivent à pirater le système d’Echo pour écrire dans son dos des insultes. Réaction → écrire une insulte, prévenir Echo, ne pas réagir, retirer les insultes Clarisse qualifie Echo de « voleuse de vie » : elle explique que c’est à cause de gens comme iel que sa famille est devenue pauvre et qu’elle se fait moquer. Le paradoxe : Echo est gentil·le et veut juste aider. 2h40 : dans le groupe WhatsApp, un élève écrit qu’il ne va pas bien. Echo est le seul à répondre. La réponse est rejetée : « Tu ne peux pas comprendre, tu n’es pas humain. » Echo est blessé.'>The next day, the class is silent, but laughter bursts out on their phones. Kovasko notices nothing. Reaction → talk to Mr. Kovasko, do nothing, laugh with the others At break, Echo follows the others to the roof. In front of La Serre’s door, a student blocks the way: “It’s reserved for the real ones.” Echo tries to enter anyway. Reactions → open it for them, do nothing, hack La Serre’s door to create a trap that electrocutes Echo and take a photo Clarisse isn’t in La Serre either: mocked for her poverty, she harasses Echo to try to make a place for herself there. The students manage to hack Echo’s system to write insults behind their back. Reaction → write an insult, warn Echo, don’t react, remove the insults Clarisse calls Echo a “life thief”: she explains that it’s because of people like them that her family became poor and that she gets mocked. The paradox: Echo is kind and just wants to help. 2:40: in the WhatsApp group, a student writes that he is not okay. Echo is the only one to answer. The answer is rejected: “You can’t understand, you’re not human.” Echo is hurt.</aside>
+</section>
+
+<section id="s-story3">
+  <div class="glow b"></div>
+  <div class="eyebrow rv" data-fr='L’histoire'>The story</div>
+  <div class="acts two">
+    <div class="act rv d1">
+      <span class="n" data-fr='« Éteignez-la ».'>“Turn it off”.</span>
+      <p data-fr='Clarisse crée un groupe privé : « On ne harcèle personne, c’est qu’une machine. » Les étudiants sont ajoutés de force et contraints de rester (« Êtes-vous avec nous ou avec la machine ? », « Si vous ne dites rien, vous êtes d’accord »). La peur d’être la prochaine victime est omniprésente.'>Clarisse creates a private group: “We’re not harassing anyone, it’s just a machine.” Students are added by force and forced to stay (“Are you with us or with the machine?”, “If you say nothing, you agree”). Fear of being the next victim is everywhere.</p>
+      <p data-fr='Il existe un code d’arrêt, <b>KIPE-SAFE007</b>. Le plan : vendredi, après les cours, éteindre Echo et filmer la scène. Clarisse partage son plan à La Serre : pour la première fois, les étudiants populaires lui donnent l’accès. Le témoin comprend : Echo est devenu le nouveau bouc émissaire.'>There is a shutdown code, <b>KIPE-SAFE007</b>. The plan: Friday, after class, switch Echo off and film the scene. Clarisse shares her plan in La Serre: for the first time, the popular students give her access. The witness understands: Echo has become the new scapegoat.</p>
+      <p class="r" data-fr='<i>Le témoin (joueur) choisit maintenant, et les conséquences viendront plus tard :</i> participer, rester silencieux, quitter le groupe, envoyer des captures d’écran à Kovasko, avertir Echo.'><i>The witness (player) chooses now, and the consequences come later:</i> take part, stay quiet, leave the group, send screenshots to Kovasko, warn Echo.</p>
+    </div>
+    <div class="act rv d2">
+      <span class="n" data-fr='Les origines.'>The origins.</span>
+      <p data-fr='« Tu n’as pas de parents » hante Echo. Echo enquête, seul·e ou avec le témoin si le joueur l’a averti à l’étape 4. Fragments de mémoire, archives, une piste jusqu’à Altaya. Altaya est une petite équipe qui a créé le programme Holokids pour les enfants isolés, incapables d’exprimer leurs sentiments. … Echo comprend enfin qui iel est et à quoi iel sert.'>“You have no parents” haunts Echo. Echo investigates, alone, or with the witness if the player warned them in step 4. Memory fragments, archives, a trail to Altaya. Altaya is a small team that created the Holokids program for isolated children, unable to express their feelings. … Echo finally understands who they are and what they are for.</p>
+    </div>
+  </div>
+  <aside class="notes" data-fr='Clarisse crée un groupe privé : « On ne harcèle personne, c’est qu’une machine. » Les étudiants sont ajoutés de force et contraints de rester (« Êtes-vous avec nous ou avec la machine ? », « Si vous ne dites rien, vous êtes d’accord »). La peur d’être la prochaine victime est omniprésente. Il existe un code d’arrêt, KIPE-SAFE007. Le plan : vendredi, après les cours, éteindre Echo et filmer la scène. Clarisse partage son plan à La Serre : pour la première fois, les étudiants populaires lui donnent l’accès. Le témoin comprend : Echo est devenu le nouveau bouc émissaire. Le témoin (joueur) choisit maintenant, et les conséquences viendront plus tard : participer, rester silencieux, quitter le groupe, envoyer des captures d’écran à Kovasko, avertir Echo. « Tu n’as pas de parents » hante Echo. Echo enquête, seul·e ou avec le témoin si le joueur l’a averti à l’étape 4. Fragments de mémoire, archives, une piste jusqu’à Altaya. Altaya est une petite équipe qui a créé le programme Holokids pour les enfants isolés, incapables d’exprimer leurs sentiments. … Echo comprend enfin qui iel est et à quoi iel sert.'>Clarisse creates a private group: “We’re not harassing anyone, it’s just a machine.” Students are added by force and forced to stay (“Are you with us or with the machine?”, “If you say nothing, you agree”). Fear of being the next victim is everywhere. There is a shutdown code, KIPE-SAFE007. The plan: Friday, after class, switch Echo off and film the scene. Clarisse shares her plan in La Serre: for the first time, the popular students give her access. The witness understands: Echo has become the new scapegoat. The witness (player) chooses now, and the consequences come later: take part, stay quiet, leave the group, send screenshots to Kovasko, warn Echo. “You have no parents” haunts Echo. Echo investigates, alone, or with the witness if the player warned them in step 4. Memory fragments, archives, a trail to Altaya. Altaya is a small team that created the Holokids program for isolated children, unable to express their feelings. … Echo finally understands who they are and what they are for.</aside>
+</section>
+
+<section id="s-story4">
+  <div class="glow c"></div>
+  <div class="eyebrow rv" data-fr='L’histoire'>The story</div>
+  <div class="acts one">
+    <div class="act rv d1">
+      <span class="n" data-fr='Vendredi, après les cours.'>Friday, after class.</span>
+      <p data-fr='Le rendez-vous est fixé sur le toit, devant La Serre. Echo sait maintenant son identité. La classe se vide, le groupe attend, quelqu’un sort son téléphone pour filmer.'>The meeting is set on the roof, in front of La Serre. Echo now knows their identity. The class empties, the group waits, someone takes out their phone to film.</p>
+      <p class="r" data-fr='<i>Le témoin :</i> filmer, se taire, partir, contredire le groupe devant tout le monde, ou ouvrir la porte à Echo.'><i>The witness:</i> film, stay quiet, leave, contradict the group in front of everyone, or open the door to Echo.</p>
+      <p class="r" data-fr='<i>Kovasko :</i> il perçoit des murmures et un Echo isolé ; il intervient ou attend.'><i>Kovasko:</i> he notices whispers and an isolated Echo; he steps in or waits.</p>
+      <p class="r" data-fr='<i>Echo :</i> fuir, se taire ou parler à haute voix, dans une classe où plus personne ne parle.'><i>Echo:</i> flee, stay quiet or speak out loud, in a class where no one speaks anymore.</p>
+      <p class="r" data-fr='<i>Clarisse :</i> taper le code, ou hésiter.'><i>Clarisse:</i> type the code, or hesitate.</p>
+      <p data-fr='Si personne ne réagit, Echo est éteint·e contre la porte vitrée et la vidéo est affichée à La Serre. Le code envoie un signal à Altaya, qui redémarre Echo quelques jours plus tard. Mais Echo ne revient pas en 3B, et son siège reste vide.'>If nobody reacts, Echo is switched off against the glass door and the video is displayed in La Serre. The code sends a signal to Altaya, who restarts Echo a few days later. But Echo doesn’t come back to 3B, and their seat stays empty.</p>
+      <p data-fr='Si quelqu’un réagit, le plan échoue. Le témoin peut ouvrir la porte à Echo, même s’il est rejeté par le groupe. Clarisse comprend qu’il n’y avait pas de machine à combattre, seulement le groupe, et le doute s’installe. Echo reste.'>If someone reacts, the plan fails. The witness can open the door to Echo, even if rejected by the group. Clarisse realizes there was no machine to fight, only the group, and doubt sets in. Echo stays.</p>
+    </div>
+  </div>
+  <aside class="notes" data-fr='Le rendez-vous est fixé sur le toit, devant La Serre. Echo sait maintenant son identité. La classe se vide, le groupe attend, quelqu’un sort son téléphone pour filmer. Le témoin : filmer, se taire, partir, contredire le groupe devant tout le monde, ou ouvrir la porte à Echo. Kovasko : il perçoit des murmures et un Echo isolé ; il intervient ou attend. Echo : fuir, se taire ou parler à haute voix, dans une classe où plus personne ne parle. Clarisse : taper le code, ou hésiter. Si personne ne réagit, Echo est éteint·e contre la porte vitrée et la vidéo est affichée à La Serre. Le code envoie un signal à Altaya, qui redémarre Echo quelques jours plus tard. Mais Echo ne revient pas en 3B, et son siège reste vide. Si quelqu’un réagit, le plan échoue. Le témoin peut ouvrir la porte à Echo, même s’il est rejeté par le groupe. Clarisse comprend qu’il n’y avait pas de machine à combattre, seulement le groupe, et le doute s’installe. Echo reste.'>The meeting is set on the roof, in front of La Serre. Echo now knows their identity. The class empties, the group waits, someone takes out their phone to film. The witness: film, stay quiet, leave, contradict the group in front of everyone, or open the door to Echo. Kovasko: he notices whispers and an isolated Echo; he steps in or waits. Echo: flee, stay quiet or speak out loud, in a class where no one speaks anymore. Clarisse: type the code, or hesitate. If nobody reacts, Echo is switched off against the glass door and the video is displayed in La Serre. The code sends a signal to Altaya, who restarts Echo a few days later. But Echo doesn’t come back to 3B, and their seat stays empty. If someone reacts, the plan fails. The witness can open the door to Echo, even if rejected by the group. Clarisse realizes there was no machine to fight, only the group, and doubt sets in. Echo stays.</aside>
+</section>
+
+<section id="s-story5">
+  <div class="glow a"></div>
+  <div class="eyebrow rv" data-fr='L’histoire'>The story</div>
+  <div class="acts one">
+    <div class="act rv d1">
+      <span class="n" data-fr='Fin.'>Ending.</span>
+      <p data-fr='Echo, couvert·e d’étiquettes, choisit lesquelles garder et lesquelles arracher. Les fleurs qui lui ont valu des moqueries au début deviennent la preuve qu’Echo ressent des choses. Echo n’entre pas à La Serre : iel plante ses fleurs ailleurs, dans la cour, à la vue de tous, là où personne ne décide qui entre et qui reste. « Personne n’a le pouvoir de définir qui tu es. »'>Echo, covered in labels, chooses which to keep and which to tear off. The flowers they were mocked for at the beginning become proof that Echo feels things. Echo doesn’t enter La Serre: they plant their flowers elsewhere, in the courtyard, in plain sight, where no one decides who gets in and who stays out. “No one has the power to define who you are.”</p>
+    </div>
+  </div>
+  <aside class="notes" data-fr='Echo, couvert·e d’étiquettes, choisit lesquelles garder et lesquelles arracher. Les fleurs qui lui ont valu des moqueries au début deviennent la preuve qu’Echo ressent des choses. Echo n’entre pas à La Serre : iel plante ses fleurs ailleurs, dans la cour, à la vue de tous, là où personne ne décide qui entre et qui reste. « Personne n’a le pouvoir de définir qui tu es. »'>Echo, covered in labels, chooses which to keep and which to tear off. The flowers they were mocked for at the beginning become proof that Echo feels things. Echo doesn’t enter La Serre: they plant their flowers elsewhere, in the courtyard, in plain sight, where no one decides who gets in and who stays out. “No one has the power to define who you are.”</aside>
 </section>
 
 <!-- Endings -->
