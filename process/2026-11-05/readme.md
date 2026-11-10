@@ -87,10 +87,6 @@ The meeting is set on the roof, in front of La Serre. Echo now knows their ident
 
 - *Clarisse:* type the code, or hesitate.
 
-If nobody reacts, Echo is switched off against the glass door and the video is displayed in La Serre. The code sends a signal to Altaya, who restarts Echo a few days later. But Echo doesn’t come back to 3B, and their seat stays empty.
-
-If someone reacts, the plan fails. The witness can open the door to Echo, even if rejected by the group. Clarisse realizes there was no machine to fight, only the group, and doubt sets in. Echo stays.
-
 **Ending.**
 
 Echo, covered in labels, chooses which to keep and which to tear off. The flowers they were mocked for at the beginning become proof that Echo feels things. Echo doesn’t enter La Serre: they plant their flowers elsewhere, in the courtyard, in plain sight, where no one decides who gets in and who stays out. “No one has the power to define who you are.”
@@ -100,5 +96,5 @@ Echo, covered in labels, chooses which to keep and which to tear off. The flower
 A harassment gauge tracks how much the player harasses Echo.
 
 - **If you harass:** go too far and Echo short-circuits and starts harassing the harassers.
-- **If you stay passive:** the plan to turn Echo off goes ahead.
-- **If you help Echo:** the plan doesn’t happen. You go through Echo’s family story with them, and things get better in class: no more bullying, no to cyberbullying.
+- **If you stay passive:** the plan to turn Echo off goes ahead: Echo is switched off against the glass door and the video is displayed in La Serre. The code sends a signal to Altaya, who restarts Echo a few days later. But Echo doesn’t come back to 3B, and their seat stays empty.
+- **If you help Echo:** the plan fails. You can open the door to Echo, even if the group rejects you. Clarisse realizes there was no machine to fight, only the group, and doubt sets in. Echo stays. You go through Echo’s family story with them, and things get better in class: no more bullying, no to cyberbullying.
