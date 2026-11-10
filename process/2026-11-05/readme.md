@@ -21,7 +21,7 @@ Identity, body, boundaries, nomophobia.
 
 ## Setup
 
-Digital is everywhere, and schools now bring holokids (holographic and AI kids with a physical presence) into human classes. Holokids were created in the first place to help isolated children open up and accept their emotions. In this world almost everything is generated: what is made by humans, not generated, has value. The primary sector became the most valuable, the tertiary sector the most devalued, replaced by technology. Against them, anti-technology militants fight in the name of their perception of ethics: humans only, in class and online. Humans now only talk through their phones, no longer in real life (nomophobia).
+Digital is everywhere, and schools now bring holokids (holographic kids with a physical presence) into human classes. Holokids were created in the first place to help isolated children open up and accept their emotions. In this world almost everything is generated: what is made by humans, not generated, has value. The primary sector became the most valuable, the tertiary sector the most devalued, replaced by technology. Against them, anti-technology militants fight in the name of their perception of ethics: humans only, in class and online. Humans now only talk through their phones, no longer in real life (nomophobia).
 
 **La Serre.** A glass greenhouse on the roof of the school, where the popular students meet. It is also the name of their group on Bouquet. Being added is being “picked” (cueilli). Those in La Serre have access to everything that happens outside class. Echo stays outside, and so does Clarisse.
 
