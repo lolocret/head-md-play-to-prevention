@@ -9,7 +9,7 @@ A technological holographic kid everyone calls “fake” sets out in search of 
 
 ## Pitch
 
-**The setup.** In a world where schools welcome technological holographic kids, Echo is the only Kidya in a human class.
+**The setup.** In a world where schools welcome technological holographic kids, Echo is the only holokid in a human class.
 
 **The perspective.** We follow three people: Echo, you, the student who watches, and M. Kovasko, a teacher who sees nothing.
 
@@ -21,7 +21,7 @@ Identity, body, boundaries, nomophobia.
 
 ## Setup
 
-Digital people are everywhere, and schools now bring Kidya (holographic and AI kids with a physical presence) into human classes. Kidya were created in the first place to help isolated children open up and accept their emotions. Against them, anti-technology militants fight in the name of ethical values: humans only, in class and online. Humans now only talk through their phones, no longer in real life (nomophobia).
+Digital people are everywhere, and schools now bring holokids (holographic and AI kids with a physical presence) into human classes. Holokids were created in the first place to help isolated children open up and accept their emotions. Against them, anti-technology militants fight in the name of ethical values: humans only, in class and online. Humans now only talk through their phones, no longer in real life (nomophobia).
 
 **La Serre.** A glass greenhouse on the roof of the school, where the popular students meet. It is also the name of their group on Bouquet. Being added is being “picked” (cueilli). Those in La Serre have access to everything that happens outside class. Echo stays outside, and so does Clarisse.
 
@@ -31,7 +31,7 @@ Apps: Bouquet (class and group chats), Vitrine (stories), Pollen (anonymous acco
 
 Each already has character traits, but our choices in the game redefine them.
 
-- **Echo**: a Kidya, a technological holographic kid with a physical presence. Clumsy, caring, curious, easily scared. Flowers open on them when they feel something.
+- **Echo**: a holokid, a technological holographic kid with a physical presence. Clumsy, caring, curious, easily scared. Flowers open on them when they feel something.
 - **Clarisse**: an anti-technology student activist. She comes from a poor family working in the tertiary sector, which is why she is against technology: it replaced their jobs. She is not in La Serre either: she is mocked for being poor. She harasses Echo to find a place there.
 - **A student, the witness: you.** The player customizes this student as their own avatar. Wants to belong and not to be next. Picked into La Serre, staying has a price: react to the posts, laugh with the others, not defend Echo, or the Roots with the group weaken. Can be kind or cruel depending on the choices.
 - **M. Kovasko**: a patient teacher, too idealistic. He sees nothing.
@@ -39,7 +39,7 @@ Each already has character traits, but our choices in the game redefine them.
 
 ## Story
 
-**1. The arrival.** First day, Echo is the only Kidya of 3B. Kovasko gives a speech on diversity, then Echo introduces themself out loud, while no one speaks in class anymore. To say hello, Echo reaches out to a boy, and their hand passes through his. The awkwardness is instant, and the flowers open on their own. Silence, then laughter. A student films.
+**1. The arrival.** First day, Echo is the only holokid of 3B. Kovasko gives a speech on diversity, then Echo introduces themself out loud, while no one speaks in class anymore. To say hello, Echo reaches out to a boy, and their hand passes through his. The awkwardness is instant, and the flowers open on their own. Silence, then laughter. A student films.
 - 8:12 pm: the video is posted on Bouquet, in the class group (“you’re not even real”, “fake”, “your emotions are fictions”).
 - 8:30 pm: memes, flowers on a loop, the “FAKE” sticker. The flowers become “fleurette”, a coded homophobic insult.
 - 9:05 pm: a group “Humans of 3B only” is created, without Echo.
@@ -54,7 +54,7 @@ Each already has character traits, but our choices in the game redefine them.
 
 The witness (player) chooses now, and the consequences come later: take part, stay quiet, leave the group, send screenshots to Kovasko, warn Echo.
 
-**5. The origins.** “You have no parents” haunts Echo. Echo investigates, alone, or with the witness if the player warned them in step 4. Memory fragments, archives, a trail to Altaya. Altaya is a small team that created the Kidya program for children who isolate and can’t show what they feel. Echo is a hybrid: an AI fed by the voices, memories and drawings of their creators. Nour, one of them, drew the flowers because as a teen she couldn’t say what she felt. The flowers were never a bug, they are a gift. Echo finds messages left for them: no parents in the classic sense, but a team that wanted them. The anonymous account isn’t Altaya’s. We will never know who it was.
+**5. The origins.** “You have no parents” haunts Echo. Echo investigates, alone, or with the witness if the player warned them in step 4. Memory fragments, archives, a trail to Altaya. Altaya is a small team that created the holokids program for children who isolate and can’t show what they feel. Echo is a hybrid: an AI fed by the voices, memories and drawings of their creators. Nour, one of them, drew the flowers because as a teen she couldn’t say what she felt. The flowers were never a bug, they are a gift. Echo finds messages left for them: no parents in the classic sense, but a team that wanted them. The anonymous account isn’t Altaya’s. We will never know who it was.
 
 **6. Friday, after class.** The plan takes place on the roof, in front of La Serre, where Echo was told to meet. Echo now knows who they are. The class empties, the group waits, someone takes out their phone to film.
 - *The witness:* film, stay quiet, leave, contradict the group in front of everyone, or open the door to Echo.
