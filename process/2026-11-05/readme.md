@@ -5,11 +5,11 @@ Nouria DA ROS
 
 ## Project
 
-A technological holographic kid everyone calls “fake” sets out in search of what’s real, wants above all to be accepted, and discovers that their worth doesn’t depend on the label others stick on them.
+A holokid everyone calls “fake” sets out in search of what’s real, wants above all to be accepted, and discovers that their worth doesn’t depend on the label others stick on them.
 
 ## Pitch
 
-**The setup.** In a world where schools welcome technological holographic kids, Echo is the only holokid in a human class.
+**The setup.** In a world where schools welcome holokids, Echo is the only one in a human class.
 
 **The perspective.** We play a student of the class, with your own avatar.
 
@@ -31,7 +31,7 @@ Apps: Bouquet (class and group chats), Vitrine (stories), Pollen (anonymous acco
 
 We play a student of the class, with your own avatar. Each character already has traits, but our choices in the game redefine them.
 
-- **Echo**: a holokid, a technological holographic kid with a physical presence. Clumsy, caring, curious, easily scared. Flowers open on them when they feel something.
+- **Echo**: a holokid, with a physical presence. Clumsy, caring, curious, easily scared. Flowers open on them when they feel something.
 - **Clarisse**: an anti-technology student activist. She comes from a poor family working in the tertiary sector, which is why she is against technology: it replaced their jobs. She is not in La Serre either: she is mocked for being poor. She harasses Echo to find a place there.
 - **A student, the witness: you.** The player customizes this student as their own avatar. Wants to belong and not to be next. Picked into La Serre, staying has a price: react to the posts, laugh with the others, not defend Echo, or the Roots with the group weaken. Can be kind or cruel depending on the choices.
 - **M. Kovasko**: a patient teacher, too idealistic. He sees nothing.
