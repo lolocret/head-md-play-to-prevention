@@ -22,6 +22,10 @@ Keywords: identity, body, boundaries, nomophobia.
 
 The player must choose between following the group, staying quiet or defending Echo at the risk of becoming the next target (“If you say nothing, you agree”).
 
+**Echo**
+
+Echo goes through an identity crisis: the labels stuck on them (“fake”, “you’re not human”, “you have no parents”) make them doubt who they are.
+
 **Clarisse**
 
 Clarisse, mocked for her family’s poverty, harasses Echo to make a place for herself in La Serre. She is both victim and harasser.
