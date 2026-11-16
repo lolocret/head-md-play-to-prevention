@@ -62,7 +62,7 @@ The two endings contrast what happens when nobody reacts (Echo is switched off a
 
 The player acts in every scene, and small everyday gestures (laughing, liking, staying quiet) carry weight. Nobody saves Echo alone: in the final scene, the outcome depends on the choices of the witness, Kovasko, Clarisse and Echo. A single person reacting is enough to make the plan fail.
 
-Echo gains agency too: they choose which labels to keep and which to tear off, and plant their flowers in the courtyard, in plain sight, rather than in La Serre. “No one has the power to define who you are.”
+Echo gains agency too: they choose which labels to keep and which to tear off. “No one has the power to define who you are.”
 
 ## How is your experience played?
 
@@ -155,7 +155,7 @@ The meeting is set on the roof, in front of La Serre. Echo now knows their ident
 
 - *The witness:* film, stay quiet, leave, contradict the group in front of everyone, or open the door to Echo.
 
-- *Kovasko:* he notices whispers and an isolated Echo; he steps in or waits.
+- *Kovasko:* he only notices whispers and an isolated Echo if the player warned him: then he steps in, otherwise he sees nothing.
 
 - *Echo:* flee, stay quiet or speak out loud, in a class where no one speaks anymore.
 
@@ -163,7 +163,7 @@ The meeting is set on the roof, in front of La Serre. Echo now knows their ident
 
 **Ending.**
 
-Echo, covered in labels, chooses which to keep and which to tear off. The flowers they were mocked for at the beginning become proof that Echo feels things. Echo doesn’t enter La Serre: they plant their flowers elsewhere, in the courtyard, in plain sight, where no one decides who gets in and who stays out. “No one has the power to define who you are.”
+Echo, covered in labels, chooses which to keep and which to tear off. The flowers they were mocked for at the beginning become proof that Echo feels things. Echo doesn’t enter La Serre. “No one has the power to define who you are.”
 
 ## Endings
 
