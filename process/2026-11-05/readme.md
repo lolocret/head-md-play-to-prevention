@@ -14,13 +14,7 @@ Echo is a choice-driven narrative game about cyberbullying, for ages 12–16. Ec
 
 Called “fake” from day one, Echo becomes the class’s target. The player embodies a classmate whose choices make them a witness, an accomplice or an ally.
 
-Identity
-
-Body
-
-Boundaries
-
-Nomophobia
+Keywords: identity, body, boundaries, nomophobia.
 
 ## What is the experience about
 
