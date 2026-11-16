@@ -32,7 +32,7 @@ Clarisse, mocked for her family’s poverty, harasses Echo to make a place for h
 
 **Kovasko**
 
-Kovasko, the teacher, must decide whether to step in or wait.
+Kovasko, the teacher, notices nothing: it is the player who decides, in the game, whether to tell him.
 
 The story shows the central mechanisms of bullying: exclusion by the group (“Humans of 3B only”), the search for a scapegoat, pressure on witnesses and dehumanization (“it’s just a machine”).
 
