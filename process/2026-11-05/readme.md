@@ -148,6 +148,7 @@ There is a shutdown code, **KIPE-SAFE007**. The plan: Friday, after class, switc
 The meeting is set on the roof, in front of La Serre. Echo now knows their identity. The class empties, the group waits, someone takes out their phone to film.
 
 - *The witness:* film, stay quiet, leave, contradict the group in front of everyone, or open the door to Echo.
+- What Kovasko, Clarisse and Echo do depends on your earlier choices.
 
 **Ending.**
 
