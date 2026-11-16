@@ -24,7 +24,7 @@ The player must choose between following the group, staying quiet or defending E
 
 **Echo**
 
-Echo goes through an identity crisis: the labels stuck on them (“fake”, “you’re not human”, “you have no parents”) make them doubt who they are.
+Echo goes through an identity crisis and faces a dilemma: accept the labels stuck on them (“fake”, “you’re not human”, “you have no parents”), or decide who they are.
 
 **Clarisse**
 
