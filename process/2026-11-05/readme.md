@@ -149,10 +149,6 @@ The meeting is set on the roof, in front of La Serre. Echo now knows their ident
 
 - *The witness:* film, stay quiet, leave, contradict the group in front of everyone, or open the door to Echo.
 
-- *Kovasko:* he only notices whispers and an isolated Echo if the player warned him: then he steps in, otherwise he sees nothing.
-
-- *Clarisse:* type the code, or hesitate.
-
 **Ending.**
 
 Echo is covered in labels, but the flowers they were mocked for at the beginning become proof that Echo feels things. Echo doesn’t enter La Serre. “No one has the power to define who you are.”
