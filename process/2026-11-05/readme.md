@@ -155,7 +155,7 @@ The meeting is set on the roof, in front of La Serre. Echo now knows their ident
 
 **Ending.**
 
-Echo, covered in labels, chooses which to keep and which to tear off. The flowers they were mocked for at the beginning become proof that Echo feels things. Echo doesn’t enter La Serre. “No one has the power to define who you are.”
+Echo is covered in labels, but the flowers they were mocked for at the beginning become proof that Echo feels things. Echo doesn’t enter La Serre. “No one has the power to define who you are.”
 
 ## Endings
 
