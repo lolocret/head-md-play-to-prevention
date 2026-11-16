@@ -1,11 +1,91 @@
-# Echo
+# Presentation
 
-Lorie CRETTEX
-Nouria DA ROS
+## Title of Your Project
+
+Echo: From Play to Prevention
+
+## Your names
+
+Lorie CRETTEX, Nouria DA ROS
 
 ## Pitch
 
-The player embodies a student in a class that welcomes Echo, a hologram child. Through the scenes, their choices make them a witness, an accomplice or an ally facing the cyberbullying Echo suffers.
+Echo is a choice-driven narrative game about cyberbullying, for ages 12–16. Echo, the first hologram child of the Holo’Kids program, joins class 3B at Alan Turing middle school.
+
+Called “fake” from day one, Echo becomes the class’s target. The player embodies a classmate whose choices make them a witness, an accomplice or an ally.
+
+Identity
+
+Body
+
+Boundaries
+
+Nomophobia
+
+## What is the experience about
+
+**The player**
+
+The player must choose between following the group, staying quiet or defending Echo at the risk of becoming the next target (“If you say nothing, you agree”).
+
+**Echo**
+
+Echo faces another dilemma: accept the labels stuck on them, or decide who they are.
+
+**Clarisse**
+
+Clarisse, mocked for her family’s poverty, harasses Echo to make a place for herself in La Serre. She is both victim and harasser.
+
+**Kovasko**
+
+Kovasko, the teacher, must decide whether to step in or wait.
+
+The story shows the central mechanisms of bullying: exclusion by the group (“Humans of 3B only”), the search for a scapegoat, pressure on witnesses and dehumanization (“it’s just a machine”).
+
+It also shows that bullying is passed on: Clarisse makes Echo go through what she lived, and if the bullying goes too far, Echo becomes a harasser in turn.
+
+Everything happens fast, in public and out of the adults’ sight. The class is silent, but laughter bursts out on the phones. In one night, the video, the meme and the exclusion group spread (0:12, 0:30, 1:05), and Echo’s message to a student in distress is rejected within minutes (2:40, 2:45).
+
+Students are added by force to the private group and pushed to stay. Echo’s system is hacked to display insults behind their back.
+
+Echo being a hologram makes one aspect of online bullying concrete: when the target doesn’t seem “real”, hurting them seems to have no consequences.
+
+## What is understood / What knowledge is learned
+
+- **Tools adolescents can learn**
+- Recognize the three roles (witness, accomplice, ally), and understand that silence and a “like” are choices too.
+- Concrete actions: don’t like or share, leave the group, erase the insults, warn the targeted person, take screenshots and talk to a trusted adult.
+- Read other people’s emotions, thanks to Echo’s flowers that open or close.
+- Understand that the person who bullies can suffer too, and that a victim can become a harasser.
+
+**How the story leads to this understanding**
+
+Choices made in the moment have consequences later, as in real life. Echo’s state gauge makes the effects of bullying visible: the more it increases, the more Echo degrades, until becoming a harasser in turn. The closer the player gets to Echo, the more their story is revealed: knowing someone makes that person human in our eyes.
+
+The two endings contrast what happens when nobody reacts (Echo is switched off and never comes back to 3B) and when someone reacts (the plan fails, doubt sets in for Clarisse and Echo stays).
+
+## Agency
+
+The player acts in every scene, and small everyday gestures (laughing, liking, staying quiet) carry weight. Nobody saves Echo alone: in the final scene, the outcome depends on the choices of the witness, Kovasko, Clarisse and Echo. A single person reacting is enough to make the plan fail.
+
+Echo gains agency too: they choose which labels to keep and which to tear off, and plant their flowers in the courtyard, in plain sight, rather than in La Serre. “No one has the power to define who you are.”
+
+## How is your experience played?
+
+A workshop in class led by a teacher or a facilitator. The story unfolds on a computer, alone or with several people in front of the same screen. The phone is the interaction tool: via a QR code, with no app, each student receives the class group’s messages, notifications and memes, and can react to them (like, comment, leave the group, take a screenshot, warn Echo). Their reactions then influence the story. A collective discussion finally goes back over the choices made.
+
+## Questions for the cool kids
+
+- Have you ever seen something in a class group without saying anything? What held you back?
+- What would make it easier to leave a group or report a message?
+- Who would you go to for help: a teacher, a parent, a friend?
+- Does Echo feel like a real classmate to you, even as a hologram?
+- Are the choices realistic? Is there a reaction you would have had that is missing?
+- Do the characters’ messages and way of speaking look like what you see on your phone?
+- Would you rather play alone or with friends? On a phone or on a computer?
+
+
+## Appendix
 
 ## Keywords
 
