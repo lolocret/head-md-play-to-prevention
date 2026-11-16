@@ -22,10 +22,6 @@ Keywords: identity, body, boundaries, nomophobia.
 
 The player must choose between following the group, staying quiet or defending Echo at the risk of becoming the next target (“If you say nothing, you agree”).
 
-**Echo**
-
-Echo faces another dilemma: accept the labels stuck on them, or decide who they are.
-
 **Clarisse**
 
 Clarisse, mocked for her family’s poverty, harasses Echo to make a place for herself in La Serre. She is both victim and harasser.
@@ -60,9 +56,7 @@ The two endings contrast what happens when nobody reacts (Echo is switched off a
 
 ## Agency
 
-The player acts in every scene, and small everyday gestures (laughing, liking, staying quiet) carry weight. Nobody saves Echo alone: in the final scene, the outcome depends on the choices of the witness, Kovasko, Clarisse and Echo. A single person reacting is enough to make the plan fail.
-
-Echo gains agency too: they choose which labels to keep and which to tear off. “No one has the power to define who you are.”
+The player acts in every scene, and small everyday gestures (laughing, liking, staying quiet) carry weight. Nobody saves Echo alone: in the final scene, the outcome depends on the choices of the witness, Kovasko and Clarisse. A single person reacting is enough to make the plan fail.
 
 ## How is your experience played?
 
@@ -156,8 +150,6 @@ The meeting is set on the roof, in front of La Serre. Echo now knows their ident
 - *The witness:* film, stay quiet, leave, contradict the group in front of everyone, or open the door to Echo.
 
 - *Kovasko:* he only notices whispers and an isolated Echo if the player warned him: then he steps in, otherwise he sees nothing.
-
-- *Echo:* flee, stay quiet or speak out loud, in a class where no one speaks anymore.
 
 - *Clarisse:* type the code, or hesitate.
 
