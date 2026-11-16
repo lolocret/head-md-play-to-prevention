@@ -66,7 +66,7 @@ Echo gains agency too: they choose which labels to keep and which to tear off, a
 
 ## How is your experience played?
 
-A workshop in class led by a teacher or a facilitator. The story unfolds on a computer, alone or with several people in front of the same screen. The phone is the interaction tool: via a QR code, with no app, each student receives the class group’s messages, notifications and memes, and can react to them (like, comment, leave the group, take a screenshot, warn Echo). Their reactions then influence the story. A collective discussion finally goes back over the choices made.
+A workshop in class led by a teacher or a facilitator. Like Netflix games: the story plays out on a computer, and each student connects their phone or iPad to play on their own, not in groups. On their device, each one receives the class group’s messages, notifications and memes, and can react to them (like, comment, leave the group, take a screenshot, warn Echo). Their reactions then influence the story. At the end, each one receives a title-role based on the choices they made, and everyone talks about it afterwards.
 
 ## Questions for the cool kids
 
