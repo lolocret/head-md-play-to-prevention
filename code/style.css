@@ -287,3 +287,13 @@ body.on-title #journalBtn, body.on-title #gauge, body.on-title #goal, body.on-ti
 
 /* Title and subtitle higher on the page */
 #titleScreen { padding-bottom:26vh; }
+
+/* Title a little lower, play button right under the subtitle */
+#titleScreen { padding-bottom:14vh; }
+#titleScreen > #playBtn { position:static; transform:none; left:auto; bottom:auto; margin:40px auto 0; }
+
+/* Title, subtitle and button lower */
+#titleScreen { padding-bottom:0; padding-top:12vh; }
+
+/* a tiny bit higher */
+#titleScreen { padding-top:6vh; }
