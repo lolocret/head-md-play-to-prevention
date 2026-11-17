@@ -2,7 +2,7 @@
 let french = true;
 let state, beatIndex, finished;
 const newState = () => ({ harass: 0, passive: 0, help: 0, bond: 0, flags: {}, extra: [] });
-let phase = "title", introIndex = 0; // title | intro | profile | world | dialog | ending
+let phase = "title", introIndex = 0; // title | intro | profile | phone | world | dialog | ending
 let player = { name: "", avatar: null };
 
 const $ = id => document.getElementById(id);
@@ -10,6 +10,7 @@ const L = t => (french ? t.fr : t.en);
 
 function restart() {
   state = newState();
+  Nexus.reset();
   beatIndex = 0;
   finished = false;
   phase = "world";
@@ -23,7 +24,12 @@ function restart() {
 function maybeStartBeat() {
   if (phase !== "world" || !Scene.atBeat()) return;
   const idx = beatIndex;
-  setTimeout(() => { if (phase === "world" && beatIndex === idx && Scene.atBeat()) { phase = "dialog"; render(); } }, 700);
+  setTimeout(() => {
+    if (phase === "world" && beatIndex === idx && Scene.atBeat()) {
+      phase = "dialog"; render();
+      Nexus.beat(STORY.beats[idx].id); // the scene starts: messages arrive on the phone
+    }
+  }, 700);
 }
 Scene.onEnter = maybeStartBeat;
 
@@ -67,7 +73,9 @@ function render() {
   Scene.french = french;
   Scene.stage = stage();
   Scene.refresh();
-  $("main").hidden = phase === "world";
+  $("main").hidden = phase === "world" || phase === "phone";
+  $("phoneScreen").hidden = phase !== "phone";
+  if (phase === "phone") renderPhoneStep();
   document.body.classList.toggle("vn", phase === "dialog");
   $("goal").hidden = phase !== "world";
   if (phase === "world") $("goal").textContent = (french ? "Va à : " : "Go to: ") + Scene.goalLabel() +
@@ -78,6 +86,7 @@ function render() {
   if (phase === "title") return;
   if (phase === "intro") return renderIntro();
   if (phase === "profile") return renderProfile();
+  if (phase === "phone") return;
 
   if (phase === "world") return;
   if (finished) return renderEnding();
@@ -99,6 +108,7 @@ function render() {
       const before = state.bond >= STORY.bondToUnlock;
       for (const k of ["harass", "passive", "help", "bond"]) state[k] += c[k] || 0;
       if (c.flag) state.flags[c.flag] = true;
+      if (c.help > 0) Nexus.cold(c.help); // helping Echo: the others answer coldly
       if (c.journal) state.extra.push({ beat: beatIndex, text: c.journal });
       if (!before && state.bond >= STORY.bondToUnlock) toast(french ? "Un nouveau lieu est accessible : Altaya" : "A new place is now open: Altaya");
       next();
@@ -132,6 +142,7 @@ function silhouette(color) {
 }
 
 function renderProfile() {
+  $("choices").innerHTML = ""; // clicking an avatar redraws this screen: do not stack buttons
   $("title").textContent = L(PROFILE.title);
   $("body").textContent = "";
   $("profile").hidden = false;
@@ -148,13 +159,38 @@ function renderProfile() {
   });
   addButton(L(PROFILE.start), () => {
     player.name = $("nameInput").value.trim();
-    restart();
+    startPhoneStep();
   });
   const start = $("choices").lastChild;
   const check = () => { start.disabled = !($("nameInput").value.trim() && player.avatar); };
   $("nameInput").oninput = check;
   check();
 }
+
+// The phone: an incoming call (a 3D phone on screen), then a QR code to connect the real phone.
+async function startPhoneStep() {
+  const info = await Link.start();
+  if (!info) { restart(); return; }                 // no server: play without a phone
+  phase = "phone";
+  $("qr").innerHTML = "";
+  new QRCode($("qr"), { text: info.url, width: 200, height: 200, colorDark: "#0a0a1c", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
+  $("qrRoom").textContent = info.url.replace(/^https?:\/\//, "");
+  render();
+}
+
+function renderPhoneStep() {
+  $("callLabel").textContent = french ? "Appel entrant" : "Incoming call";
+  $("qrText").textContent = french ? "Scanne pour te connecter et répondre à l’appel." : "Scan to connect and answer the call.";
+  $("soloBtn").textContent = french ? "Jouer sans téléphone" : "Play without a phone";
+}
+
+Link.onPeer = connected => {
+  if (connected) {
+    Link.send({ type: "profile", name: player.name, avatar: player.avatar, french });
+    updateJournal.sig = null; updateJournal();
+    if (phase === "phone") setTimeout(() => { if (phase === "phone") restart(); }, 1800);
+  }
+};
 
 function toast(text) {
   const t = $("toast");
@@ -198,19 +234,27 @@ function updateJournal() {
   $("meName").textContent = player.name;
   const last = finished ? STORY.beats.length - 1 : (phase === "dialog" ? beatIndex : beatIndex - 1);
   $("journalBody").innerHTML = "";
-  const addEntry = t => {
+  const entries = [];
+  STORY.beats.slice(0, last + 1).forEach((b, i) => {
+    if (b.journal) entries.push(b.journal);
+    state.extra.filter(x => x.beat === i).forEach(x => entries.push(x.text)); // what the choice cost you
+  });
+  entries.forEach(t => {
     const p = document.createElement("p");
     p.textContent = L(t);
     $("journalBody").appendChild(p);
-  };
-  STORY.beats.slice(0, last + 1).forEach((b, i) => {
-    if (b.journal) addEntry(b.journal);
-    state.extra.filter(x => x.beat === i).forEach(x => addEntry(x.text)); // what the choice cost you
   });
+  // the same entries appear in the journal on the phone
+  const sig = entries.length + "|" + french;
+  if (sig !== updateJournal.sig && Link.connected) {
+    updateJournal.sig = sig;
+    Link.send({ type: "journal", entries: entries.map(t => ({ fr: t.fr, en: t.en })) });
+  }
 }
 
 $("playBtn").onclick = () => { phase = "intro"; render(); };
-$("lang").onclick = () => { french = !french; render(); };
+$("lang").onclick = () => { french = !french; Link.send({ type: "profile", name: player.name, avatar: player.avatar, french }); render(); };
+$("soloBtn").onclick = () => { restart(); };
 $("journalBtn").onclick = () => { $("journal").hidden = !$("journal").hidden; };
 $("journalClose").onclick = () => { $("journal").hidden = true; };
 $("journal").onclick = e => { if (e.target.id === "journal") $("journal").hidden = true; };

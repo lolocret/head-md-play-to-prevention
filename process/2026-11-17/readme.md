@@ -103,6 +103,8 @@ Identity, body, boundaries, nomophobia.
 
 **Echo’s emotional system.** Echo expresses their emotions through flowers that open or close. This visual signal lets the player read what Echo feels without Echo having to say it.
 
+**Nexus.** The story takes place in the future, so there is no WhatsApp: everyone uses Nexus, a single all-in-one network where messages, calls, groups and payments live in the same place, like the super-apps of today. Bullying works there exactly as it does now: a group, a video, a meme, and silence. The player’s phone shows a made-up system, not a real one.
+
 **Core mechanic.** Each choice quietly changes the bond between the player and Echo. A strong enough bond unlocks access to Echo’s story (their lore) later in the game. Without getting closer, that part of the story stays closed.
 
 ## Walkthrough
@@ -145,7 +147,7 @@ The students manage to hack Echo’s system to write insults behind their back.
 
 Clarisse calls Echo a “life thief”: she explains that it’s because of people like them that her family became poor and that she gets mocked. The paradox: Echo is kind and just wants to help.
 
-**2:40:** in the WhatsApp group, a student writes that he is not okay. Echo is the only one to answer.
+**2:40:** in the Nexus group, a student writes that he is not okay. Echo is the only one to answer.
 
 The answer is rejected: “You can’t understand, you’re not human.” Echo is hurt.
 

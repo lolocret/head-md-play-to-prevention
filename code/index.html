@@ -29,11 +29,23 @@
     <p id="credits"></p>
   </section>
 
+  <section id="phoneScreen" hidden>
+    <div class="phone3d" aria-hidden="true">
+      <div class="phone"><div class="screen"><small id="callLabel"></small><b id="callName">Echo</b><div class="btns"><i class="ok"></i><i class="no"></i></div></div></div>
+    </div>
+    <div class="qrbox">
+      <div id="qr"></div>
+      <p id="qrText"></p>
+      <p id="qrRoom"></p>
+    </div>
+    <button id="soloBtn"></button>
+  </section>
+
   <div id="toast" hidden></div>
 
   <div id="stage"><div id="scene"></div></div>
 
-  <main hidden>
+  <main id="main" hidden>
     <h1 id="title"></h1>
     <p id="body"></p>
     <p id="prompt"></p>
@@ -54,7 +66,10 @@
     </div>
   </aside>
 
+  <script src="lib/qrcode.min.js"></script>
   <script src="story.js"></script>
+  <script src="link.js"></script>
+  <script src="nexus.js"></script>
   <script src="scene.js"></script>
   <script src="game.js"></script>
 </body>
