@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Echo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700;6..96,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="left">
+      <button id="lang">FR / EN</button>
+      <button id="journalBtn">Journal</button>
+    </div>
+    <div id="goal" hidden></div>
+    <div id="me" hidden><span id="meAvatar"></span> <span id="meName"></span></div>
+    <div id="gauge" aria-live="polite">
+      <div id="gaugeBar"><div id="gaugeFill"></div></div>
+      <div id="face">:)</div>
+    </div>
+  </header>
+
+  <section id="titleScreen" hidden>
+    <h1 id="gameName"></h1>
+    <p id="tagline"></p>
+    <button id="playBtn"></button>
+    <p id="credits"></p>
+  </section>
+
+  <div id="toast" hidden></div>
+
+  <div id="stage"><div id="scene"></div></div>
+
+  <main hidden>
+    <h1 id="title"></h1>
+    <p id="body"></p>
+    <p id="prompt"></p>
+    <div id="profile" hidden>
+      <label id="nameLabel" for="nameInput"></label>
+      <input id="nameInput" maxlength="20" autocomplete="off">
+      <div id="avatarLabel"></div>
+      <div id="avatars"></div>
+    </div>
+    <div id="choices"></div>
+  </main>
+
+  <aside id="journal" hidden>
+    <div class="paper">
+      <button id="journalClose" aria-label="Close">X</button>
+      <h2 id="journalTitle"></h2>
+      <div id="journalBody"></div>
+    </div>
+  </aside>
+
+  <script src="story.js"></script>
+  <script src="scene.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

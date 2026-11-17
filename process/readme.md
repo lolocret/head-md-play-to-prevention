@@ -8,3 +8,4 @@ Dans ce dossier, je documente mon processus de design, selon la méthode de Pipp
 - [2026-10-12](2026-10-12/)
 - [2026-10-13](2026-10-13/)
 - [2026-10-19](2026-10-19/)
+- [2026-11-17](2026-11-17/) · [pitch](2026-11-17/readme.md)
