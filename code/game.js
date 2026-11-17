@@ -73,7 +73,7 @@ function render() {
   Scene.french = french;
   Scene.stage = stage();
   Scene.refresh();
-  $("main").hidden = phase === "world" || phase === "phone";
+  $("main").hidden = phase === "title" || phase === "world" || phase === "phone";
   $("phoneScreen").hidden = phase !== "phone";
   if (phase === "phone") renderPhoneStep();
   document.body.classList.toggle("vn", phase === "dialog");
