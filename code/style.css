@@ -250,3 +250,6 @@ body.on-title #journalBtn, body.on-title #gauge, body.on-title #goal, body.on-ti
 /* Title + subtitle exactly in the middle of the screen; button below, out of the flow */
 #titleScreen > #playBtn { position:absolute; left:50%; bottom:16vh; transform:translateX(-50%); margin:0; }
 #tagline { margin:12px auto 0; }
+
+/* Echo's real drawing as a hologram sprite */
+#scene .echo .fig-img { height:52cqh; filter:drop-shadow(0 0 8px rgba(77,240,255,.8)); opacity:.92; }

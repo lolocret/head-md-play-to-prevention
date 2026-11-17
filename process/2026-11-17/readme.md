@@ -77,7 +77,7 @@ The prototype is no longer built in Unity: it is a web page, playable in a brows
 - **The journal** is already written: it fills in scene after scene with the player’s own doubts (“I wonder if it’s okay that we make fun of Echo”). Helping Echo has a quiet, emotional cost, written in the journal: fear, stares in the back, loneliness (“I opened the door. The group turned their backs on me. And yet, I can breathe better.”).
 - **No role title at the end.** The game does not label the player: it shows Echo’s state at the end (stable, bugs, seizure-like crises, short-circuit), which is the visible result of everyone’s choices.
 - **Clarisse can be helped too.** A dedicated scene lets the player talk to her alone in the hallway. It changes how she acts on Friday: her phone stays down.
-- **Echo’s look.** Echo is part plant, part robot: petal-like hair with small buds, fine robotic lines on the skin like the veins of a leaf, and legs that dissolve into hologram flicker (hand-drawn reference, 2026-11-17).
+- **Echo’s look.** Echo is part plant, part robot: petal-like hair with small buds, fine robotic lines on the skin like the veins of a leaf, and legs that dissolve into hologram flicker (hand-drawn reference, 2026-11-17: [photo](echo-drawing.jpg), [transparent version](echo-drawing-transparent.png)). The drawing is also used as Echo’s sprite in the prototype, as a hologram.
 - Ten scenes so far, from “The arrival” to “Friday, after class”, in French and English.
 
 ## Questions for the cool kids
