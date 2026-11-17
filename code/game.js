@@ -72,6 +72,7 @@ function renderScreen() {
   $("prompt").textContent = "";
   $("profile").hidden = true;
   $("titleScreen").hidden = phase !== "title";
+  if (phase !== "intro") $("introBg").hidden = true;   // only the introduction pages that have an image show it
   document.body.classList.toggle("on-title", phase === "title");
   if (phase === "title") renderTitle();
   Scene.unlocked.altaya = state.bond >= STORY.bondToUnlock;
@@ -253,6 +254,8 @@ function renderTitle() {
 
 function renderIntro() {
   const page = INTRO[introIndex];
+  $("introBg").style.backgroundImage = page.image ? `url(${page.image})` : "";
+  $("introBg").hidden = !page.image;
   $("title").textContent = L(page.title);
   $("body").textContent = L(page.text);
   addButton(french ? "Suivant" : "Next", () => {

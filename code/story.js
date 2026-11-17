@@ -1152,6 +1152,7 @@ const STORY = {
 // Introduction screens shown before the player creates their character.
 const INTRO = [
   {
+    image: "images/intro-2041.png",   // background shown behind this page
     title: { fr: "2041", en: "2041" },
     text: {
       fr: "Nous sommes en 2041. Presque tout ce que tu vois est généré par des intelligences artificielles : les images, les voix, les devoirs, parfois même les profils de ceux que tu croises en ligne.\n\nSur Nexus, une seule application suffit pour tout : écrire, appeler, payer, rejoindre des groupes. Tout va vite, tout est public, et plus personne ne sait très bien ce qui est vrai.",
