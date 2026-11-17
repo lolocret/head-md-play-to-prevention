@@ -49,12 +49,16 @@
       <input id="nameInput" maxlength="20" autocomplete="off">
       <div id="avatarLabel"></div>
       <div id="avatars"></div>
+      <label id="uploadBtn"><input type="file" id="photoInput" accept="image/*" hidden><span id="uploadText"></span></label>
+      <small id="uploadNote"></small>
+      <small id="uploadErr" hidden></small>
     </div>
     <div id="choices"></div>
   </main>
 
   <script src="lib/qrcode.min.js"></script>
   <script src="story.js"></script>
+  <script src="avatar.js"></script>
   <script src="link.js"></script>
   <script src="nexus.js"></script>
   <script src="scene.js"></script>

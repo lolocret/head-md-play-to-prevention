@@ -805,6 +805,9 @@ const PROFILE = {
   namePlaceholder: { fr: "Écris ton nom…", en: "Type your name…" },
   avatarLabel: { fr: "Choisis ton avatar", en: "Choose your avatar" },
   start: { fr: "Commencer", en: "Start" },
+  upload: { fr: "Ou envoie ta photo : elle devient cyberpunk", en: "Or upload your photo: it becomes cyberpunk" },
+  uploadNote: { fr: "Ta photo n’est pas enregistrée ni envoyée sur Internet. Seule l’image transformée est affichée sur ton téléphone.", en: "Your photo is not saved or sent over the Internet. Only the transformed image is shown on your phone." },
+  uploadErr: { fr: "Cette image ne peut pas être lue. Essaie une photo en JPG ou PNG.", en: "This image can’t be read. Try a JPG or PNG photo." },
   next: { fr: "Suivant", en: "Next" },
   avatars: ["#ff7aa8", "#ffb86b", "#7dffb2", "#4df0ff", "#a78bff", "#ff4fc3"]
 };

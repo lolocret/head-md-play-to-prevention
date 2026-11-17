@@ -89,3 +89,5 @@ body { transition:filter 1.2s; }
 body.silent { filter:grayscale(1) brightness(.55); }
 @media (prefers-reduced-motion: reduce) { #app.ping, #app.cold { animation:none; } }
 @media (max-height:560px) { #gate { padding-bottom:4vh; } .logo { font-size:26px; } }
+
+.sil img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }

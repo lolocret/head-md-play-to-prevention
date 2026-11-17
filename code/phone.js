@@ -65,6 +65,10 @@ function onProfile(m) {
   french = m.french !== false;
   $("meName").textContent = m.name || "";
   if (m.avatar) $("meSil").style.setProperty("--c", m.avatar);
+  if (m.photo) { // the cyberpunk portrait chosen on the computer
+    const im = document.createElement("img"); im.src = m.photo; im.alt = "";
+    $("meSil").replaceChildren(im);
+  }
   paintStatic();
 }
 

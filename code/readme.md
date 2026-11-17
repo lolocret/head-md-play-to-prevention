@@ -12,7 +12,7 @@ A visual novel in the browser. Two ways to play:
   Open http://localhost:3000 on the computer. After choosing the avatar, a 3D phone opening Nexus and a QR code appear. Scan the QR code with a phone **on the same Wi-Fi**, tap "Ouvrir Nexus", and keep the page open. Nexus messages then arrive on the phone as the story goes: the class group, the "Humans of 3B only" group, the private group of Clarisse. Helping Echo brings cold answers and sometimes a "removed from the group" notice, with the screen going grey.
 
 ## What it is
-- Title page, introduction, then the choice of a name and an avatar.
+- Title page, introduction, then the choice of a name and an avatar: a coloured silhouette, or the player's own photo turned into a cyberpunk portrait (`avatar.js`). The photo is processed in the browser only; it is not saved or uploaded, and only a small 96 px version of the transformed image is shown on the phone.
 - Scenes like Street View: each place is a full-screen image, and you walk between places by clicking arrows (hallway, class 3B, roof, La Serre, Altaya).
 - **Altaya is hidden** until the player’s bond with Echo is strong enough (`bondToUnlock` in `story.js`).
 - The story and choices appear in a box at the bottom. The gauge shows a face and a green-orange-red bar, with no label.

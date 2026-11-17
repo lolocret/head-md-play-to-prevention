@@ -4,10 +4,11 @@ let french = new URLSearchParams(location.search).get("lang") !== "en";
 let state, beatIndex, finished;
 const newState = () => ({ harass: 0, passive: 0, help: 0, bond: 0, flags: {}, extra: [] });
 let phase = "title", introIndex = 0; // title | intro | profile | phone | world | dialog | ending
-let player = { name: "", avatar: null };
+let player = { name: "", avatar: null, photo: null }; // avatar: a colour, or "photo" (a cyberpunk portrait)
 
 const $ = id => document.getElementById(id);
 // {name} in any text becomes the player’s name, to make the story personal
+const profileMsg = () => ({ type: "profile", name: player.name, avatar: player.avatar === "photo" ? null : player.avatar, photo: player.avatar === "photo" && player.photo ? player.photo.small : null, french });
 const fill = s => String(s).replace(/\{name\}/g, (typeof player !== "undefined" && player.name) || "");
 const L = t => fill(french ? t.fr : t.en);
 
@@ -137,6 +138,20 @@ function silhouette(color) {
   return `<span class="sil" style="--c:${color}"><i></i><b></b></span>`;
 }
 
+$("photoInput").onchange = async e => {
+  const file = e.target.files && e.target.files[0];
+  e.target.value = "";
+  if (!file) return;
+  try {
+    player.photo = await Cyber.fromFile(file);
+    player.avatar = "photo";
+    $("uploadErr").hidden = true;
+  } catch (err) {
+    $("uploadErr").hidden = false;
+  }
+  renderProfile();
+};
+
 function renderProfile() {
   $("choices").innerHTML = ""; // clicking an avatar redraws this screen: do not stack buttons
   $("title").textContent = L(PROFILE.title);
@@ -146,6 +161,17 @@ function renderProfile() {
   $("nameInput").placeholder = L(PROFILE.namePlaceholder);
   $("avatarLabel").textContent = L(PROFILE.avatarLabel);
   $("avatars").innerHTML = "";
+  if (player.photo) {
+    const b = document.createElement("button");
+    b.className = "avatar photo" + (player.avatar === "photo" ? " selected" : "");
+    const im = document.createElement("img"); im.src = player.photo.big; im.alt = "";
+    b.appendChild(im);
+    b.onclick = () => { player.avatar = "photo"; renderProfile(); };
+    $("avatars").appendChild(b);
+  }
+  $("uploadText").textContent = L(PROFILE.upload);
+  $("uploadNote").textContent = L(PROFILE.uploadNote);
+  $("uploadErr").textContent = L(PROFILE.uploadErr);
   PROFILE.avatars.forEach(a => {
     const b = document.createElement("button");
     b.className = "avatar" + (player.avatar === a ? " selected" : "");
@@ -182,7 +208,7 @@ function renderPhoneStep() {
 
 Link.onPeer = connected => {
   if (connected) {
-    Link.send({ type: "profile", name: player.name, avatar: player.avatar, french });
+    Link.send(profileMsg());
     updateJournal.sig = null; updateJournal();
     if (phase === "phone") setTimeout(() => { if (phase === "phone") restart(); }, 1800);
   }
