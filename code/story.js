@@ -80,7 +80,11 @@ const STORY = {
           "harass": 0,
           "passive": 0,
           "help": 1,
-          "bond": 1
+          "bond": 1,
+          "journal": {
+            "fr": "J’ai souri à Echo. Deux élèves l’ont vu et ont ricané. Mon sourire m’a soudain paru très lourd.",
+            "en": "I smiled at Echo. Two students saw it and snickered. My smile suddenly felt very heavy."
+          }
         },
         {
           "label": {
@@ -131,7 +135,11 @@ const STORY = {
           "harass": 0,
           "passive": 0,
           "help": 1,
-          "bond": 1
+          "bond": 1,
+          "journal": {
+            "fr": "Je n’ai pas ri. Dans le silence, j’ai senti des regards se poser sur moi.",
+            "en": "I didn’t laugh. In the silence, I felt eyes land on me."
+          }
         }
       ],
       "journal": {
@@ -182,7 +190,11 @@ const STORY = {
           "harass": 0,
           "passive": 0,
           "help": 1,
-          "bond": 1
+          "bond": 1,
+          "journal": {
+            "fr": "J’ai écrit que c’était méchant. Personne ne m’a répondu. Seul·e avec mon téléphone, dans le noir.",
+            "en": "I wrote that it was mean. Nobody answered. Alone with my phone, in the dark."
+          }
         }
       ],
       "journal": {
@@ -213,7 +225,11 @@ const STORY = {
           "harass": 0,
           "passive": 0,
           "help": 1,
-          "bond": 1
+          "bond": 1,
+          "journal": {
+            "fr": "J’ai parlé à Kovasko. Il a hoché la tête sans vraiment comprendre. J’ai l’impression de ne pas avoir été entendu·e.",
+            "en": "I told Kovasko. He nodded without really understanding. I feel like I wasn’t heard."
+          }
         },
         {
           "label": {
@@ -264,7 +280,11 @@ const STORY = {
           "harass": 0,
           "passive": 0,
           "help": 2,
-          "bond": 2
+          "bond": 2,
+          "journal": {
+            "fr": "J’ai ouvert la porte à Echo. Les regards dans mon dos m’ont brûlé toute la récré. Je ne sais pas si je le referais.",
+            "en": "I opened the door for Echo. The stares on my back burned all break. I don’t know if I’d do it again."
+          }
         },
         {
           "label": {
@@ -326,7 +346,11 @@ const STORY = {
           "passive": 0,
           "help": 1,
           "bond": 1,
-          "flag": "warnedEcho"
+          "flag": "warnedEcho",
+          "journal": {
+            "fr": "J’ai prévenu Echo. Quelqu’un m’a lancé : « T’es avec la machine, toi ? » Je n’ai pas su quoi répondre.",
+            "en": "I warned Echo. Someone called out: “Are you with the machine?” I didn’t know what to say."
+          }
         },
         {
           "label": {
@@ -346,12 +370,77 @@ const STORY = {
           "harass": 0,
           "passive": 0,
           "help": 1,
-          "bond": 1
+          "bond": 1,
+          "journal": {
+            "fr": "J’ai effacé les insultes une par une. Mes mains tremblaient. Je me suis senti·e très visible.",
+            "en": "I erased the insults one by one. My hands were shaking. I felt very visible."
+          }
         }
       ],
       "journal": {
         "fr": "Des insultes apparaissent dans le dos d’Echo. Clarisse parle de « voleur de vie ». Je ne sais plus si je dois me taire ou dire quelque chose. Et si je ne fais rien, ça fait de moi quoi ?",
         "en": "Insults are showing up on Echo’s back. Clarisse calls Echo a “life thief”. I don’t know if I should stay quiet or say something. And if I do nothing, what does that make me?"
+      }
+    },
+    {
+      "id": "clarisse",
+      "title": {
+        "fr": "Clarisse, seule",
+        "en": "Clarisse, alone"
+      },
+      "text": {
+        "fr": "Dans le couloir, Clarisse est restée seule près des casiers. Quelqu’un vient de se moquer de ses vêtements. Pendant quelques secondes, elle ne ressemble pas à celle qui harcèle Echo : elle ressemble à quelqu’un qui essaie de ne pas pleurer.",
+        "en": "In the hallway, Clarisse has been left alone by the lockers. Someone just made fun of her clothes. For a few seconds, she doesn’t look like the one harassing Echo: she looks like someone trying not to cry."
+      },
+      "prompt": {
+        "fr": "Que fais-tu ?",
+        "en": "What do you do?"
+      },
+      "choices": [
+        {
+          "label": {
+            "fr": "Lui parler, sans la juger",
+            "en": "Talk to her, without judging"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 0,
+          "flag": "talkedClarisse",
+          "journal": {
+            "fr": "J’ai parlé à Clarisse. Elle a haussé les épaules, mais elle est restée. Je ne sais pas si j’ai bien fait.",
+            "en": "I talked to Clarisse. She shrugged, but she stayed. I don’t know if I did the right thing."
+          }
+        },
+        {
+          "label": {
+            "fr": "Lui dire que ce n’est pas la faute d’Echo",
+            "en": "Tell her it isn’t Echo’s fault"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 1,
+          "flag": "talkedClarisse",
+          "journal": {
+            "fr": "J’ai dit à Clarisse que ce n’était pas la faute d’Echo. Elle m’a fusillé·e du regard, puis elle a baissé les yeux.",
+            "en": "I told Clarisse it wasn’t Echo’s fault. She glared at me, then looked down."
+          }
+        },
+        {
+          "label": {
+            "fr": "L’ignorer",
+            "en": "Ignore her"
+          },
+          "harass": 0,
+          "passive": 1,
+          "help": 0,
+          "bond": 0
+        }
+      ],
+      "journal": {
+        "fr": "Clarisse, toute seule près des casiers. Celle qui fait du mal à Echo souffre aussi. Ça ne l’excuse pas, mais ça change comment je la vois.",
+        "en": "Clarisse, all alone by the lockers. The one hurting Echo is hurting too. It doesn’t excuse her, but it changes how I see her."
       }
     },
     {
@@ -397,7 +486,11 @@ const STORY = {
           "harass": 0,
           "passive": 0,
           "help": 1,
-          "bond": 0
+          "bond": 0,
+          "journal": {
+            "fr": "J’ai quitté le groupe. Mon nom a disparu de la liste, et le silence qui a suivi faisait plus de bruit que les messages.",
+            "en": "I left the group. My name vanished from the list, and the silence that followed was louder than the messages."
+          }
         },
         {
           "label": {
@@ -408,7 +501,11 @@ const STORY = {
           "passive": 0,
           "help": 2,
           "bond": 1,
-          "flag": "warnedKovasko"
+          "flag": "warnedKovasko",
+          "journal": {
+            "fr": "J’ai tout envoyé à Kovasko. Je me demande si Clarisse va deviner que c’est moi. J’ai peur.",
+            "en": "I sent everything to Kovasko. I wonder if Clarisse will guess it was me. I’m scared."
+          }
         },
         {
           "label": {
@@ -419,7 +516,11 @@ const STORY = {
           "passive": 0,
           "help": 2,
           "bond": 2,
-          "flag": "warnedEcho"
+          "flag": "warnedEcho",
+          "journal": {
+            "fr": "J’ai prévenu Echo. Echo m’a juste dit merci, mais j’ai eu peur toute la nuit.",
+            "en": "I warned Echo. Echo only said thank you, but I was scared all night."
+          }
         }
       ],
       "journal": {
@@ -450,7 +551,11 @@ const STORY = {
           "harass": 0,
           "passive": 0,
           "help": 1,
-          "bond": 1
+          "bond": 1,
+          "journal": {
+            "fr": "On a fouillé les archives ensemble, jusque tard. J’avais peur d’être découvert·e, mais je ne me suis jamais senti·e aussi utile.",
+            "en": "We searched the archives together until late. I was afraid of being found out, but I’ve never felt so useful."
+          }
         },
         {
           "label": {
@@ -498,6 +603,13 @@ const STORY = {
             "fr": "Echo est prévenu·e et se tient droit·e face au groupe.",
             "en": "Echo has been warned and stands tall facing the group."
           }
+        },
+        {
+          "flag": "talkedClarisse",
+          "text": {
+            "fr": "Clarisse hésite. Elle a ton regard en tête, et son téléphone reste baissé.",
+            "en": "Clarisse hesitates. She remembers your words, and her phone stays down."
+          }
         }
       ],
       "prompt": {
@@ -543,7 +655,11 @@ const STORY = {
           "harass": 0,
           "passive": 0,
           "help": 2,
-          "bond": 1
+          "bond": 1,
+          "journal": {
+            "fr": "J’ai tout dit devant tout le monde. Mon cœur battait si fort que je l’entendais. Je me sentais très seul·e.",
+            "en": "I said it all in front of everyone. My heart was beating so loud I could hear it. I felt very alone."
+          }
         },
         {
           "label": {
@@ -553,7 +669,11 @@ const STORY = {
           "harass": 0,
           "passive": 0,
           "help": 3,
-          "bond": 2
+          "bond": 2,
+          "journal": {
+            "fr": "J’ai ouvert la porte. Le groupe m’a tourné le dos. Et pourtant, je respire mieux.",
+            "en": "I opened the door. The group turned their backs on me. And yet, I can breathe better."
+          }
         }
       ],
       "journal": {

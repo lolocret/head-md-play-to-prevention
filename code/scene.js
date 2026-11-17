@@ -30,6 +30,7 @@ const Scene = (() => {
     evening: { place: "couloir", npcs: [] },
     nextday: { place: "classe", npcs: [{ id: "kovasko", x: 64, y: 82 }] },
     door:    { place: "toit", npcs: [{ id: "student", x: 80, y: 88 }, { id: "echo", x: 60, y: 92 }] },
+    clarisse: { place: "couloir", npcs: [{ id: "clarisse", x: 66, y: 90 }] },
     turnoff: { place: "couloir", npcs: [] },
     origins: { place: "altaya", fallback: "couloir", npcs: [{ id: "echo", x: 50, y: 90 }] },
     friday:  { place: "toit", npcs: [{ id: "echo", x: 52, y: 92 }, { id: "clarisse", x: 74, y: 88 }, { id: "student", x: 88, y: 90 }] },

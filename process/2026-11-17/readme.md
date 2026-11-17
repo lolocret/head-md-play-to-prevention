@@ -12,7 +12,7 @@ Lorie CRETTEX, Nouria DA ROS
 
 Echo is a choice-driven narrative game about cyberbullying, for ages 12–16. Echo, the first hologram child of the Holo’Kids program, joins class 3B at Alan Turing middle school.
 
-Called “fake” from day one, Echo becomes the class’s target. The player embodies a classmate whose choices make them a witness, an accomplice or an ally.
+Called “fake” from day one, Echo becomes the class’s target. The player embodies a classmate whose choices, witness, accomplice or ally, decide what happens to Echo.
 
 Keywords: identity, body, boundaries, nomophobia.
 
@@ -47,7 +47,7 @@ Echo being a hologram makes one aspect of online bullying concrete: when the tar
 ## What is understood / What knowledge is learned
 
 - **Tools adolescents can learn**
-- Recognize the three roles (witness, accomplice, ally), and understand that silence and a “like” are choices too.
+- Recognize the three roles in bullying (witness, accomplice, ally), and understand that silence and a “like” are choices too.
 - Concrete actions: don’t like or share, leave the group, erase the insults, warn the targeted person, take screenshots and talk to a trusted adult.
 - Read other people’s emotions, thanks to Echo’s flowers that open or close.
 - Understand that the person who bullies can suffer too, and that a victim can become a harasser (Clarisse).
@@ -64,7 +64,7 @@ The player acts in every scene, and small everyday gestures (laughing, liking, s
 
 ## How is your experience played?
 
-A workshop in class led by a teacher or a facilitator. Like Netflix games: the story plays out on a computer, and each student connects their phone or iPad to play on their own. On their device, each one receives the class group’s messages, notifications and memes, and can react to them (like, comment, leave the group, take a screenshot, warn Echo). Their reactions then influence the story. At the end, each one receives a title-role based on the choices they made, and everyone talks about it afterwards.
+A workshop in class led by a teacher or a facilitator. Like Netflix games: the story plays out on a computer, and each student connects their phone or iPad to play on their own. On their device, each one receives the class group’s messages, notifications and memes, and can react to them (like, comment, leave the group, take a screenshot, warn Echo). Their reactions then influence the story. At the end, each one sees Echo’s state: stable, glitching, in crisis, or short-circuited. It reflects the whole class’s choices and everyone talks about it afterwards, to open a conversation, not to judge.
 
 ## The playable prototype (new)
 
@@ -74,8 +74,11 @@ The prototype is no longer built in Unity: it is a web page, playable in a brows
 - **Altaya stays hidden at the start.** The arrow to Altaya only appears if the player has become friends with Echo (the bond is strong enough). Otherwise, Echo investigates alone, and that part of the story stays closed.
 - **Visual novel dialogue.** The story and the choices appear in a text box at the bottom of the scene, with a title page, an introduction, and the choice of a name and an avatar before the first scene.
 - **Echo’s state gauge** shows a face and a green-orange-red bar, with no written label.
-- **The journal** is already written: it fills in scene after scene with the player’s own doubts (“I wonder if it’s okay that we make fun of Echo”).
-- Nine scenes so far, from “The arrival” to “Friday, after class”, in French and English.
+- **The journal** is already written: it fills in scene after scene with the player’s own doubts (“I wonder if it’s okay that we make fun of Echo”). Helping Echo has a quiet, emotional cost, written in the journal: fear, stares in the back, loneliness (“I opened the door. The group turned their backs on me. And yet, I can breathe better.”).
+- **No role title at the end.** The game does not label the player: it shows Echo’s state at the end (stable, bugs, seizure-like crises, short-circuit), which is the visible result of everyone’s choices.
+- **Clarisse can be helped too.** A dedicated scene lets the player talk to her alone in the hallway. It changes how she acts on Friday: her phone stays down.
+- **Echo’s look.** Echo is part plant, part robot: petal-like hair with small buds, fine robotic lines on the skin like the veins of a leaf, and legs that dissolve into hologram flicker (hand-drawn reference, 2026-11-17).
+- Ten scenes so far, from “The arrival” to “Friday, after class”, in French and English.
 
 ## Questions for the cool kids
 
@@ -152,7 +155,7 @@ Clarisse creates a private group: “We’re not harassing anyone, it’s just a
 
 There is a shutdown code, **KIPE-SAFE007**. The plan: Friday, after class, switch Echo off and film the scene. Clarisse shares her plan in La Serre: for the first time, the popular students give her access. The witness understands: Echo has become the new scapegoat.
 
-- *The witness (player) chooses now, and the consequences come later:* take part, stay quiet, leave the group, send screenshots to Kovasko, warn Echo.
+- *The player chooses now, and the consequences come later:* take part, stay quiet, leave the group, send screenshots to Kovasko, warn Echo.
 
 **The origins.**
 
@@ -162,7 +165,7 @@ There is a shutdown code, **KIPE-SAFE007**. The plan: Friday, after class, switc
 
 The meeting is set on the roof, in front of La Serre. Echo now knows their identity. The class empties, the group waits, someone takes out their phone to film. If the player warned Kovasko or Echo earlier, the scene changes.
 
-- *The witness:* film, stay quiet, leave, contradict the group in front of everyone, or open the door to Echo.
+- *The player:* film, stay quiet, leave, contradict the group in front of everyone, or open the door to Echo.
 - What Kovasko, Clarisse and Echo do depends on your earlier choices.
 
 **Ending.**

@@ -1,7 +1,7 @@
 // Echo — text-and-choice prototype. Only the player makes choices.
 let french = true;
 let state, beatIndex, finished;
-const newState = () => ({ harass: 0, passive: 0, help: 0, bond: 0, flags: {} });
+const newState = () => ({ harass: 0, passive: 0, help: 0, bond: 0, flags: {}, extra: [] });
 let phase = "title", introIndex = 0; // title | intro | profile | world | dialog | ending
 let player = { name: "", avatar: null };
 
@@ -99,6 +99,7 @@ function render() {
       const before = state.bond >= STORY.bondToUnlock;
       for (const k of ["harass", "passive", "help", "bond"]) state[k] += c[k] || 0;
       if (c.flag) state.flags[c.flag] = true;
+      if (c.journal) state.extra.push({ beat: beatIndex, text: c.journal });
       if (!before && state.bond >= STORY.bondToUnlock) toast(french ? "Un nouveau lieu est accessible : Altaya" : "A new place is now open: Altaya");
       next();
     }));
@@ -174,7 +175,7 @@ function renderEnding() {
   $("title").textContent = L(e.title);
   $("body").textContent = L(e.text);
   const lore = state.bond >= STORY.bondToUnlock ? STORY.loreUnlocked : STORY.loreClosed;
-  $("prompt").textContent = (french ? "Ton titre : " : "Your title: ") + L(STORY.roles[role()]) + "\n" + L(lore);
+  $("prompt").textContent = (french ? "État d’Echo à la fin : " : "Echo’s state at the end: ") + L(STORY.stages[stage()]) + "\n" + L(lore);
   $("prompt").style.whiteSpace = "pre-line";
   addButton(french ? "Rejouer" : "Play again", restart);
 }
@@ -197,11 +198,14 @@ function updateJournal() {
   $("meName").textContent = player.name;
   const last = finished ? STORY.beats.length - 1 : (phase === "dialog" ? beatIndex : beatIndex - 1);
   $("journalBody").innerHTML = "";
-  STORY.beats.slice(0, last + 1).forEach(b => {
-    if (!b.journal) return;
+  const addEntry = t => {
     const p = document.createElement("p");
-    p.textContent = L(b.journal);
+    p.textContent = L(t);
     $("journalBody").appendChild(p);
+  };
+  STORY.beats.slice(0, last + 1).forEach((b, i) => {
+    if (b.journal) addEntry(b.journal);
+    state.extra.filter(x => x.beat === i).forEach(x => addEntry(x.text)); // what the choice cost you
   });
 }
 
