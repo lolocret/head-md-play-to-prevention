@@ -15,7 +15,7 @@ A visual novel in the browser. Two ways to play:
 - Title page, introduction, then the choice of a name and an avatar: a coloured silhouette, or the player's own photo turned into a cyberpunk portrait (`avatar.js`). The photo is processed in the browser only; it is not saved or uploaded, and only a small 96 px version of the transformed image is shown on the phone.
 - Scenes like Street View: each place is a full-screen image, and you walk between places by clicking arrows (hallway, class 3B, roof, La Serre, Altaya).
 - **Altaya is hidden** until the player’s bond with Echo is strong enough (`bondToUnlock` in `story.js`).
-- The story and choices appear in a box at the bottom. The gauge shows a face and a green-orange-red bar, with no label.
+- The story appears in a box at the bottom. **With a phone connected, the choices are made on the phone**: the computer says "Choisis sur ton téléphone" and the scene darkens while it waits. A small button lets the player choose on the computer instead, and if the phone disconnects the choices come back to the computer. Without a phone, the choices stay on the computer. The gauge shows a face and a green-orange-red bar, with no label.
 - A journal, already written, that fills in scene after scene, on the phone. Helping Echo has a small emotional cost written in it. Without a phone, there is no journal.
 - Ten scenes, French by default; add `?lang=en` to the address for English. At the end, the player sees Echo’s state (no role title).
 

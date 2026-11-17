@@ -5,6 +5,7 @@ const $ = id => document.getElementById(id);
 let french = true, ws, openThread = null, closedByUs = false;
 const threads = {}; // id -> { name, msgs: [{ from, fr, en }], unread }
 let entries = [], prompts = [], jUnread = 0, view = "msgs";
+let pendingChoice = null; // { token, prompt, choices } sent by the story: the player chooses here
 const saved = (() => { try { return JSON.parse(localStorage.getItem("echo-journal-" + room) || "{}"); } catch (e) { return {}; } })();
 const save = () => { try { localStorage.setItem("echo-journal-" + room, JSON.stringify(saved)); } catch (e) { /* optional */ } };
 
@@ -18,6 +19,8 @@ const TXT = {
   write: { fr: "Écris ici, juste pour toi…", en: "Write here, just for you…" },
   stays: { fr: "Ce que tu écris reste sur ton téléphone.", en: "What you write stays on your phone." },
   jNotif: { fr: "Une question pour toi", en: "A question for you" },
+  choice: { fr: "Choix", en: "Choice" },
+  sent: { fr: "Choix envoyé. Regarde l’écran.", en: "Choice sent. Look at the screen." },
   entry: { fr: "Entrée", en: "Entry" },
   saved: { fr: "Enregistré", en: "Saved" },
   jEmpty: { fr: "Ton journal se remplit au fil de l’histoire.", en: "Your journal fills in as the story goes." },
@@ -36,6 +39,8 @@ function paintStatic() {
   $("gateNote").textContent = T("note");
   $("tabMsgs").querySelector(".lbl").textContent = T("msgs");
   $("tabJournal").querySelector(".lbl").textContent = T("journal");
+  $("tabChoice").querySelector(".lbl").textContent = T("choice");
+  $("tabChoice").hidden = !pendingChoice;
   $("tabJournal").querySelector(".dotb").hidden = !jUnread;
   $("tabMsgs").querySelector(".dotb").hidden = !Object.values(threads).some(t => t.unread);
   $("screenTitle").textContent = view === "journal" ? T("jTitle") : T("msgs");
@@ -56,6 +61,8 @@ function connect() {
     else if (m.type === "msg") onMessage(m);
     else if (m.type === "journal") { entries = m.entries || []; renderJournal(); }
     else if (m.type === "prompt") onPrompt(m);
+    else if (m.type === "choices") onChoices(m);
+    else if (m.type === "choices_cancel") { if (pendingChoice && pendingChoice.token === m.token) { pendingChoice = null; show("msgs"); } }
   };
   ws.onclose = () => { if (!closedByUs) setTimeout(connect, 1500); };
 }
@@ -70,6 +77,35 @@ function onProfile(m) {
     $("meSil").replaceChildren(im);
   }
   paintStatic();
+}
+
+// ---- The choice of the scene is made here, on the phone ----
+function onChoices(m) {
+  pendingChoice = { token: m.token, prompt: m.prompt, choices: m.choices };
+  renderChoices();
+  paintStatic();
+  show("choice");
+  feel("normal");
+}
+
+function renderChoices() {
+  const list = $("choiceList"); list.innerHTML = "";
+  $("choiceSent").hidden = true;
+  $("choicePrompt").textContent = pendingChoice && pendingChoice.prompt ? pick(pendingChoice.prompt) : "";
+  if (!pendingChoice) return;
+  const token = pendingChoice.token;
+  pendingChoice.choices.forEach((c, i) => {
+    const b = document.createElement("button"); b.className = "choice"; b.textContent = pick(c);
+    b.onclick = () => {
+      if (!pendingChoice || pendingChoice.token !== token) return;
+      send({ type: "choose", token, index: i });
+      pendingChoice = null;
+      list.innerHTML = ""; $("choiceSent").textContent = T("sent"); $("choiceSent").hidden = false;
+      paintStatic();
+      setTimeout(() => { if (!pendingChoice) show("msgs"); }, 1800);
+    };
+    list.appendChild(b);
+  });
 }
 
 // ---- The journal on the phone: written entries + questions the player answers herself ----
@@ -115,7 +151,9 @@ function show(v) {
   $("list").hidden = v !== "msgs" || !!openThread;
   $("thread").hidden = v !== "msgs" || !openThread;
   $("journalView").hidden = v !== "journal";
-  $("top").hidden = $("gate").hidden === false || (v === "msgs" && !!openThread); // more room while reading a conversation
+  $("choiceView").hidden = v !== "choice";
+  $("tabChoice").classList.toggle("on", v === "choice");
+  $("top").hidden = $("gate").hidden === false || (v === "msgs" && !!openThread) || v === "choice"; // more room while reading a conversation
   $("tabMsgs").classList.toggle("on", v === "msgs");
   $("tabJournal").classList.toggle("on", v === "journal");
   if (v === "journal") { jUnread = 0; renderJournal(); $("journalView").scrollTop = 0; }
@@ -224,6 +262,7 @@ function renderThread() {
 $("back").onclick = () => { openThread = null; show("msgs"); renderList(); };
 $("tabMsgs").onclick = () => { openThread = null; show("msgs"); renderList(); };
 $("tabJournal").onclick = () => show("journal");
+$("tabChoice").onclick = () => { renderChoices(); show("choice"); };
 // A tap is needed before the browser lets the page play sounds (the same on iPhone and Android).
 $("answer").onclick = () => {
   unlockSound();

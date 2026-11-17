@@ -43,6 +43,12 @@
       <div id="jPrompts"></div>
     </section>
 
+    <section id="choiceView" hidden>
+      <p id="choicePrompt"></p>
+      <div id="choiceList"></div>
+      <p id="choiceSent" hidden></p>
+    </section>
+
     <button id="notif" hidden type="button">
       <span class="n-head"><span class="n-icon" id="nIcon"></span><span class="n-app">NEXUS</span><span class="n-time" id="nTime"></span></span>
       <b class="n-title" id="nTitle"></b>
@@ -57,6 +63,10 @@
       <button id="tabJournal">
         <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M6 3h13a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6z"/><path d="M6 3v20M10 8h6M10 12h6"/></svg>
         <span class="lbl"></span><i class="dotb" hidden></i>
+      </button>
+      <button id="tabChoice" hidden>
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3v6M5 14l8-5 8 5M5 14v4M21 14v4M13 9v13"/></svg>
+        <span class="lbl"></span><i class="dotb"></i>
       </button>
     </nav>
   </div>

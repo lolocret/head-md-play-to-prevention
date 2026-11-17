@@ -100,20 +100,60 @@ function render() {
   const hasChoices = choices && choices.length > 0;
   $("prompt").textContent = hasChoices && beat.prompt ? L(beat.prompt) : "";
 
-  if (hasChoices) {
-    choices.forEach(c => addButton(L(c.label), () => {
-      const before = state.bond >= STORY.bondToUnlock;
-      for (const k of ["harass", "passive", "help", "bond"]) state[k] += c[k] || 0;
-      if (c.flag) state.flags[c.flag] = true;
-      if (c.help > 0) Nexus.cold(c.help); // helping Echo: the others answer coldly
-      if (c.journal) state.extra.push({ beat: beatIndex, text: c.journal });
-      if (!before && state.bond >= STORY.bondToUnlock) toast(french ? "Un nouveau lieu est accessible : Altaya" : "A new place is now open: Altaya");
-      next();
-    }));
+  const onPhone = hasChoices && Link.connected && !chooseHere;
+  document.body.classList.toggle("await-phone", onPhone);
+  if (hasChoices && onPhone) {
+    // the choice is made on the phone: the computer waits and the screen darkens
+    $("prompt").textContent = (beat.prompt ? L(beat.prompt) + "\n" : "") + (french ? "Choisis sur ton téléphone." : "Choose on your phone.");
+    sendChoices(beat, choices);
+    addButton(french ? "Choisir ici à la place" : "Choose here instead", () => { chooseHere = true; cancelPhoneChoices(); render(); });
+  } else if (hasChoices) {
+    choices.forEach(c => addButton(L(c.label), () => choose(c)));
   } else {
     addButton(french ? "Continuer" : "Continue", next);
   }
 }
+
+// ---- Choosing: on the phone when one is connected, otherwise on the computer ----
+let chooseHere = false;       // the player chose to answer on the computer
+let pending = null;           // the choices waiting for the phone: { token, choices }
+let sentToken = null;
+
+function choose(c) {
+  pending = null; sentToken = null; chooseHere = false;
+  document.body.classList.remove("await-phone");
+  const before = state.bond >= STORY.bondToUnlock;
+  for (const k of ["harass", "passive", "help", "bond"]) state[k] += c[k] || 0;
+  if (c.flag) state.flags[c.flag] = true;
+  if (c.help > 0) Nexus.cold(c.help); // helping Echo: the others answer coldly
+  if (c.journal) state.extra.push({ beat: beatIndex, text: c.journal });
+  if (!before && state.bond >= STORY.bondToUnlock) toast(french ? "Un nouveau lieu est accessible : Altaya" : "A new place is now open: Altaya");
+  next();
+}
+
+function sendChoices(beat, choices) {
+  const token = beatIndex;
+  pending = { token, choices };
+  if (sentToken === token) return;       // already sent (the screen was only redrawn)
+  sentToken = token;
+  Link.send({
+    type: "choices", token, id: beat.id,
+    prompt: { fr: fill(beat.prompt ? beat.prompt.fr : ""), en: fill(beat.prompt ? beat.prompt.en : "") },
+    choices: choices.map(c => ({ fr: fill(c.label.fr), en: fill(c.label.en) })),
+  });
+}
+
+function cancelPhoneChoices() {
+  if (pending) Link.send({ type: "choices_cancel", token: pending.token });
+  pending = null; sentToken = null;
+}
+
+// The phone answered
+Link.onMessage = m => {
+  if (m.type !== "choose" || !pending || m.token !== pending.token || phase !== "dialog") return;
+  const c = pending.choices[m.index];
+  if (c) choose(c);
+};
 
 function renderTitle() {
   $("gameName").textContent = TITLE.name;
@@ -210,7 +250,11 @@ Link.onPeer = connected => {
   if (connected) {
     Link.send(profileMsg());
     updateJournal.sig = null; updateJournal();
+    sentToken = null;                               // a phone (re)connected: send it the choices again
     if (phase === "phone") setTimeout(() => { if (phase === "phone") restart(); }, 1800);
+    else if (phase === "dialog") render();
+  } else if (phase === "dialog") {
+    pending = null; sentToken = null; render();      // the phone left: choices come back to the computer
   }
 };
 
@@ -221,6 +265,7 @@ function toast(text) {
 }
 
 function next() {
+  chooseHere = false;
   beatIndex++;
   if (beatIndex >= STORY.beats.length) { finished = true; phase = "ending"; }
   else { phase = "world"; Scene.setBeat(STORY.beats[beatIndex].id); }
