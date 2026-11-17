@@ -20,6 +20,14 @@ const Link = (() => {
   api.start = async () => {
     if (location.protocol === "file:") return null;
     let base = location.origin;
+    // ?base=https://… makes the QR code point to a public address (a tunnel) while the computer stays on localhost.
+    const forced = new URLSearchParams(location.search).get("base");
+    if (forced && /^https:\/\/[a-z0-9.-]+$/i.test(forced)) {
+      api.room = api.room || Array.from({ length: 4 }, () => CHARS[Math.floor(Math.random() * CHARS.length)]).join("");
+      closed = false;
+      connect();
+      return { room: api.room, url: `${forced}/phone.html?room=${api.room}` };
+    }
     try {
       const info = await (await fetch("/api/info")).json();
       if (["localhost", "127.0.0.1"].includes(location.hostname) && info.ips.length) base = `http://${info.ips[0]}:${info.port}`;

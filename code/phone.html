@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <meta name="theme-color" content="#08070f">
   <title>Nexus</title>
   <link rel="stylesheet" href="phone.css">
 </head>
@@ -16,9 +17,10 @@
       </span>
     </div>
 
-    <header id="top">
+    <header id="top" hidden>
       <span class="sil" id="meSil"><i></i><b></b></span>
       <span id="meName"></span>
+      <h1 id="screenTitle"></h1>
     </header>
 
     <section id="gate">
@@ -29,14 +31,18 @@
     </section>
 
     <section id="list" hidden></section>
+
     <section id="thread" hidden>
-      <button id="back">‹</button>
-      <h2 id="threadTitle"></h2>
+      <div class="threadbar">
+        <button id="back" aria-label="Retour">
+          <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 2 10l8 8"/></svg>
+        </button>
+        <h2 id="threadTitle"></h2>
+      </div>
       <div id="bubbles"></div>
     </section>
 
     <section id="journalView" hidden>
-      <h2 id="jTitle"></h2>
       <div id="jEntries"></div>
       <div id="jPrompts"></div>
     </section>
@@ -44,11 +50,15 @@
     <div id="notif" hidden></div>
 
     <nav id="bar" hidden>
-      <button id="tabMsgs"></button>
-      <button id="tabJournal"></button>
-      <button id="tabTorch"></button>
+      <button id="tabMsgs">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H12l-5 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>
+        <span class="lbl"></span><i class="dotb" hidden></i>
+      </button>
+      <button id="tabJournal">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M6 3h13a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6z"/><path d="M6 3v20M10 8h6M10 12h6"/></svg>
+        <span class="lbl"></span><i class="dotb" hidden></i>
+      </button>
     </nav>
-    <div id="torch" hidden></div>
   </div>
   <script src="phone.js"></script>
 </body>

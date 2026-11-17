@@ -44,8 +44,8 @@ const STORY = {
         "en": "First day: Echo is the first holokid to join class 3B of Alan Turing middle school. Kovasko gives a speech on diversity and introduces Echo. Echo introduces themself out loud in a class that has gone silent."
       },
       "prompt": {
-        "fr": "Comment réagis-tu ?",
-        "en": "How do you react?"
+        "fr": "Comment réagis-tu, {name} ?",
+        "en": "How do you react, {name}?"
       },
       "choices": [
         {
@@ -199,8 +199,8 @@ const STORY = {
         "en": "The next day, the class is silent, but laughter bursts out on the phones. Kovasko notices nothing."
       },
       "prompt": {
-        "fr": "Que fais-tu ?",
-        "en": "What do you do?"
+        "fr": "Que fais-tu, {name} ?",
+        "en": "What do you do, {name}?"
       },
       "choices": [
         {
@@ -254,8 +254,8 @@ const STORY = {
         "en": "At break, Echo follows the others to the roof. In front of La Serre’s door, a student blocks the way: “It’s reserved for the real ones.” Echo tries to enter anyway. Clarisse has no access to La Serre either. Mocked for her poverty, she harasses Echo hoping to make a place for herself there."
       },
       "prompt": {
-        "fr": "Que fais-tu ?",
-        "en": "What do you do?"
+        "fr": "Que fais-tu, {name} ?",
+        "en": "What do you do, {name}?"
       },
       "choices": [
         {
@@ -309,8 +309,8 @@ const STORY = {
         "en": "Students manage to hack Echo’s system to make insults appear on their back. Clarisse calls Echo a “life thief”: according to her, it is because of holokids like Echo that her family became poorer and that she is mocked. The paradox: Echo is kind and only wants to help."
       },
       "prompt": {
-        "fr": "Que fais-tu ?",
-        "en": "What do you do?"
+        "fr": "Que fais-tu, {name} ?",
+        "en": "What do you do, {name}?"
       },
       "choices": [
         {
@@ -379,8 +379,8 @@ const STORY = {
         "en": "In the hallway, Clarisse has been left alone by the lockers. Someone just made fun of her clothes. For a few seconds, she doesn’t look like the one harassing Echo: she looks like someone trying not to cry."
       },
       "prompt": {
-        "fr": "Que fais-tu ?",
-        "en": "What do you do?"
+        "fr": "Que fais-tu, {name} ?",
+        "en": "What do you do, {name}?"
       },
       "choices": [
         {
@@ -436,12 +436,12 @@ const STORY = {
         "en": "“Turn it off”"
       },
       "text": {
-        "fr": "Clarisse crée un groupe privé : « On ne harcèle personne, c’est juste une machine. » Des élèves y sont ajoutés de force et obligés d’y rester (« Tu es avec nous ou avec la machine ? », « Si tu ne dis rien, tu approuves »). La peur d’être la prochaine victime est partout.\n\nIl existe un code d’arrêt : KIPE-SAFE007. Le plan : vendredi, après les cours, éteindre Echo et filmer la scène. Clarisse le partage à La Serre : pour la première fois, les élèves populaires lui en ouvrent l’accès. Tu comprends : Echo est devenu le nouveau bouc émissaire.",
-        "en": "Clarisse creates a private group: “We’re not harassing anyone, it’s just a machine.” Students are added by force and made to stay (“Are you with us or with the machine?”, “If you say nothing, you agree”). Fear of being the next victim is everywhere.\n\nThere is a shutdown code: KIPE-SAFE007. The plan: on Friday, after class, switch Echo off and film the scene. Clarisse shares it in La Serre: for the first time, the popular students give her access. You understand: Echo has become the new scapegoat."
+        "fr": "Clarisse crée un groupe privé : « On ne harcèle personne, c’est juste une machine. » Des élèves y sont ajoutés de force et obligés d’y rester (« Tu es avec nous ou avec la machine ? », « Si tu ne dis rien, tu approuves »). La peur d’être la prochaine victime est partout.\n\nIl existe un code d’arrêt : KIPE-SAFE007. Le plan : vendredi, après les cours, éteindre Echo et filmer la scène. Clarisse le partage à La Serre : pour la première fois, les élèves populaires lui en ouvrent l’accès. {name}, tu comprends : Echo est devenu le nouveau bouc émissaire.",
+        "en": "Clarisse creates a private group: “We’re not harassing anyone, it’s just a machine.” Students are added by force and made to stay (“Are you with us or with the machine?”, “If you say nothing, you agree”). Fear of being the next victim is everywhere.\n\nThere is a shutdown code: KIPE-SAFE007. The plan: on Friday, after class, switch Echo off and film the scene. Clarisse shares it in La Serre: for the first time, the popular students give her access. {name}, you understand: Echo has become the new scapegoat."
       },
       "prompt": {
-        "fr": "Tu choisis maintenant. Les conséquences viendront plus tard.",
-        "en": "You choose now. The consequences will come later."
+        "fr": "{name}, tu choisis maintenant. Les conséquences viendront plus tard.",
+        "en": "{name}, you choose now. The consequences will come later."
       },
       "choices": [
         {
@@ -525,8 +525,8 @@ const STORY = {
         "en": "“You have no parents.” That sentence haunts Echo. Tonight you join Echo at Altaya: memory fragments, archives, a trail. Altaya is a small team that created the Holokids program for isolated children who couldn’t express their feelings. Echo finally understands who they are and what they are for."
       },
       "prompt": {
-        "fr": "Que fais-tu ?",
-        "en": "What do you do?"
+        "fr": "Que fais-tu, {name} ?",
+        "en": "What do you do, {name}?"
       },
       "choices": [
         {
@@ -599,8 +599,8 @@ const STORY = {
         }
       ],
       "prompt": {
-        "fr": "Que fais-tu ?",
-        "en": "What do you do?"
+        "fr": "Que fais-tu, {name} ?",
+        "en": "What do you do, {name}?"
       },
       "choices": [
         {
@@ -710,15 +710,15 @@ const INTRO = [
   {
     title: { fr: "Un holokid arrive à l’école.", en: "A holokid is coming to school." },
     text: {
-      fr: "Comment vas-tu réagir ?\n\nEcho, le premier enfant hologramme du programme Holo’Kids, rejoint la classe 3B du collège Alan Turing. Dès le premier jour, on le traite de « faux » et il devient la cible de la classe.",
-      en: "How will you react?\n\nEcho, the first hologram child of the Holo’Kids program, joins class 3B at Alan Turing middle school. Called “fake” from day one, Echo becomes the class’s target."
+      fr: "Comment vas-tu réagir ?\n\nEcho, le premier enfant hologramme du programme Holo’Kids, rejoint la classe 3B du collège Alan Turing.",
+      en: "How will you react?\n\nEcho, the first hologram child of the Holo’Kids program, joins class 3B at Alan Turing middle school."
     }
   },
   {
     title: { fr: "Ton rôle", en: "Your role" },
     text: {
-      fr: "Tu incarnes un·e camarade de classe. À chaque scène, tu choisis : suivre le groupe, te taire ou défendre Echo, au risque de devenir la prochaine cible. Rire, liker, rester silencieux·se : tout compte.\n\nLes fleurs d’Echo s’ouvrent ou se ferment selon ce qu’iel ressent. La jauge te montre l’effet de tes choix : plus elle monte, plus Echo va mal. Chaque choix change aussi ton lien avec Echo.\n\nÀ la fin, tu vois l’état d’Echo : c’est le résultat de tes choix, pour ouvrir la discussion, pas pour te juger.",
-      en: "You play a classmate. In every scene you choose: follow the group, stay quiet or defend Echo at the risk of becoming the next target. Laughing, liking, staying silent: it all counts.\n\nEcho’s flowers open or close depending on what they feel. The gauge shows the effect of your choices: the higher it goes, the worse Echo feels. Each choice also changes your bond with Echo.\n\nAt the end you see Echo’s state: it is the result of your choices, to start a conversation, not to judge you."
+      fr: "Tu incarnes un·e camarade de classe. À chaque scène, tu choisis ce que tu veux faire. Chaque choix compte.\n\nLes fleurs d’Echo s’ouvrent ou se ferment selon ce qu’iel ressent. La jauge te montre l’effet de tes choix : plus elle monte, plus Echo va mal. Chaque choix change aussi ton lien avec Echo.\n\nÀ la fin, tu vois l’état d’Echo : c’est le résultat de tes choix, pour ouvrir la discussion, pas pour te juger.",
+      en: "You play a classmate. In every scene, you choose what you want to do. Every choice counts.\n\nEcho’s flowers open or close depending on what they feel. The gauge shows the effect of your choices: the higher it goes, the worse Echo feels. Each choice also changes your bond with Echo.\n\nAt the end you see Echo’s state: it is the result of your choices, to start a conversation, not to judge you."
     }
   }
 ];

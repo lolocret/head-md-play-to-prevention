@@ -13,26 +13,32 @@ const TXT = {
   answer: { fr: "Ouvrir Nexus", en: "Open Nexus" },
   note: { fr: "Gardez cette page ouverte pendant le jeu.", en: "Keep this page open during the game." },
   msgs: { fr: "Messages", en: "Messages" },
-  torch: { fr: "Lampe", en: "Flashlight" },
   journal: { fr: "Journal", en: "Journal" },
   jTitle: { fr: "Mon journal", en: "My journal" },
   write: { fr: "Écris ici, juste pour toi…", en: "Write here, just for you…" },
   stays: { fr: "Ce que tu écris reste sur ton téléphone.", en: "What you write stays on your phone." },
   jNotif: { fr: "Une question pour toi", en: "A question for you" },
+  entry: { fr: "Entrée", en: "Entry" },
+  saved: { fr: "Enregistré", en: "Saved" },
+  jEmpty: { fr: "Ton journal se remplit au fil de l’histoire.", en: "Your journal fills in as the story goes." },
   empty: { fr: "Aucun message pour l’instant.", en: "No messages yet." },
   noRoom: { fr: "Cette session n’existe plus. Scannez le QR code de l’ordinateur.", en: "This session no longer exists. Scan the computer’s QR code." },
 };
 const T = k => TXT[k][french ? "fr" : "en"];
 const pick = m => (french ? m.fr : m.en);
+const clock = () => new Date().toLocaleTimeString(french ? "fr-CH" : "en-GB", { hour: "2-digit", minute: "2-digit" });
+const COLORS = ["#ff7aa8", "#ffb86b", "#7dffb2", "#4df0ff", "#a78bff", "#ff4fc3"];
+const colorOf = s => COLORS[[...String(s)].reduce((a, c) => a + c.charCodeAt(0), 0) % COLORS.length];
 
 function paintStatic() {
   $("gateText").textContent = T("calling");
   $("answer").textContent = T("answer");
   $("gateNote").textContent = T("note");
-  $("tabMsgs").textContent = T("msgs");
-  $("tabTorch").textContent = T("torch");
-  $("tabJournal").textContent = T("journal") + (jUnread ? " (" + jUnread + ")" : "");
-  $("jTitle").textContent = T("jTitle");
+  $("tabMsgs").querySelector(".lbl").textContent = T("msgs");
+  $("tabJournal").querySelector(".lbl").textContent = T("journal");
+  $("tabJournal").querySelector(".dotb").hidden = !jUnread;
+  $("tabMsgs").querySelector(".dotb").hidden = !Object.values(threads).some(t => t.unread);
+  $("screenTitle").textContent = view === "journal" ? T("jTitle") : T("msgs");
   renderList();
   if (openThread) renderThread();
 }
@@ -59,7 +65,10 @@ function onProfile(m) {
   french = m.french !== false;
   $("meName").textContent = m.name || "";
   if (m.avatar) $("meSil").style.setProperty("--c", m.avatar);
-  // ---- The journal on the phone: written entries + questions the player answers herself ----
+  paintStatic();
+}
+
+// ---- The journal on the phone: written entries + questions the player answers herself ----
 function onPrompt(m) {
   if (prompts.some(x => x.id === m.id)) return;
   prompts.push({ id: m.id, fr: m.fr, en: m.en });
@@ -70,27 +79,43 @@ function onPrompt(m) {
 
 function renderJournal() {
   const box = $("jEntries"); box.innerHTML = "";
-  entries.forEach(e => { const p = document.createElement("p"); p.textContent = pick(e); box.appendChild(p); });
+  if (!entries.length) { const e = document.createElement("p"); e.className = "jempty"; e.textContent = T("jEmpty"); box.appendChild(e); }
+  entries.forEach((e, i) => {
+    const d = document.createElement("div"); d.className = "entry";
+    const s = document.createElement("small"); s.textContent = T("entry") + " " + (i + 1);
+    const t = document.createElement("p"); t.textContent = pick(e);
+    d.append(s, t); box.appendChild(d);
+  });
   const pr = $("jPrompts"); pr.innerHTML = "";
   prompts.forEach(q => {
     const card = document.createElement("div"); card.className = "prompt";
-    const t = document.createElement("p"); t.textContent = pick(q);
+    const t = document.createElement("p"); t.className = "q"; t.textContent = pick(q);
     const ta = document.createElement("textarea"); ta.placeholder = T("write"); ta.value = saved[q.id] || "";
-    ta.oninput = () => { saved[q.id] = ta.value; save(); };
-    const note = document.createElement("small"); note.textContent = T("stays");
-    card.append(t, ta, note); pr.appendChild(card);
+    const grow = () => { ta.style.height = "auto"; ta.style.height = Math.max(130, ta.scrollHeight) + "px"; };
+    const foot = document.createElement("div"); foot.className = "foot";
+    const note = document.createElement("span"); note.textContent = T("stays");
+    const ok = document.createElement("span"); ok.className = "ok"; ok.textContent = "✓ " + T("saved");
+    foot.append(note, ok);
+    ta.oninput = () => {
+      saved[q.id] = ta.value; save(); grow();
+      ok.classList.add("on"); clearTimeout(ta.okId); ta.okId = setTimeout(() => ok.classList.remove("on"), 1500);
+    };
+    ta.onfocus = () => setTimeout(() => card.scrollIntoView({ block: "center", behavior: "smooth" }), 300); // keep it above the keyboard
+    card.append(t, ta, foot); pr.appendChild(card);
+    setTimeout(grow, 0);
   });
 }
 
 function show(v) {
   view = v;
-  $("torch").hidden = true; $("tabTorch").classList.remove("on");
   $("list").hidden = v !== "msgs" || !!openThread;
   $("thread").hidden = v !== "msgs" || !openThread;
   $("journalView").hidden = v !== "journal";
+  $("top").hidden = $("gate").hidden === false || (v === "msgs" && !!openThread); // more room while reading a conversation
   $("tabMsgs").classList.toggle("on", v === "msgs");
   $("tabJournal").classList.toggle("on", v === "journal");
-  if (v === "journal") { jUnread = 0; paintStatic(); renderJournal(); }
+  if (v === "journal") { jUnread = 0; renderJournal(); $("journalView").scrollTop = 0; }
+  paintStatic();
 }
 
 // ---- What a message feels like, the same on every phone: sound + a shake or a silence ----
@@ -117,17 +142,14 @@ function silence() { document.body.classList.add("silent"); clearTimeout(silence
 async function keepAwake() { try { if (navigator.wakeLock) await navigator.wakeLock.request("screen"); } catch (err) { /* optional */ } }
 document.addEventListener("visibilitychange", () => { if (!document.hidden && audio) { audio.resume(); keepAwake(); } });
 
-paintStatic();
-}
-
 function startCall() {
-  $("gate").hidden = true; $("top").hidden = false; $("bar").hidden = false; $("list").hidden = false;
-  renderList();
+  $("gate").hidden = true; $("bar").hidden = false;
+  show("msgs"); renderList();
 }
 
 function onMessage(m) {
   const t = threads[m.thread] || (threads[m.thread] = { name: m.threadName, msgs: [], unread: 0 });
-  t.msgs.push({ from: m.from, fr: m.fr, en: m.en });
+  t.msgs.push({ from: m.from, fr: m.fr, en: m.en, time: clock() });
   const reading = openThread === m.thread;
   if (!reading) t.unread++;
   feel(m.feel || "normal");
@@ -148,14 +170,18 @@ function renderList() {
   const el = $("list"); el.innerHTML = "";
   const ids = Object.keys(threads);
   if (!ids.length) { const p = document.createElement("p"); p.className = "empty"; p.textContent = T("empty"); el.appendChild(p); return; }
+  const initials = s => s.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase();
   ids.reverse().forEach(id => {
-    const t = threads[id], last = t.msgs[t.msgs.length - 1];
-    const row = document.createElement("button"); row.className = "row";
-    const av = document.createElement("span"); av.className = "avatar"; av.textContent = pick(t.name).slice(0, 2);
+    const t = threads[id], last = t.msgs[t.msgs.length - 1], name = pick(t.name);
+    const row = document.createElement("button"); row.className = "row" + (t.unread ? " unread" : "");
+    const av = document.createElement("span"); av.className = "avatar"; av.style.setProperty("--c", colorOf(name)); av.textContent = initials(name);
     const txt = document.createElement("span"); txt.className = "txt";
-    const nm = document.createElement("b"); nm.textContent = pick(t.name);
+    const head = document.createElement("span"); head.className = "head";
+    const nm = document.createElement("b"); nm.textContent = name;
+    const tm = document.createElement("time"); tm.textContent = last.time || "";
+    head.append(nm, tm);
     const pv = document.createElement("span"); pv.className = "prev"; pv.textContent = (last.from ? last.from + " : " : "") + pick(last);
-    txt.append(nm, pv); row.append(av, txt);
+    txt.append(head, pv); row.append(av, txt);
     if (t.unread) { const bd = document.createElement("span"); bd.className = "badge"; bd.textContent = t.unread; row.appendChild(bd); }
     row.onclick = () => { openThread = id; t.unread = 0; showThread(); };
     el.appendChild(row);
@@ -169,8 +195,10 @@ function renderThread() {
   const box = $("bubbles"); box.innerHTML = "";
   t.msgs.forEach(m => {
     const d = document.createElement("div"); d.className = "bubble" + (m.from ? "" : " system");
-    if (m.from) { const s = document.createElement("small"); s.textContent = m.from; d.appendChild(s); }
-    d.appendChild(document.createTextNode(pick(m))); box.appendChild(d);
+    if (m.from) { const s = document.createElement("small"); s.textContent = m.from; s.style.setProperty("--c", colorOf(m.from)); d.appendChild(s); }
+    d.appendChild(document.createTextNode(pick(m)));
+    if (m.time) { const tm = document.createElement("time"); tm.textContent = m.time; d.appendChild(tm); }
+    box.appendChild(d);
   });
   box.scrollTop = box.scrollHeight;
 }
@@ -178,8 +206,6 @@ function renderThread() {
 $("back").onclick = () => { openThread = null; show("msgs"); renderList(); };
 $("tabMsgs").onclick = () => { openThread = null; show("msgs"); renderList(); };
 $("tabJournal").onclick = () => show("journal");
-$("tabTorch").onclick = () => { const on = $("torch").hidden; $("torch").hidden = !on; $("tabTorch").classList.toggle("on", on); };
-$("torch").onclick = () => $("tabTorch").click();
 // A tap is needed before the browser lets the page play sounds (the same on iPhone and Android).
 $("answer").onclick = () => {
   unlockSound();

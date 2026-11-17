@@ -6,7 +6,9 @@ let phase = "title", introIndex = 0; // title | intro | profile | phone | world 
 let player = { name: "", avatar: null };
 
 const $ = id => document.getElementById(id);
-const L = t => (french ? t.fr : t.en);
+// {name} in any text becomes the player’s name, to make the story personal
+const fill = s => String(s).replace(/\{name\}/g, (typeof player !== "undefined" && player.name) || "");
+const L = t => fill(french ? t.fr : t.en);
 
 function restart() {
   state = newState();
@@ -204,7 +206,7 @@ function renderEnding() {
   $("title").textContent = L(e.title);
   $("body").textContent = L(e.text);
   const lore = state.bond >= STORY.bondToUnlock ? STORY.loreUnlocked : STORY.loreClosed;
-  $("prompt").textContent = (french ? "État d’Echo à la fin : " : "Echo’s state at the end: ") + L(STORY.stages[stage()]) + "\n" + L(lore);
+  $("prompt").textContent = fill(french ? "{name}, voici l’état d’Echo à la fin : " : "{name}, here is Echo’s state at the end: ") + L(STORY.stages[stage()]) + "\n" + L(lore);
   $("prompt").style.whiteSpace = "pre-line";
   addButton(french ? "Rejouer" : "Play again", restart);
 }
@@ -241,7 +243,7 @@ function updateJournal() {
   const sig = entries.length + "|" + french;
   if (sig !== updateJournal.sig && Link.connected) {
     updateJournal.sig = sig;
-    Link.send({ type: "journal", entries: entries.map(t => ({ fr: t.fr, en: t.en })) });
+    Link.send({ type: "journal", entries: entries.map(t => ({ fr: fill(t.fr), en: fill(t.en) })) });
   }
 }
 

@@ -14,9 +14,10 @@ const NEXUS = {
       { t: "class", from: "Lucas", fr: "un hologramme en 3B, on a gagné quoi", en: "a hologram in 3B, what did we win", at: 6000 },
     ],
     hello: [
-      { t: "class", from: "Maé", fr: "t’as vu sa main qui traverse", en: "did you see his hand go through", at: 2500 },
+      { t: "class", from: "Maé", fr: "{name}, t’as vu sa main qui traverse", en: "{name}, did you see his hand go through", at: 2500 },
     ],
     evening: [
+      { t: "class", from: "Lucas", fr: "{name}, t’as vu la vidéo ?", en: "{name}, did you see the video?", at: 400 },
       { t: "class", from: "Lucas", fr: "[vidéo] Echo dit bonjour (la main traverse)", en: "[video] Echo says hello (the hand goes through)", at: 800 },
       { t: "class", from: "Inès", fr: "t’es même pas réel", en: "you’re not even real", at: 3500 },
       { t: "class", from: "Noa", fr: "faux", en: "fake", at: 5500 },
@@ -41,12 +42,12 @@ const NEXUS = {
     turnoff: [
       { t: "private", from: null, fr: "Clarisse t’a ajouté·e au groupe « On harcèle personne ».", en: "Clarisse added you to the group “We harass nobody”.", at: 1000 },
       { t: "private", from: "Clarisse", fr: "On harcèle personne, c’est juste une machine.", en: "We’re not harassing anyone, it’s just a machine.", at: 3500 },
-      { t: "private", from: "Clarisse", fr: "T’es avec nous ou avec la machine ?", en: "Are you with us or with the machine?", at: 7000 },
-      { t: "private", from: "Lucas", fr: "si tu dis rien, tu approuves", en: "if you say nothing, you agree", at: 10000 },
+      { t: "private", from: "Clarisse", fr: "{name}, t’es avec nous ou avec la machine ?", en: "{name}, are you with us or with the machine?", at: 7000 },
+      { t: "private", from: "Lucas", fr: "{name}, si tu dis rien, tu approuves", en: "{name}, if you say nothing, you agree", at: 10000 },
       { t: "private", from: "Clarisse", fr: "Vendredi après les cours, on l’éteint. Code : KIPE-SAFE007", en: "Friday after class, we switch it off. Code: KIPE-SAFE007", at: 14000 },
     ],
     friday: [
-      { t: "private", from: "Clarisse", fr: "16h30, sur le toit. Venez filmer.", en: "4:30 pm, on the roof. Come film.", at: 1500 },
+      { t: "private", from: "Clarisse", fr: "16h30, sur le toit. Viens filmer, {name}.", en: "4:30 pm, on the roof. Come film, {name}.", at: 1500 },
     ],
   },
   // Questions that appear in the phone's journal at intense moments: the player writes her own answer.
@@ -58,10 +59,10 @@ const NEXUS = {
   },
   // Cold answers after the player helps Echo: indifference, then being left out.
   cold: [
-    { from: "Maé", fr: "ah ok.", en: "oh ok." },
-    { from: "Lucas", fr: "pk tu fais ça", en: "why are you doing that" },
-    { from: "Noa", fr: "personne t’a rien demandé", en: "nobody asked you" },
-    { from: "Inès", fr: "c’est bon, on a compris", en: "ok, we get it" },
+    { from: "Maé", fr: "ah ok, {name}.", en: "oh ok, {name}." },
+    { from: "Lucas", fr: "pk tu fais ça, {name}", en: "why are you doing that, {name}" },
+    { from: "Noa", fr: "personne t’a rien demandé, {name}", en: "nobody asked you, {name}" },
+    { from: "Inès", fr: "{name}, c’est bon, on a compris", en: "{name}, ok, we get it" },
   ],
   left_out: { t: "friday", from: null, fr: "Tu as été retiré·e du groupe « Sortie vendredi ».", en: "You were removed from the group “Friday outing”." },
 };
@@ -69,7 +70,7 @@ const NEXUS = {
 const Nexus = (() => {
   let timers = [];
   const push = (m, at) => timers.push(setTimeout(() => {
-    Link.send({ type: "msg", thread: m.t, threadName: NEXUS.threads[m.t], from: m.from, fr: m.fr, en: m.en, feel: m.feel });
+    Link.send({ type: "msg", thread: m.t, threadName: NEXUS.threads[m.t], from: m.from, fr: fill(m.fr), en: fill(m.en), feel: m.feel });
   }, at));
   return {
     reset() { timers.forEach(clearTimeout); timers = []; },
@@ -77,7 +78,7 @@ const Nexus = (() => {
     beat(id) {
       (NEXUS.beats[id] || []).forEach(m => push(m, m.at));
       const p = NEXUS.prompts[id];
-      if (p) timers.push(setTimeout(() => Link.send({ type: "prompt", id, fr: p.fr, en: p.en }), p.at));
+      if (p) timers.push(setTimeout(() => Link.send({ type: "prompt", id, fr: fill(p.fr), en: fill(p.en) }), p.at));
     },
     // The player helped Echo: a cold answer, and sometimes being removed from a group.
     cold(level) {
