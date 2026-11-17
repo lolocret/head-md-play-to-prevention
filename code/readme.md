@@ -25,6 +25,10 @@ Open http://localhost:3000 on the computer. After choosing a name (and, if you w
 - `style.css`, `index.html`: look and layout.
 - `images/`: one background per place (`couloir`, `classe`, `toit`, `serre`, `altaya`). See `images/README.md`. Characters go in `images/characters/` (`echo.png`, `kovasko.png`, `clarisse.png`, `student.png`, transparent PNG).
 
+## Consequences that come back, and endings without punishment
+- A choice made "for fun" (laughing, liking, the photo, the insult…) has a `later` part in `story.js`: one to three scenes afterwards a message lands on the phone ("Lorie, you're in the video, at 0:07. We can see you laughing.") and a line is added to the journal.
+- The endings are named for what happens to Echo ("Echo short-circuits", "Echo doesn't come back", "Echo stays"), not for what the player is. After an ending that is not "Echo stays", the phone offers "Go back to the last scene and choose differently".
+
 ## Rules (placeholders, to tune in `story.js`)
 - Gauge stages follow `harass`: 2 = bugs, 4 = seizure-like crises, 6 = Echo short-circuits.
 - Ending: gauge at the maximum, then "If you harass"; else enough `help` (3+, and at least `passive`), then "If you help Echo"; else "If you stay passive".

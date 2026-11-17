@@ -2,7 +2,7 @@
 // French by default; add ?lang=en to the address for English
 let french = new URLSearchParams(location.search).get("lang") !== "en";
 let state, beatIndex, finished;
-const newState = () => ({ harass: 0, passive: 0, help: 0, bond: 0, flags: {}, extra: [], talked: {} });
+const newState = () => ({ harass: 0, passive: 0, help: 0, bond: 0, flags: {}, extra: [], talked: {}, delayed: [] });
 let phase = "title", introIndex = 0; // title | intro | profile | phone | world | dialog | ending
 let player = { name: "", avatar: null, photo: null }; // avatar: a colour, or "photo" (a cyberpunk portrait)
 
@@ -14,7 +14,7 @@ const L = t => fill(french ? t.fr : t.en);
 
 function restart() {
   state = newState();
-  activeEnc = null;
+  activeEnc = null; lastSnap = null;
   Nexus.reset();
   beatIndex = 0;
   finished = false;
@@ -31,7 +31,10 @@ function maybeStartBeat() {
   const idx = beatIndex;
   setTimeout(() => {
     if (phase === "world" && beatIndex === idx && Scene.atBeat()) {
-      phase = "dialog"; render();
+      phase = "dialog";
+      fireDelayed(idx);                       // an old choice comes back
+      if (idx === STORY.beats.length - 1) lastSnap = { state: JSON.parse(JSON.stringify(state)), beatIndex: idx };   // to try the last scene again
+      render();
       Nexus.beat(STORY.beats[idx].id); // the scene starts: messages arrive on the phone
     }
   }, 700);
@@ -111,7 +114,21 @@ function renderScreen() {
 }
 
 // ---- The phone is the controller: choices, moving between places, "Continue", "Play again" ----
+// A choice made "for fun" can come back later: a message, a line in the journal (the "later" part of a choice)
+function fireDelayed(idx) {
+  state.delayed.forEach(d => {
+    if (d.done || d.at > idx) return;
+    d.done = true;
+    if (d.later.journal) state.extra.push({ beat: Math.max(0, idx - 1), text: d.later.journal });
+    if (d.later.msg && Link.connected) {
+      const m = d.later.msg;
+      setTimeout(() => Link.send({ type: "msg", thread: m.t, threadName: NEXUS.threads[m.t], from: m.from, fr: fill(m.fr), en: fill(m.en), feel: "normal" }), 5000);
+    }
+  });
+}
+
 function applyChoice(c, journalBeat) {
+  if (c.later) state.delayed.push({ at: beatIndex + c.later.after, later: c.later, done: false });
   const before = state.bond >= STORY.bondToUnlock;
   for (const k of ["harass", "passive", "help", "bond"]) state[k] += c[k] || 0;
   if (c.flag) state.flags[c.flag] = true;
@@ -150,6 +167,16 @@ function finishEncounter() {
   maybeStartBeat();
 }
 
+let lastSnap = null;   // the state at the start of the last scene (a second chance after an ending that is not "Echo stays")
+
+function retryLastScene() {
+  if (!lastSnap) return;
+  state = JSON.parse(JSON.stringify(lastSnap.state));
+  beatIndex = lastSnap.beatIndex; finished = false; phase = "dialog";
+  Nexus.reset(); Nexus.beat(STORY.beats[beatIndex].id);
+  render();
+}
+
 let pending = null;   // what the phone may answer right now: { token, kind: "choice" | "continue" | "restart", choices }
 let sentSig = null;   // the last state sent (to send only what changed)
 
@@ -183,7 +210,9 @@ function phoneState() {
   }
   if (phase === "ending") {
     pending = { token: "end", kind: "restart" };
-    return { mode: "choose", token: "end", place: Scene.info().place, prompt: empty, choices: [{ fr: "Rejouer", en: "Play again" }] };
+    const choices = [{ fr: "Rejouer", en: "Play again" }];
+    if (lastSnap && endingId() !== "help") choices.push({ fr: "Revenir à la dernière scène et choisir autrement", en: "Go back to the last scene and choose differently" });
+    return { mode: "choose", token: "end", place: Scene.info().place, prompt: empty, choices };
   }
   return { mode: "wait" };
 }
@@ -210,7 +239,7 @@ Link.onMessage = m => {
   if (p.kind === "choice") { const c = p.choices[m.index]; if (c) choose(c); }
   else if (p.kind === "encounter") { const c = p.choices[m.index]; if (c) { applyChoice(c, Math.max(0, beatIndex - 1)); finishEncounter(); } }
   else if (p.kind === "continue") next();
-  else if (p.kind === "restart") restart();
+  else if (p.kind === "restart") { if (m.index === 1) retryLastScene(); else restart(); }
 };
 
 const noteApplies = n => (n.flag && state.flags[n.flag]) || (n.bondMin !== undefined && state.bond >= n.bondMin) || (n.bondMax !== undefined && state.bond <= n.bondMax);

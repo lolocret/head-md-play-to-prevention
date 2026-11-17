@@ -7,6 +7,7 @@ const NEXUS = {
     humans: { fr: "Humains de la 3B uniquement", en: "Humans of 3B only" },
     private: { fr: "On harcèle personne", en: "We harass nobody" },
     friday: { fr: "Sortie vendredi", en: "Friday outing" },
+    echo: { fr: "Echo", en: "Echo" },
   },
   beats: {
     arrival: [

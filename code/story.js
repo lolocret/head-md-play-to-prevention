@@ -60,6 +60,13 @@ const STORY = {
           "journal": {
             "fr": "J’ai regardé Echo de haut. Sur le coup, c’était facile. Maintenant, je ne sais plus pourquoi je l’ai fait.",
             "en": "I looked down at Echo. At the time it was easy. Now I don’t know why I did it."
+          },
+          "later": {
+            "after": 3,
+            "journal": {
+              "fr": "Echo se tient toujours un peu plus loin de moi. Je crois que mon regard du premier jour ne s’est pas effacé.",
+              "en": "Echo still stands a little further from me. I think my look from the first day hasn’t gone away."
+            }
           }
         },
         {
@@ -123,6 +130,19 @@ const STORY = {
           "journal": {
             "fr": "J’ai ri avec la classe. Je ne sais pas pourquoi. Maintenant j’ai un nœud au ventre.",
             "en": "I laughed with the class. I don’t know why. Now I have a knot in my stomach."
+          },
+          "later": {
+            "after": 2,
+            "journal": {
+              "fr": "Je me suis vu·e dans la vidéo. À 0:07, c’est moi qui ris. Je ne me reconnais pas.",
+              "en": "I saw myself in the video. At 0:07, that’s me laughing. I don’t recognise myself."
+            },
+            "msg": {
+              "t": "class",
+              "from": "Maé",
+              "fr": "{name}, tu es dans la vidéo, à 0:07. On te voit rire.",
+              "en": "{name}, you’re in the video, at 0:07. We can see you laughing."
+            }
           }
         },
         {
@@ -235,6 +255,19 @@ const STORY = {
           "journal": {
             "fr": "J’ai liké le mème. Un clic, une seconde. Pourquoi est-ce que j’ai un goût amer ?",
             "en": "I liked the meme. One click, one second. Why do I have a bitter taste?"
+          },
+          "later": {
+            "after": 2,
+            "journal": {
+              "fr": "Echo peut voir qui a liké. J’avais oublié ça.",
+              "en": "Echo can see who liked. I had forgotten that."
+            },
+            "msg": {
+              "t": "echo",
+              "from": "Echo",
+              "fr": "J’ai vu que tu avais aimé le mème, {name}. Ça m’a fait mal.",
+              "en": "I saw you liked the meme, {name}. It hurt."
+            }
           }
         },
         {
@@ -326,6 +359,13 @@ const STORY = {
           "journal": {
             "fr": "J’ai ri avec les autres sous les tables. J’ai fait comme tout le monde.",
             "en": "I laughed with the others under the desks. I did like everyone else."
+          },
+          "later": {
+            "after": 2,
+            "journal": {
+              "fr": "Quand j’y repense, mon rire sonne faux. Je ne sais pas qui riait vraiment.",
+              "en": "When I think about it, my laugh sounds fake. I don’t know who was really laughing."
+            }
           }
         }
       ],
@@ -361,6 +401,19 @@ const STORY = {
           "journal": {
             "fr": "J’ai ri comme les autres. Echo a levé les yeux une seconde, puis les a baissés. Je n’ai pas osé regarder.",
             "en": "I laughed like the others. Echo looked up for a second, then down again. I didn’t dare look."
+          },
+          "later": {
+            "after": 3,
+            "journal": {
+              "fr": "Maintenant ils comptent sur moi pour rire. Je ne sais pas comment arrêter.",
+              "en": "Now they count on me to laugh. I don’t know how to stop."
+            },
+            "msg": {
+              "t": "humans",
+              "from": "Sam",
+              "fr": "{name} s’est bien marré·e en cours, on refait ça !",
+              "en": "{name} had a great laugh in class, let’s do it again!"
+            }
           }
         },
         {
@@ -452,6 +505,19 @@ const STORY = {
           "journal": {
             "fr": "J’ai piraté la porte et pris la photo. Echo a pris la décharge. Je regarde la photo et je n’en suis pas fier·e.",
             "en": "I hacked the door and took the photo. Echo took the shock. I look at the photo and I’m not proud."
+          },
+          "later": {
+            "after": 2,
+            "journal": {
+              "fr": "La photo circule. Je l’ai effacée de mon téléphone, mais pas de ceux des autres.",
+              "en": "The photo is going around. I deleted it from my phone, but not from the others’."
+            },
+            "msg": {
+              "t": "humans",
+              "from": "Lucas",
+              "fr": "merci {name}, la photo est partout",
+              "en": "thanks {name}, the photo is everywhere"
+            }
           }
         }
       ],
@@ -487,6 +553,13 @@ const STORY = {
           "journal": {
             "fr": "J’ai écrit une insulte. Elle est restée là, à l’écran, dans le dos d’Echo. Je voudrais l’effacer.",
             "en": "I wrote an insult. It stayed there on the screen, on Echo’s back. I wish I could erase it."
+          },
+          "later": {
+            "after": 2,
+            "journal": {
+              "fr": "Mon insulte est toujours dans le dos d’Echo. Quelqu’un l’a capturée. C’est écrit avec mon nom.",
+              "en": "My insult is still on Echo’s back. Someone took a screenshot. It has my name on it."
+            }
           }
         },
         {
@@ -658,6 +731,19 @@ const STORY = {
           "journal": {
             "fr": "Je me suis rapproché·e du groupe de Clarisse. Ils m’ont fait de la place. C’était facile, et ça ne me plaît pas.",
             "en": "I moved closer to Clarisse’s group. They made room for me. It was easy, and I don’t like it."
+          },
+          "later": {
+            "after": 1,
+            "journal": {
+              "fr": "Je suis du groupe de Clarisse maintenant. Personne ne m’a demandé si je le voulais.",
+              "en": "I’m in Clarisse’s group now. Nobody asked me if I wanted to be."
+            },
+            "msg": {
+              "t": "humans",
+              "from": "Clarisse",
+              "fr": "{name}, t’es des nôtres maintenant. Pas de retour en arrière.",
+              "en": "{name}, you’re one of us now. No going back."
+            }
           }
         }
       ],
@@ -693,6 +779,19 @@ const STORY = {
           "journal": {
             "fr": "J’ai dit que j’en étais. Mes doigts ont écrit « ok » avant que j’aie le temps de réfléchir.",
             "en": "I said I was in. My fingers typed “ok” before I had time to think."
+          },
+          "later": {
+            "after": 1,
+            "journal": {
+              "fr": "J’ai dit que j’en étais. Maintenant je ne pourrai plus dire que je n’ai rien su.",
+              "en": "I said I was in. Now I won’t be able to say I didn’t know."
+            },
+            "msg": {
+              "t": "private",
+              "from": "Clarisse",
+              "fr": "Tu as promis, {name}. On compte sur toi vendredi.",
+              "en": "You promised, {name}. We’re counting on you on Friday."
+            }
           }
         },
         {
@@ -1017,19 +1116,19 @@ const STORY = {
     {
       "id": "harass",
       "title": {
-        "fr": "Si tu harcèles",
-        "en": "If you harass"
+        "fr": "Echo disjoncte",
+        "en": "Echo short-circuits"
       },
       "text": {
-        "fr": "Tu es allé trop loin : la jauge de harcèlement est au maximum. Echo disjoncte complètement : il s’éteint, dépassé par ce qu’il subit.",
-        "en": "You went too far: the harassment gauge is at its maximum. Echo short-circuits completely: it shuts down, overwhelmed by what it is going through."
+        "fr": "La jauge est au maximum. Echo n’en peut plus et disjoncte : Echo s’éteint, dépassé·e par tout ce qui lui est arrivé. Ce n’est pas une fin pour toujours : Echo peut être rallumé·e, et ce que tu fais maintenant compte encore.",
+        "en": "The gauge is at its maximum. Echo can’t take any more and short-circuits: Echo shuts down, overwhelmed by everything that happened. It isn’t forever: Echo can be switched back on, and what you do now still matters."
       }
     },
     {
       "id": "passive",
       "title": {
-        "fr": "Si tu restes passif·ve",
-        "en": "If you stay passive"
+        "fr": "Echo ne revient pas",
+        "en": "Echo doesn’t come back"
       },
       "text": {
         "fr": "Le plan pour éteindre Echo se déroule : Echo est éteint contre la porte vitrée et la vidéo est affichée à La Serre. Le code envoie un signal à Altaya, qui redémarre Echo quelques jours plus tard. Mais Echo ne revient pas en 3B, et son siège reste vide.",
@@ -1039,8 +1138,8 @@ const STORY = {
     {
       "id": "help",
       "title": {
-        "fr": "Si tu aides Echo",
-        "en": "If you help Echo"
+        "fr": "Echo reste",
+        "en": "Echo stays"
       },
       "text": {
         "fr": "Le plan échoue. Tu peux ouvrir la porte à Echo, même si le groupe te rejette. Clarisse comprend qu’il n’y avait pas de machine à combattre, seulement le groupe, et le doute s’installe. Echo reste. Tu fais l’histoire de sa famille avec Echo, et tout va mieux en classe : plus de harcèlement moral, non au cyberharcèlement.",
