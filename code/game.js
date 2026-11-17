@@ -72,7 +72,8 @@ function renderScreen() {
   $("prompt").textContent = "";
   $("profile").hidden = true;
   $("titleScreen").hidden = phase !== "title";
-  if (phase !== "intro") $("introBg").hidden = true;   // only the introduction pages that have an image show it
+  if (phase === "title") { $("introBg").style.backgroundImage = `url(${TITLE.image})`; $("introBg").hidden = false; }   // the title page shows the 2041 picture
+  else if (phase !== "intro") $("introBg").hidden = true;   // only the introduction pages that have an image show it
   document.body.classList.toggle("on-title", phase === "title");
   if (phase === "title") renderTitle();
   Scene.unlocked.altaya = state.bond >= STORY.bondToUnlock;
@@ -80,6 +81,7 @@ function renderScreen() {
   Scene.stage = stage();
   Scene.refresh();
   const inGame = phase === "world" || phase === "dialog" || phase === "ending";
+  document.body.classList.toggle("pre-game", !inGame);   // before the game starts, no place is shown behind the pages
   const needPhone = phase === "phone" || (inGame && !Link.connected);   // no phone, no game: the screen only displays
   $("main").hidden = phase === "title" || phase === "world" || phase === "phone" || needPhone;
   $("phoneScreen").hidden = !needPhone;

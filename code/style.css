@@ -334,3 +334,6 @@ body.await-phone #prompt { color:var(--cyan); font-size:20px; animation:waitpuls
 /* Introduction pages with their own picture (e.g. 2041) */
 #introBg { position:fixed; inset:0; z-index:1; background:center/cover no-repeat; animation:fadein 1.2s ease; }
 #introBg::after { content:""; position:absolute; inset:0; background:radial-gradient(ellipse at center, rgba(5,4,16,.15), rgba(5,4,16,.7)); }
+
+/* Before the game starts (title, introduction, avatar, QR code) no place is shown: only the 2041 picture or a plain dark background */
+body.pre-game #scene { opacity:0; }

@@ -1493,6 +1493,7 @@ const ENCOUNTERS = [
 // First page of the game.
 const TITLE = {
   name: "ECHO",
+  image: "images/intro-2041.png",
   tagline: { fr: "Un holokid arrive à l’école. Comment vas-tu réagir ?", en: "A holokid is coming to school. How will you react?" },
   play: { fr: "Jouer", en: "Play" },
   credits: "Lorie Crettex & Nouria Da Ros — From Play to Prevention · HEAD Master Media Design",
