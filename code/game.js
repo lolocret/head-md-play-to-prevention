@@ -2,7 +2,7 @@
 // French by default; add ?lang=en to the address for English
 let french = new URLSearchParams(location.search).get("lang") !== "en";
 let state, beatIndex, finished;
-const newState = () => ({ harass: 0, passive: 0, help: 0, bond: 0, flags: {}, extra: [] });
+const newState = () => ({ harass: 0, passive: 0, help: 0, bond: 0, flags: {}, extra: [], talked: {} });
 let phase = "title", introIndex = 0; // title | intro | profile | phone | world | dialog | ending
 let player = { name: "", avatar: null, photo: null }; // avatar: a colour, or "photo" (a cyberpunk portrait)
 
@@ -14,6 +14,7 @@ const L = t => fill(french ? t.fr : t.en);
 
 function restart() {
   state = newState();
+  activeEnc = null;
   Nexus.reset();
   beatIndex = 0;
   finished = false;
@@ -35,7 +36,7 @@ function maybeStartBeat() {
     }
   }, 700);
 }
-Scene.onEnter = maybeStartBeat;
+Scene.onEnter = () => { syncPhone(); maybeStartBeat(); };
 
 // 0 stable, 1 bugs, 2 crises, 3 Echo short-circuits
 function stage() {
@@ -59,6 +60,11 @@ function addButton(label, onClick) {
 }
 
 function render() {
+  renderScreen();
+  syncPhone();
+}
+
+function renderScreen() {
   $("choices").innerHTML = "";
   $("prompt").textContent = "";
   $("profile").hidden = true;
@@ -69,13 +75,13 @@ function render() {
   Scene.french = french;
   Scene.stage = stage();
   Scene.refresh();
-  $("main").hidden = phase === "title" || phase === "world" || phase === "phone";
-  $("phoneScreen").hidden = phase !== "phone";
-  if (phase === "phone") renderPhoneStep();
+  const inGame = phase === "world" || phase === "dialog" || phase === "ending";
+  const needPhone = phase === "phone" || (inGame && !Link.connected);   // no phone, no game: the screen only displays
+  $("main").hidden = phase === "title" || phase === "world" || phase === "phone" || needPhone;
+  $("phoneScreen").hidden = !needPhone;
+  if (needPhone) renderPhoneStep();
   document.body.classList.toggle("vn", phase === "dialog");
-  $("goal").hidden = phase !== "world";
-  if (phase === "world") $("goal").textContent = (french ? "Va à : " : "Go to: ") + Scene.goalLabel() +
-    (french ? "  (clique sur la flèche rose)" : "  (click the pink arrow)");
+  document.body.classList.toggle("await-phone", phase === "dialog" && Link.connected);   // the scene darkens while the player answers on the phone
   updateGauge();
   updateJournal();
 
@@ -87,73 +93,127 @@ function render() {
   if (phase === "world") return;
   if (finished) return renderEnding();
 
+  if (activeEnc) {   // an optional conversation
+    $("title").textContent = L(activeEnc.title);
+    $("body").textContent = L(encText(activeEnc));
+    return;
+  }
   const beat = STORY.beats[beatIndex];
   // "alone" variant: shown when the player is not close enough to Echo (Altaya stays closed)
   const alone = beat.alone && state.bond < STORY.bondToUnlock;
   if (alone) state.flags["alone_" + beat.id] = true;
   const text = alone ? beat.alone.text : beat.text;
-  const choices = alone ? (beat.alone.choices || []) : beat.choices;
   $("title").textContent = L(beat.title);
   let body = L(text);
-  (beat.notes || []).forEach(n => { if (state.flags[n.flag]) body += "\n\n" + L(n.text); });
+  (beat.notes || []).forEach(n => { if (noteApplies(n)) body += "\n\n" + L(n.text); });
   $("body").textContent = body;
-  const hasChoices = choices && choices.length > 0;
-  $("prompt").textContent = hasChoices && beat.prompt ? L(beat.prompt) : "";
-
-  const onPhone = hasChoices && Link.connected && !chooseHere;
-  document.body.classList.toggle("await-phone", onPhone);
-  if (hasChoices && onPhone) {
-    // the choice is made on the phone: the computer waits and the screen darkens
-    $("prompt").textContent = (beat.prompt ? L(beat.prompt) + "\n" : "") + (french ? "Choisis sur ton téléphone." : "Choose on your phone.");
-    sendChoices(beat, choices);
-    addButton(french ? "Choisir ici à la place" : "Choose here instead", () => { chooseHere = true; cancelPhoneChoices(); render(); });
-  } else if (hasChoices) {
-    choices.forEach(c => addButton(L(c.label), () => choose(c)));
-  } else {
-    addButton(french ? "Continuer" : "Continue", next);
-  }
+  // the questions and the buttons are on the phone: the computer only tells the story
 }
 
-// ---- Choosing: on the phone when one is connected, otherwise on the computer ----
-let chooseHere = false;       // the player chose to answer on the computer
-let pending = null;           // the choices waiting for the phone: { token, choices }
-let sentToken = null;
-
-function choose(c) {
-  pending = null; sentToken = null; chooseHere = false;
-  document.body.classList.remove("await-phone");
+// ---- The phone is the controller: choices, moving between places, "Continue", "Play again" ----
+function applyChoice(c, journalBeat) {
   const before = state.bond >= STORY.bondToUnlock;
   for (const k of ["harass", "passive", "help", "bond"]) state[k] += c[k] || 0;
   if (c.flag) state.flags[c.flag] = true;
   if (c.help > 0) Nexus.cold(c.help); // helping Echo: the others answer coldly
-  if (c.journal) state.extra.push({ beat: beatIndex, text: c.journal });
+  if (c.journal) state.extra.push({ beat: journalBeat, text: c.journal });
   if (!before && state.bond >= STORY.bondToUnlock) toast(french ? "Un nouveau lieu est accessible : Altaya" : "A new place is now open: Altaya");
-  next();
+}
+function choose(c) { applyChoice(c, beatIndex); next(); }
+
+const Q_ENC = { fr: "Que fais-tu, {name} ?", en: "What do you do, {name}?" };
+
+// ---- Free time: optional conversations ("Talk to …") in the places where someone is ----
+let activeEnc = null;        // the conversation in progress
+const beatIdx = id => STORY.beats.findIndex(b => b.id === id);
+const mood = () => state.bond >= STORY.bondToUnlock ? "open" : (state.harass > state.help ? "wary" : "neutral");
+const encText = e => e.text[e.text[mood()] ? mood() : "neutral"];
+const whoName = w => ({ echo: "Echo", kovasko: "Kovasko", clarisse: "Clarisse" }[w]);
+
+function encountersHere() {
+  if (phase !== "world" || finished) return [];
+  const here = Scene.info().id;
+  return ENCOUNTERS.filter(e => e.place === here && !state.talked[e.id] && beatIndex > beatIdx(e.after));
 }
 
-function sendChoices(beat, choices) {
-  const token = beatIndex;
-  pending = { token, choices };
-  if (sentToken === token) return;       // already sent (the screen was only redrawn)
-  sentToken = token;
-  Link.send({
-    type: "choices", token, id: beat.id,
-    prompt: { fr: fill(beat.prompt ? beat.prompt.fr : ""), en: fill(beat.prompt ? beat.prompt.en : "") },
-    choices: choices.map(c => ({ fr: fill(c.label.fr), en: fill(c.label.en) })),
-  });
+function startEncounter(id) {
+  const e = encountersHere().find(x => x.id === id);
+  if (!e) return;
+  activeEnc = e; phase = "dialog";
+  render();
 }
 
-function cancelPhoneChoices() {
-  if (pending) Link.send({ type: "choices_cancel", token: pending.token });
-  pending = null; sentToken = null;
+function finishEncounter() {
+  state.talked[activeEnc.id] = true;
+  activeEnc = null; phase = "world";
+  render();
+  maybeStartBeat();
+}
+
+let pending = null;   // what the phone may answer right now: { token, kind: "choice" | "continue" | "restart", choices }
+let sentSig = null;   // the last state sent (to send only what changed)
+
+function phoneState() {
+  pending = null;
+  const empty = { fr: "", en: "" };
+  if (phase === "dialog" && activeEnc) {
+    const e = activeEnc, token = "e:" + e.id;
+    pending = { token, kind: "encounter", choices: e.choices };
+    return { mode: "choose", token, place: Scene.info().place, prompt: { fr: fill(Q_ENC.fr), en: fill(Q_ENC.en) },
+      choices: e.choices.map(c => ({ fr: fill(c.label.fr), en: fill(c.label.en) })) };
+  }
+  if (phase === "world") {
+    const i = Scene.info();
+    const talk = encountersHere().map(e => ({ id: e.id, label: { fr: "Parler à " + whoName(e.who), en: "Talk to " + whoName(e.who) } }));
+    if (i.atGoal && !talk.length) return { mode: "wait", place: i.place };   // the scene is about to start here: no need to move
+    return { mode: "move", place: i.place, goal: i.atGoal ? null : i.goal, exits: i.atGoal ? [] : i.exits, talk };
+  }
+  if (phase === "dialog" && !finished) {
+    const beat = STORY.beats[beatIndex], place = Scene.info().place;
+    const alone = beat.alone && state.bond < STORY.bondToUnlock;
+    const choices = alone ? (beat.alone.choices || []) : beat.choices;
+    const token = "b" + beatIndex;
+    if (choices && choices.length) {
+      pending = { token, kind: "choice", choices };
+      return { mode: "choose", token, place, prompt: beat.prompt ? { fr: fill(beat.prompt.fr), en: fill(beat.prompt.en) } : empty,
+        choices: choices.map(c => ({ fr: fill(c.label.fr), en: fill(c.label.en) })) };
+    }
+    pending = { token, kind: "continue" };
+    return { mode: "choose", token, place, prompt: empty, choices: [{ fr: "Continuer", en: "Continue" }] };
+  }
+  if (phase === "ending") {
+    pending = { token: "end", kind: "restart" };
+    return { mode: "choose", token: "end", place: Scene.info().place, prompt: empty, choices: [{ fr: "Rejouer", en: "Play again" }] };
+  }
+  return { mode: "wait" };
+}
+
+function syncPhone() {
+  const s = phoneState();
+  if (!Link.connected) return;
+  const sig = JSON.stringify(s);
+  if (sig === sentSig) return;
+  sentSig = sig;
+  Link.send({ type: "state", ...s });
 }
 
 // The phone answered
 Link.onMessage = m => {
-  if (m.type !== "choose" || !pending || m.token !== pending.token || phase !== "dialog") return;
-  const c = pending.choices[m.index];
-  if (c) choose(c);
+  if (m.type === "go") {                                      // walk to another place
+    if (phase !== "world" || Scene.moving) return;
+    if (Scene.info().exits.some(x => x.to === m.to)) Scene.go(m.to);
+    return;
+  }
+  if (m.type === "talk") { startEncounter(m.id); return; }
+  if (m.type !== "choose" || !pending || m.token !== pending.token) return;
+  const p = pending; pending = null;
+  if (p.kind === "choice") { const c = p.choices[m.index]; if (c) choose(c); }
+  else if (p.kind === "encounter") { const c = p.choices[m.index]; if (c) { applyChoice(c, Math.max(0, beatIndex - 1)); finishEncounter(); } }
+  else if (p.kind === "continue") next();
+  else if (p.kind === "restart") restart();
 };
+
+const noteApplies = n => (n.flag && state.flags[n.flag]) || (n.bondMin !== undefined && state.bond >= n.bondMin) || (n.bondMax !== undefined && state.bond <= n.bondMax);
 
 function renderTitle() {
   $("gameName").textContent = TITLE.name;
@@ -230,31 +290,38 @@ function renderProfile() {
 }
 
 // The phone: a 3D phone opening Nexus on screen, then a QR code to connect the real phone.
+let noServer = false;
 async function startPhoneStep() {
   const info = await Link.start();
-  if (!info) { restart(); return; }                 // no server: play without a phone
   phase = "phone";
+  noServer = !info;
   $("qr").innerHTML = "";
-  new QRCode($("qr"), { text: info.url, width: 200, height: 200, colorDark: "#0a0a1c", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
-  $("qrRoom").textContent = info.url.replace(/^https?:\/\//, "");
+  if (info) {
+    new QRCode($("qr"), { text: info.url, width: 200, height: 200, colorDark: "#0a0a1c", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
+    $("qrRoom").textContent = info.url.replace(/^https?:\/\//, "");
+  }
   render();
 }
 
 function renderPhoneStep() {
   $("callLabel").textContent = french ? "Ouverture…" : "Opening…";
-  $("qrText").textContent = french ? "Scanne pour ouvrir Nexus sur ton téléphone." : "Scan to open Nexus on your phone.";
-  $("soloBtn").textContent = french ? "Jouer sans téléphone" : "Play without a phone";
+  $("qr").hidden = noServer; $("qrRoom").hidden = noServer;
+  $("qrText").textContent = noServer
+    ? (french ? "Le jeu a besoin du serveur. Lance « npm start » dans le dossier server, puis ouvre http://localhost:3000." : "The game needs the server. Run “npm start” in the server folder, then open http://localhost:3000.")
+    : phase === "phone"
+      ? (french ? "Scanne pour ouvrir Nexus sur ton téléphone." : "Scan to open Nexus on your phone.")
+      : (french ? "Ton téléphone s’est déconnecté. Scanne le QR code pour reprendre." : "Your phone disconnected. Scan the QR code to continue.");
 }
 
 Link.onPeer = connected => {
   if (connected) {
     Link.send(profileMsg());
     updateJournal.sig = null; updateJournal();
-    sentToken = null;                               // a phone (re)connected: send it the choices again
+    sentSig = null;                                  // a phone (re)connected: send it the whole state again
     if (phase === "phone") setTimeout(() => { if (phase === "phone") restart(); }, 1800);
-    else if (phase === "dialog") render();
-  } else if (phase === "dialog") {
-    pending = null; sentToken = null; render();      // the phone left: choices come back to the computer
+    else render();
+  } else {
+    sentSig = null; render();                        // the phone left: the game waits for it
   }
 };
 
@@ -265,7 +332,6 @@ function toast(text) {
 }
 
 function next() {
-  chooseHere = false;
   beatIndex++;
   if (beatIndex >= STORY.beats.length) { finished = true; phase = "ending"; }
   else { phase = "world"; Scene.setBeat(STORY.beats[beatIndex].id); }
@@ -280,7 +346,6 @@ function renderEnding() {
   const lore = state.bond >= STORY.bondToUnlock ? STORY.loreUnlocked : STORY.loreClosed;
   $("prompt").textContent = fill(french ? "{name}, voici l’état d’Echo à la fin : " : "{name}, here is Echo’s state at the end: ") + L(STORY.stages[stage()]) + "\n" + L(lore);
   $("prompt").style.whiteSpace = "pre-line";
-  addButton(french ? "Rejouer" : "Play again", restart);
 }
 
 // Gauge: no label, just green -> orange -> red and a smiley.
@@ -298,10 +363,10 @@ function updateGauge() {
 function updateJournal() {
   const last = finished ? STORY.beats.length - 1 : (phase === "dialog" ? beatIndex : beatIndex - 1);
   const entries = [];
+  // one entry per scene: what you did and how it felt (not the thought before the choice), so the journal stays short
   STORY.beats.slice(0, last + 1).forEach((b, i) => {
     if (b.alone && state.flags["alone_" + b.id]) entries.push(b.alone.journal || b.journal);
-    else if (b.journal) entries.push(b.journal);
-    state.extra.filter(x => x.beat === i).forEach(x => entries.push(x.text)); // what the choice cost you
+    else state.extra.filter(x => x.beat === i).forEach(x => entries.push(x.text));
   });
   // the journal lives on the phone
   const sig = entries.length + "|" + french;
@@ -312,7 +377,6 @@ function updateJournal() {
 }
 
 $("playBtn").onclick = () => { phase = "intro"; render(); };
-$("soloBtn").onclick = () => { restart(); };
 
 state = newState();
 beatIndex = 0;

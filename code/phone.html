@@ -44,8 +44,11 @@
     </section>
 
     <section id="choiceView" hidden>
+      <h2 id="placeName"></h2>
       <p id="choicePrompt"></p>
+      <p id="goalHint" hidden></p>
       <div id="choiceList"></div>
+      <div id="exitList"></div>
       <p id="choiceSent" hidden></p>
     </section>
 
@@ -56,6 +59,10 @@
     </button>
 
     <nav id="bar" hidden>
+      <button id="tabChoice">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3v6M5 14l8-5 8 5M5 14v4M21 14v4M13 9v13"/></svg>
+        <span class="lbl"></span><i class="dotb"></i>
+      </button>
       <button id="tabMsgs">
         <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H12l-5 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>
         <span class="lbl"></span><i class="dotb" hidden></i>
@@ -63,10 +70,6 @@
       <button id="tabJournal">
         <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M6 3h13a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6z"/><path d="M6 3v20M10 8h6M10 12h6"/></svg>
         <span class="lbl"></span><i class="dotb" hidden></i>
-      </button>
-      <button id="tabChoice" hidden>
-        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3v6M5 14l8-5 8 5M5 14v4M21 14v4M13 9v13"/></svg>
-        <span class="lbl"></span><i class="dotb"></i>
       </button>
     </nav>
   </div>

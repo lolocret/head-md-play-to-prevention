@@ -78,7 +78,11 @@ The prototype is no longer built in Unity: it is a web page, playable in a brows
 - **No role title at the end.** The game does not label the player: it shows Echo’s state at the end (stable, bugs, seizure-like crises, short-circuit), which is the visible result of everyone’s choices.
 - **Clarisse can be helped too.** A dedicated scene lets the player talk to her alone in the hallway. It changes how she acts on Friday: her phone stays down.
 - **Echo’s look.** Echo is part plant, part robot: petal-like hair with small buds, fine robotic lines on the skin like the veins of a leaf, and legs that dissolve into hologram flicker (hand-drawn reference, 2026-11-17: [photo](echo-drawing.jpg), [transparent version](echo-drawing-transparent.png)). The drawing is also used as Echo’s sprite in the prototype, as a hologram.
-- Ten scenes so far, from “The arrival” to “Friday, after class”, in French and English.
+- **The computer only displays; the phone is the controller.** Choices, moving between places, “Continue” and “Play again” all happen on the player’s phone (connected by a QR code). The scene darkens while the player answers. The phone works the same on iPhone and Android: sound and a shake for every message, vibration as a bonus where the browser allows it.
+- **Fourteen scenes**, from “The arrival” to “Friday, after class”, in French and English. Since 2026-11-17 the story is longer and slower: the bench at lunch, Kovasko’s class, Monday, and Thursday night at home with the phone.
+- **Free time (optional).** Between scenes the player walks around from the phone. When someone is there, “Talk to Echo / Kovasko / Clarisse” appears. Five short conversations in all (three with Echo on the roof, in the hallway and at Altaya). Echo is always there but not the same: open if the bond is strong, wary if the player hurt more than helped. One option lets the player say sorry.
+- **A calmer pace.** Nexus messages arrive spread out; only the first message of a scene and group events make a banner and a sound. The journal keeps one short entry per scene.
+- **A photo avatar.** The player can upload a photo and frame it like on WhatsApp; it becomes a cyberpunk portrait, processed in the browser only.
 
 ## Questions for the cool kids
 
@@ -139,6 +143,10 @@ At break, Echo follows the others to the roof. In front of La Serre’s door, a 
 
 Clarisse isn’t in La Serre either: mocked for her poverty, she harasses Echo to try to make a place for herself there.
 
+**The bench (new).** At lunch, Echo sits alone in the hallway. Where does the player sit: next to Echo, with the group, or alone?
+
+**Kovasko’s class (new).** During a lesson on diversity, a student jokes about Echo’s right to vote. Laugh, say it isn’t funny, or look away.
+
 **The labels.**
 
 The students manage to hack Echo’s system to write insults behind their back.
@@ -151,6 +159,8 @@ Clarisse calls Echo a “life thief”: she explains that it’s because of peop
 
 The answer is rejected: “You can’t understand, you’re not human.” Echo is hurt.
 
+**Monday (new).** Echo is back in class as if nothing had happened. Conversations stop when Echo walks by, and eyes turn to the player. Say hello to Echo in front of everyone, act as if nothing happened, or move closer to Clarisse’s group.
+
 **“Turn it off”.**
 
 Clarisse creates a private group: “We’re not harassing anyone, it’s just a machine.” Students are added by force and forced to stay (“Are you with us or with the machine?”, “If you say nothing, you agree”). Fear of being the next victim is everywhere.
@@ -162,6 +172,8 @@ There is a shutdown code, **KIPE-SAFE007**. The plan: Friday, after class, switc
 **The origins.**
 
 “You have no parents” haunts Echo. Echo investigates, alone, or with the witness if the player warned them in step 4. Memory fragments, archives, a trail to Altaya. Altaya is a small team that created the Holokids program for isolated children, unable to express their feelings. … Echo finally understands who they are and what they are for.
+
+**Thursday night (new).** At home, the player’s phone lies on the bed. Write to Echo, write to Clarisse to ask her to stop, or switch the phone off: the silence is scarier than the messages.
 
 **Friday, after class.**
 

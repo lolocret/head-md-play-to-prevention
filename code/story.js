@@ -1,11 +1,11 @@
 // All the story text, choices and points. Edit this to change the story.
 // harass / passive / help / bond are placeholder point values.
 const STORY = {
-  "harassStage1": 2,
-  "harassStage2": 4,
-  "harassStage3": 6,
-  "helpToSucceed": 3,
-  "bondToUnlock": 3,
+  "harassStage1": 3,
+  "harassStage2": 6,
+  "harassStage3": 9,
+  "helpToSucceed": 5,
+  "bondToUnlock": 4,
   "stages": [
     {
       "fr": "stable",
@@ -146,6 +146,69 @@ const STORY = {
       }
     },
     {
+      "id": "lunch",
+      "title": {
+        "fr": "Le banc",
+        "en": "The bench"
+      },
+      "text": {
+        "fr": "À midi, tu sors dans le couloir avec ton plateau. Echo est assis·e seul·e sur le banc, devant les plantes, son repas intact. Ses fleurs sont à moitié fermées. À l’autre bout du couloir, des élèves de la 3B rient en regardant leurs téléphones.",
+        "en": "At noon, you step into the hallway with your tray. Echo is sitting alone on the bench in front of the plants, the meal untouched. Their flowers are half closed. At the other end of the hallway, some 3B students laugh as they look at their phones."
+      },
+      "prompt": {
+        "fr": "Où t’assois-tu, {name} ?",
+        "en": "Where do you sit, {name}?"
+      },
+      "choices": [
+        {
+          "label": {
+            "fr": "Près d’Echo",
+            "en": "Next to Echo"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 1,
+          "journal": {
+            "fr": "Je me suis assis·e près d’Echo. On n’a pas parlé, mais une fleur s’est rouverte.",
+            "en": "I sat next to Echo. We didn’t talk, but a flower opened again."
+          }
+        },
+        {
+          "label": {
+            "fr": "Avec le groupe",
+            "en": "With the group"
+          },
+          "harass": 0,
+          "passive": 1,
+          "help": 0,
+          "bond": -1,
+          "journal": {
+            "fr": "Je me suis assis·e avec le groupe. Ils riaient d’un téléphone et je riais à côté, sans trop savoir de quoi.",
+            "en": "I sat with the group. They were laughing at a phone and I laughed along, without really knowing what at."
+          }
+        },
+        {
+          "label": {
+            "fr": "Seul·e, loin des deux",
+            "en": "Alone, far from both"
+          },
+          "harass": 0,
+          "passive": 1,
+          "help": 0,
+          "bond": 0,
+          "journal": {
+            "fr": "J’ai mangé seul·e, ni d’un côté ni de l’autre. Je ne sais pas ce que ça veut dire.",
+            "en": "I ate alone, on neither side. I don’t know what that means."
+          }
+        }
+      ],
+      "journal": {
+        "fr": "",
+        "en": ""
+      }
+    },
+    {
       "id": "evening",
       "title": {
         "fr": "Le soir même",
@@ -269,6 +332,69 @@ const STORY = {
       "journal": {
         "fr": "Silence en classe, mais les téléphones s’allument sous les tables. Kovasko ne voit rien. Est-ce que je suis le seul à le voir ?",
         "en": "Silence in class, but phones light up under the desks. Kovasko doesn’t notice a thing. Am I the only one who sees it?"
+      }
+    },
+    {
+      "id": "lesson",
+      "title": {
+        "fr": "Le cours de Kovasko",
+        "en": "Kovasko’s class"
+      },
+      "text": {
+        "fr": "Kovasko parle du respect et de la diversité. Un élève lève la main : « Monsieur, est-ce qu’Echo a le droit de voter ? » Des rires. Kovasko sourit sans comprendre et reprend son cours. Echo regarde son bureau, les fleurs refermées.",
+        "en": "Kovasko talks about respect and diversity. A student raises a hand: “Sir, is Echo allowed to vote?” Laughter. Kovasko smiles without understanding and goes on with his lesson. Echo looks at the desk, flowers closed."
+      },
+      "prompt": {
+        "fr": "Que fais-tu, {name} ?",
+        "en": "What do you do, {name}?"
+      },
+      "choices": [
+        {
+          "label": {
+            "fr": "Rire, comme les autres",
+            "en": "Laugh, like the others"
+          },
+          "harass": 1,
+          "passive": 0,
+          "help": 0,
+          "bond": -1,
+          "journal": {
+            "fr": "J’ai ri comme les autres. Echo a levé les yeux une seconde, puis les a baissés. Je n’ai pas osé regarder.",
+            "en": "I laughed like the others. Echo looked up for a second, then down again. I didn’t dare look."
+          }
+        },
+        {
+          "label": {
+            "fr": "Dire que ce n’est pas drôle",
+            "en": "Say it isn’t funny"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 1,
+          "journal": {
+            "fr": "J’ai dit que ce n’était pas drôle. Le silence a duré trois secondes. J’ai senti mon visage devenir rouge.",
+            "en": "I said it wasn’t funny. The silence lasted three seconds. I felt my face turn red."
+          }
+        },
+        {
+          "label": {
+            "fr": "Regarder ailleurs",
+            "en": "Look away"
+          },
+          "harass": 0,
+          "passive": 1,
+          "help": 0,
+          "bond": 0,
+          "journal": {
+            "fr": "J’ai regardé par la fenêtre. Je n’ai rien dit, rien fait. Comme si ça ne se passait pas.",
+            "en": "I looked out the window. I said nothing, did nothing. As if it weren’t happening."
+          }
+        }
+      ],
+      "journal": {
+        "fr": "",
+        "en": ""
       }
     },
     {
@@ -478,6 +604,69 @@ const STORY = {
       }
     },
     {
+      "id": "monday",
+      "title": {
+        "fr": "Lundi",
+        "en": "Monday"
+      },
+      "text": {
+        "fr": "Lundi matin. Echo est revenu·e en classe, le dos droit, comme si de rien n’était. Quelque chose a changé dans la 3B : les conversations s’arrêtent quand Echo passe, et des regards se tournent vers toi pour voir ce que tu vas faire.",
+        "en": "Monday morning. Echo is back in class, back straight, as if nothing had happened. Something has changed in 3B: conversations stop when Echo walks by, and eyes turn to you to see what you will do."
+      },
+      "prompt": {
+        "fr": "Comment commences-tu cette semaine, {name} ?",
+        "en": "How do you start this week, {name}?"
+      },
+      "choices": [
+        {
+          "label": {
+            "fr": "Dire bonjour à Echo devant tout le monde",
+            "en": "Say hello to Echo in front of everyone"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 1,
+          "journal": {
+            "fr": "J’ai dit bonjour à Echo devant tout le monde. Trois mots, et j’ai eu l’impression d’avoir couru.",
+            "en": "I said hello to Echo in front of everyone. Three words, and I felt like I had been running."
+          }
+        },
+        {
+          "label": {
+            "fr": "Faire comme si de rien n’était",
+            "en": "Act as if nothing happened"
+          },
+          "harass": 0,
+          "passive": 1,
+          "help": 0,
+          "bond": 0,
+          "journal": {
+            "fr": "J’ai fait comme si de rien n’était. C’est fatigant de faire semblant.",
+            "en": "I acted as if nothing had happened. Pretending is exhausting."
+          }
+        },
+        {
+          "label": {
+            "fr": "Te rapprocher du groupe de Clarisse",
+            "en": "Move closer to Clarisse’s group"
+          },
+          "harass": 1,
+          "passive": 0,
+          "help": 0,
+          "bond": -1,
+          "journal": {
+            "fr": "Je me suis rapproché·e du groupe de Clarisse. Ils m’ont fait de la place. C’était facile, et ça ne me plaît pas.",
+            "en": "I moved closer to Clarisse’s group. They made room for me. It was easy, and I don’t like it."
+          }
+        }
+      ],
+      "journal": {
+        "fr": "",
+        "en": ""
+      }
+    },
+    {
       "id": "turnoff",
       "title": {
         "fr": "« Éteins-le »",
@@ -627,6 +816,86 @@ const STORY = {
       "journal": {
         "fr": "« Tu n’as pas de parents. » Cette phrase fait mal à Echo. Savoir qui est quelqu’un, ça change tout.",
         "en": "“You have no parents.” That sentence hurts Echo. Knowing who someone is changes everything."
+      }
+    },
+    {
+      "id": "night",
+      "title": {
+        "fr": "Jeudi soir",
+        "en": "Thursday night"
+      },
+      "text": {
+        "fr": "Jeudi soir, chez toi. Ton téléphone est posé sur la couette, l’écran allumé. Demain, après les cours, le plan de Clarisse. Tu entends la maison, et Nexus qui vibre dans le noir.",
+        "en": "Thursday night, at home. Your phone lies on the bed, screen lit. Tomorrow, after class, Clarisse’s plan. You hear the house, and Nexus buzzing in the dark."
+      },
+      "notes": [
+        {
+          "bondMin": 4,
+          "text": {
+            "fr": "Echo t’a écrit : « Je sais ce que veulent dire les mots qu’on m’a collés. Merci d’être là, {name}. »",
+            "en": "Echo wrote to you: “I know what the words stuck on me mean. Thank you for being there, {name}.”"
+          }
+        },
+        {
+          "bondMax": 3,
+          "text": {
+            "fr": "Echo n’a rien écrit. Son nom est dans ta liste, grisé, sans message.",
+            "en": "Echo hasn’t written anything. Their name is in your list, greyed out, with no message."
+          }
+        }
+      ],
+      "prompt": {
+        "fr": "Que fais-tu, {name} ?",
+        "en": "What do you do, {name}?"
+      },
+      "choices": [
+        {
+          "label": {
+            "fr": "Écrire à Echo",
+            "en": "Write to Echo"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 1,
+          "journal": {
+            "fr": "J’ai écrit à Echo. Les mots ont mis longtemps à sortir, mais ils sont partis.",
+            "en": "I wrote to Echo. The words took a long time to come out, but they went."
+          }
+        },
+        {
+          "label": {
+            "fr": "Écrire à Clarisse pour lui demander d’arrêter",
+            "en": "Write to Clarisse to ask her to stop"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 0,
+          "journal": {
+            "fr": "J’ai demandé à Clarisse d’arrêter. Elle a lu, puis elle n’a pas répondu. Le silence fait peur.",
+            "en": "I asked Clarisse to stop. She read it, then didn’t answer. The silence is scary."
+          },
+          "flag": "talkedClarisse"
+        },
+        {
+          "label": {
+            "fr": "Éteindre ton téléphone",
+            "en": "Switch your phone off"
+          },
+          "harass": 0,
+          "passive": 1,
+          "help": 0,
+          "bond": 0,
+          "journal": {
+            "fr": "J’ai éteint mon téléphone. Le silence m’a fait plus peur que les messages.",
+            "en": "I switched my phone off. The silence scared me more than the messages."
+          }
+        }
+      ],
+      "journal": {
+        "fr": "",
+        "en": ""
       }
     },
     {
@@ -817,6 +1086,295 @@ const PROFILE = {
   next: { fr: "Suivant", en: "Next" },
   defaultAvatar: "#4df0ff"   // used when the player does not upload a photo
 };
+
+// Optional conversations during free time: on the phone, in a place, "Talk to …". Echo is always there, but not the same
+// depending on how you behaved (open: bond is strong; wary: you hurt more than you helped; neutral: otherwise).
+const ENCOUNTERS = [
+  {
+    "id": "echo_roof",
+    "who": "echo",
+    "place": "toit",
+    "after": "door",
+    "title": {
+      "fr": "Echo, sur le toit",
+      "en": "Echo, on the roof"
+    },
+    "text": {
+      "open": {
+        "fr": "Echo est assis·e au bord du toit, face à la ville. Quand tu t’approches, une fleur s’ouvre. « Je me demandais si tu viendrais. Ici, personne ne me dit que je suis faux. »",
+        "en": "Echo sits on the edge of the roof, facing the city. As you come closer, a flower opens. “I wondered if you’d come. Up here, nobody tells me I’m fake.”"
+      },
+      "neutral": {
+        "fr": "Echo est assis·e au bord du toit, face à la ville. Echo te regarde sans bouger. « Tu veux quelque chose ? » Les fleurs restent à moitié fermées.",
+        "en": "Echo sits on the edge of the roof, facing the city. Echo looks at you without moving. “Do you want something?” The flowers stay half closed."
+      },
+      "wary": {
+        "fr": "Echo est assis·e au bord du toit. Quand tu t’approches, ses fleurs se ferment d’un coup. « Je sais ce que tu as fait. Tu veux me dire quelque chose ? »",
+        "en": "Echo sits on the edge of the roof. As you come closer, their flowers close at once. “I know what you did. Do you want to tell me something?”"
+      }
+    },
+    "choices": [
+      {
+        "label": {
+          "fr": "Lui demander comment il·elle va",
+          "en": "Ask how they are"
+        },
+        "harass": 0,
+        "passive": 0,
+        "help": 0,
+        "bond": 1,
+        "journal": {
+          "fr": "J’ai demandé à Echo comment ça allait. Echo a mis longtemps à répondre, puis a dit : « Ça va aller. »",
+          "en": "I asked Echo how they were. Echo took a long time to answer, then said: “It will be okay.”"
+        }
+      },
+      {
+        "label": {
+          "fr": "Rester là, sans rien dire",
+          "en": "Stay there, without a word"
+        },
+        "harass": 0,
+        "passive": 0,
+        "help": 0,
+        "bond": 1,
+        "journal": {
+          "fr": "On est restés sur le toit, sans parler. Le silence n’était pas lourd.",
+          "en": "We stayed on the roof, without talking. The silence wasn’t heavy."
+        }
+      },
+      {
+        "label": {
+          "fr": "Lui dire que tu es désolé·e",
+          "en": "Tell them you are sorry"
+        },
+        "harass": 0,
+        "passive": 0,
+        "help": 1,
+        "bond": 2,
+        "journal": {
+          "fr": "J’ai dit à Echo que j’étais désolé·e. Echo n’a pas répondu tout de suite, mais ses fleurs se sont entrouvertes.",
+          "en": "I told Echo I was sorry. Echo didn’t answer right away, but their flowers opened a little."
+        }
+      }
+    ]
+  },
+  {
+    "id": "echo_hall",
+    "who": "echo",
+    "place": "couloir",
+    "after": "labels",
+    "title": {
+      "fr": "Echo, dans le couloir",
+      "en": "Echo, in the hallway"
+    },
+    "text": {
+      "open": {
+        "fr": "Le couloir est vide, la nuit tombe derrière les fenêtres. Echo est là, une main contre la vitre. « Les lumières de la ville ne font pas semblant. Moi non plus. »",
+        "en": "The hallway is empty, night is falling behind the windows. Echo is there, one hand against the glass. “The city lights aren’t pretending. Neither am I.”"
+      },
+      "neutral": {
+        "fr": "Le couloir est vide. Echo regarde la ville par la vitre, une main contre le verre. « Tu regardes toi aussi ? »",
+        "en": "The hallway is empty. Echo looks at the city through the glass, one hand against it. “Are you looking too?”"
+      },
+      "wary": {
+        "fr": "Le couloir est vide. Echo te voit et s’éloigne le long du mur sans un mot. Ses fleurs sont fermées.",
+        "en": "The hallway is empty. Echo sees you and walks away along the wall without a word. Their flowers are closed."
+      }
+    },
+    "choices": [
+      {
+        "label": {
+          "fr": "Regarder la ville avec Echo",
+          "en": "Look at the city with Echo"
+        },
+        "harass": 0,
+        "passive": 0,
+        "help": 0,
+        "bond": 1,
+        "journal": {
+          "fr": "J’ai regardé la ville avec Echo. Les lumières semblaient presque vraies, et Echo aussi.",
+          "en": "I looked at the city with Echo. The lights looked almost real, and so did Echo."
+        }
+      },
+      {
+        "label": {
+          "fr": "Lui parler des insultes",
+          "en": "Talk about the insults"
+        },
+        "harass": 0,
+        "passive": 0,
+        "help": 1,
+        "bond": 1,
+        "journal": {
+          "fr": "J’ai parlé des insultes à Echo. Echo a dit : « Je les lis toutes. Elles ne disparaissent pas. »",
+          "en": "I talked to Echo about the insults. Echo said: “I read them all. They don’t go away.”"
+        }
+      },
+      {
+        "label": {
+          "fr": "Lui dire que tu le·la trouves réel·le",
+          "en": "Tell them you find them real"
+        },
+        "harass": 0,
+        "passive": 0,
+        "help": 1,
+        "bond": 2,
+        "journal": {
+          "fr": "J’ai dit à Echo que je le·la trouvais réel·le. Echo a souri pour la première fois.",
+          "en": "I told Echo I found them real. Echo smiled for the first time."
+        }
+      }
+    ]
+  },
+  {
+    "id": "echo_altaya",
+    "who": "echo",
+    "place": "altaya",
+    "after": "turnoff",
+    "title": {
+      "fr": "Echo, à Altaya",
+      "en": "Echo, at Altaya"
+    },
+    "text": {
+      "open": {
+        "fr": "Dans la salle d’Altaya, Echo regarde l’écran géant où tourne un globe. Echo passe un doigt sur une fleur dessinée. « Ici, ils m’ont donné un nom. Mais pas de parents. »",
+        "en": "In the Altaya room, Echo watches the giant screen where a globe turns. Echo runs a finger over a drawn flower. “Here, they gave me a name. But no parents.”"
+      },
+      "neutral": {
+        "fr": "Dans la salle d’Altaya, Echo regarde l’écran géant. « Ici, ils m’ont donné un nom. Mais pas de parents. »",
+        "en": "In the Altaya room, Echo watches the giant screen. “Here, they gave me a name. But no parents.”"
+      },
+      "wary": {
+        "fr": "Dans la salle d’Altaya, Echo regarde l’écran géant. « Ici, ils m’ont donné un nom. Mais pas de parents. »",
+        "en": "In the Altaya room, Echo watches the giant screen. “Here, they gave me a name. But no parents.”"
+      }
+    },
+    "choices": [
+      {
+        "label": {
+          "fr": "Rester à ses côtés",
+          "en": "Stay by their side"
+        },
+        "harass": 0,
+        "passive": 0,
+        "help": 1,
+        "bond": 1,
+        "journal": {
+          "fr": "Je suis resté·e à côté d’Echo devant l’écran. Je n’avais pas de réponse. Etre là suffisait peut-être.",
+          "en": "I stayed next to Echo in front of the screen. I had no answer. Being there was maybe enough."
+        }
+      },
+      {
+        "label": {
+          "fr": "Lui demander ce que tu peux faire",
+          "en": "Ask what you can do"
+        },
+        "harass": 0,
+        "passive": 0,
+        "help": 1,
+        "bond": 1,
+        "journal": {
+          "fr": "J’ai demandé à Echo ce que je pouvais faire. Echo a répondu : « Ne pas me laisser seul·e vendredi. »",
+          "en": "I asked Echo what I could do. Echo answered: “Don’t leave me alone on Friday.”"
+        }
+      }
+    ]
+  },
+  {
+    "id": "kovasko_class",
+    "who": "kovasko",
+    "place": "classe",
+    "after": "nextday",
+    "title": {
+      "fr": "Kovasko, après le cours",
+      "en": "Kovasko, after class"
+    },
+    "text": {
+      "neutral": {
+        "fr": "Kovasko range ses affaires. « Tu as l’air préoccupé·e, {name}. Tout va bien en classe ? » Il te regarde, vraiment, pour la première fois.",
+        "en": "Kovasko packs up his things. “You look worried, {name}. Is everything okay in class?” He looks at you, really, for the first time."
+      }
+    },
+    "choices": [
+      {
+        "label": {
+          "fr": "Lui dire ce qui se passe",
+          "en": "Tell him what is going on"
+        },
+        "harass": 0,
+        "passive": 0,
+        "help": 1,
+        "bond": 0,
+        "journal": {
+          "fr": "J’ai tout dit à Kovasko. Il m’a écouté·e sans me couper. Je ne sais pas encore s’il fera quelque chose.",
+          "en": "I told Kovasko everything. He listened without cutting me off. I don’t know yet if he will do anything."
+        },
+        "flag": "toldKovasko"
+      },
+      {
+        "label": {
+          "fr": "Dire que tout va bien",
+          "en": "Say everything is fine"
+        },
+        "harass": 0,
+        "passive": 1,
+        "help": 0,
+        "bond": 0,
+        "journal": {
+          "fr": "J’ai dit que tout allait bien. Kovasko a hoché la tête et il est parti. Il n’a pas vu.",
+          "en": "I said everything was fine. Kovasko nodded and left. He didn’t see."
+        }
+      }
+    ]
+  },
+  {
+    "id": "clarisse_hall",
+    "who": "clarisse",
+    "place": "couloir",
+    "after": "monday",
+    "title": {
+      "fr": "Clarisse, dans le couloir",
+      "en": "Clarisse, in the hallway"
+    },
+    "text": {
+      "neutral": {
+        "fr": "Clarisse t’attrape par la manche. « T’as vu comment ils me regardent maintenant ? Ils me parlent, enfin. » Son sourire tient mal. Elle cherche dans ton visage si tu es avec elle.",
+        "en": "Clarisse grabs your sleeve. “Did you see how they look at me now? They finally talk to me.” Her smile doesn’t hold well. She searches your face to see if you are with her."
+      }
+    },
+    "choices": [
+      {
+        "label": {
+          "fr": "Lui demander si elle va bien",
+          "en": "Ask if she is okay"
+        },
+        "harass": 0,
+        "passive": 0,
+        "help": 1,
+        "bond": 0,
+        "journal": {
+          "fr": "J’ai demandé à Clarisse si elle allait bien. Son sourire a tremblé. Elle a dit que oui.",
+          "en": "I asked Clarisse if she was okay. Her smile shook. She said yes."
+        },
+        "flag": "talkedClarisse"
+      },
+      {
+        "label": {
+          "fr": "Dire que ça ne te regarde pas",
+          "en": "Say it is none of your business"
+        },
+        "harass": 0,
+        "passive": 1,
+        "help": 0,
+        "bond": 0,
+        "journal": {
+          "fr": "J’ai dit à Clarisse que ça ne me regardait pas. Elle a lâché ma manche.",
+          "en": "I told Clarisse it was none of my business. She let go of my sleeve."
+        }
+      }
+    ]
+  }
+];
 
 // First page of the game.
 const TITLE = {

@@ -17,13 +17,20 @@ const NEXUS = {
       { t: "class", from: "Maé", fr: "{name}, t’as vu sa main qui traverse", en: "{name}, did you see his hand go through", at: 2500 },
     ],
     evening: [
-      { t: "class", from: "Lucas", fr: "{name}, t’as vu la vidéo ?", en: "{name}, did you see the video?", at: 400 },
       { t: "class", from: "Lucas", fr: "[vidéo] Echo dit bonjour (la main traverse)", en: "[video] Echo says hello (the hand goes through)", at: 800 },
       { t: "class", from: "Inès", fr: "t’es même pas réel", en: "you’re not even real", at: 3500 },
-      { t: "class", from: "Noa", fr: "faux", en: "fake", at: 5500 },
       { t: "class", from: "Sam", fr: "tes émotions c’est des fictions", en: "your emotions are fictions", at: 8000 },
       { t: "class", from: "Maé", fr: "[mème] Echo qu’on traverse en boucle : « get out of here u’re not even real »", en: "[meme] Echo being walked through on a loop: “get out of here u’re not even real”", at: 14000 },
       { t: "humans", from: null, fr: "Maé a créé le groupe « Humains de la 3B uniquement ». Echo n’en fait pas partie.", en: "Maé created the group “Humans of 3B only”. Echo is not part of it.", at: 22000 },
+    ],
+    lunch: [
+      { t: "class", from: "Maé", fr: "[photo] Echo, tout seul·e sur son banc", en: "[photo] Echo, all alone on the bench", at: 2500 },
+    ],
+    lesson: [
+      { t: "class", from: "Sam", fr: "t’as vu la tête de Kovasko, il comprend rien", en: "did you see Kovasko’s face, he gets nothing", at: 3000 },
+    ],
+    monday: [
+      { t: "humans", from: "Clarisse", fr: "Qui est avec nous cette semaine ?", en: "Who is with us this week?", at: 2500 },
     ],
     nextday: [
       { t: "class", from: "Kovasko", fr: "Bonjour à tous, pensez à rendre vos devoirs.", en: "Good morning everyone, remember to hand in your homework.", at: 1500 },
@@ -67,18 +74,22 @@ const NEXUS = {
   left_out: { t: "friday", from: null, fr: "Tu as été retiré·e du groupe « Sortie vendredi ».", en: "You were removed from the group “Friday outing”." },
 };
 
+// Pace: messages are spread out (every delay is multiplied), so the player has time to read the story
+const PACE = 2.6;
+
 const Nexus = (() => {
   let timers = [];
-  const push = (m, at) => timers.push(setTimeout(() => {
-    Link.send({ type: "msg", thread: m.t, threadName: NEXUS.threads[m.t], from: m.from, fr: fill(m.fr), en: fill(m.en), feel: m.feel || (m.from ? undefined : "group") });  // a system line (added to / removed from a group) is a group notification
-  }, at));
+  // quiet = the message just lands in the conversation (a badge, no banner, no sound): only the first message of a scene and the group events make noise
+  const push = (m, at, quiet) => timers.push(setTimeout(() => {
+    Link.send({ type: "msg", thread: m.t, threadName: NEXUS.threads[m.t], from: m.from, fr: fill(m.fr), en: fill(m.en), quiet: !!quiet && m.from !== null && !m.feel, feel: m.feel || (m.from ? undefined : "group") });  // a system line (added to / removed from a group) is a group notification
+  }, at * PACE));
   return {
     reset() { timers.forEach(clearTimeout); timers = []; },
     // The scene `id` starts: its messages arrive on the phone.
     beat(id) {
-      (NEXUS.beats[id] || []).forEach(m => push(m, m.at));
+      (NEXUS.beats[id] || []).forEach((m, i) => push(m, m.at, i > 0));
       const p = NEXUS.prompts[id];
-      if (p) timers.push(setTimeout(() => Link.send({ type: "prompt", id, fr: fill(p.fr), en: fill(p.en) }), p.at));
+      if (p) timers.push(setTimeout(() => Link.send({ type: "prompt", id, fr: fill(p.fr), en: fill(p.en) }), p.at * PACE));
     },
     // The player helped Echo: a cold answer, and sometimes being removed from a group.
     cold(level) {

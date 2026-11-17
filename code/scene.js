@@ -8,7 +8,8 @@ const Scene = (() => {
     couloir: { name: { fr: "Le couloir", en: "The hallway" }, sky: ["#1d2150", "#0c0e26"], glow: "#4df0ff",
       arrows: [{ to: "classe", x: 82, y: 74, rot: 90, label: { fr: "Classe 3B", en: "Class 3B" } },
                { to: "toit", x: 62, y: 66, rot: 0, label: { fr: "Monter au toit", en: "Go up to the roof" } },
-               { to: "altaya", x: 16, y: 80, rot: 270, needs: "altaya", label: { fr: "Altaya", en: "Altaya" } }] },
+               { to: "altaya", x: 16, y: 80, rot: 270, needs: "altaya", label: { fr: "Altaya", en: "Altaya" } },
+               { to: "chambre", x: 50, y: 80, rot: 0, needs: "chambre", label: { fr: "Rentrer chez toi", en: "Go home" } }] },
     classe: { name: { fr: "Classe 3B", en: "Class 3B" }, sky: ["#2a2560", "#171340"], glow: "#8a5cff",
       arrows: [{ to: "couloir", x: 50, y: 88, rot: 180, label: { fr: "Retourner dans le couloir", en: "Back to the hallway" } }] },
     toit: { name: { fr: "Le toit", en: "The roof" }, sky: ["#050a26", "#1a1245"], glow: "#ff4fc3",
@@ -16,6 +17,8 @@ const Scene = (() => {
                { to: "couloir", x: 50, y: 88, rot: 180, label: { fr: "Redescendre", en: "Go down" } }] },
     serre: { name: { fr: "La Serre", en: "La Serre" }, sky: ["#0a2a2e", "#0c1a2a"], glow: "#7dffb2",
       arrows: [{ to: "toit", x: 50, y: 88, rot: 180, label: { fr: "Retourner sur le toit", en: "Back to the roof" } }] },
+    chambre: { name: { fr: "Chez toi", en: "At home" }, sky: ["#2a1838", "#150c20"], glow: "#ff4fc3",
+      arrows: [{ to: "couloir", x: 50, y: 88, rot: 180, label: { fr: "Sortir", en: "Go out" } }] },
     altaya: { name: { fr: "Altaya", en: "Altaya" }, sky: ["#1a1030", "#0a0a1c"], glow: "#4df0ff",
       arrows: [{ to: "couloir", x: 50, y: 88, rot: 180, label: { fr: "Retourner dans le couloir", en: "Back to the hallway" } }] },
   };
@@ -33,6 +36,10 @@ const Scene = (() => {
     clarisse: { place: "couloir", npcs: [{ id: "clarisse", x: 66, y: 90 }] },
     turnoff: { place: "couloir", npcs: [] },
     origins: { place: "altaya", fallback: "couloir", npcs: [{ id: "echo", x: 50, y: 90 }] },
+    lunch:   { place: "couloir", npcs: [{ id: "echo", x: 38, y: 92 }] },
+    lesson:  { place: "classe", npcs: [{ id: "kovasko", x: 64, y: 82 }] },
+    monday:  { place: "classe", npcs: [{ id: "echo", x: 46, y: 90 }] },
+    night:   { place: "chambre", npcs: [] },
     friday:  { place: "toit", npcs: [{ id: "echo", x: 52, y: 92 }, { id: "clarisse", x: 74, y: 88 }, { id: "student", x: 88, y: 90 }] },
     labels:  { place: "couloir", npcs: [{ id: "clarisse", x: 66, y: 90 }, { id: "echo", x: 38, y: 92 }] },
   };
@@ -90,16 +97,7 @@ const Scene = (() => {
 
     const here = BEATS[api.beatId];
     if (here && beatPlace() === api.current) here.npcs.forEach(n => addSprite(n));
-
-    const guide = nextStep(api.current, beatPlace());
-    p.arrows.filter(visible).forEach(a => {
-      const b = document.createElement("button");
-      b.className = "arrow" + (a.to === guide ? " guide" : "");
-      b.style.left = a.x + "%"; b.style.top = a.y + "%";
-      b.innerHTML = `<span class="chev" style="transform:rotate(${a.rot}deg)">▲</span><span class="alabel">${api.french ? a.label.fr : a.label.en}</span>`;
-      b.onclick = () => api.go(a.to);
-      el.appendChild(b);
-    });
+    // the arrows are not drawn here: the screen only displays, the player moves from the phone
   }
 
   // Characters appear only when you add images/characters/<id>.png (transparent PNG).
@@ -123,13 +121,21 @@ const Scene = (() => {
     init(e) { el = e; render(); },
     refresh() { render(); },
     go(id) {
+      if (api.moving) return;
+      api.moving = true;
       el.classList.add("fading");
-      setTimeout(() => { api.current = id; render(); el.classList.remove("fading"); api.onEnter(id); }, 300);
+      setTimeout(() => { api.current = id; api.moving = false; render(); el.classList.remove("fading"); api.onEnter(id); }, 300);
     },
     // start where the first scene happens
     reset() { api.current = beatPlace(); render(); },
-    setBeat(id) { api.beatId = id; render(); },
+    setBeat(id) { api.beatId = id; api.unlocked.chambre = id === "night"; render(); },   // "Chez toi" opens only for the night scene
     atBeat() { return api.current === beatPlace(); },
+    // What the phone shows: where we are, where to go next, and the ways out (the pink one leads to the next scene)
+    info() {
+      const p = PLACES[api.current], guide = nextStep(api.current, beatPlace());
+      return { id: api.current, place: p.name, goal: PLACES[beatPlace()].name, atGoal: api.current === beatPlace(),
+        exits: p.arrows.filter(visible).map(a => ({ to: a.to, label: a.label, rot: a.rot, guide: a.to === guide })) };
+    },
     goalLabel() { const p = PLACES[beatPlace()]; return api.french ? p.name.fr : p.name.en; },
   });
   return api;

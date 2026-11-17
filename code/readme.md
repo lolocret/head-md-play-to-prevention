@@ -1,23 +1,22 @@
 # Code: Echo (playable prototype)
 
-A visual novel in the browser. Two ways to play:
+A visual novel in the browser, played with a phone: **the computer only displays, and everything you do happens on the phone** (choices, moving between places, "Continue", "Play again"). A phone is required.
 
-- **Alone, without a phone:** open `index.html` (or use Live Server in VS Code).
-- **With the phone (Nexus):** start the small server, then open the game from it.
-  ```
-  cd server
-  npm install      # only the first time
-  npm start
-  ```
-  Open http://localhost:3000 on the computer. After choosing the avatar, a 3D phone opening Nexus and a QR code appear. Scan the QR code with a phone **on the same Wi-Fi**, tap "Ouvrir Nexus", and keep the page open. Nexus messages then arrive on the phone as the story goes: the class group, the "Humans of 3B only" group, the private group of Clarisse. Helping Echo brings cold answers and sometimes a "removed from the group" notice, with the screen going grey.
+```
+cd server
+npm install      # only the first time
+npm start
+```
+Open http://localhost:3000 on the computer. After choosing a name (and, if you want, a photo), a 3D phone opening Nexus and a QR code appear. Scan the QR code with a phone **on the same Wi-Fi** (or use a tunnel, see below), tap "Ouvrir Nexus", and keep the page open. If the phone disconnects, the game waits and shows the QR code again.
 
 ## What it is
 - Title page, introduction, then the choice of a name and an avatar: a coloured silhouette, or the player's own photo turned into a cyberpunk portrait (`avatar.js`). The photo is processed in the browser only; it is not saved or uploaded, and only a small 96 px version of the transformed image is shown on the phone.
-- Scenes like Street View: each place is a full-screen image, and you walk between places by clicking arrows (hallway, class 3B, roof, La Serre, Altaya).
+- Scenes like Street View: each place is a full-screen image (hallway, class 3B, roof, La Serre, Altaya).
 - **Altaya is hidden** until the player’s bond with Echo is strong enough (`bondToUnlock` in `story.js`).
-- The story appears in a box at the bottom. **With a phone connected, the choices are made on the phone**: the computer says "Choisis sur ton téléphone" and the scene darkens while it waits. A small button lets the player choose on the computer instead, and if the phone disconnects the choices come back to the computer. Without a phone, the choices stay on the computer. The gauge shows a face and a green-orange-red bar, with no label.
-- A journal, already written, that fills in scene after scene, on the phone. Helping Echo has a small emotional cost written in it. Without a phone, there is no journal.
-- Ten scenes, French by default; add `?lang=en` to the address for English. At the end, the player sees Echo’s state (no role title).
+- The story appears in a box at the bottom of the computer screen. The scene darkens while the player answers on the phone. The gauge shows a face and a green-orange-red bar, with no label.
+- Scenes like Street View: the player moves between places from the phone ("Choix" tab: the ways out, the pink one leads to the next scene).
+- A journal on the phone: one short entry per scene (what you did and how it felt), plus one per conversation. Nexus messages arrive spread out; only the first message of a scene and the group events make a noise or a banner. Helping Echo has a small emotional cost written in it. 
+- Fourteen scenes and five optional conversations ("Talk to Echo / Kovasko / Clarisse" appears on the phone when you are in the right place, in free time). Echo is always there but not the same: open if the bond is strong, wary if you hurt more than you helped. French by default; add `?lang=en` to the address for English. At the end, the player sees Echo’s state (no role title).
 
 ## Files
 - `story.js`: all the text, choices and their points (`harass`, `passive`, `help`, `bond`), journal entries, title page, intro. Edit this to change the story.
@@ -49,4 +48,4 @@ The experience is the same on every phone. It does not rely on vibration, system
 - `../server/server.js`: serves the game and passes messages between computer and phone, by 4-letter room code.
 
 ## Not done yet
-Altaya image, character images, sound.
+Images for Altaya and "Chez toi" (the night scene), character images, sound.

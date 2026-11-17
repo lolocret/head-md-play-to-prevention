@@ -5,7 +5,9 @@ const $ = id => document.getElementById(id);
 let french = true, ws, openThread = null, closedByUs = false;
 const threads = {}; // id -> { name, msgs: [{ from, fr, en }], unread }
 let entries = [], prompts = [], jUnread = 0, view = "msgs";
-let pendingChoice = null; // { token, prompt, choices } sent by the story: the player chooses here
+let game = { mode: "wait" };   // what the story asks of the player now (sent by the computer)
+let answered = null;            // token of the choice already answered
+let waitingMove = false;
 const saved = (() => { try { return JSON.parse(localStorage.getItem("echo-journal-" + room) || "{}"); } catch (e) { return {}; } })();
 const save = () => { try { localStorage.setItem("echo-journal-" + room, JSON.stringify(saved)); } catch (e) { /* optional */ } };
 
@@ -20,6 +22,9 @@ const TXT = {
   stays: { fr: "Ce que tu écris reste sur ton téléphone.", en: "What you write stays on your phone." },
   jNotif: { fr: "Une question pour toi", en: "A question for you" },
   choice: { fr: "Choix", en: "Choice" },
+  where: { fr: "Où veux-tu aller ?", en: "Where do you want to go?" },
+  goto: { fr: "Va à", en: "Go to" },
+  wait: { fr: "…", en: "…" },
   sent: { fr: "Choix envoyé. Regarde l’écran.", en: "Choice sent. Look at the screen." },
   entry: { fr: "Entrée", en: "Entry" },
   saved: { fr: "Enregistré", en: "Saved" },
@@ -40,7 +45,7 @@ function paintStatic() {
   $("tabMsgs").querySelector(".lbl").textContent = T("msgs");
   $("tabJournal").querySelector(".lbl").textContent = T("journal");
   $("tabChoice").querySelector(".lbl").textContent = T("choice");
-  $("tabChoice").hidden = !pendingChoice;
+  $("tabChoice").querySelector(".dotb").hidden = !(game.mode === "choose" && answered !== game.token);
   $("tabJournal").querySelector(".dotb").hidden = !jUnread;
   $("tabMsgs").querySelector(".dotb").hidden = !Object.values(threads).some(t => t.unread);
   $("screenTitle").textContent = view === "journal" ? T("jTitle") : T("msgs");
@@ -61,8 +66,7 @@ function connect() {
     else if (m.type === "msg") onMessage(m);
     else if (m.type === "journal") { entries = m.entries || []; renderJournal(); }
     else if (m.type === "prompt") onPrompt(m);
-    else if (m.type === "choices") onChoices(m);
-    else if (m.type === "choices_cancel") { if (pendingChoice && pendingChoice.token === m.token) { pendingChoice = null; show("msgs"); } }
+    else if (m.type === "state") onState(m);
   };
   ws.onclose = () => { if (!closedByUs) setTimeout(connect, 1500); };
 }
@@ -79,33 +83,53 @@ function onProfile(m) {
   paintStatic();
 }
 
-// ---- The choice of the scene is made here, on the phone ----
-function onChoices(m) {
-  pendingChoice = { token: m.token, prompt: m.prompt, choices: m.choices };
-  renderChoices();
+// ---- The phone is the controller: the choices, the ways to move, "Continue" ----
+function onState(m) {
+  const isNew = m.mode === "choose" && (game.mode !== "choose" || game.token !== m.token);
+  game = m; waitingMove = false;
+  renderGame();
   paintStatic();
-  show("choice");
-  feel("normal");
+  if (isNew) { feel("normal"); show("choice"); }          // the story needs an answer: bring the player here
 }
 
-function renderChoices() {
-  const list = $("choiceList"); list.innerHTML = "";
-  $("choiceSent").hidden = true;
-  $("choicePrompt").textContent = pendingChoice && pendingChoice.prompt ? pick(pendingChoice.prompt) : "";
-  if (!pendingChoice) return;
-  const token = pendingChoice.token;
-  pendingChoice.choices.forEach((c, i) => {
-    const b = document.createElement("button"); b.className = "choice"; b.textContent = pick(c);
-    b.onclick = () => {
-      if (!pendingChoice || pendingChoice.token !== token) return;
-      send({ type: "choose", token, index: i });
-      pendingChoice = null;
-      list.innerHTML = ""; $("choiceSent").textContent = T("sent"); $("choiceSent").hidden = false;
-      paintStatic();
-      setTimeout(() => { if (!pendingChoice) show("msgs"); }, 1800);
-    };
-    list.appendChild(b);
-  });
+function renderGame() {
+  $("placeName").textContent = game.place ? pick(game.place) : "";
+  const list = $("choiceList"), exits = $("exitList"), hint = $("goalHint"), sent = $("choiceSent");
+  list.innerHTML = ""; exits.innerHTML = ""; hint.hidden = true; sent.hidden = true;
+  $("choicePrompt").textContent = "";
+  if (game.mode === "choose") {
+    $("choicePrompt").textContent = game.prompt ? pick(game.prompt) : "";
+    if (answered === game.token) { sent.textContent = T("sent"); sent.hidden = false; return; }
+    const token = game.token;
+    game.choices.forEach((c, i) => {
+      const b = document.createElement("button"); b.className = "choice"; b.textContent = pick(c);
+      b.onclick = () => {
+        if (answered === token) return;
+        answered = token;
+        send({ type: "choose", token, index: i });
+        renderGame(); paintStatic();
+      };
+      list.appendChild(b);
+    });
+  } else if (game.mode === "move") {
+    $("choicePrompt").textContent = T("where");
+    if (game.goal) { hint.textContent = T("goto") + " : " + pick(game.goal); hint.hidden = false; }
+    (game.talk || []).forEach(t => {      // free time: someone is here, you may talk to them
+      const b = document.createElement("button"); b.className = "talk"; b.textContent = pick(t.label);
+      b.onclick = () => { if (waitingMove) return; waitingMove = true; send({ type: "talk", id: t.id }); renderGame(); };
+      exits.appendChild(b);
+    });
+    (game.exits || []).forEach(x => {
+      const b = document.createElement("button"); b.className = "exit" + (x.guide ? " guide" : "");
+      b.disabled = waitingMove;
+      b.innerHTML = '<span class="chev" style="transform:rotate(' + x.rot + 'deg)">▲</span>';
+      const t = document.createElement("span"); t.textContent = pick(x.label); b.appendChild(t);
+      b.onclick = () => { if (waitingMove) return; waitingMove = true; send({ type: "go", to: x.to }); renderGame(); };
+      exits.appendChild(b);
+    });
+  } else {
+    $("choicePrompt").textContent = T("wait");
+  }
 }
 
 // ---- The journal on the phone: written entries + questions the player answers herself ----
@@ -189,7 +213,7 @@ document.addEventListener("visibilitychange", () => { if (!document.hidden && au
 
 function startCall() {
   $("gate").hidden = true; $("bar").hidden = false;
-  show("msgs"); renderList();
+  show("choice"); renderList(); renderGame();
 }
 
 function onMessage(m) {
@@ -197,10 +221,10 @@ function onMessage(m) {
   t.msgs.push({ from: m.from, fr: m.fr, en: m.en, time: clock() });
   const reading = openThread === m.thread;
   if (!reading) t.unread++;
-  feel(m.feel || "normal");
   const isGroupEvent = !m.from;
+  if (!m.quiet) feel(m.feel || "normal");
   if (isGroupEvent) toast(french ? "Groupe" : "Group", pick(m), "group", m.thread);   // always shown: you must see it
-  else if (!reading) toast(m.from, pick(m), "msg", m.thread);
+  else if (!reading && !m.quiet) toast(m.from, pick(m), "msg", m.thread);
   renderList();
   if (reading) renderThread();
 }
@@ -262,7 +286,7 @@ function renderThread() {
 $("back").onclick = () => { openThread = null; show("msgs"); renderList(); };
 $("tabMsgs").onclick = () => { openThread = null; show("msgs"); renderList(); };
 $("tabJournal").onclick = () => show("journal");
-$("tabChoice").onclick = () => { renderChoices(); show("choice"); };
+$("tabChoice").onclick = () => { renderGame(); show("choice"); };
 // A tap is needed before the browser lets the page play sounds (the same on iPhone and Android).
 $("answer").onclick = () => {
   unlockSound();

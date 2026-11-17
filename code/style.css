@@ -327,3 +327,6 @@ body.on-title #journalBtn, body.on-title #gauge, body.on-title #goal, body.on-ti
 body.await-phone #scene { filter:brightness(.3); }
 body.await-phone #prompt { color:var(--cyan); font-size:20px; animation:waitpulse 1.6s ease-in-out infinite; }
 @keyframes waitpulse { 50% { opacity:.55; } }
+
+/* Button labels centred (buttons are left-aligned by default in this page) */
+.cropBtns button, #adjustBtn { text-align:center; }
