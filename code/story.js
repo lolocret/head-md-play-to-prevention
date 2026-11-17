@@ -24,20 +24,6 @@ const STORY = {
       "en": "Echo short-circuits"
     }
   ],
-  "roles": [
-    {
-      "fr": "Témoin",
-      "en": "Witness"
-    },
-    {
-      "fr": "Complice",
-      "en": "Accomplice"
-    },
-    {
-      "fr": "Allié·e",
-      "en": "Ally"
-    }
-  ],
   "loreUnlocked": {
     "fr": "Ton lien avec Echo est assez fort : l’histoire d’Echo s’ouvre.",
     "en": "Your bond with Echo is strong enough: Echo’s story opens."
@@ -731,8 +717,8 @@ const INTRO = [
   {
     title: { fr: "Ton rôle", en: "Your role" },
     text: {
-      fr: "Tu incarnes un·e camarade de classe. À chaque scène, tu choisis : suivre le groupe, te taire ou défendre Echo, au risque de devenir la prochaine cible. Rire, liker, rester silencieux·se : tout compte.\n\nLes fleurs d’Echo s’ouvrent ou se ferment selon ce qu’iel ressent. La jauge te montre l’effet de tes choix : plus elle monte, plus Echo va mal. Chaque choix change aussi ton lien avec Echo.\n\nÀ la fin, tu reçois un titre (témoin, complice ou allié·e) pour ouvrir la discussion, pas pour te juger.",
-      en: "You play a classmate. In every scene you choose: follow the group, stay quiet or defend Echo at the risk of becoming the next target. Laughing, liking, staying silent: it all counts.\n\nEcho’s flowers open or close depending on what they feel. The gauge shows the effect of your choices: the higher it goes, the worse Echo feels. Each choice also changes your bond with Echo.\n\nAt the end you get a title (witness, accomplice or ally) to start a conversation, not to judge you."
+      fr: "Tu incarnes un·e camarade de classe. À chaque scène, tu choisis : suivre le groupe, te taire ou défendre Echo, au risque de devenir la prochaine cible. Rire, liker, rester silencieux·se : tout compte.\n\nLes fleurs d’Echo s’ouvrent ou se ferment selon ce qu’iel ressent. La jauge te montre l’effet de tes choix : plus elle monte, plus Echo va mal. Chaque choix change aussi ton lien avec Echo.\n\nÀ la fin, tu vois l’état d’Echo : c’est le résultat de tes choix, pour ouvrir la discussion, pas pour te juger.",
+      en: "You play a classmate. In every scene you choose: follow the group, stay quiet or defend Echo at the risk of becoming the next target. Laughing, liking, staying silent: it all counts.\n\nEcho’s flowers open or close depending on what they feel. The gauge shows the effect of your choices: the higher it goes, the worse Echo feels. Each choice also changes your bond with Echo.\n\nAt the end you see Echo’s state: it is the result of your choices, to start a conversation, not to judge you."
     }
   }
 ];

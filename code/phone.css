@@ -8,16 +8,13 @@ button { font:inherit; color:#fff; background:var(--glass); border:1px solid var
 #status { display:flex; justify-content:space-between; align-items:center; padding:10px 4px; color:var(--grey); }
 .brand { letter-spacing:4px; font-size:14px; }
 .icons { display:flex; gap:8px; fill:var(--grey); color:var(--grey); }
-#callbar { display:flex; align-items:center; gap:10px; background:rgba(80,90,100,.55); border-radius:16px; padding:10px 16px; margin-bottom:10px; }
-#callbar .dot { width:10px; height:10px; border-radius:50%; background:#4dcc66; box-shadow:0 0 8px #4dcc66; }
-#callbar b { flex:1; } #timer { color:var(--grey); font-variant-numeric:tabular-nums; }
 #top { display:flex; align-items:center; gap:10px; padding:6px 4px 12px; }
 #top[hidden] { display:none; }
 .sil { position:relative; display:block; width:44px; height:44px; border-radius:50%; background:var(--glass); border:2px solid var(--pink); overflow:hidden; --c:#ff7aa8; }
 .sil i { position:absolute; left:50%; top:16%; width:36%; aspect-ratio:1; transform:translateX(-50%); border-radius:50%; background:var(--c); }
 .sil b { position:absolute; left:50%; bottom:-6%; width:70%; height:38%; transform:translateX(-50%); border-radius:50% 50% 0 0; background:var(--c); opacity:.85; }
 section { flex:1; min-height:0; }
-section[hidden], #journalView[hidden], #callbar[hidden], #notif[hidden], #bar[hidden], #torch[hidden] { display:none; }
+section[hidden], #journalView[hidden], #notif[hidden], #bar[hidden], #torch[hidden] { display:none; }
 
 #gate { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:18px; }
 #answer { font-size:22px; font-weight:bold; padding:18px 40px; border-radius:40px; border-color:#4dcc66; background:rgba(77,204,102,.25); box-shadow:0 0 30px rgba(77,204,102,.5); }
@@ -61,3 +58,6 @@ body.silent { filter:grayscale(1) brightness(.55); }
 .prompt p { margin:0 0 10px; color:var(--cyan); }
 .prompt textarea { width:100%; min-height:110px; resize:vertical; padding:10px; border-radius:12px; border:1px solid var(--line); background:rgba(0,0,0,.35); color:#fff; font:inherit; }
 .prompt small { color:var(--grey); display:block; margin-top:6px; }
+
+.logo { letter-spacing:.35em; padding-left:.35em; font-size:30px; color:#e9e4ff; text-shadow:0 0 18px #8a5cff, 0 0 40px #ff4fc3; }
+#answer { border-color:var(--cyan); background:rgba(77,240,255,.12); box-shadow:0 0 30px rgba(77,240,255,.4); }

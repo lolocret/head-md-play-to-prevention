@@ -2,15 +2,15 @@
 const params = new URLSearchParams(location.search);
 const room = (params.get("room") || "").toUpperCase();
 const $ = id => document.getElementById(id);
-let french = true, ws, openThread = null, callTimer = null, closedByUs = false;
+let french = true, ws, openThread = null, closedByUs = false;
 const threads = {}; // id -> { name, msgs: [{ from, fr, en }], unread }
 let entries = [], prompts = [], jUnread = 0, view = "msgs";
 const saved = (() => { try { return JSON.parse(localStorage.getItem("echo-journal-" + room) || "{}"); } catch (e) { return {}; } })();
 const save = () => { try { localStorage.setItem("echo-journal-" + room, JSON.stringify(saved)); } catch (e) { /* optional */ } };
 
 const TXT = {
-  calling: { fr: "Echo t’appelle…", en: "Echo is calling…" },
-  answer: { fr: "Répondre", en: "Answer" },
+  calling: { fr: "Bienvenue sur Nexus.", en: "Welcome to Nexus." },
+  answer: { fr: "Ouvrir Nexus", en: "Open Nexus" },
   note: { fr: "Gardez cette page ouverte pendant le jeu.", en: "Keep this page open during the game." },
   msgs: { fr: "Messages", en: "Messages" },
   torch: { fr: "Lampe", en: "Flashlight" },
@@ -21,7 +21,6 @@ const TXT = {
   jNotif: { fr: "Une question pour toi", en: "A question for you" },
   empty: { fr: "Aucun message pour l’instant.", en: "No messages yet." },
   noRoom: { fr: "Cette session n’existe plus. Scannez le QR code de l’ordinateur.", en: "This session no longer exists. Scan the computer’s QR code." },
-  call: { fr: "Appel terminé", en: "Call ended" },
 };
 const T = k => TXT[k][french ? "fr" : "en"];
 const pick = m => (french ? m.fr : m.en);
@@ -123,13 +122,6 @@ paintStatic();
 
 function startCall() {
   $("gate").hidden = true; $("top").hidden = false; $("bar").hidden = false; $("list").hidden = false;
-  $("callbar").hidden = false; $("callwho").textContent = "Echo";
-  let s = 0;
-  callTimer = setInterval(() => {
-    s++;
-    $("timer").textContent = String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
-    if (s >= 7) { clearInterval(callTimer); $("callwho").textContent = T("call"); setTimeout(() => { $("callbar").hidden = true; }, 2500); }
-  }, 1000);
   renderList();
 }
 

@@ -9,7 +9,7 @@ A visual novel in the browser. Two ways to play:
   npm install      # only the first time
   npm start
   ```
-  Open http://localhost:3000 on the computer. After choosing the avatar, an incoming call (3D phone) and a QR code appear. Scan the QR code with a phone **on the same Wi-Fi**, tap "Répondre", and keep the page open. Nexus messages then arrive on the phone as the story goes: the class group, the "Humans of 3B only" group, the private group of Clarisse. Helping Echo brings cold answers and sometimes a "removed from the group" notice, with the screen going grey.
+  Open http://localhost:3000 on the computer. After choosing the avatar, a 3D phone opening Nexus and a QR code appear. Scan the QR code with a phone **on the same Wi-Fi**, tap "Ouvrir Nexus", and keep the page open. Nexus messages then arrive on the phone as the story goes: the class group, the "Humans of 3B only" group, the private group of Clarisse. Helping Echo brings cold answers and sometimes a "removed from the group" notice, with the screen going grey.
 
 ## What it is
 - Title page, introduction, then the choice of a name and an avatar.
@@ -36,7 +36,7 @@ The experience is the same on every phone. It does not rely on vibration, system
 - A message: a short two-note sound, a small shake of the screen and a banner in the page.
 - A cold answer: a low, dull sound and a heavy wobble.
 - Being removed from a group: two low notes and the whole screen turns grey and dim for a few seconds (silence).
-- The phone keeps its screen on (wake lock) so the page stays connected. The sound needs one tap on "Répondre" first.
+- The phone keeps its screen on (wake lock) so the page stays connected. The sound needs one tap on "Ouvrir Nexus" first.
 - Lost on purpose: vibration, notifications with the screen locked, the pointer (choosing by pointing the phone at the screen).
 - The journal is also on the phone: the entries fill in as on the computer, and at intense moments a question appears for the player to answer in her own words. What she writes stays on her phone (saved in the phone's browser).
 - Not done yet: reacting from the phone (like, comment, leave the group), and sharing a sentence anonymously with the facilitator.

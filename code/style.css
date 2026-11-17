@@ -254,7 +254,7 @@ body.on-title #journalBtn, body.on-title #gauge, body.on-title #goal, body.on-ti
 /* Echo's real drawing as a hologram sprite */
 #scene .echo .fig-img { height:52cqh; filter:drop-shadow(0 0 8px rgba(77,240,255,.8)); opacity:.92; }
 
-/* ---- Incoming call (3D phone) + QR code ---- */
+/* ---- Nexus opening (3D phone) + QR code ---- */
 #phoneScreen { position:fixed; inset:0; z-index:4; display:flex; align-items:center; justify-content:center; gap:8vw; flex-wrap:wrap; padding:24px;
   background:radial-gradient(ellipse at center, rgba(2,2,8,.7), rgba(2,2,8,.96)); }
 #phoneScreen[hidden] { display:none; }
@@ -271,3 +271,8 @@ body.on-title #journalBtn, body.on-title #gauge, body.on-title #goal, body.on-ti
 #qr img, #qr canvas { display:block; }
 #qrText { max-width:260px; margin:14px auto 4px; color:#e6e6ff; } #qrRoom { color:var(--grey); font-size:13px; margin:0; }
 #soloBtn { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); font-size:14px; padding:8px 20px; opacity:.8; }
+
+.phone .logo { font-size:26px; letter-spacing:.35em; padding-left:.35em; color:#e9e4ff; text-shadow:0 0 14px #8a5cff, 0 0 34px #ff4fc3; }
+.phone .loadbar { width:90px; height:3px; border-radius:2px; background:rgba(255,255,255,.12); overflow:hidden; margin-top:18px; }
+.phone .loadbar i { display:block; height:100%; width:40%; background:linear-gradient(90deg,#8a5cff,#4df0ff); animation:load 1.6s ease-in-out infinite; }
+@keyframes load { 0% { transform:translateX(-100%); } 100% { transform:translateX(260%); } }

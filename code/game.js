@@ -47,13 +47,6 @@ function endingId() {
   return "passive";
 }
 
-// 0 witness, 1 accomplice, 2 ally
-function role() {
-  if (state.harass > state.help && state.harass >= state.passive) return 1;
-  if (state.help > state.harass && state.help >= state.passive) return 2;
-  return 0;
-}
-
 function addButton(label, onClick) {
   const b = document.createElement("button");
   b.textContent = label;
@@ -167,7 +160,7 @@ function renderProfile() {
   check();
 }
 
-// The phone: an incoming call (a 3D phone on screen), then a QR code to connect the real phone.
+// The phone: a 3D phone opening Nexus on screen, then a QR code to connect the real phone.
 async function startPhoneStep() {
   const info = await Link.start();
   if (!info) { restart(); return; }                 // no server: play without a phone
@@ -179,8 +172,8 @@ async function startPhoneStep() {
 }
 
 function renderPhoneStep() {
-  $("callLabel").textContent = french ? "Appel entrant" : "Incoming call";
-  $("qrText").textContent = french ? "Scanne pour te connecter et répondre à l’appel." : "Scan to connect and answer the call.";
+  $("callLabel").textContent = french ? "Ouverture…" : "Opening…";
+  $("qrText").textContent = french ? "Scanne pour ouvrir Nexus sur ton téléphone." : "Scan to open Nexus on your phone.";
   $("soloBtn").textContent = french ? "Jouer sans téléphone" : "Play without a phone";
 }
 
