@@ -40,8 +40,8 @@ const STORY = {
         "en": "The arrival"
       },
       "text": {
-        "fr": "Premier jour : Echo est le premier holokid à rejoindre la classe 3B du collège Alan Turing. Kovasko prononce un discours sur la diversité et présente Echo. Echo se présente à voix haute dans une classe devenue silencieuse.",
-        "en": "First day: Echo is the first holokid to join class 3B of Alan Turing middle school. Kovasko gives a speech on diversity and introduces Echo. Echo introduces themself out loud in a class that has gone silent."
+        "fr": "Premier jour. Kovasko prononce un discours sur la diversité et présente Echo. Echo se présente à voix haute dans une classe devenue silencieuse.",
+        "en": "First day. Kovasko gives a speech on diversity and introduces Echo. Echo introduces themself out loud in a class that has gone silent."
       },
       "prompt": {
         "fr": "Comment réagis-tu, {name} ?",
@@ -1062,15 +1062,15 @@ const INTRO = [
   {
     title: { fr: "Holo’Kids", en: "Holo’Kids" },
     text: {
-      fr: "Altaya, un institut de recherche sur les nouvelles technologies, lance le programme Holo’Kids : des enfants hologrammes qui entrent dans les écoles pour soutenir les élèves en difficulté et renforcer la solidarité dans les classes.\n\nLe programme arrive bientôt dans ta classe.",
-      en: "Altaya, a research institute on new technologies, launches the Holo’Kids program: hologram children who join schools to support students in difficulty and strengthen solidarity within classes.\n\nThe program is coming soon to your class."
+      fr: "Altaya, un institut de recherche sur les nouvelles technologies, lance le programme Holo’Kids : des enfants hologrammes qui entrent dans les écoles pour soutenir les élèves en difficulté et renforcer la solidarité dans les classes.",
+      en: "Altaya, a research institute on new technologies, launches the Holo’Kids program: hologram children who join schools to support students in difficulty and strengthen solidarity within classes."
     }
   },
   {
     title: { fr: "Un holokid arrive à l’école.", en: "A holokid is coming to school." },
     text: {
-      fr: "Comment vas-tu réagir ?\n\nEcho, le premier enfant hologramme du programme Holo’Kids, rejoint la classe 3B du collège Alan Turing.",
-      en: "How will you react?\n\nEcho, the first hologram child of the Holo’Kids program, joins class 3B at Alan Turing middle school."
+      fr: "Echo est le premier holokid. Aujourd’hui, Echo rejoint ta classe, la 3B du collège Alan Turing.\n\nComment vas-tu réagir ?",
+      en: "Echo is the first holokid. Today, Echo joins your class, 3B at Alan Turing middle school.\n\nHow will you react?"
     }
   },
   {
