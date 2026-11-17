@@ -1,5 +1,6 @@
 // Echo — text-and-choice prototype. Only the player makes choices.
-let french = true;
+// French by default; add ?lang=en to the address for English
+let french = new URLSearchParams(location.search).get("lang") !== "en";
 let state, beatIndex, finished;
 const newState = () => ({ harass: 0, passive: 0, help: 0, bond: 0, flags: {}, extra: [] });
 let phase = "title", introIndex = 0; // title | intro | profile | phone | world | dialog | ending
@@ -63,7 +64,6 @@ function render() {
   $("titleScreen").hidden = phase !== "title";
   document.body.classList.toggle("on-title", phase === "title");
   if (phase === "title") renderTitle();
-  $("me").hidden = phase === "title" || phase === "intro" || phase === "profile";
   Scene.unlocked.altaya = state.bond >= STORY.bondToUnlock;
   Scene.french = french;
   Scene.stage = stage();
@@ -89,6 +89,7 @@ function render() {
   const beat = STORY.beats[beatIndex];
   // "alone" variant: shown when the player is not close enough to Echo (Altaya stays closed)
   const alone = beat.alone && state.bond < STORY.bondToUnlock;
+  if (alone) state.flags["alone_" + beat.id] = true;
   const text = alone ? beat.alone.text : beat.text;
   const choices = alone ? (beat.alone.choices || []) : beat.choices;
   $("title").textContent = L(beat.title);
@@ -224,22 +225,14 @@ function updateGauge() {
 
 // The journal is already written: one entry per scene reached so far.
 function updateJournal() {
-  $("journalTitle").textContent = (french ? "Mon journal" : "My journal") + (player.name ? " — " + player.name : "");
-  $("meAvatar").innerHTML = player.avatar ? silhouette(player.avatar) : "";
-  $("meName").textContent = player.name;
   const last = finished ? STORY.beats.length - 1 : (phase === "dialog" ? beatIndex : beatIndex - 1);
-  $("journalBody").innerHTML = "";
   const entries = [];
   STORY.beats.slice(0, last + 1).forEach((b, i) => {
-    if (b.journal) entries.push(b.journal);
+    if (b.alone && state.flags["alone_" + b.id]) entries.push(b.alone.journal || b.journal);
+    else if (b.journal) entries.push(b.journal);
     state.extra.filter(x => x.beat === i).forEach(x => entries.push(x.text)); // what the choice cost you
   });
-  entries.forEach(t => {
-    const p = document.createElement("p");
-    p.textContent = L(t);
-    $("journalBody").appendChild(p);
-  });
-  // the same entries appear in the journal on the phone
+  // the journal lives on the phone
   const sig = entries.length + "|" + french;
   if (sig !== updateJournal.sig && Link.connected) {
     updateJournal.sig = sig;
@@ -248,11 +241,7 @@ function updateJournal() {
 }
 
 $("playBtn").onclick = () => { phase = "intro"; render(); };
-$("lang").onclick = () => { french = !french; Link.send({ type: "profile", name: player.name, avatar: player.avatar, french }); render(); };
 $("soloBtn").onclick = () => { restart(); };
-$("journalBtn").onclick = () => { $("journal").hidden = !$("journal").hidden; };
-$("journalClose").onclick = () => { $("journal").hidden = true; };
-$("journal").onclick = e => { if (e.target.id === "journal") $("journal").hidden = true; };
 
 state = newState();
 beatIndex = 0;

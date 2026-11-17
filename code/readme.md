@@ -16,8 +16,8 @@ A visual novel in the browser. Two ways to play:
 - Scenes like Street View: each place is a full-screen image, and you walk between places by clicking arrows (hallway, class 3B, roof, La Serre, Altaya).
 - **Altaya is hidden** until the player’s bond with Echo is strong enough (`bondToUnlock` in `story.js`).
 - The story and choices appear in a box at the bottom. The gauge shows a face and a green-orange-red bar, with no label.
-- A journal, already written, that fills in scene after scene. Helping Echo has a small emotional cost written in it.
-- Ten scenes, FR / EN. At the end, the player sees Echo’s state (no role title).
+- A journal, already written, that fills in scene after scene, on the phone. Helping Echo has a small emotional cost written in it. Without a phone, there is no journal.
+- Ten scenes, French by default; add `?lang=en` to the address for English. At the end, the player sees Echo’s state (no role title).
 
 ## Files
 - `story.js`: all the text, choices and their points (`harass`, `passive`, `help`, `bond`), journal entries, title page, intro. Edit this to change the story.

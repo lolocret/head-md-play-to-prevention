@@ -56,7 +56,11 @@ const STORY = {
           "harass": 1,
           "passive": 0,
           "help": 0,
-          "bond": -1
+          "bond": -1,
+          "journal": {
+            "fr": "J’ai regardé Echo de haut. Sur le coup, c’était facile. Maintenant, je ne sais plus pourquoi je l’ai fait.",
+            "en": "I looked down at Echo. At the time it was easy. Now I don’t know why I did it."
+          }
         },
         {
           "label": {
@@ -80,7 +84,11 @@ const STORY = {
           "harass": 0,
           "passive": 1,
           "help": 0,
-          "bond": 0
+          "bond": 0,
+          "journal": {
+            "fr": "Je n’ai rien fait. J’ai regardé mes mains pendant qu’Echo se présentait.",
+            "en": "I did nothing. I looked at my hands while Echo introduced themself."
+          }
         }
       ],
       "journal": {
@@ -111,7 +119,11 @@ const STORY = {
           "harass": 1,
           "passive": 0,
           "help": 0,
-          "bond": -1
+          "bond": -1,
+          "journal": {
+            "fr": "J’ai ri avec la classe. Je ne sais pas pourquoi. Maintenant j’ai un nœud au ventre.",
+            "en": "I laughed with the class. I don’t know why. Now I have a knot in my stomach."
+          }
         },
         {
           "label": {
@@ -129,8 +141,8 @@ const STORY = {
         }
       ],
       "journal": {
-        "fr": "Echo a tendu la main et elle a traversé celle de l’autre. Tout le monde a ri. Moi aussi, un peu, et je ne sais pas pourquoi. Les fleurs d’Echo se sont ouvertes toutes seules, on aurait dit que ça faisait mal.",
-        "en": "Echo held out a hand and it went right through the other kid’s. Everyone laughed. Me too, a little, and I don’t know why. Echo’s flowers opened by themselves, as if it hurt."
+        "fr": "Echo a tendu la main et elle a traversé celle de l’autre. Les fleurs d’Echo se sont ouvertes toutes seules, on aurait dit que ça faisait mal. Dans la classe, il y a eu un silence, puis des rires.",
+        "en": "Echo held out a hand and it went right through the other kid’s. Echo’s flowers opened by themselves, as if it hurt. In the class there was a silence, then laughter."
       }
     },
     {
@@ -156,7 +168,11 @@ const STORY = {
           "harass": 1,
           "passive": 0,
           "help": 0,
-          "bond": -1
+          "bond": -1,
+          "journal": {
+            "fr": "J’ai liké le mème. Un clic, une seconde. Pourquoi est-ce que j’ai un goût amer ?",
+            "en": "I liked the meme. One click, one second. Why do I have a bitter taste?"
+          }
         },
         {
           "label": {
@@ -166,7 +182,11 @@ const STORY = {
           "harass": 0,
           "passive": 1,
           "help": 0,
-          "bond": 0
+          "bond": 0,
+          "journal": {
+            "fr": "Je n’ai rien fait. Je n’ai rien dit non plus. Est-ce que ça compte ?",
+            "en": "I did nothing. I said nothing either. Does that count?"
+          }
         },
         {
           "label": {
@@ -184,8 +204,8 @@ const STORY = {
         }
       ],
       "journal": {
-        "fr": "Minuit passé. La vidéo tourne dans le groupe 3B. Je me demande si c’est bien qu’on se moque d’Echo. Je n’ai rien écrit, mais je n’ai rien dit non plus.",
-        "en": "Past midnight. The video is going around the 3B group. I wonder if it’s okay that we make fun of Echo. I didn’t write anything, but I didn’t say anything either."
+        "fr": "Minuit passé. La vidéo tourne dans le groupe 3B, puis un mème. Je me demande si c’est bien qu’on se moque d’Echo.",
+        "en": "Past midnight. The video is going around the 3B group, then a meme. I wonder if it’s okay that we make fun of Echo."
       }
     },
     {
@@ -225,7 +245,11 @@ const STORY = {
           "harass": 0,
           "passive": 1,
           "help": 0,
-          "bond": 0
+          "bond": 0,
+          "journal": {
+            "fr": "Je n’ai rien dit à Kovasko. Il ne voit rien, mais moi non plus, je n’ai rien fait.",
+            "en": "I didn’t tell Kovasko anything. He doesn’t see a thing, but I didn’t do anything either."
+          }
         },
         {
           "label": {
@@ -235,7 +259,11 @@ const STORY = {
           "harass": 1,
           "passive": 0,
           "help": 0,
-          "bond": -1
+          "bond": -1,
+          "journal": {
+            "fr": "J’ai ri avec les autres sous les tables. J’ai fait comme tout le monde.",
+            "en": "I laughed with the others under the desks. I did like everyone else."
+          }
         }
       ],
       "journal": {
@@ -280,7 +308,11 @@ const STORY = {
           "harass": 0,
           "passive": 1,
           "help": 0,
-          "bond": 0
+          "bond": 0,
+          "journal": {
+            "fr": "Je suis resté·e là sans rien faire. La porte est restée fermée.",
+            "en": "I stood there and did nothing. The door stayed closed."
+          }
         },
         {
           "label": {
@@ -290,7 +322,11 @@ const STORY = {
           "harass": 3,
           "passive": 0,
           "help": 0,
-          "bond": -2
+          "bond": -2,
+          "journal": {
+            "fr": "J’ai piraté la porte et pris la photo. Echo a pris la décharge. Je regarde la photo et je n’en suis pas fier·e.",
+            "en": "I hacked the door and took the photo. Echo took the shock. I look at the photo and I’m not proud."
+          }
         }
       ],
       "journal": {
@@ -321,7 +357,11 @@ const STORY = {
           "harass": 2,
           "passive": 0,
           "help": 0,
-          "bond": -2
+          "bond": -2,
+          "journal": {
+            "fr": "J’ai écrit une insulte. Elle est restée là, à l’écran, dans le dos d’Echo. Je voudrais l’effacer.",
+            "en": "I wrote an insult. It stayed there on the screen, on Echo’s back. I wish I could erase it."
+          }
         },
         {
           "label": {
@@ -346,7 +386,11 @@ const STORY = {
           "harass": 0,
           "passive": 1,
           "help": 0,
-          "bond": 0
+          "bond": 0,
+          "journal": {
+            "fr": "Je n’ai rien fait. Les insultes sont restées, et tout le monde les voyait.",
+            "en": "I did nothing. The insults stayed, and everyone could see them."
+          }
         },
         {
           "label": {
@@ -421,7 +465,11 @@ const STORY = {
           "harass": 0,
           "passive": 1,
           "help": 0,
-          "bond": 0
+          "bond": 0,
+          "journal": {
+            "fr": "J’ai fait comme si je n’avais rien vu. Clarisse m’a regardé·e, puis a détourné les yeux.",
+            "en": "I acted as if I hadn’t seen anything. Clarisse looked at me, then looked away."
+          }
         }
       ],
       "journal": {
@@ -452,7 +500,11 @@ const STORY = {
           "harass": 2,
           "passive": 0,
           "help": 0,
-          "bond": -2
+          "bond": -2,
+          "journal": {
+            "fr": "J’ai dit que j’en étais. Mes doigts ont écrit « ok » avant que j’aie le temps de réfléchir.",
+            "en": "I said I was in. My fingers typed “ok” before I had time to think."
+          }
         },
         {
           "label": {
@@ -462,7 +514,11 @@ const STORY = {
           "harass": 0,
           "passive": 1,
           "help": 0,
-          "bond": 0
+          "bond": 0,
+          "journal": {
+            "fr": "Je n’ai rien répondu. « Si tu ne dis rien, tu approuves » : et si c’était vrai ?",
+            "en": "I didn’t answer. “If you say nothing, you agree”: what if it were true?"
+          }
         },
         {
           "label": {
@@ -551,18 +607,26 @@ const STORY = {
           "harass": 0,
           "passive": 1,
           "help": 0,
-          "bond": 0
+          "bond": 0,
+          "journal": {
+            "fr": "Je suis resté·e en retrait. Echo a cherché tout·e seul·e. J’aurais pu l’aider.",
+            "en": "I stayed back. Echo searched alone. I could have helped."
+          }
         }
       ],
       "alone": {
         "text": {
           "fr": "« Tu n’as pas de parents. » Cette phrase hante Echo. Echo enquête seul, la nuit : fragments de mémoire, archives, une piste qui mène à Altaya. Echo découvre qui Echo est et ce pour quoi Echo existe. Tu n’étais pas là, et cette partie de l’histoire reste fermée pour toi.",
           "en": "“You have no parents.” That sentence haunts Echo. Echo investigates alone at night: memory fragments, archives, a trail leading to Altaya. Echo discovers who they are and what they are for. You weren’t there, and this part of the story stays closed to you."
+        },
+        "journal": {
+          "fr": "Echo a cherché ses origines tout·e seul·e, la nuit. Je n’étais pas là, et je me demande si j’aurais pu l’aider.",
+          "en": "Echo searched for their origins alone, at night. I wasn’t there, and I wonder if I could have helped."
         }
       },
       "journal": {
-        "fr": "Echo cherche d’où iel vient. Peut-être que je n’ai pas su être assez proche pour l’aider. Savoir qui est quelqu’un, ça change tout.",
-        "en": "Echo is searching for where they come from. Maybe I wasn’t close enough to help. Knowing who someone is changes everything."
+        "fr": "« Tu n’as pas de parents. » Cette phrase fait mal à Echo. Savoir qui est quelqu’un, ça change tout.",
+        "en": "“You have no parents.” That sentence hurts Echo. Knowing who someone is changes everything."
       }
     },
     {
@@ -611,7 +675,11 @@ const STORY = {
           "harass": 2,
           "passive": 0,
           "help": 0,
-          "bond": -2
+          "bond": -2,
+          "journal": {
+            "fr": "J’ai levé mon téléphone et filmé. Echo m’a regardé·e. Je ne peux plus effacer ce regard.",
+            "en": "I raised my phone and filmed. Echo looked at me. I can’t erase that look."
+          }
         },
         {
           "label": {
@@ -621,7 +689,11 @@ const STORY = {
           "harass": 0,
           "passive": 2,
           "help": 0,
-          "bond": 0
+          "bond": 0,
+          "journal": {
+            "fr": "Je suis resté·e silencieux·se pendant que les autres filmaient.",
+            "en": "I stayed silent while the others filmed."
+          }
         },
         {
           "label": {
@@ -631,7 +703,11 @@ const STORY = {
           "harass": 0,
           "passive": 1,
           "help": 0,
-          "bond": 0
+          "bond": 0,
+          "journal": {
+            "fr": "Je suis parti·e. Je n’ai pas vu la suite, et je ne sais pas si c’est mieux.",
+            "en": "I left. I didn’t see what came next, and I don’t know if that’s better."
+          }
         },
         {
           "label": {
