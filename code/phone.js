@@ -76,7 +76,7 @@ function onProfile(m) {
 function onPrompt(m) {
   if (prompts.some(x => x.id === m.id)) return;
   prompts.push({ id: m.id, fr: m.fr, en: m.en });
-  if (view !== "journal") { jUnread++; toast(T("journal"), T("jNotif")); }
+  if (view !== "journal") { jUnread++; toast(T("journal"), T("jNotif"), "journal"); }
   feel("normal");
   paintStatic(); renderJournal();
 }
@@ -134,11 +134,14 @@ function tone(freq, start, dur, gain) {
   g.gain.setValueAtTime(0, t0); g.gain.linearRampToValueAtTime(gain, t0 + 0.02); g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
   o.connect(g); g.connect(audio.destination); o.start(t0); o.stop(t0 + dur + 0.05);
 }
+// Vibration works on most Android phones; iPhone browsers do not allow it, so everyone also gets sound and a shake.
+const buzz = pattern => { try { if (navigator.vibrate) navigator.vibrate(pattern); } catch (err) { /* not supported */ } };
 function feel(kind) {
   const app = $("app");
-  if (kind === "cold") { tone(196, 0, 0.5, 0.18); shake(app, "cold"); }                 // low, dull: nobody cares
-  else if (kind === "left_out") { tone(220, 0, 0.7, 0.2); tone(147, 0.25, 0.9, 0.2); silence(); } // you are left out
-  else { tone(880, 0, 0.15, 0.2); tone(1175, 0.16, 0.2, 0.2); shake(app, "ping"); }
+  if (kind === "cold") { tone(196, 0, 0.5, 0.18); shake(app, "cold"); buzz([450]); }                                   // low, dull: nobody cares
+  else if (kind === "left_out") { tone(220, 0, 0.7, 0.2); tone(147, 0.25, 0.9, 0.2); silence(); buzz([120, 60, 120, 60, 500]); } // you are left out
+  else if (kind === "group") { tone(659, 0, 0.14, 0.2); tone(523, 0.15, 0.14, 0.2); tone(784, 0.3, 0.25, 0.2); shake(app, "ping"); buzz([220, 90, 220]); } // a group event
+  else { tone(880, 0, 0.15, 0.2); tone(1175, 0.16, 0.2, 0.2); shake(app, "ping"); buzz([130, 70, 130]); }
 }
 function shake(el, cls) { el.classList.remove("ping", "cold"); void el.offsetWidth; el.classList.add(cls); }
 function silence() { document.body.classList.add("silent"); clearTimeout(silence.id); silence.id = setTimeout(() => document.body.classList.remove("silent"), 7000); }
@@ -157,17 +160,28 @@ function onMessage(m) {
   const reading = openThread === m.thread;
   if (!reading) t.unread++;
   feel(m.feel || "normal");
-  const who = m.from || pick(t.name);
-  if (!reading) toast(who, pick(m));
+  const isGroupEvent = !m.from;
+  if (isGroupEvent) toast(french ? "Groupe" : "Group", pick(m), "group", m.thread);   // always shown: you must see it
+  else if (!reading) toast(m.from, pick(m), "msg", m.thread);
   renderList();
   if (reading) renderThread();
 }
 
-function toast(title, body) {
+const GROUP_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.2c2.7.2 4.5 2.4 4.5 5.3"/></svg>';
+const MSG_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5h16v11H11l-4 3.5V16H4z"/></svg>';
+
+// A notification at the top of the phone. kind: "group" (added to / removed from a group) or "msg". Tap to open the conversation.
+function toast(title, body, kind, thread) {
   const n = $("notif");
-  n.innerHTML = ""; const b = document.createElement("b"); b.textContent = title;
-  n.append(b, document.createTextNode(body)); n.hidden = false;
-  clearTimeout(toast.id); toast.id = setTimeout(() => { n.hidden = true; }, 4500);
+  n.classList.toggle("group", kind === "group");
+  $("nIcon").innerHTML = kind === "group" ? GROUP_ICON : MSG_ICON;
+  $("nTime").textContent = french ? "maintenant" : "now";
+  $("nTitle").textContent = title;
+  $("nBody").textContent = body;
+  n.hidden = false;
+  n.onclick = () => { n.hidden = true; if (thread && threads[thread]) { openThread = thread; threads[thread].unread = 0; $("bar").hidden = false; showThread(); } else if (kind === "journal") show("journal"); };
+  n.style.animation = "none"; void n.offsetWidth; n.style.animation = "";
+  clearTimeout(toast.id); toast.id = setTimeout(() => { n.hidden = true; }, kind === "group" ? 6500 : 4500);
 }
 
 function renderList() {
@@ -213,6 +227,7 @@ $("tabJournal").onclick = () => show("journal");
 // A tap is needed before the browser lets the page play sounds (the same on iPhone and Android).
 $("answer").onclick = () => {
   unlockSound();
+  buzz(40); // a first tap also allows vibration on Android
   keepAwake();
   $("answer").disabled = true;
   connect();

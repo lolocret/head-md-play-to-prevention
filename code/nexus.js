@@ -70,7 +70,7 @@ const NEXUS = {
 const Nexus = (() => {
   let timers = [];
   const push = (m, at) => timers.push(setTimeout(() => {
-    Link.send({ type: "msg", thread: m.t, threadName: NEXUS.threads[m.t], from: m.from, fr: fill(m.fr), en: fill(m.en), feel: m.feel });
+    Link.send({ type: "msg", thread: m.t, threadName: NEXUS.threads[m.t], from: m.from, fr: fill(m.fr), en: fill(m.en), feel: m.feel || (m.from ? undefined : "group") });  // a system line (added to / removed from a group) is a group notification
   }, at));
   return {
     reset() { timers.forEach(clearTimeout); timers = []; },

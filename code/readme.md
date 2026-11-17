@@ -33,11 +33,13 @@ A visual novel in the browser. Two ways to play:
 
 ## Phone: the same on iPhone and Android
 The experience is the same on every phone. It does not rely on vibration, system notifications or motion sensors, which behave differently on iPhone.
-- A message: a short two-note sound, a small shake of the screen and a banner in the page.
+- A message: a short two-note sound, a small shake of the screen and a notification banner at the top of the phone (tap it to open the conversation).
+- A group event (added to a group, removed from a group): a pink notification, a three-note sound and, on Android, a stronger vibration.
+- Vibration works on most Android phones; iPhone browsers do not allow it, so everyone also gets the sound and the shake.
 - A cold answer: a low, dull sound and a heavy wobble.
 - Being removed from a group: two low notes and the whole screen turns grey and dim for a few seconds (silence).
 - The phone keeps its screen on (wake lock) so the page stays connected. The sound needs one tap on "Ouvrir Nexus" first.
-- Lost on purpose: vibration, notifications with the screen locked, the pointer (choosing by pointing the phone at the screen).
+- Lost on purpose: notifications with the screen locked, the pointer (choosing by pointing the phone at the screen).
 - The journal is also on the phone: the entries fill in as on the computer, and at intense moments a question appears for the player to answer in her own words. What she writes stays on her phone (saved in the phone's browser).
 - Not done yet: reacting from the phone (like, comment, leave the group), and sharing a sentence anonymously with the facilitator.
 

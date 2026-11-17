@@ -138,19 +138,28 @@ function silhouette(color) {
   return `<span class="sil" style="--c:${color}"><i></i><b></b></span>`;
 }
 
+// Choose a photo -> frame it (drag / zoom) -> it becomes a cyberpunk avatar
+async function frame(img, previous) {
+  const res = await Cropper.open(img, { title: L(PROFILE.cropTitle), hint: L(PROFILE.cropHint), ok: L(PROFILE.cropOk), cancel: L(PROFILE.cropCancel) }, previous);
+  if (!res) return false;
+  player.photo = Cyber.exportImage(img, res.crop);
+  player.source = img; player.frame = res.state;
+  player.avatar = "photo";
+  return true;
+}
+
 $("photoInput").onchange = async e => {
   const file = e.target.files && e.target.files[0];
   e.target.value = "";
   if (!file) return;
-  try {
-    player.photo = await Cyber.fromFile(file);
-    player.avatar = "photo";
-    $("uploadErr").hidden = true;
-  } catch (err) {
-    $("uploadErr").hidden = false;
-  }
+  let img;
+  try { img = await Cyber.load(file); $("uploadErr").hidden = true; }
+  catch (err) { $("uploadErr").hidden = false; return; }
+  const done = await frame(img);
+  if (!done) Cyber.release(img);
   renderProfile();
 };
+$("adjustBtn").onclick = async () => { if (player.source) { await frame(player.source, player.frame); renderProfile(); } };
 
 function renderProfile() {
   $("choices").innerHTML = ""; // clicking an avatar redraws this screen: do not stack buttons
@@ -160,31 +169,22 @@ function renderProfile() {
   $("nameLabel").textContent = L(PROFILE.nameLabel);
   $("nameInput").placeholder = L(PROFILE.namePlaceholder);
   $("avatarLabel").textContent = L(PROFILE.avatarLabel);
-  $("avatars").innerHTML = "";
-  if (player.photo) {
-    const b = document.createElement("button");
-    b.className = "avatar photo" + (player.avatar === "photo" ? " selected" : "");
-    const im = document.createElement("img"); im.src = player.photo.big; im.alt = "";
-    b.appendChild(im);
-    b.onclick = () => { player.avatar = "photo"; renderProfile(); };
-    $("avatars").appendChild(b);
-  }
-  $("uploadText").textContent = L(PROFILE.upload);
+  // the avatar is one big round slot: upload a photo (it becomes cyberpunk); without a photo, a plain default avatar is used
+  $("slotImg").hidden = !player.photo;
+  $("slotPlus").hidden = !!player.photo;
+  if (player.photo) $("slotImg").src = player.photo.big;
+  $("uploadText").textContent = L(player.photo ? PROFILE.uploadChange : PROFILE.upload);
+  $("adjustBtn").hidden = !player.photo;
+  $("adjustBtn").textContent = L(PROFILE.adjust);
   $("uploadNote").textContent = L(PROFILE.uploadNote);
   $("uploadErr").textContent = L(PROFILE.uploadErr);
-  PROFILE.avatars.forEach(a => {
-    const b = document.createElement("button");
-    b.className = "avatar" + (player.avatar === a ? " selected" : "");
-    b.innerHTML = silhouette(a);
-    b.onclick = () => { player.avatar = a; renderProfile(); };
-    $("avatars").appendChild(b);
-  });
   addButton(L(PROFILE.start), () => {
     player.name = $("nameInput").value.trim();
+    if (!player.photo) player.avatar = PROFILE.defaultAvatar; // no photo: a plain default avatar
     startPhoneStep();
   });
   const start = $("choices").lastChild;
-  const check = () => { start.disabled = !($("nameInput").value.trim() && player.avatar); };
+  const check = () => { start.disabled = !$("nameInput").value.trim(); }; // only the name is required
   $("nameInput").oninput = check;
   check();
 }

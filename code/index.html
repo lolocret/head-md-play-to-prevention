@@ -36,6 +36,16 @@
     <button id="soloBtn"></button>
   </section>
 
+  <div id="cropper" hidden>
+    <div class="cropbox">
+      <h3 id="cropTitle"></h3>
+      <div id="cropView"><img id="cropImg" alt="" draggable="false"><div class="cropMask"></div></div>
+      <p id="cropHint"></p>
+      <input type="range" id="cropZoom" min="1" max="4" step="0.01" value="1" aria-label="Zoom">
+      <div class="cropBtns"><button id="cropCancel"></button><button id="cropOk"></button></div>
+    </div>
+  </div>
+
   <div id="toast" hidden></div>
 
   <div id="stage"><div id="scene"></div></div>
@@ -48,8 +58,13 @@
       <label id="nameLabel" for="nameInput"></label>
       <input id="nameInput" maxlength="20" autocomplete="off">
       <div id="avatarLabel"></div>
-      <div id="avatars"></div>
-      <label id="uploadBtn"><input type="file" id="photoInput" accept="image/*" hidden><span id="uploadText"></span></label>
+      <label id="uploadBtn" class="slot">
+        <input type="file" id="photoInput" accept="image/*" hidden>
+        <span class="plus" id="slotPlus">+</span>
+        <img id="slotImg" alt="" hidden>
+      </label>
+      <span id="uploadText"></span>
+      <button id="adjustBtn" type="button" hidden></button>
       <small id="uploadNote"></small>
       <small id="uploadErr" hidden></small>
     </div>
@@ -59,6 +74,7 @@
   <script src="lib/qrcode.min.js"></script>
   <script src="story.js"></script>
   <script src="avatar.js"></script>
+  <script src="cropper.js"></script>
   <script src="link.js"></script>
   <script src="nexus.js"></script>
   <script src="scene.js"></script>

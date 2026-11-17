@@ -278,10 +278,15 @@ body.on-title #journalBtn, body.on-title #gauge, body.on-title #goal, body.on-ti
 @keyframes load { 0% { transform:translateX(-100%); } 100% { transform:translateX(260%); } }
 
 /* ---- Upload a photo: it becomes a cyberpunk avatar ---- */
+[hidden] { display:none !important; }   /* a style with display must never show something that is hidden */
+.slot { display:flex; align-items:center; justify-content:center; width:150px; height:150px; border-radius:50%; cursor:pointer; overflow:hidden; position:relative;
+  background:rgba(40,34,80,.6); border:2px dashed var(--cyan); box-shadow:0 0 22px rgba(77,240,255,.25); }
+.slot:hover { background:rgba(77,240,255,.15); }
+.slot .plus { font-size:64px; line-height:1; color:var(--cyan); font-weight:200; }
+.slot img { width:100%; height:100%; object-fit:cover; display:block; border:0; }
+#uploadText { display:block; margin-top:10px; color:#d9fdff; }
 .avatar.photo { padding:0; overflow:hidden; }
 .avatar.photo img { width:100%; height:100%; display:block; object-fit:cover; border-radius:50%; }
-#uploadBtn { display:inline-block; margin-top:16px; padding:10px 18px; border-radius:12px; cursor:pointer; background:rgba(40,34,80,.6); border:1px dashed var(--cyan); color:#d9fdff; }
-#uploadBtn:hover { background:rgba(77,240,255,.15); }
 #uploadNote { display:block; margin-top:8px; color:var(--grey); font-size:13px; max-width:420px; }
 #uploadErr { display:block; margin-top:6px; color:#ff8fa3; font-size:13px; }
 
@@ -297,3 +302,22 @@ body.on-title #journalBtn, body.on-title #gauge, body.on-title #goal, body.on-ti
 
 /* a tiny bit higher */
 #titleScreen { padding-top:6vh; }
+
+/* The slot must stay a centred round button (the profile screen styles every label otherwise) */
+#profile .slot { display:flex; align-items:center; justify-content:center; width:150px; height:150px; margin:14px 0 0; padding:0; font-weight:200; }
+#profile .slot .plus { margin:0; }
+#adjustBtn { margin-top:8px; font-size:14px; padding:6px 14px; }
+
+/* ---- The frame to reposition the photo ---- */
+#cropper { position:fixed; inset:0; z-index:8; display:flex; align-items:center; justify-content:center; padding:16px; background:rgba(2,2,8,.85); }
+.cropbox { width:min(360px,100%); text-align:center; background:rgba(20,16,44,.96); border:1px solid rgba(138,92,255,.5); border-radius:20px; padding:20px; box-shadow:0 0 40px rgba(138,92,255,.3); }
+.cropbox h3 { margin:0 0 12px; color:var(--cyan); }
+#cropView { position:relative; width:300px; height:300px; max-width:100%; margin:0 auto; overflow:hidden; border-radius:14px; background:#000; touch-action:none; cursor:grab; user-select:none; }
+#cropView:active { cursor:grabbing; }
+#cropImg { position:absolute; left:50%; top:50%; max-width:none; pointer-events:none; -webkit-user-drag:none; }
+.cropMask { position:absolute; inset:0; pointer-events:none; border-radius:50%; border:2px solid var(--cyan); box-shadow:0 0 0 400px rgba(5,4,16,.62); }
+#cropHint { color:var(--grey); font-size:14px; margin:12px 0 6px; }
+#cropZoom { width:100%; accent-color:#4df0ff; }
+.cropBtns { display:flex; gap:10px; justify-content:center; margin-top:14px; }
+.cropBtns button { min-width:120px; }
+#cropOk { border-color:var(--cyan); background:rgba(77,240,255,.18); }

@@ -14,9 +14,10 @@ const Cyber = (() => {
     return STOPS[STOPS.length - 1][1];
   });
 
-  function render(source, size = 256) {
+  // crop = { sx, sy, side } in source pixels (chosen by the player); default: a centred square, a bit toward the top (faces)
+  function render(source, size = 256, crop) {
     const sw = source.naturalWidth || source.width, sh = source.naturalHeight || source.height;
-    const side = Math.min(sw, sh), sx = (sw - side) / 2, sy = (sh - side) * 0.3; // square crop, a bit toward the top (faces)
+    const side = crop ? crop.side : Math.min(sw, sh), sx = crop ? crop.sx : (sw - side) / 2, sy = crop ? crop.sy : (sh - side) * 0.3;
     const base = make(size, size), ctx = base.getContext("2d");
     ctx.drawImage(source, sx, sy, side, side, 0, 0, size, size);
     const s = ctx.getImageData(0, 0, size, size).data, n = size * size;
@@ -60,13 +61,13 @@ const Cyber = (() => {
     return base;
   }
 
-  // The file chosen by the player -> { big, small } image addresses (small goes to the phone)
-  async function fromFile(file) {
+  // Loads the chosen file as an image (the address is freed with release())
+  function load(file) {
     const url = URL.createObjectURL(file);
-    try {
-      const img = await new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = url; });
-      return { big: render(img, 256).toDataURL("image/jpeg", 0.9), small: render(img, 96).toDataURL("image/jpeg", 0.85) };
-    } finally { URL.revokeObjectURL(url); }
+    return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => { URL.revokeObjectURL(url); rej(new Error("unreadable")); }; im.src = url; });
   }
-  return { render, fromFile };
+  const release = img => { try { URL.revokeObjectURL(img.src); } catch (e) { /* nothing to free */ } };
+  // -> { big, small } image addresses (small goes to the phone)
+  const exportImage = (img, crop) => ({ big: render(img, 256, crop).toDataURL("image/jpeg", 0.9), small: render(img, 96, crop).toDataURL("image/jpeg", 0.85) });
+  return { render, load, release, exportImage };
 })();
