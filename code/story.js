@@ -1160,6 +1160,7 @@ const INTRO = [
     }
   },
   {
+    image: "images/altaya.png",   // Altaya is named on this page
     title: { fr: "Holo’Kids", en: "Holo’Kids" },
     text: {
       fr: "Altaya, un institut de recherche sur les nouvelles technologies, lance le programme Holo’Kids : des enfants hologrammes qui entrent dans les écoles pour soutenir les élèves en difficulté et renforcer la solidarité dans les classes.",

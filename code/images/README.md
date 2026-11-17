@@ -4,7 +4,7 @@ Mets ici les images de fond de chaque lieu (16:9 de préférence), avec ces noms
 - classe.jpg   — Classe 3B
 - toit.png     — Le toit (mène à La Serre)  [déjà là]
 - serre.jpg    — La Serre
-- altaya.jpg   — Altaya (caché au début, s'ouvre si on devient ami avec Echo)
+- altaya.png   — Altaya (caché au début, s'ouvre si on devient ami avec Echo)  [déjà là]
 - chambre.png  — Chez toi (seulement pour la scène « Jeudi soir »)  [déjà là]
 - intro-2041.png — Image de la page d'introduction « 2041 »  [déjà là]
 
