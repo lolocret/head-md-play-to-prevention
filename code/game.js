@@ -317,6 +317,7 @@ async function startPhoneStep() {
 
 function renderPhoneStep() {
   $("callLabel").textContent = french ? "Ouverture…" : "Opening…";
+  $("nexusIntro").textContent = phase === "phone" ? L(NEXUS_INTRO) : "";   // the world of Nexus, told when the QR code appears
   $("qr").hidden = noServer; $("qrRoom").hidden = noServer;
   $("qrText").textContent = noServer
     ? (french ? "Le jeu a besoin du serveur. Lance « npm start » dans le dossier server, puis ouvre http://localhost:3000." : "The game needs the server. Run “npm start” in the server folder, then open http://localhost:3000.")

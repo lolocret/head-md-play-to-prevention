@@ -343,3 +343,6 @@ body.pre-game #scene { opacity:0; }
 #gauge { display:flex; align-items:center; gap:10px; width:300px; text-align:left; }
 #gauge #gaugeBar { flex:1; }
 .gflower { display:inline-flex; flex:none; filter:drop-shadow(0 0 6px rgba(255,143,216,.6)); }
+
+#nexusIntro { max-width:340px; margin:0 auto 18px; color:#e6e6ff; font-size:17px; line-height:1.5; text-shadow:0 0 12px #000; }
+#nexusIntro:empty { display:none; }
