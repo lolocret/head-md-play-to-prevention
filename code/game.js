@@ -1,31 +1,38 @@
-// Echo — text-and-choice prototype. Only the player makes choices.
+// Echo — a story played from a phone. The computer only displays (the places, the text, Echo's state);
+// everything the player does (choices, "Continue", "Play again") happens on the phone.
 // French by default; add ?lang=en to the address for English
 let french = new URLSearchParams(location.search).get("lang") !== "en";
 let state, beatIndex, finished;
-const newState = () => ({ harass: 0, passive: 0, help: 0, bond: 0, flags: {}, extra: [], talked: {}, delayed: [] });
+const newState = () => ({ harass: 0, passive: 0, help: 0, bond: 0, flags: {}, extra: [], delayed: [] });
 let phase = "title", introIndex = 0; // title | intro | profile | phone | world | dialog | ending
-let player = { name: "", avatar: null, photo: null }; // avatar: a colour, or "photo" (a cyberpunk portrait)
+let player = { name: "", avatar: PROFILE.defaultAvatar, photo: null };   // photo: a cyberpunk portrait (optional)
 
 const $ = id => document.getElementById(id);
 // {name} in any text becomes the player’s name, to make the story personal
-const profileMsg = () => ({ type: "profile", name: player.name, avatar: player.avatar === "photo" ? null : player.avatar, photo: player.avatar === "photo" && player.photo ? player.photo.small : null, french });
 const fill = s => String(s).replace(/\{name\}/g, (typeof player !== "undefined" && player.name) || "");
 const L = t => fill(french ? t.fr : t.en);
+const profileMsg = () => ({ type: "profile", name: player.name, avatar: player.avatar, photo: player.photo ? player.photo.small : null, french });
+
+// ---------------------------------------------------------------- flow
+
+// Some scenes only happen under a condition (e.g. Echo at Altaya needs a strong bond)
+const available = b => !b.if || state.bond >= (b.if.bondMin || -Infinity);
+function nextAvailable(i) { while (i < STORY.beats.length && !available(STORY.beats[i])) i++; return i; }
 
 function restart() {
   state = newState();
-  activeEnc = null; lastSnap = null;
+  lastSnap = null;
   Nexus.reset();
-  beatIndex = 0;
+  beatIndex = nextAvailable(0);
   finished = false;
   phase = "world";
-  Scene.setBeat(STORY.beats[0].id);
+  Scene.setBeat(STORY.beats[beatIndex].id);
   Scene.reset();
   render();
   maybeStartBeat();
 }
 
-// When the player is in the place where the next scene happens, the scene starts.
+// Once the scene is in its place, it starts (after a short pause)
 function maybeStartBeat() {
   if (phase !== "world" || !Scene.atBeat()) return;
   const idx = beatIndex;
@@ -35,11 +42,25 @@ function maybeStartBeat() {
       fireDelayed(idx);                       // an old choice comes back
       if (idx === STORY.beats.length - 1) lastSnap = { state: JSON.parse(JSON.stringify(state)), beatIndex: idx };   // to try the last scene again
       render();
-      Nexus.beat(STORY.beats[idx].id); // the scene starts: messages arrive on the phone
+      Nexus.beat(STORY.beats[idx].id);        // the scene starts: messages arrive on the phone
     }
   }, 700);
 }
 Scene.onEnter = () => { syncPhone(); maybeStartBeat(); };
+
+// The story takes the player to the next scene, wherever it happens
+function next() {
+  beatIndex = nextAvailable(beatIndex + 1);
+  if (beatIndex >= STORY.beats.length) { finished = true; phase = "ending"; render(); return; }
+  phase = "world";
+  Scene.unlocked.altaya = state.bond >= STORY.bondToUnlock;
+  Scene.setBeat(STORY.beats[beatIndex].id);
+  render();
+  if (Scene.atBeat()) maybeStartBeat(); else Scene.go(Scene.beatPlaceId());
+}
+
+// How open Echo's flowers are: 1 = fine, 0 = closed (the worse Echo feels, the more they close)
+const bloomValue = () => 1 - Math.min(1, state.harass / Math.max(1, STORY.harassStage3));
 
 // 0 stable, 1 bugs, 2 crises, 3 Echo short-circuits
 function stage() {
@@ -55,68 +76,12 @@ function endingId() {
   return "passive";
 }
 
-function addButton(label, onClick) {
-  const b = document.createElement("button");
-  b.textContent = label;
-  b.onclick = onClick;
-  $("choices").appendChild(b);
-}
+// Echo is open to you if the bond is strong, wary if you hurt more than you helped
+const mood = () => state.bond >= STORY.bondToUnlock ? "open" : (state.harass > state.help ? "wary" : "neutral");
+const noteApplies = n => (n.flag && state.flags[n.flag]) || (n.bondMin !== undefined && state.bond >= n.bondMin) || (n.bondMax !== undefined && state.bond <= n.bondMax);
 
-function render() {
-  renderScreen();
-  syncPhone();
-}
+// ---------------------------------------------------------------- choices and their consequences
 
-function renderScreen() {
-  $("choices").innerHTML = "";
-  $("prompt").textContent = "";
-  $("profile").hidden = true;
-  $("titleScreen").hidden = phase !== "title";
-  if (phase === "title") { $("introBg").style.backgroundImage = `url(${TITLE.image})`; $("introBg").hidden = false; }   // the title page shows the 2041 picture
-  else if (phase !== "intro") $("introBg").hidden = true;   // only the introduction pages that have an image show it
-  document.body.classList.toggle("on-title", phase === "title");
-  if (phase === "title") renderTitle();
-  Scene.unlocked.altaya = state.bond >= STORY.bondToUnlock;
-  Scene.french = french;
-  Scene.stage = stage();
-  Scene.refresh();
-  const inGame = phase === "world" || phase === "dialog" || phase === "ending";
-  document.body.classList.toggle("pre-game", !inGame);   // before the game starts, no place is shown behind the pages
-  const needPhone = phase === "phone" || (inGame && !Link.connected);   // no phone, no game: the screen only displays
-  $("main").hidden = phase === "title" || phase === "world" || phase === "phone" || needPhone;
-  $("phoneScreen").hidden = !needPhone;
-  if (needPhone) renderPhoneStep();
-  document.body.classList.toggle("vn", phase === "dialog");
-  document.body.classList.toggle("await-phone", phase === "dialog" && Link.connected);   // the scene darkens while the player answers on the phone
-  updateGauge();
-  updateJournal();
-
-  if (phase === "title") return;
-  if (phase === "intro") return renderIntro();
-  if (phase === "profile") return renderProfile();
-  if (phase === "phone") return;
-
-  if (phase === "world") return;
-  if (finished) return renderEnding();
-
-  if (activeEnc) {   // an optional conversation
-    $("title").textContent = L(activeEnc.title);
-    $("body").textContent = L(encText(activeEnc));
-    return;
-  }
-  const beat = STORY.beats[beatIndex];
-  // "alone" variant: shown when the player is not close enough to Echo (Altaya stays closed)
-  const alone = beat.alone && state.bond < STORY.bondToUnlock;
-  if (alone) state.flags["alone_" + beat.id] = true;
-  const text = alone ? beat.alone.text : beat.text;
-  $("title").textContent = L(beat.title);
-  let body = L(text);
-  (beat.notes || []).forEach(n => { if (noteApplies(n)) body += "\n\n" + L(n.text); });
-  $("body").textContent = body;
-  // the questions and the buttons are on the phone: the computer only tells the story
-}
-
-// ---- The phone is the controller: choices, moving between places, "Continue", "Play again" ----
 // A choice made "for fun" can come back later: a message, a line in the journal (the "later" part of a choice)
 function fireDelayed(idx) {
   state.delayed.forEach(d => {
@@ -130,48 +95,16 @@ function fireDelayed(idx) {
   });
 }
 
-function applyChoice(c, journalBeat) {
+function choose(c) {
   if (c.later) state.delayed.push({ at: beatIndex + c.later.after, later: c.later, done: false });
-  const before = state.bond >= STORY.bondToUnlock;
   for (const k of ["harass", "passive", "help", "bond"]) state[k] += c[k] || 0;
   if (c.flag) state.flags[c.flag] = true;
-  if (c.help > 0) Nexus.cold(c.help); // helping Echo: the others answer coldly
-  if (c.journal) state.extra.push({ beat: journalBeat, text: c.journal });
-  if (!before && state.bond >= STORY.bondToUnlock) toast(french ? "Un nouveau lieu est accessible : Altaya" : "A new place is now open: Altaya");
-}
-function choose(c) { applyChoice(c, beatIndex); next(); }
-
-const Q_ENC = { fr: "Que fais-tu, {name} ?", en: "What do you do, {name}?" };
-
-// ---- Free time: optional conversations ("Talk to …") in the places where someone is ----
-let activeEnc = null;        // the conversation in progress
-const beatIdx = id => STORY.beats.findIndex(b => b.id === id);
-const mood = () => state.bond >= STORY.bondToUnlock ? "open" : (state.harass > state.help ? "wary" : "neutral");
-const encText = e => e.text[e.text[mood()] ? mood() : "neutral"];
-const whoName = w => ({ echo: "Echo", kovasko: "Kovasko", clarisse: "Clarisse" }[w]);
-
-function encountersHere() {
-  if (phase !== "world" || finished) return [];
-  const here = Scene.info().id;
-  return ENCOUNTERS.filter(e => e.place === here && !state.talked[e.id] && beatIndex > beatIdx(e.after));
-}
-
-function startEncounter(id) {
-  const e = encountersHere().find(x => x.id === id);
-  if (!e) return;
-  activeEnc = e; phase = "dialog";
-  render();
-}
-
-function finishEncounter() {
-  state.talked[activeEnc.id] = true;
-  activeEnc = null; phase = "world";
-  render();
-  maybeStartBeat();
+  if (c.help > 0) Nexus.cold(c.help);       // helping Echo: the others answer coldly
+  if (c.journal) state.extra.push({ beat: beatIndex, text: c.journal });
+  next();
 }
 
 let lastSnap = null;   // the state at the start of the last scene (a second chance after an ending that is not "Echo stays")
-
 function retryLastScene() {
   if (!lastSnap) return;
   state = JSON.parse(JSON.stringify(lastSnap.state));
@@ -180,26 +113,16 @@ function retryLastScene() {
   render();
 }
 
+// ---------------------------------------------------------------- the phone
+
 let pending = null;   // what the phone may answer right now: { token, kind: "choice" | "continue" | "restart", choices }
 let sentSig = null;   // the last state sent (to send only what changed)
 
 function phoneState() {
   pending = null;
-  const empty = { fr: "", en: "" };
-  if (phase === "dialog" && activeEnc) {
-    const e = activeEnc, token = "e:" + e.id;
-    pending = { token, kind: "encounter", choices: e.choices };
-    return { mode: "choose", token, place: Scene.info().place, prompt: { fr: fill(Q_ENC.fr), en: fill(Q_ENC.en) },
-      choices: e.choices.map(c => ({ fr: fill(c.label.fr), en: fill(c.label.en) })) };
-  }
-  if (phase === "world") {
-    const i = Scene.info();
-    const talk = encountersHere().map(e => ({ id: e.id, label: { fr: "Parler à " + whoName(e.who), en: "Talk to " + whoName(e.who) } }));
-    if (i.atGoal && !talk.length) return { mode: "wait", place: i.place };   // the scene is about to start here: no need to move
-    return { mode: "move", place: i.place, goal: i.atGoal ? null : i.goal, exits: i.atGoal ? [] : i.exits, talk };
-  }
+  const empty = { fr: "", en: "" }, place = Scene.placeName();
   if (phase === "dialog" && !finished) {
-    const beat = STORY.beats[beatIndex], place = Scene.info().place;
+    const beat = STORY.beats[beatIndex];
     const alone = beat.alone && state.bond < STORY.bondToUnlock;
     const choices = alone ? (beat.alone.choices || []) : beat.choices;
     const token = "b" + beatIndex;
@@ -215,13 +138,14 @@ function phoneState() {
     pending = { token: "end", kind: "restart" };
     const choices = [{ fr: "Rejouer", en: "Play again" }];
     if (lastSnap && endingId() !== "help") choices.push({ fr: "Revenir à la dernière scène et choisir autrement", en: "Go back to the last scene and choose differently" });
-    return { mode: "choose", token: "end", place: Scene.info().place, prompt: empty, choices };
+    return { mode: "choose", token: "end", place, prompt: empty, choices };
   }
-  return { mode: "wait" };
+  return { mode: "wait", place };
 }
 
 function syncPhone() {
   const s = phoneState();
+  s.bloom = +bloomValue().toFixed(2);          // the phone shows Echo's flowers too
   if (!Link.connected) return;
   const sig = JSON.stringify(s);
   if (sig === sentSig) return;
@@ -231,21 +155,82 @@ function syncPhone() {
 
 // The phone answered
 Link.onMessage = m => {
-  if (m.type === "go") {                                      // walk to another place
-    if (phase !== "world" || Scene.moving) return;
-    if (Scene.info().exits.some(x => x.to === m.to)) Scene.go(m.to);
-    return;
-  }
-  if (m.type === "talk") { startEncounter(m.id); return; }
   if (m.type !== "choose" || !pending || m.token !== pending.token) return;
   const p = pending; pending = null;
   if (p.kind === "choice") { const c = p.choices[m.index]; if (c) choose(c); }
-  else if (p.kind === "encounter") { const c = p.choices[m.index]; if (c) { applyChoice(c, Math.max(0, beatIndex - 1)); finishEncounter(); } }
   else if (p.kind === "continue") next();
   else if (p.kind === "restart") { if (m.index === 1) retryLastScene(); else restart(); }
 };
 
-const noteApplies = n => (n.flag && state.flags[n.flag]) || (n.bondMin !== undefined && state.bond >= n.bondMin) || (n.bondMax !== undefined && state.bond <= n.bondMax);
+Link.onPeer = connected => {
+  if (connected) {
+    Link.send(profileMsg());
+    updateJournal.sig = null; updateJournal();
+    sentSig = null;                                  // a phone (re)connected: send it the whole state again
+    if (phase === "phone") setTimeout(() => { if (phase === "phone") restart(); }, 1800);
+    else render();
+  } else {
+    sentSig = null; render();                        // the phone left: the game waits for it
+  }
+};
+
+// ---------------------------------------------------------------- the screen
+
+function render() {
+  renderScreen();
+  syncPhone();
+}
+
+// The picture behind an introduction page: its own, or the one of the previous pages
+const introPicture = i => INTRO[i].image || (i > 0 ? introPicture(i - 1) : "");
+function showPicture(url) {
+  $("introBg").style.backgroundImage = url ? `url(${url})` : "";
+  $("introBg").hidden = !url;
+}
+
+function renderScreen() {
+  $("choices").innerHTML = "";
+  $("prompt").textContent = "";
+  $("profile").hidden = true;
+  $("titleScreen").hidden = phase !== "title";
+  if (phase === "title") { $("introBg").style.backgroundImage = `url(${TITLE.image})`; $("introBg").hidden = false; }   // the title page shows the 2041 picture
+  else if (phase === "profile" || phase === "phone") showPicture(introPicture(INTRO.length - 1));                         // the last picture stays until the game starts
+  else if (phase !== "intro") $("introBg").hidden = true;
+  document.body.classList.toggle("on-title", phase === "title");
+  if (phase === "title") renderTitle();
+  Scene.unlocked.altaya = state.bond >= STORY.bondToUnlock;
+  Scene.french = french;
+  Scene.stage = stage();
+  Scene.bloom = bloomValue();
+  Scene.refresh();
+  const inGame = phase === "world" || phase === "dialog" || phase === "ending";
+  document.body.classList.toggle("pre-game", !inGame);   // before the game starts, no place is shown behind the pages
+  const needPhone = phase === "phone" || (inGame && !Link.connected);   // no phone, no game
+  $("main").hidden = phase === "title" || phase === "world" || phase === "phone" || needPhone;
+  $("phoneScreen").hidden = !needPhone;
+  if (needPhone) renderPhoneStep();
+  document.body.classList.toggle("vn", phase === "dialog");
+  document.body.classList.toggle("await-phone", phase === "dialog" && Link.connected);   // the scene darkens while the player answers on the phone
+  updateGauge();
+  updateJournal();
+
+  if (phase === "title") return;
+  if (phase === "intro") return renderIntro();
+  if (phase === "profile") return renderProfile();
+  if (phase === "phone" || phase === "world") return;
+  if (finished) return renderEnding();
+
+  const beat = STORY.beats[beatIndex];
+  // variants: "alone" when the player is not close enough to Echo (Altaya stays closed); Echo's mood when the scene has one
+  const alone = beat.alone && state.bond < STORY.bondToUnlock;
+  if (alone) state.flags["alone_" + beat.id] = true;
+  const text = alone ? beat.alone.text : (beat.moodText ? (beat.moodText[mood()] || beat.text) : beat.text);
+  $("title").textContent = L(beat.title);
+  let body = L(text);
+  (beat.notes || []).forEach(n => { if (noteApplies(n)) body += "\n\n" + L(n.text); });
+  $("body").textContent = body;
+  // the questions and the buttons are on the phone: the computer only tells the story
+}
 
 function renderTitle() {
   $("gameName").textContent = TITLE.name;
@@ -254,10 +239,16 @@ function renderTitle() {
   $("credits").textContent = TITLE.credits;
 }
 
+function addButton(label, onClick) {
+  const b = document.createElement("button");
+  b.textContent = label;
+  b.onclick = onClick;
+  $("choices").appendChild(b);
+}
+
 function renderIntro() {
   const page = INTRO[introIndex];
-  $("introBg").style.backgroundImage = page.image ? `url(${page.image})` : "";
-  $("introBg").hidden = !page.image;
+  showPicture(introPicture(introIndex));   // a page without its own picture keeps the previous one
   $("title").textContent = L(page.title);
   $("body").textContent = L(page.text);
   addButton(french ? "Suivant" : "Next", () => {
@@ -267,18 +258,12 @@ function renderIntro() {
   });
 }
 
-// Head-and-shoulders silhouette in the avatar's colour (no emoji).
-function silhouette(color) {
-  return `<span class="sil" style="--c:${color}"><i></i><b></b></span>`;
-}
-
-// Choose a photo -> frame it (drag / zoom) -> it becomes a cyberpunk avatar
+// A name is required; a photo is optional (it becomes a cyberpunk portrait, framed like on WhatsApp)
 async function frame(img, previous) {
   const res = await Cropper.open(img, { title: L(PROFILE.cropTitle), hint: L(PROFILE.cropHint), ok: L(PROFILE.cropOk), cancel: L(PROFILE.cropCancel) }, previous);
   if (!res) return false;
   player.photo = Cyber.exportImage(img, res.crop);
   player.source = img; player.frame = res.state;
-  player.avatar = "photo";
   return true;
 }
 
@@ -296,14 +281,12 @@ $("photoInput").onchange = async e => {
 $("adjustBtn").onclick = async () => { if (player.source) { await frame(player.source, player.frame); renderProfile(); } };
 
 function renderProfile() {
-  $("choices").innerHTML = ""; // clicking an avatar redraws this screen: do not stack buttons
+  $("choices").innerHTML = "";
   $("title").textContent = L(PROFILE.title);
   $("body").textContent = "";
   $("profile").hidden = false;
   $("nameLabel").textContent = L(PROFILE.nameLabel);
   $("nameInput").placeholder = L(PROFILE.namePlaceholder);
-  $("avatarLabel").textContent = L(PROFILE.avatarLabel);
-  // the avatar is one big round slot: upload a photo (it becomes cyberpunk); without a photo, a plain default avatar is used
   $("slotImg").hidden = !player.photo;
   $("slotPlus").hidden = !!player.photo;
   if (player.photo) $("slotImg").src = player.photo.big;
@@ -312,18 +295,13 @@ function renderProfile() {
   $("adjustBtn").textContent = L(PROFILE.adjust);
   $("uploadNote").textContent = L(PROFILE.uploadNote);
   $("uploadErr").textContent = L(PROFILE.uploadErr);
-  addButton(L(PROFILE.start), () => {
-    player.name = $("nameInput").value.trim();
-    if (!player.photo) player.avatar = PROFILE.defaultAvatar; // no photo: a plain default avatar
-    startPhoneStep();
-  });
+  addButton(L(PROFILE.start), () => { player.name = $("nameInput").value.trim(); startPhoneStep(); });
   const start = $("choices").lastChild;
-  const check = () => { start.disabled = !$("nameInput").value.trim(); }; // only the name is required
+  const check = () => { start.disabled = !$("nameInput").value.trim(); };   // only the name is required
   $("nameInput").oninput = check;
   check();
 }
 
-// The phone: a 3D phone opening Nexus on screen, then a QR code to connect the real phone.
 let noServer = false;
 async function startPhoneStep() {
   const info = await Link.start();
@@ -347,32 +325,6 @@ function renderPhoneStep() {
       : (french ? "Ton téléphone s’est déconnecté. Scanne le QR code pour reprendre." : "Your phone disconnected. Scan the QR code to continue.");
 }
 
-Link.onPeer = connected => {
-  if (connected) {
-    Link.send(profileMsg());
-    updateJournal.sig = null; updateJournal();
-    sentSig = null;                                  // a phone (re)connected: send it the whole state again
-    if (phase === "phone") setTimeout(() => { if (phase === "phone") restart(); }, 1800);
-    else render();
-  } else {
-    sentSig = null; render();                        // the phone left: the game waits for it
-  }
-};
-
-function toast(text) {
-  const t = $("toast");
-  t.textContent = text; t.hidden = false;
-  clearTimeout(toast.id); toast.id = setTimeout(() => { t.hidden = true; }, 6000);
-}
-
-function next() {
-  beatIndex++;
-  if (beatIndex >= STORY.beats.length) { finished = true; phase = "ending"; }
-  else { phase = "world"; Scene.setBeat(STORY.beats[beatIndex].id); }
-  render();
-  maybeStartBeat();
-}
-
 function renderEnding() {
   const e = STORY.endings.find(x => x.id === endingId()) || STORY.endings[0];
   $("title").textContent = L(e.title);
@@ -382,27 +334,24 @@ function renderEnding() {
   $("prompt").style.whiteSpace = "pre-line";
 }
 
-// Gauge: no label, just green -> orange -> red and a smiley.
+// Gauge: a flower in bloom on the left, a wilted one on the right, the bar between them (green -> orange -> red)
 function updateGauge() {
   const v = Math.min(1, state.harass / Math.max(1, STORY.harassStage3));
-  const hue = 130 - 130 * v; // green (130) to red (0), passes through orange
-  const color = `hsl(${hue}, 75%, 50%)`;
+  const color = `hsl(${130 - 130 * v}, 75%, 50%)`;
   $("gaugeFill").style.width = (v * 100) + "%";
   $("gaugeFill").style.background = color;
-  $("face").textContent = [":)", ":|", ":(", ">:("][stage()];
-  $("face").style.color = color;
+  $("gFlowerOpen").innerHTML = Flower.svg(1, 30);
+  $("gFlowerWilt").innerHTML = Flower.wilted(34);
 }
 
-// The journal is already written: one entry per scene reached so far.
+// The journal lives on the phone: one entry per scene (what you did and how it felt)
 function updateJournal() {
   const last = finished ? STORY.beats.length - 1 : (phase === "dialog" ? beatIndex : beatIndex - 1);
   const entries = [];
-  // one entry per scene: what you did and how it felt (not the thought before the choice), so the journal stays short
   STORY.beats.slice(0, last + 1).forEach((b, i) => {
     if (b.alone && state.flags["alone_" + b.id]) entries.push(b.alone.journal || b.journal);
     else state.extra.filter(x => x.beat === i).forEach(x => entries.push(x.text));
   });
-  // the journal lives on the phone
   const sig = entries.length + "|" + french;
   if (sig !== updateJournal.sig && Link.connected) {
     updateJournal.sig = sig;
@@ -415,7 +364,6 @@ $("playBtn").onclick = () => { phase = "intro"; render(); };
 state = newState();
 beatIndex = 0;
 finished = false;
-Scene.current = "toit"; // the title page shows the rooftop
 Scene.init($("scene"));
 render();
 
@@ -423,7 +371,7 @@ render();
 for (let i = 0; i < 12; i++) {
   const f = document.createElement("span");
   f.className = "flower";
-    f.style.left = Math.random() * 100 + "vw";
+  f.style.left = Math.random() * 100 + "vw";
   f.style.width = f.style.height = (8 + Math.random() * 14) + "px";
   f.style.animationDelay = (-Math.random() * 14) + "s";
   f.style.animationDuration = (10 + Math.random() * 10) + "s";

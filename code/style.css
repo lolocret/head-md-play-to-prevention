@@ -337,3 +337,9 @@ body.await-phone #prompt { color:var(--cyan); font-size:20px; animation:waitpuls
 
 /* Before the game starts (title, introduction, avatar, QR code) no place is shown: only the 2041 picture or a plain dark background */
 body.pre-game #scene { opacity:0; }
+
+
+/* The state gauge: a flower in bloom on the left, a wilted one on the right, the bar between them */
+#gauge { display:flex; align-items:center; gap:10px; width:300px; text-align:left; }
+#gauge #gaugeBar { flex:1; }
+.gflower { display:inline-flex; flex:none; filter:drop-shadow(0 0 6px rgba(255,143,216,.6)); }

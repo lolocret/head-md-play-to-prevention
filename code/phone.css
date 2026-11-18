@@ -122,3 +122,29 @@ body.silent { filter:grayscale(1) brightness(.55); }
 .talk { min-height:64px; padding:12px 18px; border-radius:18px; font-size:17px; text-align:left; border:1px solid var(--cyan); background:rgba(77,240,255,.12); box-shadow:0 0 18px rgba(77,240,255,.25); color:#d9fdff; }
 .talk::before { content:"\201C"; color:var(--cyan); font-size:26px; line-height:0; vertical-align:-6px; margin-right:10px; }
 .talk:disabled { opacity:.5; }
+
+#app.on-gate #status { display:none; }
+.bubble img { display:block; width:100%; border-radius:12px; margin:4px 0 2px; background:#000; }
+#echoState { display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:6px; color:var(--grey); font-size:13px; letter-spacing:.12em; text-transform:uppercase; }
+#bloom { display:inline-flex; filter:drop-shadow(0 0 6px rgba(255,143,216,.6)); }
+
+/* Welcome screen: "Bienvenue sur Nexus" in neon, the Open button, and the reminder at the bottom */
+#gate { position:relative; }
+#gateText { font-size:34px; font-weight:700; line-height:1.15; letter-spacing:.04em; max-width:300px; color:#f4eeff;
+  text-shadow:0 0 6px #fff, 0 0 18px #b87bff, 0 0 40px #ff4fc3, 0 0 70px #8a5cff; animation:neonflick 5s infinite; }
+@keyframes neonflick { 0%,92%,100% { opacity:1; } 93% { opacity:.55; } 95% { opacity:1; } 97% { opacity:.7; } }
+#gateNote { position:absolute; left:0; right:0; bottom:calc(18px + env(safe-area-inset-bottom)); margin:0 auto; }
+@media (prefers-reduced-motion: reduce) { #gateText { animation:none; } }
+
+/* ---- Simple phone: one main screen (the game); messages and journal are two small buttons at the top ---- */
+#status { justify-content:space-between; }
+.hbtns { display:flex; gap:8px; }
+.ibtn { position:relative; width:46px; height:46px; min-height:0; padding:0; display:flex; align-items:center; justify-content:center; border-radius:50%; color:var(--text); }
+.ibtn .dotb { position:absolute; top:3px; right:3px; width:12px; height:12px; border-radius:50%; background:var(--pink); box-shadow:0 0 8px var(--pink); }
+#viewBar { flex:none; display:flex; align-items:center; gap:8px; padding:2px 0 10px; }
+#viewBar h2 { margin:0; flex:1; text-align:right; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--cyan); }
+#closeView { display:flex; align-items:center; gap:8px; padding:10px 16px; border-radius:24px; }
+#bar, #tabMsgs, #tabJournal, #tabChoice { display:none !important; }
+
+.who { display:flex; align-items:center; gap:10px; }
+#mePic { width:36px; height:36px; border-radius:50%; object-fit:cover; border:2px solid var(--pink); box-shadow:0 0 10px rgba(255,79,195,.5); }

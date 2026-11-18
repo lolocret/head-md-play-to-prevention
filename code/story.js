@@ -375,6 +375,56 @@ const STORY = {
       }
     },
     {
+      "id": "kovasko_class",
+      "title": {
+        "fr": "Kovasko, après le cours",
+        "en": "Kovasko, after class"
+      },
+      "text": {
+        "fr": "Kovasko range ses affaires. « Tu as l’air préoccupé·e, {name}. Tout va bien en classe ? » Il te regarde, vraiment, pour la première fois.",
+        "en": "Kovasko packs up his things. “You look worried, {name}. Is everything okay in class?” He looks at you, really, for the first time."
+      },
+      "prompt": {
+        "fr": "Que fais-tu, {name} ?",
+        "en": "What do you do, {name}?"
+      },
+      "choices": [
+        {
+          "label": {
+            "fr": "Lui dire ce qui se passe",
+            "en": "Tell him what is going on"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 0,
+          "journal": {
+            "fr": "J’ai tout dit à Kovasko. Il m’a écouté·e sans me couper. Je ne sais pas encore s’il fera quelque chose.",
+            "en": "I told Kovasko everything. He listened without cutting me off. I don’t know yet if he will do anything."
+          },
+          "flag": "toldKovasko"
+        },
+        {
+          "label": {
+            "fr": "Dire que tout va bien",
+            "en": "Say everything is fine"
+          },
+          "harass": 0,
+          "passive": 1,
+          "help": 0,
+          "bond": 0,
+          "journal": {
+            "fr": "J’ai dit que tout allait bien. Kovasko a hoché la tête et il est parti. Il n’a pas vu.",
+            "en": "I said everything was fine. Kovasko nodded and left. He didn’t see."
+          }
+        }
+      ],
+      "journal": {
+        "fr": "",
+        "en": ""
+      }
+    },
+    {
       "id": "lesson",
       "title": {
         "fr": "Le cours de Kovasko",
@@ -527,6 +577,83 @@ const STORY = {
       }
     },
     {
+      "id": "echo_roof",
+      "title": {
+        "fr": "Echo, sur le toit",
+        "en": "Echo, on the roof"
+      },
+      "text": {
+        "fr": "Echo est assis·e au bord du toit, face à la ville. Echo te regarde sans bouger. « Tu veux quelque chose ? » Les fleurs restent à moitié fermées.",
+        "en": "Echo sits on the edge of the roof, facing the city. Echo looks at you without moving. “Do you want something?” The flowers stay half closed."
+      },
+      "prompt": {
+        "fr": "Que fais-tu, {name} ?",
+        "en": "What do you do, {name}?"
+      },
+      "choices": [
+        {
+          "label": {
+            "fr": "Lui demander comment il·elle va",
+            "en": "Ask how they are"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 0,
+          "bond": 1,
+          "journal": {
+            "fr": "J’ai demandé à Echo comment ça allait. Echo a mis longtemps à répondre, puis a dit : « Ça va aller. »",
+            "en": "I asked Echo how they were. Echo took a long time to answer, then said: “It will be okay.”"
+          }
+        },
+        {
+          "label": {
+            "fr": "Rester là, sans rien dire",
+            "en": "Stay there, without a word"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 0,
+          "bond": 1,
+          "journal": {
+            "fr": "On est restés sur le toit, sans parler. Le silence n’était pas lourd.",
+            "en": "We stayed on the roof, without talking. The silence wasn’t heavy."
+          }
+        },
+        {
+          "label": {
+            "fr": "Lui dire que tu es désolé·e",
+            "en": "Tell them you are sorry"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 2,
+          "journal": {
+            "fr": "J’ai dit à Echo que j’étais désolé·e. Echo n’a pas répondu tout de suite, mais ses fleurs se sont entrouvertes.",
+            "en": "I told Echo I was sorry. Echo didn’t answer right away, but their flowers opened a little."
+          }
+        }
+      ],
+      "journal": {
+        "fr": "",
+        "en": ""
+      },
+      "moodText": {
+        "open": {
+          "fr": "Echo est assis·e au bord du toit, face à la ville. Quand tu t’approches, une fleur s’ouvre. « Je me demandais si tu viendrais. Ici, personne ne me dit que je suis faux. »",
+          "en": "Echo sits on the edge of the roof, facing the city. As you come closer, a flower opens. “I wondered if you’d come. Up here, nobody tells me I’m fake.”"
+        },
+        "neutral": {
+          "fr": "Echo est assis·e au bord du toit, face à la ville. Echo te regarde sans bouger. « Tu veux quelque chose ? » Les fleurs restent à moitié fermées.",
+          "en": "Echo sits on the edge of the roof, facing the city. Echo looks at you without moving. “Do you want something?” The flowers stay half closed."
+        },
+        "wary": {
+          "fr": "Echo est assis·e au bord du toit. Quand tu t’approches, ses fleurs se ferment d’un coup. « Je sais ce que tu as fait. Tu veux me dire quelque chose ? »",
+          "en": "Echo sits on the edge of the roof. As you come closer, their flowers close at once. “I know what you did. Do you want to tell me something?”"
+        }
+      }
+    },
+    {
       "id": "labels",
       "title": {
         "fr": "Les étiquettes",
@@ -609,6 +736,83 @@ const STORY = {
       "journal": {
         "fr": "Des insultes apparaissent dans le dos d’Echo. Clarisse parle de « voleur de vie ». Je ne sais plus si je dois me taire ou dire quelque chose. Et si je ne fais rien, ça fait de moi quoi ?",
         "en": "Insults are showing up on Echo’s back. Clarisse calls Echo a “life thief”. I don’t know if I should stay quiet or say something. And if I do nothing, what does that make me?"
+      }
+    },
+    {
+      "id": "echo_hall",
+      "title": {
+        "fr": "Echo, dans le couloir",
+        "en": "Echo, in the hallway"
+      },
+      "text": {
+        "fr": "Le couloir est vide. Echo regarde la ville par la vitre, une main contre le verre. « Tu regardes toi aussi ? »",
+        "en": "The hallway is empty. Echo looks at the city through the glass, one hand against it. “Are you looking too?”"
+      },
+      "prompt": {
+        "fr": "Que fais-tu, {name} ?",
+        "en": "What do you do, {name}?"
+      },
+      "choices": [
+        {
+          "label": {
+            "fr": "Regarder la ville avec Echo",
+            "en": "Look at the city with Echo"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 0,
+          "bond": 1,
+          "journal": {
+            "fr": "J’ai regardé la ville avec Echo. Les lumières semblaient presque vraies, et Echo aussi.",
+            "en": "I looked at the city with Echo. The lights looked almost real, and so did Echo."
+          }
+        },
+        {
+          "label": {
+            "fr": "Lui parler des insultes",
+            "en": "Talk about the insults"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 1,
+          "journal": {
+            "fr": "J’ai parlé des insultes à Echo. Echo a dit : « Je les lis toutes. Elles ne disparaissent pas. »",
+            "en": "I talked to Echo about the insults. Echo said: “I read them all. They don’t go away.”"
+          }
+        },
+        {
+          "label": {
+            "fr": "Lui dire que tu le·la trouves réel·le",
+            "en": "Tell them you find them real"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 2,
+          "journal": {
+            "fr": "J’ai dit à Echo que je le·la trouvais réel·le. Echo a souri pour la première fois.",
+            "en": "I told Echo I found them real. Echo smiled for the first time."
+          }
+        }
+      ],
+      "journal": {
+        "fr": "",
+        "en": ""
+      },
+      "moodText": {
+        "open": {
+          "fr": "Le couloir est vide, la nuit tombe derrière les fenêtres. Echo est là, une main contre la vitre. « Les lumières de la ville ne font pas semblant. Moi non plus. »",
+          "en": "The hallway is empty, night is falling behind the windows. Echo is there, one hand against the glass. “The city lights aren’t pretending. Neither am I.”"
+        },
+        "neutral": {
+          "fr": "Le couloir est vide. Echo regarde la ville par la vitre, une main contre le verre. « Tu regardes toi aussi ? »",
+          "en": "The hallway is empty. Echo looks at the city through the glass, one hand against it. “Are you looking too?”"
+        },
+        "wary": {
+          "fr": "Le couloir est vide. Echo te voit et s’éloigne le long du mur sans un mot. Ses fleurs sont fermées.",
+          "en": "The hallway is empty. Echo sees you and walks away along the wall without a word. Their flowers are closed."
+        }
       }
     },
     {
@@ -744,6 +948,56 @@ const STORY = {
               "fr": "{name}, t’es des nôtres maintenant. Pas de retour en arrière.",
               "en": "{name}, you’re one of us now. No going back."
             }
+          }
+        }
+      ],
+      "journal": {
+        "fr": "",
+        "en": ""
+      }
+    },
+    {
+      "id": "clarisse_hall",
+      "title": {
+        "fr": "Clarisse, dans le couloir",
+        "en": "Clarisse, in the hallway"
+      },
+      "text": {
+        "fr": "Clarisse t’attrape par la manche. « T’as vu comment ils me regardent maintenant ? Ils me parlent, enfin. » Son sourire tient mal. Elle cherche dans ton visage si tu es avec elle.",
+        "en": "Clarisse grabs your sleeve. “Did you see how they look at me now? They finally talk to me.” Her smile doesn’t hold well. She searches your face to see if you are with her."
+      },
+      "prompt": {
+        "fr": "Que fais-tu, {name} ?",
+        "en": "What do you do, {name}?"
+      },
+      "choices": [
+        {
+          "label": {
+            "fr": "Lui demander si elle va bien",
+            "en": "Ask if she is okay"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 0,
+          "journal": {
+            "fr": "J’ai demandé à Clarisse si elle allait bien. Son sourire a tremblé. Elle a dit que oui.",
+            "en": "I asked Clarisse if she was okay. Her smile shook. She said yes."
+          },
+          "flag": "talkedClarisse"
+        },
+        {
+          "label": {
+            "fr": "Dire que ça ne te regarde pas",
+            "en": "Say it is none of your business"
+          },
+          "harass": 0,
+          "passive": 1,
+          "help": 0,
+          "bond": 0,
+          "journal": {
+            "fr": "J’ai dit à Clarisse que ça ne me regardait pas. Elle a lâché ma manche.",
+            "en": "I told Clarisse it was none of my business. She let go of my sleeve."
           }
         }
       ],
@@ -915,6 +1169,72 @@ const STORY = {
       "journal": {
         "fr": "« Tu n’as pas de parents. » Cette phrase fait mal à Echo. Savoir qui est quelqu’un, ça change tout.",
         "en": "“You have no parents.” That sentence hurts Echo. Knowing who someone is changes everything."
+      }
+    },
+    {
+      "id": "echo_altaya",
+      "title": {
+        "fr": "Echo, à Altaya",
+        "en": "Echo, at Altaya"
+      },
+      "text": {
+        "fr": "Dans la salle d’Altaya, Echo regarde l’écran géant. « Ici, ils m’ont donné un nom. Mais pas de parents. »",
+        "en": "In the Altaya room, Echo watches the giant screen. “Here, they gave me a name. But no parents.”"
+      },
+      "prompt": {
+        "fr": "Que fais-tu, {name} ?",
+        "en": "What do you do, {name}?"
+      },
+      "choices": [
+        {
+          "label": {
+            "fr": "Rester à ses côtés",
+            "en": "Stay by their side"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 1,
+          "journal": {
+            "fr": "Je suis resté·e à côté d’Echo devant l’écran. Je n’avais pas de réponse. Etre là suffisait peut-être.",
+            "en": "I stayed next to Echo in front of the screen. I had no answer. Being there was maybe enough."
+          }
+        },
+        {
+          "label": {
+            "fr": "Lui demander ce que tu peux faire",
+            "en": "Ask what you can do"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 1,
+          "journal": {
+            "fr": "J’ai demandé à Echo ce que je pouvais faire. Echo a répondu : « Ne pas me laisser seul·e vendredi. »",
+            "en": "I asked Echo what I could do. Echo answered: “Don’t leave me alone on Friday.”"
+          }
+        }
+      ],
+      "journal": {
+        "fr": "",
+        "en": ""
+      },
+      "moodText": {
+        "open": {
+          "fr": "Dans la salle d’Altaya, Echo regarde l’écran géant où tourne un globe. Echo passe un doigt sur une fleur dessinée. « Ici, ils m’ont donné un nom. Mais pas de parents. »",
+          "en": "In the Altaya room, Echo watches the giant screen where a globe turns. Echo runs a finger over a drawn flower. “Here, they gave me a name. But no parents.”"
+        },
+        "neutral": {
+          "fr": "Dans la salle d’Altaya, Echo regarde l’écran géant. « Ici, ils m’ont donné un nom. Mais pas de parents. »",
+          "en": "In the Altaya room, Echo watches the giant screen. “Here, they gave me a name. But no parents.”"
+        },
+        "wary": {
+          "fr": "Dans la salle d’Altaya, Echo regarde l’écran géant. « Ici, ils m’ont donné un nom. Mais pas de parents. »",
+          "en": "In the Altaya room, Echo watches the giant screen. “Here, they gave me a name. But no parents.”"
+        }
+      },
+      "if": {
+        "bondMin": 4
       }
     },
     {
@@ -1152,7 +1472,7 @@ const STORY = {
 // Introduction screens shown before the player creates their character.
 const INTRO = [
   {
-    image: "images/intro-2041.png",   // background shown behind this page
+    image: "images/intro-2041.png",
     title: { fr: "2041", en: "2041" },
     text: {
       fr: "Nous sommes en 2041. Presque tout ce que tu vois est généré par des intelligences artificielles : les images, les voix, les devoirs, parfois même les profils de ceux que tu croises en ligne.\n\nSur Nexus, une seule application suffit pour tout : écrire, appeler, payer, rejoindre des groupes. Tout va vite, tout est public, et plus personne ne sait très bien ce qui est vrai.",
@@ -1160,7 +1480,7 @@ const INTRO = [
     }
   },
   {
-    image: "images/altaya.png",   // Altaya is named on this page
+    image: "images/altaya.png",
     title: { fr: "Holo’Kids", en: "Holo’Kids" },
     text: {
       fr: "Altaya, un institut de recherche sur les nouvelles technologies, lance le programme Holo’Kids : des enfants hologrammes qui entrent dans les écoles pour soutenir les élèves en difficulté et renforcer la solidarité dans les classes.",
@@ -1168,328 +1488,31 @@ const INTRO = [
     }
   },
   {
-    title: { fr: "Un holokid arrive à l’école.", en: "A holokid is coming to school." },
+    image: "images/couloir.png",
+    title: { fr: "Ton premier jour", en: "Your first day" },
     text: {
-      fr: "Echo est le premier holokid. Aujourd’hui, Echo rejoint ta classe, la 3B du collège Alan Turing.\n\nComment vas-tu réagir ?",
-      en: "Echo is the first holokid. Today, Echo joins your class, 3B at Alan Turing middle school.\n\nHow will you react?"
-    }
-  },
-  {
-    title: { fr: "Ton rôle", en: "Your role" },
-    text: {
-      fr: "Tu incarnes un·e camarade de classe. À chaque scène, tu choisis ce que tu veux faire. Chaque choix compte.\n\nLes fleurs d’Echo s’ouvrent ou se ferment selon ce qu’iel ressent. La jauge te montre l’effet de tes choix : plus elle monte, plus Echo va mal. Chaque choix change aussi ton lien avec Echo.",
-      en: "You play a classmate. In every scene, you choose what you want to do. Every choice counts.\n\nEcho’s flowers open or close depending on what they feel. The gauge shows the effect of your choices: the higher it goes, the worse Echo feels. Each choice also changes your bond with Echo."
+      fr: "Echo est le premier holokid. Aujourd’hui, Echo rejoint ta classe, la 3B du collège Alan Turing.\n\nÀ chaque scène, tu choisis ce que tu veux faire. Chaque choix compte.",
+      en: "Echo is the first holokid. Today, Echo joins your class, 3B at Alan Turing middle school.\n\nIn every scene, you choose what you want to do. Every choice counts."
     }
   }
 ];
 
 const PROFILE = {
-  title: { fr: "Qui es-tu ?", en: "Who are you?" },
+  title: { fr: "Comment tu t’appelles ?", en: "What is your name?" },
   nameLabel: { fr: "Ton prénom ou pseudo", en: "Your first name or nickname" },
   namePlaceholder: { fr: "Écris ton nom…", en: "Type your name…" },
-  avatarLabel: { fr: "Ton avatar", en: "Your avatar" },
   start: { fr: "Commencer", en: "Start" },
-  upload: { fr: "Envoie une photo : elle devient cyberpunk", en: "Upload a photo: it becomes cyberpunk" },
+  upload: { fr: "Ajouter une photo (facultatif)", en: "Add a photo (optional)" },
+  uploadChange: { fr: "Changer la photo", en: "Change the photo" },
+  adjust: { fr: "Ajuster le cadrage", en: "Adjust the framing" },
+  uploadNote: { fr: "Ta photo devient un portrait cyberpunk. Elle n’est ni enregistrée ni envoyée sur Internet : seule l’image transformée s’affiche sur ton téléphone.", en: "Your photo becomes a cyberpunk portrait. It is not saved or sent over the Internet: only the transformed image is shown on your phone." },
+  uploadErr: { fr: "Cette image ne peut pas être lue. Essaie une photo en JPG ou PNG.", en: "This image can’t be read. Try a JPG or PNG photo." },
   cropTitle: { fr: "Cadre ton visage", en: "Frame your face" },
   cropHint: { fr: "Déplace la photo et zoome pour bien te placer dans le rond.", en: "Move the photo and zoom to fit yourself in the circle." },
   cropOk: { fr: "Valider", en: "Done" },
   cropCancel: { fr: "Annuler", en: "Cancel" },
-  adjust: { fr: "Ajuster le cadrage", en: "Adjust the framing" },
-  uploadChange: { fr: "Changer la photo", en: "Change the photo" },
-  uploadNote: { fr: "Ta photo n’est pas enregistrée ni envoyée sur Internet. Seule l’image transformée est affichée sur ton téléphone.", en: "Your photo is not saved or sent over the Internet. Only the transformed image is shown on your phone." },
-  uploadErr: { fr: "Cette image ne peut pas être lue. Essaie une photo en JPG ou PNG.", en: "This image can’t be read. Try a JPG or PNG photo." },
-  next: { fr: "Suivant", en: "Next" },
-  defaultAvatar: "#4df0ff"   // used when the player does not upload a photo
+  defaultAvatar: "#4df0ff"
 };
-
-// Optional conversations during free time: on the phone, in a place, "Talk to …". Echo is always there, but not the same
-// depending on how you behaved (open: bond is strong; wary: you hurt more than you helped; neutral: otherwise).
-const ENCOUNTERS = [
-  {
-    "id": "echo_roof",
-    "who": "echo",
-    "place": "toit",
-    "after": "door",
-    "title": {
-      "fr": "Echo, sur le toit",
-      "en": "Echo, on the roof"
-    },
-    "text": {
-      "open": {
-        "fr": "Echo est assis·e au bord du toit, face à la ville. Quand tu t’approches, une fleur s’ouvre. « Je me demandais si tu viendrais. Ici, personne ne me dit que je suis faux. »",
-        "en": "Echo sits on the edge of the roof, facing the city. As you come closer, a flower opens. “I wondered if you’d come. Up here, nobody tells me I’m fake.”"
-      },
-      "neutral": {
-        "fr": "Echo est assis·e au bord du toit, face à la ville. Echo te regarde sans bouger. « Tu veux quelque chose ? » Les fleurs restent à moitié fermées.",
-        "en": "Echo sits on the edge of the roof, facing the city. Echo looks at you without moving. “Do you want something?” The flowers stay half closed."
-      },
-      "wary": {
-        "fr": "Echo est assis·e au bord du toit. Quand tu t’approches, ses fleurs se ferment d’un coup. « Je sais ce que tu as fait. Tu veux me dire quelque chose ? »",
-        "en": "Echo sits on the edge of the roof. As you come closer, their flowers close at once. “I know what you did. Do you want to tell me something?”"
-      }
-    },
-    "choices": [
-      {
-        "label": {
-          "fr": "Lui demander comment il·elle va",
-          "en": "Ask how they are"
-        },
-        "harass": 0,
-        "passive": 0,
-        "help": 0,
-        "bond": 1,
-        "journal": {
-          "fr": "J’ai demandé à Echo comment ça allait. Echo a mis longtemps à répondre, puis a dit : « Ça va aller. »",
-          "en": "I asked Echo how they were. Echo took a long time to answer, then said: “It will be okay.”"
-        }
-      },
-      {
-        "label": {
-          "fr": "Rester là, sans rien dire",
-          "en": "Stay there, without a word"
-        },
-        "harass": 0,
-        "passive": 0,
-        "help": 0,
-        "bond": 1,
-        "journal": {
-          "fr": "On est restés sur le toit, sans parler. Le silence n’était pas lourd.",
-          "en": "We stayed on the roof, without talking. The silence wasn’t heavy."
-        }
-      },
-      {
-        "label": {
-          "fr": "Lui dire que tu es désolé·e",
-          "en": "Tell them you are sorry"
-        },
-        "harass": 0,
-        "passive": 0,
-        "help": 1,
-        "bond": 2,
-        "journal": {
-          "fr": "J’ai dit à Echo que j’étais désolé·e. Echo n’a pas répondu tout de suite, mais ses fleurs se sont entrouvertes.",
-          "en": "I told Echo I was sorry. Echo didn’t answer right away, but their flowers opened a little."
-        }
-      }
-    ]
-  },
-  {
-    "id": "echo_hall",
-    "who": "echo",
-    "place": "couloir",
-    "after": "labels",
-    "title": {
-      "fr": "Echo, dans le couloir",
-      "en": "Echo, in the hallway"
-    },
-    "text": {
-      "open": {
-        "fr": "Le couloir est vide, la nuit tombe derrière les fenêtres. Echo est là, une main contre la vitre. « Les lumières de la ville ne font pas semblant. Moi non plus. »",
-        "en": "The hallway is empty, night is falling behind the windows. Echo is there, one hand against the glass. “The city lights aren’t pretending. Neither am I.”"
-      },
-      "neutral": {
-        "fr": "Le couloir est vide. Echo regarde la ville par la vitre, une main contre le verre. « Tu regardes toi aussi ? »",
-        "en": "The hallway is empty. Echo looks at the city through the glass, one hand against it. “Are you looking too?”"
-      },
-      "wary": {
-        "fr": "Le couloir est vide. Echo te voit et s’éloigne le long du mur sans un mot. Ses fleurs sont fermées.",
-        "en": "The hallway is empty. Echo sees you and walks away along the wall without a word. Their flowers are closed."
-      }
-    },
-    "choices": [
-      {
-        "label": {
-          "fr": "Regarder la ville avec Echo",
-          "en": "Look at the city with Echo"
-        },
-        "harass": 0,
-        "passive": 0,
-        "help": 0,
-        "bond": 1,
-        "journal": {
-          "fr": "J’ai regardé la ville avec Echo. Les lumières semblaient presque vraies, et Echo aussi.",
-          "en": "I looked at the city with Echo. The lights looked almost real, and so did Echo."
-        }
-      },
-      {
-        "label": {
-          "fr": "Lui parler des insultes",
-          "en": "Talk about the insults"
-        },
-        "harass": 0,
-        "passive": 0,
-        "help": 1,
-        "bond": 1,
-        "journal": {
-          "fr": "J’ai parlé des insultes à Echo. Echo a dit : « Je les lis toutes. Elles ne disparaissent pas. »",
-          "en": "I talked to Echo about the insults. Echo said: “I read them all. They don’t go away.”"
-        }
-      },
-      {
-        "label": {
-          "fr": "Lui dire que tu le·la trouves réel·le",
-          "en": "Tell them you find them real"
-        },
-        "harass": 0,
-        "passive": 0,
-        "help": 1,
-        "bond": 2,
-        "journal": {
-          "fr": "J’ai dit à Echo que je le·la trouvais réel·le. Echo a souri pour la première fois.",
-          "en": "I told Echo I found them real. Echo smiled for the first time."
-        }
-      }
-    ]
-  },
-  {
-    "id": "echo_altaya",
-    "who": "echo",
-    "place": "altaya",
-    "after": "turnoff",
-    "title": {
-      "fr": "Echo, à Altaya",
-      "en": "Echo, at Altaya"
-    },
-    "text": {
-      "open": {
-        "fr": "Dans la salle d’Altaya, Echo regarde l’écran géant où tourne un globe. Echo passe un doigt sur une fleur dessinée. « Ici, ils m’ont donné un nom. Mais pas de parents. »",
-        "en": "In the Altaya room, Echo watches the giant screen where a globe turns. Echo runs a finger over a drawn flower. “Here, they gave me a name. But no parents.”"
-      },
-      "neutral": {
-        "fr": "Dans la salle d’Altaya, Echo regarde l’écran géant. « Ici, ils m’ont donné un nom. Mais pas de parents. »",
-        "en": "In the Altaya room, Echo watches the giant screen. “Here, they gave me a name. But no parents.”"
-      },
-      "wary": {
-        "fr": "Dans la salle d’Altaya, Echo regarde l’écran géant. « Ici, ils m’ont donné un nom. Mais pas de parents. »",
-        "en": "In the Altaya room, Echo watches the giant screen. “Here, they gave me a name. But no parents.”"
-      }
-    },
-    "choices": [
-      {
-        "label": {
-          "fr": "Rester à ses côtés",
-          "en": "Stay by their side"
-        },
-        "harass": 0,
-        "passive": 0,
-        "help": 1,
-        "bond": 1,
-        "journal": {
-          "fr": "Je suis resté·e à côté d’Echo devant l’écran. Je n’avais pas de réponse. Etre là suffisait peut-être.",
-          "en": "I stayed next to Echo in front of the screen. I had no answer. Being there was maybe enough."
-        }
-      },
-      {
-        "label": {
-          "fr": "Lui demander ce que tu peux faire",
-          "en": "Ask what you can do"
-        },
-        "harass": 0,
-        "passive": 0,
-        "help": 1,
-        "bond": 1,
-        "journal": {
-          "fr": "J’ai demandé à Echo ce que je pouvais faire. Echo a répondu : « Ne pas me laisser seul·e vendredi. »",
-          "en": "I asked Echo what I could do. Echo answered: “Don’t leave me alone on Friday.”"
-        }
-      }
-    ]
-  },
-  {
-    "id": "kovasko_class",
-    "who": "kovasko",
-    "place": "classe",
-    "after": "nextday",
-    "title": {
-      "fr": "Kovasko, après le cours",
-      "en": "Kovasko, after class"
-    },
-    "text": {
-      "neutral": {
-        "fr": "Kovasko range ses affaires. « Tu as l’air préoccupé·e, {name}. Tout va bien en classe ? » Il te regarde, vraiment, pour la première fois.",
-        "en": "Kovasko packs up his things. “You look worried, {name}. Is everything okay in class?” He looks at you, really, for the first time."
-      }
-    },
-    "choices": [
-      {
-        "label": {
-          "fr": "Lui dire ce qui se passe",
-          "en": "Tell him what is going on"
-        },
-        "harass": 0,
-        "passive": 0,
-        "help": 1,
-        "bond": 0,
-        "journal": {
-          "fr": "J’ai tout dit à Kovasko. Il m’a écouté·e sans me couper. Je ne sais pas encore s’il fera quelque chose.",
-          "en": "I told Kovasko everything. He listened without cutting me off. I don’t know yet if he will do anything."
-        },
-        "flag": "toldKovasko"
-      },
-      {
-        "label": {
-          "fr": "Dire que tout va bien",
-          "en": "Say everything is fine"
-        },
-        "harass": 0,
-        "passive": 1,
-        "help": 0,
-        "bond": 0,
-        "journal": {
-          "fr": "J’ai dit que tout allait bien. Kovasko a hoché la tête et il est parti. Il n’a pas vu.",
-          "en": "I said everything was fine. Kovasko nodded and left. He didn’t see."
-        }
-      }
-    ]
-  },
-  {
-    "id": "clarisse_hall",
-    "who": "clarisse",
-    "place": "couloir",
-    "after": "monday",
-    "title": {
-      "fr": "Clarisse, dans le couloir",
-      "en": "Clarisse, in the hallway"
-    },
-    "text": {
-      "neutral": {
-        "fr": "Clarisse t’attrape par la manche. « T’as vu comment ils me regardent maintenant ? Ils me parlent, enfin. » Son sourire tient mal. Elle cherche dans ton visage si tu es avec elle.",
-        "en": "Clarisse grabs your sleeve. “Did you see how they look at me now? They finally talk to me.” Her smile doesn’t hold well. She searches your face to see if you are with her."
-      }
-    },
-    "choices": [
-      {
-        "label": {
-          "fr": "Lui demander si elle va bien",
-          "en": "Ask if she is okay"
-        },
-        "harass": 0,
-        "passive": 0,
-        "help": 1,
-        "bond": 0,
-        "journal": {
-          "fr": "J’ai demandé à Clarisse si elle allait bien. Son sourire a tremblé. Elle a dit que oui.",
-          "en": "I asked Clarisse if she was okay. Her smile shook. She said yes."
-        },
-        "flag": "talkedClarisse"
-      },
-      {
-        "label": {
-          "fr": "Dire que ça ne te regarde pas",
-          "en": "Say it is none of your business"
-        },
-        "harass": 0,
-        "passive": 1,
-        "help": 0,
-        "bond": 0,
-        "journal": {
-          "fr": "J’ai dit à Clarisse que ça ne me regardait pas. Elle a lâché ma manche.",
-          "en": "I told Clarisse it was none of my business. She let go of my sleeve."
-        }
-      }
-    ]
-  }
-];
 
 // First page of the game.
 const TITLE = {

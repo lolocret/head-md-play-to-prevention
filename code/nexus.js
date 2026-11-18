@@ -18,10 +18,10 @@ const NEXUS = {
       { t: "class", from: "Maé", fr: "{name}, t’as vu sa main qui traverse", en: "{name}, did you see his hand go through", at: 2500 },
     ],
     evening: [
-      { t: "class", from: "Lucas", fr: "[vidéo] Echo dit bonjour (la main traverse)", en: "[video] Echo says hello (the hand goes through)", at: 800 },
+      { t: "class", from: "Lucas", fr: "[vidéo] Echo dit bonjour", en: "[video] Echo says hello", image: "images/video-hello.png", at: 800 },
       { t: "class", from: "Inès", fr: "t’es même pas réel", en: "you’re not even real", at: 3500 },
       { t: "class", from: "Sam", fr: "tes émotions c’est des fictions", en: "your emotions are fictions", at: 8000 },
-      { t: "class", from: "Maé", fr: "[mème] Echo qu’on traverse en boucle : « get out of here u’re not even real »", en: "[meme] Echo being walked through on a loop: “get out of here u’re not even real”", at: 14000 },
+      { t: "class", from: "Maé", fr: "[mème]", en: "[meme]", image: "images/meme-echo.png", at: 14000 },
       { t: "humans", from: null, fr: "Maé a créé le groupe « Humains de la 3B uniquement ». Echo n’en fait pas partie.", en: "Maé created the group “Humans of 3B only”. Echo is not part of it.", at: 22000 },
     ],
     lunch: [
@@ -82,7 +82,7 @@ const Nexus = (() => {
   let timers = [];
   // quiet = the message just lands in the conversation (a badge, no banner, no sound): only the first message of a scene and the group events make noise
   const push = (m, at, quiet) => timers.push(setTimeout(() => {
-    Link.send({ type: "msg", thread: m.t, threadName: NEXUS.threads[m.t], from: m.from, fr: fill(m.fr), en: fill(m.en), quiet: !!quiet && m.from !== null && !m.feel, feel: m.feel || (m.from ? undefined : "group") });  // a system line (added to / removed from a group) is a group notification
+    Link.send({ type: "msg", thread: m.t, threadName: NEXUS.threads[m.t], from: m.from, fr: fill(m.fr), en: fill(m.en), image: m.image, quiet: !!quiet && m.from !== null && !m.feel, feel: m.feel || (m.from ? undefined : "group") });  // a system line (added to / removed from a group) is a group notification
   }, at * PACE));
   return {
     reset() { timers.forEach(clearTimeout); timers = []; },

@@ -1,36 +1,33 @@
-// The player's phone: shows Nexus messages from the story, with sound and a shake (the same on iPhone and Android).
+// The player's phone: it is the controller of the game. One main screen (what to do now);
+// messages and the journal are two small buttons at the top. Same on iPhone and Android.
 const params = new URLSearchParams(location.search);
 const room = (params.get("room") || "").toUpperCase();
 const $ = id => document.getElementById(id);
-let french = true, ws, openThread = null, closedByUs = false;
-const threads = {}; // id -> { name, msgs: [{ from, fr, en }], unread }
-let entries = [], prompts = [], jUnread = 0, view = "msgs";
-let game = { mode: "wait" };   // what the story asks of the player now (sent by the computer)
-let answered = null;            // token of the choice already answered
-let waitingMove = false;
+let french = true, ws, openThread = null, closedByUs = false, view = "choice";
+const threads = {};                 // id -> { name, msgs: [{ from, fr, en, image, time }], unread }
+let entries = [], prompts = [], jUnread = 0;
+let game = { mode: "wait" };        // what the story asks of the player now (sent by the computer)
+let answered = null;                // token of the choice already answered
 const saved = (() => { try { return JSON.parse(localStorage.getItem("echo-journal-" + room) || "{}"); } catch (e) { return {}; } })();
 const save = () => { try { localStorage.setItem("echo-journal-" + room, JSON.stringify(saved)); } catch (e) { /* optional */ } };
 
 const TXT = {
-  calling: { fr: "Bienvenue sur Nexus.", en: "Welcome to Nexus." },
-  answer: { fr: "Ouvrir Nexus", en: "Open Nexus" },
-  note: { fr: "Gardez cette page ouverte pendant le jeu.", en: "Keep this page open during the game." },
+  calling: { fr: "Bienvenue sur Nexus", en: "Welcome to Nexus" },
+  answer: { fr: "Ouvrir", en: "Open" },
+  note: { fr: "Garde cette page ouverte pendant le jeu.", en: "Keep this page open during the game." },
   msgs: { fr: "Messages", en: "Messages" },
-  journal: { fr: "Journal", en: "Journal" },
   jTitle: { fr: "Mon journal", en: "My journal" },
+  back: { fr: "Retour au jeu", en: "Back to the game" },
+  empty: { fr: "Aucun message pour l’instant.", en: "No messages yet." },
+  noRoom: { fr: "Cette session n’existe plus. Scanne le QR code de l’ordinateur.", en: "This session no longer exists. Scan the computer’s QR code." },
+  wait: { fr: "Regarde l’écran.", en: "Look at the screen." },
+  sent: { fr: "Choix envoyé. Regarde l’écran.", en: "Choice sent. Look at the screen." },
   write: { fr: "Écris ici, juste pour toi…", en: "Write here, just for you…" },
   stays: { fr: "Ce que tu écris reste sur ton téléphone.", en: "What you write stays on your phone." },
   jNotif: { fr: "Une question pour toi", en: "A question for you" },
-  choice: { fr: "Choix", en: "Choice" },
-  where: { fr: "Où veux-tu aller ?", en: "Where do you want to go?" },
-  goto: { fr: "Va à", en: "Go to" },
-  wait: { fr: "…", en: "…" },
-  sent: { fr: "Choix envoyé. Regarde l’écran.", en: "Choice sent. Look at the screen." },
   entry: { fr: "Entrée", en: "Entry" },
   saved: { fr: "Enregistré", en: "Saved" },
   jEmpty: { fr: "Ton journal se remplit au fil de l’histoire.", en: "Your journal fills in as the story goes." },
-  empty: { fr: "Aucun message pour l’instant.", en: "No messages yet." },
-  noRoom: { fr: "Cette session n’existe plus. Scannez le QR code de l’ordinateur.", en: "This session no longer exists. Scan the computer’s QR code." },
 };
 const T = k => TXT[k][french ? "fr" : "en"];
 const pick = m => (french ? m.fr : m.en);
@@ -42,16 +39,14 @@ function paintStatic() {
   $("gateText").textContent = T("calling");
   $("answer").textContent = T("answer");
   $("gateNote").textContent = T("note");
-  $("tabMsgs").querySelector(".lbl").textContent = T("msgs");
-  $("tabJournal").querySelector(".lbl").textContent = T("journal");
-  $("tabChoice").querySelector(".lbl").textContent = T("choice");
-  $("tabChoice").querySelector(".dotb").hidden = !(game.mode === "choose" && answered !== game.token);
-  $("tabJournal").querySelector(".dotb").hidden = !jUnread;
-  $("tabMsgs").querySelector(".dotb").hidden = !Object.values(threads).some(t => t.unread);
-  $("screenTitle").textContent = view === "journal" ? T("jTitle") : T("msgs");
+  $("closeText").textContent = T("back");
+  $("btnJournal").querySelector(".dotb").hidden = !jUnread;
+  $("btnMsgs").querySelector(".dotb").hidden = !Object.values(threads).some(t => t.unread);
   renderList();
   if (openThread) renderThread();
 }
+
+// ---------------------------------------------------------------- connection
 
 function connect() {
   if (!/^[A-Z0-9]{4}$/.test(room)) { $("gateText").textContent = T("noRoom"); $("answer").hidden = true; return; }
@@ -62,7 +57,11 @@ function connect() {
     let m; try { m = JSON.parse(e.data); } catch (err) { return; }
     if (m.type === "error") { $("gateText").textContent = T("noRoom"); $("answer").hidden = true; $("gate").hidden = false; closedByUs = true; }
     else if (m.type === "peer" && m.connected && $("gate").hidden === false) startCall();
-    else if (m.type === "profile") onProfile(m);
+    else if (m.type === "profile") {
+      french = m.french !== false;
+      if (m.photo) { $("mePic").src = m.photo; $("mePic").hidden = false; } else $("mePic").hidden = true;   // the cyberpunk portrait, if the player added one
+      paintStatic(); renderGame();
+    }
     else if (m.type === "msg") onMessage(m);
     else if (m.type === "journal") { entries = m.entries || []; renderJournal(); }
     else if (m.type === "prompt") onPrompt(m);
@@ -72,30 +71,27 @@ function connect() {
 }
 const send = m => { if (ws && ws.readyState === 1) ws.send(JSON.stringify(m)); };
 
-function onProfile(m) {
-  french = m.french !== false;
-  $("meName").textContent = m.name || "";
-  if (m.avatar) $("meSil").style.setProperty("--c", m.avatar);
-  if (m.photo) { // the cyberpunk portrait chosen on the computer
-    const im = document.createElement("img"); im.src = m.photo; im.alt = "";
-    $("meSil").replaceChildren(im);
-  }
-  paintStatic();
+function startCall() {
+  $("app").classList.remove("on-gate");   // the small NEXUS bar appears once the welcome screen is gone
+  $("gate").hidden = true;
+  show("choice"); renderGame();
 }
 
-// ---- The phone is the controller: the choices, the ways to move, "Continue" ----
+// ---------------------------------------------------------------- the main screen: what to do now
+
 function onState(m) {
   const isNew = m.mode === "choose" && (game.mode !== "choose" || game.token !== m.token);
-  game = m; waitingMove = false;
+  game = m;
+  $("bloom").innerHTML = Flower.svg(m.bloom === undefined ? 1 : m.bloom, 34);
   renderGame();
   paintStatic();
-  if (isNew) { feel("normal"); show("choice"); }          // the story needs an answer: bring the player here
+  if (isNew) { feel("normal"); show("choice"); }       // the story needs an answer: bring the player here
 }
 
 function renderGame() {
   $("placeName").textContent = game.place ? pick(game.place) : "";
-  const list = $("choiceList"), exits = $("exitList"), hint = $("goalHint"), sent = $("choiceSent");
-  list.innerHTML = ""; exits.innerHTML = ""; hint.hidden = true; sent.hidden = true;
+  const list = $("choiceList"), sent = $("choiceSent");
+  list.innerHTML = ""; sent.hidden = true;
   $("choicePrompt").textContent = "";
   if (game.mode === "choose") {
     $("choicePrompt").textContent = game.prompt ? pick(game.prompt) : "";
@@ -107,36 +103,108 @@ function renderGame() {
         if (answered === token) return;
         answered = token;
         send({ type: "choose", token, index: i });
-        renderGame(); paintStatic();
+        renderGame();
       };
       list.appendChild(b);
     });
-  } else if (game.mode === "move") {
-    $("choicePrompt").textContent = T("where");
-    if (game.goal) { hint.textContent = T("goto") + " : " + pick(game.goal); hint.hidden = false; }
-    (game.talk || []).forEach(t => {      // free time: someone is here, you may talk to them
-      const b = document.createElement("button"); b.className = "talk"; b.textContent = pick(t.label);
-      b.onclick = () => { if (waitingMove) return; waitingMove = true; send({ type: "talk", id: t.id }); renderGame(); };
-      exits.appendChild(b);
-    });
-    (game.exits || []).forEach(x => {
-      const b = document.createElement("button"); b.className = "exit" + (x.guide ? " guide" : "");
-      b.disabled = waitingMove;
-      b.innerHTML = '<span class="chev" style="transform:rotate(' + x.rot + 'deg)">▲</span>';
-      const t = document.createElement("span"); t.textContent = pick(x.label); b.appendChild(t);
-      b.onclick = () => { if (waitingMove) return; waitingMove = true; send({ type: "go", to: x.to }); renderGame(); };
-      exits.appendChild(b);
-    });
   } else {
-    $("choicePrompt").textContent = T("wait");
+    sent.textContent = T("wait"); sent.hidden = false;     // the story goes on by itself: nothing to do but watch
   }
 }
 
-// ---- The journal on the phone: written entries + questions the player answers herself ----
+// ---------------------------------------------------------------- which screen is shown
+
+function show(v) {
+  view = v;
+  $("choiceView").hidden = v !== "choice";
+  $("list").hidden = v !== "msgs" || !!openThread;
+  $("thread").hidden = v !== "msgs" || !openThread;
+  $("journalView").hidden = v !== "journal";
+  $("viewBar").hidden = v === "choice" || (v === "msgs" && !!openThread);
+  $("viewTitle").textContent = v === "journal" ? T("jTitle") : T("msgs");
+  if (v === "journal") { jUnread = 0; renderJournal(); $("journalView").scrollTop = 0; }
+  paintStatic();
+}
+
+// ---------------------------------------------------------------- messages
+
+function onMessage(m) {
+  const t = threads[m.thread] || (threads[m.thread] = { name: m.threadName, msgs: [], unread: 0 });
+  t.msgs.push({ from: m.from, fr: m.fr, en: m.en, image: m.image, time: clock() });
+  const reading = view === "msgs" && openThread === m.thread;
+  if (!reading) t.unread++;
+  const isGroupEvent = !m.from;
+  if (!m.quiet) feel(m.feel || "normal");
+  if (isGroupEvent) toast(french ? "Groupe" : "Group", pick(m), "group", m.thread);
+  else if (!reading && !m.quiet) toast(m.from, pick(m), "msg", m.thread);
+  paintStatic();
+  if (reading) renderThread();
+}
+
+const GROUP_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.2c2.7.2 4.5 2.4 4.5 5.3"/></svg>';
+const MSG_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5h16v11H11l-4 3.5V16H4z"/></svg>';
+
+// A notification at the top of the phone (tap it to read). kind: "group", "msg" or "journal"
+function toast(title, body, kind, thread) {
+  const n = $("notif");
+  n.classList.toggle("group", kind === "group");
+  $("nIcon").innerHTML = kind === "group" ? GROUP_ICON : MSG_ICON;
+  $("nTime").textContent = french ? "maintenant" : "now";
+  $("nTitle").textContent = title;
+  $("nBody").textContent = body;
+  n.hidden = false;
+  n.onclick = () => {
+    n.hidden = true;
+    if (kind === "journal") show("journal");
+    else if (thread && threads[thread]) { openThread = thread; threads[thread].unread = 0; show("msgs"); renderThread(); }
+  };
+  n.style.animation = "none"; void n.offsetWidth; n.style.animation = "";
+  clearTimeout(toast.id); toast.id = setTimeout(() => { n.hidden = true; }, kind === "group" ? 6500 : 4500);
+}
+
+function renderList() {
+  const el = $("list"); el.innerHTML = "";
+  const ids = Object.keys(threads);
+  if (!ids.length) { const p = document.createElement("p"); p.className = "empty"; p.textContent = T("empty"); el.appendChild(p); return; }
+  const initials = s => s.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase();
+  ids.reverse().forEach(id => {
+    const t = threads[id], last = t.msgs[t.msgs.length - 1], name = pick(t.name);
+    const row = document.createElement("button"); row.className = "row" + (t.unread ? " unread" : "");
+    const av = document.createElement("span"); av.className = "avatar"; av.style.setProperty("--c", colorOf(name)); av.textContent = initials(name);
+    const txt = document.createElement("span"); txt.className = "txt";
+    const head = document.createElement("span"); head.className = "head";
+    const nm = document.createElement("b"); nm.textContent = name;
+    const tm = document.createElement("time"); tm.textContent = last.time || "";
+    head.append(nm, tm);
+    const pv = document.createElement("span"); pv.className = "prev"; pv.textContent = (last.from ? last.from + " : " : "") + pick(last);
+    txt.append(head, pv); row.append(av, txt);
+    if (t.unread) { const bd = document.createElement("span"); bd.className = "badge"; bd.textContent = t.unread; row.appendChild(bd); }
+    row.onclick = () => { openThread = id; t.unread = 0; show("msgs"); renderThread(); };
+    el.appendChild(row);
+  });
+}
+
+function renderThread() {
+  const t = threads[openThread]; if (!t) return;
+  $("threadTitle").textContent = pick(t.name);
+  const box = $("bubbles"); box.innerHTML = "";
+  t.msgs.forEach(m => {
+    const d = document.createElement("div"); d.className = "bubble" + (m.from ? "" : " system");
+    if (m.from) { const s = document.createElement("small"); s.textContent = m.from; s.style.setProperty("--c", colorOf(m.from)); d.appendChild(s); }
+    if (m.image) { const im = document.createElement("img"); im.src = m.image; im.alt = pick(m); im.loading = "lazy"; d.appendChild(im); }
+    else d.appendChild(document.createTextNode(pick(m)));
+    if (m.time) { const tm = document.createElement("time"); tm.textContent = m.time; d.appendChild(tm); }
+    box.appendChild(d);
+  });
+  box.scrollTop = box.scrollHeight;
+}
+
+// ---------------------------------------------------------------- journal: written entries + questions the player answers herself
+
 function onPrompt(m) {
   if (prompts.some(x => x.id === m.id)) return;
   prompts.push({ id: m.id, fr: m.fr, en: m.en });
-  if (view !== "journal") { jUnread++; toast(T("journal"), T("jNotif"), "journal"); }
+  if (view !== "journal") { jUnread++; toast(T("jTitle"), T("jNotif"), "journal"); }
   feel("normal");
   paintStatic(); renderJournal();
 }
@@ -164,31 +232,16 @@ function renderJournal() {
       saved[q.id] = ta.value; save(); grow();
       ok.classList.add("on"); clearTimeout(ta.okId); ta.okId = setTimeout(() => ok.classList.remove("on"), 1500);
     };
-    ta.onfocus = () => setTimeout(() => card.scrollIntoView({ block: "center", behavior: "smooth" }), 300); // keep it above the keyboard
+    ta.onfocus = () => setTimeout(() => card.scrollIntoView({ block: "center", behavior: "smooth" }), 300);   // keep it above the keyboard
     card.append(t, ta, foot); pr.appendChild(card);
     setTimeout(grow, 0);
   });
 }
 
-function show(v) {
-  view = v;
-  $("list").hidden = v !== "msgs" || !!openThread;
-  $("thread").hidden = v !== "msgs" || !openThread;
-  $("journalView").hidden = v !== "journal";
-  $("choiceView").hidden = v !== "choice";
-  $("tabChoice").classList.toggle("on", v === "choice");
-  $("top").hidden = $("gate").hidden === false || (v === "msgs" && !!openThread) || v === "choice"; // more room while reading a conversation
-  $("tabMsgs").classList.toggle("on", v === "msgs");
-  $("tabJournal").classList.toggle("on", v === "journal");
-  if (v === "journal") { jUnread = 0; renderJournal(); $("journalView").scrollTop = 0; }
-  paintStatic();
-}
+// ---------------------------------------------------------------- what a message feels like: sound + a shake, vibration where allowed
 
-// ---- What a message feels like, the same on every phone: sound + a shake or a silence ----
 let audio;
-function unlockSound() {
-  try { audio = new (window.AudioContext || window.webkitAudioContext)(); audio.resume(); } catch (err) { audio = null; }
-}
+function unlockSound() { try { audio = new (window.AudioContext || window.webkitAudioContext)(); audio.resume(); } catch (err) { audio = null; } }
 function tone(freq, start, dur, gain) {
   if (!audio) return;
   const o = audio.createOscillator(), g = audio.createGain(), t0 = audio.currentTime + start;
@@ -200,9 +253,9 @@ function tone(freq, start, dur, gain) {
 const buzz = pattern => { try { if (navigator.vibrate) navigator.vibrate(pattern); } catch (err) { /* not supported */ } };
 function feel(kind) {
   const app = $("app");
-  if (kind === "cold") { tone(196, 0, 0.5, 0.18); shake(app, "cold"); buzz([450]); }                                   // low, dull: nobody cares
-  else if (kind === "left_out") { tone(220, 0, 0.7, 0.2); tone(147, 0.25, 0.9, 0.2); silence(); buzz([120, 60, 120, 60, 500]); } // you are left out
-  else if (kind === "group") { tone(659, 0, 0.14, 0.2); tone(523, 0.15, 0.14, 0.2); tone(784, 0.3, 0.25, 0.2); shake(app, "ping"); buzz([220, 90, 220]); } // a group event
+  if (kind === "cold") { tone(196, 0, 0.5, 0.18); shake(app, "cold"); buzz([450]); }
+  else if (kind === "left_out") { tone(220, 0, 0.7, 0.2); tone(147, 0.25, 0.9, 0.2); silence(); buzz([120, 60, 120, 60, 500]); }
+  else if (kind === "group") { tone(659, 0, 0.14, 0.2); tone(523, 0.15, 0.14, 0.2); tone(784, 0.3, 0.25, 0.2); shake(app, "ping"); buzz([220, 90, 220]); }
   else { tone(880, 0, 0.15, 0.2); tone(1175, 0.16, 0.2, 0.2); shake(app, "ping"); buzz([130, 70, 130]); }
 }
 function shake(el, cls) { el.classList.remove("ping", "cold"); void el.offsetWidth; el.classList.add(cls); }
@@ -211,89 +264,13 @@ function silence() { document.body.classList.add("silent"); clearTimeout(silence
 async function keepAwake() { try { if (navigator.wakeLock) await navigator.wakeLock.request("screen"); } catch (err) { /* optional */ } }
 document.addEventListener("visibilitychange", () => { if (!document.hidden && audio) { audio.resume(); keepAwake(); } });
 
-function startCall() {
-  $("gate").hidden = true; $("bar").hidden = false;
-  show("choice"); renderList(); renderGame();
-}
+// ---------------------------------------------------------------- buttons
 
-function onMessage(m) {
-  const t = threads[m.thread] || (threads[m.thread] = { name: m.threadName, msgs: [], unread: 0 });
-  t.msgs.push({ from: m.from, fr: m.fr, en: m.en, time: clock() });
-  const reading = openThread === m.thread;
-  if (!reading) t.unread++;
-  const isGroupEvent = !m.from;
-  if (!m.quiet) feel(m.feel || "normal");
-  if (isGroupEvent) toast(french ? "Groupe" : "Group", pick(m), "group", m.thread);   // always shown: you must see it
-  else if (!reading && !m.quiet) toast(m.from, pick(m), "msg", m.thread);
-  renderList();
-  if (reading) renderThread();
-}
-
-const GROUP_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.2c2.7.2 4.5 2.4 4.5 5.3"/></svg>';
-const MSG_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5h16v11H11l-4 3.5V16H4z"/></svg>';
-
-// A notification at the top of the phone. kind: "group" (added to / removed from a group) or "msg". Tap to open the conversation.
-function toast(title, body, kind, thread) {
-  const n = $("notif");
-  n.classList.toggle("group", kind === "group");
-  $("nIcon").innerHTML = kind === "group" ? GROUP_ICON : MSG_ICON;
-  $("nTime").textContent = french ? "maintenant" : "now";
-  $("nTitle").textContent = title;
-  $("nBody").textContent = body;
-  n.hidden = false;
-  n.onclick = () => { n.hidden = true; if (thread && threads[thread]) { openThread = thread; threads[thread].unread = 0; $("bar").hidden = false; showThread(); } else if (kind === "journal") show("journal"); };
-  n.style.animation = "none"; void n.offsetWidth; n.style.animation = "";
-  clearTimeout(toast.id); toast.id = setTimeout(() => { n.hidden = true; }, kind === "group" ? 6500 : 4500);
-}
-
-function renderList() {
-  const el = $("list"); el.innerHTML = "";
-  const ids = Object.keys(threads);
-  if (!ids.length) { const p = document.createElement("p"); p.className = "empty"; p.textContent = T("empty"); el.appendChild(p); return; }
-  const initials = s => s.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase();
-  ids.reverse().forEach(id => {
-    const t = threads[id], last = t.msgs[t.msgs.length - 1], name = pick(t.name);
-    const row = document.createElement("button"); row.className = "row" + (t.unread ? " unread" : "");
-    const av = document.createElement("span"); av.className = "avatar"; av.style.setProperty("--c", colorOf(name)); av.textContent = initials(name);
-    const txt = document.createElement("span"); txt.className = "txt";
-    const head = document.createElement("span"); head.className = "head";
-    const nm = document.createElement("b"); nm.textContent = name;
-    const tm = document.createElement("time"); tm.textContent = last.time || "";
-    head.append(nm, tm);
-    const pv = document.createElement("span"); pv.className = "prev"; pv.textContent = (last.from ? last.from + " : " : "") + pick(last);
-    txt.append(head, pv); row.append(av, txt);
-    if (t.unread) { const bd = document.createElement("span"); bd.className = "badge"; bd.textContent = t.unread; row.appendChild(bd); }
-    row.onclick = () => { openThread = id; t.unread = 0; showThread(); };
-    el.appendChild(row);
-  });
-}
-
-function showThread() { show("msgs"); renderThread(); }
-function renderThread() {
-  const t = threads[openThread]; if (!t) return;
-  $("threadTitle").textContent = pick(t.name);
-  const box = $("bubbles"); box.innerHTML = "";
-  t.msgs.forEach(m => {
-    const d = document.createElement("div"); d.className = "bubble" + (m.from ? "" : " system");
-    if (m.from) { const s = document.createElement("small"); s.textContent = m.from; s.style.setProperty("--c", colorOf(m.from)); d.appendChild(s); }
-    d.appendChild(document.createTextNode(pick(m)));
-    if (m.time) { const tm = document.createElement("time"); tm.textContent = m.time; d.appendChild(tm); }
-    box.appendChild(d);
-  });
-  box.scrollTop = box.scrollHeight;
-}
-
-$("back").onclick = () => { openThread = null; show("msgs"); renderList(); };
-$("tabMsgs").onclick = () => { openThread = null; show("msgs"); renderList(); };
-$("tabJournal").onclick = () => show("journal");
-$("tabChoice").onclick = () => { renderGame(); show("choice"); };
+$("btnMsgs").onclick = () => { openThread = null; show("msgs"); };
+$("btnJournal").onclick = () => show("journal");
+$("closeView").onclick = () => show("choice");
+$("back").onclick = () => { openThread = null; show("msgs"); };
 // A tap is needed before the browser lets the page play sounds (the same on iPhone and Android).
-$("answer").onclick = () => {
-  unlockSound();
-  buzz(40); // a first tap also allows vibration on Android
-  keepAwake();
-  $("answer").disabled = true;
-  connect();
-};
+$("answer").onclick = () => { unlockSound(); buzz(40); keepAwake(); $("answer").disabled = true; connect(); };
 
 paintStatic();

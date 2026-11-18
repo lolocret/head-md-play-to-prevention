@@ -1,55 +1,43 @@
 # Code: Echo (playable prototype)
 
-A visual novel in the browser, played with a phone: **the computer only displays, and everything you do happens on the phone** (choices, moving between places, "Continue", "Play again"). A phone is required.
+A story played **from a phone**: the computer only displays (the place, the text, Echo's state), and everything the player does happens on the phone. A phone is required.
 
 ```
 cd server
 npm install      # only the first time
 npm start
 ```
-Open http://localhost:3000 on the computer. After choosing a name (and, if you want, a photo), a 3D phone opening Nexus and a QR code appear. Scan the QR code with a phone **on the same Wi-Fi** (or use a tunnel, see below), tap "Ouvrir Nexus", and keep the page open. If the phone disconnects, the game waits and shows the QR code again.
+Open http://localhost:3000 on the computer. Three short pages of introduction, then a name (and an optional profile photo), then a QR code. Scan it with the phone (same Wi-Fi, or through a tunnel, see below), tap "Ouvrir", keep the page open. If the phone disconnects, the game waits and shows the QR code again.
 
-## What it is
-- Title page, introduction, then the choice of a name and an avatar: a coloured silhouette, or the player's own photo turned into a cyberpunk portrait (`avatar.js`). The photo is processed in the browser only; it is not saved or uploaded, and only a small 96 px version of the transformed image is shown on the phone.
-- Scenes like Street View: each place is a full-screen image (hallway, class 3B, roof, La Serre, Altaya).
-- **Altaya is hidden** until the player’s bond with Echo is strong enough (`bondToUnlock` in `story.js`).
-- The story appears in a box at the bottom of the computer screen. The scene darkens while the player answers on the phone. The gauge shows a face and a green-orange-red bar, with no label.
-- Scenes like Street View: the player moves between places from the phone ("Choix" tab: the ways out, the pink one leads to the next scene).
-- A journal on the phone: one short entry per scene (what you did and how it felt), plus one per conversation. Nexus messages arrive spread out; only the first message of a scene and the group events make a noise or a banner. Helping Echo has a small emotional cost written in it. 
-- Fourteen scenes and five optional conversations ("Talk to Echo / Kovasko / Clarisse" appears on the phone when you are in the right place, in free time). Echo is always there but not the same: open if the bond is strong, wary if you hurt more than you helped. French by default; add `?lang=en` to the address for English. At the end, the player sees Echo’s state (no role title).
+## What the player sees and does
+- **Computer:** the picture of the place, the story text at the bottom, a gauge (a flower in bloom on the left, a wilted one on the right, a bar between). The scene darkens while the player answers.
+- **Phone, one main screen:** the question and the choices (or "Look at the screen"). Messages (Nexus) and the journal are two small buttons at the top; a pink dot says there is something new.
+- **No walking, no free exploration:** the story takes the player from scene to scene by itself.
+
+## Profile photo (optional)
+Next to the name, the player can add a photo: she frames it (drag and zoom, like on WhatsApp) and it becomes a cyberpunk portrait (`avatar.js`, `cropper.js`). The photo is processed in the browser only; it is not saved or uploaded. Only a small 96 px version of the transformed image goes to the phone, where it appears next to "NEXUS". Without a photo, nothing is shown.
+
+## The story
+- Nineteen scenes, in French (add `?lang=en` for English). Echo is in some of them with a different mood: open if the bond is strong, wary if the player hurt more than helped. The scene "Echo, at Altaya" only happens if the bond is strong.
+- A choice made "for fun" comes back later: a message on the phone and a line in the journal (the `later` part of a choice in `story.js`).
+- The endings are named for what happens to Echo ("Echo short-circuits", "Echo doesn't come back", "Echo stays"). After an ending that is not "Echo stays", the phone offers to go back to the last scene.
+- Nexus messages arrive spread out; only the first message of a scene and the group events make a banner and a sound. Images (a video still, a meme) arrive as real pictures.
+- The journal has one short entry per scene (what you did and how it felt) and a few questions the player answers in her own words. What she writes stays on her phone.
 
 ## Files
-- `story.js`: all the text, choices and their points (`harass`, `passive`, `help`, `bond`), journal entries, title page, intro. Edit this to change the story.
-- `scene.js`: the places, the arrows between them, and where each scene happens.
-- `game.js`: the game flow (title, intro, avatar, scenes, endings, journal, gauge).
-- `style.css`, `index.html`: look and layout.
-- `images/`: one background per place (`couloir`, `classe`, `toit`, `serre`, `altaya`). See `images/README.md`. Characters go in `images/characters/` (`echo.png`, `kovasko.png`, `clarisse.png`, `student.png`, transparent PNG).
-
-## Consequences that come back, and endings without punishment
-- A choice made "for fun" (laughing, liking, the photo, the insult…) has a `later` part in `story.js`: one to three scenes afterwards a message lands on the phone ("Lorie, you're in the video, at 0:07. We can see you laughing.") and a line is added to the journal.
-- The endings are named for what happens to Echo ("Echo short-circuits", "Echo doesn't come back", "Echo stays"), not for what the player is. After an ending that is not "Echo stays", the phone offers "Go back to the last scene and choose differently".
+- `story.js`: all the text, choices and their points (`harass`, `passive`, `help`, `bond`), the introduction, the title page. `{name}` in any text becomes the player's name.
+- `nexus.js`: the Nexus messages and when they arrive. `scene.js`: where each scene happens and who is there. `game.js`: the flow. `link.js`: the connection to the server.
+- `avatar.js`, `cropper.js`: the optional profile photo (cyberpunk filter, framing). `phone.html`, `phone.js`, `phone.css`: the page the phone opens. `flower.js`: Echo's flowers. `lib/qrcode.min.js`: QR code (MIT).
+- `../server/server.js`: serves the game and passes messages between computer and phone, by 4-letter room code.
+- `images/`: one picture per place (`couloir`, `classe`, `toit`, `serre`, `altaya`, `chambre`), the introduction pictures, the meme and the video still. Characters: `images/characters/echo.png` (and `kovasko.png`, `clarisse.png`, `student.png` if you add them).
 
 ## Rules (placeholders, to tune in `story.js`)
-- Gauge stages follow `harass`: 2 = bugs, 4 = seizure-like crises, 6 = Echo short-circuits.
-- Ending: gauge at the maximum, then "If you harass"; else enough `help` (3+, and at least `passive`), then "If you help Echo"; else "If you stay passive".
+- Gauge stages follow `harass`: 3 = bugs, 6 = seizure-like crises, 9 = Echo short-circuits. Echo's flowers close with the same value.
+- Ending: gauge at the maximum, then "Echo short-circuits"; else enough `help` (5+, and at least `passive`), then "Echo stays"; else "Echo doesn't come back".
 - The point values are not from the course text.
 
 ## Phone: the same on iPhone and Android
-The experience is the same on every phone. It does not rely on vibration, system notifications or motion sensors, which behave differently on iPhone.
-- A message: a short two-note sound, a small shake of the screen and a notification banner at the top of the phone (tap it to open the conversation).
-- A group event (added to a group, removed from a group): a pink notification, a three-note sound and, on Android, a stronger vibration.
-- Vibration works on most Android phones; iPhone browsers do not allow it, so everyone also gets the sound and the shake.
-- A cold answer: a low, dull sound and a heavy wobble.
-- Being removed from a group: two low notes and the whole screen turns grey and dim for a few seconds (silence).
-- The phone keeps its screen on (wake lock) so the page stays connected. The sound needs one tap on "Ouvrir Nexus" first.
-- Lost on purpose: notifications with the screen locked, the pointer (choosing by pointing the phone at the screen).
-- The journal is also on the phone: the entries fill in as on the computer, and at intense moments a question appears for the player to answer in her own words. What she writes stays on her phone (saved in the phone's browser).
-- Not done yet: reacting from the phone (like, comment, leave the group), and sharing a sentence anonymously with the facilitator.
+Sound and a small shake for every message, a pink notification for group events, grey silence when the player is left out. Vibration is added where the browser allows it (most Android phones; iPhone browsers do not). Notifications with the screen locked and the pointer are not used.
 
-## Files for the phone
-- `link.js`: the computer's connection to the server. `nexus.js`: all the Nexus messages and when they arrive.
-- `phone.html`, `phone.js`, `phone.css`: the page the phone opens. `lib/qrcode.min.js`: QR code (MIT).
-- `../server/server.js`: serves the game and passes messages between computer and phone, by 4-letter room code.
-
-## Not done yet
-Images for Altaya and "Chez toi" (the night scene), character images, sound.
+## Tunnel (when the Wi-Fi blocks the phone)
+Run `cloudflared tunnel --url http://localhost:3000`, then open the game on the computer with `http://localhost:3000/?base=<the https address it prints>`. The QR code then points to the tunnel.
