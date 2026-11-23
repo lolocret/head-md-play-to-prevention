@@ -101,6 +101,10 @@ const STORY = {
       "journal": {
         "fr": "Premier jour avec Echo. Un holokid dans notre classe, c’est dingue. Je ne sais pas trop quoi en penser. Dans leur coin, les autres rigolent déjà.",
         "en": "First day with Echo. A holokid in our class, that’s wild. I don’t really know what to think. The others are already laughing in their corner."
+      },
+      "line": {
+        "fr": "Premier jour. Kovasko présente Echo à la classe. Silence.",
+        "en": "First day. Kovasko introduces Echo to the class. Silence."
       }
     },
     {
@@ -163,6 +167,10 @@ const STORY = {
       "journal": {
         "fr": "Echo a tendu la main et elle a traversé celle de l’autre. Les fleurs d’Echo se sont ouvertes toutes seules, on aurait dit que ça faisait mal. Dans la classe, il y a eu un silence, puis des rires.",
         "en": "Echo held out a hand and it went right through the other kid’s. Echo’s flowers opened by themselves, as if it hurt. In the class there was a silence, then laughter."
+      },
+      "line": {
+        "fr": "Echo tend la main à un élève : elle la traverse. Des rires.",
+        "en": "Echo holds out a hand to a student: it goes right through. Laughter."
       }
     },
     {
@@ -226,6 +234,10 @@ const STORY = {
       "journal": {
         "fr": "",
         "en": ""
+      },
+      "line": {
+        "fr": "Midi. Echo mange seul·e sur le banc. Le groupe rit à l’autre bout du couloir.",
+        "en": "Noon. Echo eats alone on the bench. The group laughs at the other end of the hallway."
       }
     },
     {
@@ -239,14 +251,14 @@ const STORY = {
         "en": "0:12: the video is posted in the class group “3B”. Comments: “you’re not even real”, “fake”, “your emotions are fictions”. 0:30: a meme circulates, showing the boy’s hand going through Echo in a loop, captioned “Get out of here, you’re not even real”. 1:05: a group “Humans of 3B only” is created, without Echo."
       },
       "prompt": {
-        "fr": "Que fais-tu face au mème ?",
-        "en": "What do you do about the meme?"
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
           "label": {
-            "fr": "Liker le mème",
-            "en": "Like the meme"
+            "fr": "J’aime",
+            "en": "Like"
           },
           "harass": 1,
           "passive": 0,
@@ -268,26 +280,46 @@ const STORY = {
               "fr": "J’ai vu que tu avais aimé le mème, {name}. Ça m’a fait mal.",
               "en": "I saw you liked the meme, {name}. It hurt."
             }
-          }
-        },
-        {
-          "label": {
-            "fr": "Ne pas réagir",
-            "en": "Don’t react"
           },
+          "kind": "react",
+          "msg": "meme"
+        },
+        {
           "harass": 0,
-          "passive": 1,
-          "help": 0,
-          "bond": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 1,
+          "label": {
+            "fr": "Signaler",
+            "en": "Report"
+          },
+          "kind": "react",
+          "msg": "meme",
           "journal": {
-            "fr": "Je n’ai rien fait. Je n’ai rien dit non plus. Est-ce que ça compte ?",
-            "en": "I did nothing. I said nothing either. Does that count?"
+            "fr": "J’ai signalé le mème. Une réponse automatique est arrivée : « Message reçu. »",
+            "en": "I reported the meme. An automatic answer came: “Message received.”"
+          }
+        },
+        {
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 0,
+          "label": {
+            "fr": "Capture d’écran",
+            "en": "Screenshot"
+          },
+          "kind": "react",
+          "msg": "video",
+          "journal": {
+            "fr": "J’ai fait une capture d’écran de la vidéo. Je ne sais pas encore à qui la montrer.",
+            "en": "I took a screenshot of the video. I don’t know yet who to show it to."
           }
         },
         {
           "label": {
-            "fr": "Commenter que c’est méchant",
-            "en": "Comment that it’s mean"
+            "fr": "arrête, c’est méchant",
+            "en": "stop, that’s mean"
           },
           "harass": 0,
           "passive": 0,
@@ -296,12 +328,66 @@ const STORY = {
           "journal": {
             "fr": "J’ai écrit que c’était méchant. Personne ne m’a répondu. Seul·e avec mon téléphone, dans le noir.",
             "en": "I wrote that it was mean. Nobody answered. Alone with my phone, in the dark."
+          },
+          "kind": "reply"
+        },
+        {
+          "harass": 1,
+          "passive": 0,
+          "help": 0,
+          "bond": -1,
+          "label": {
+            "fr": "mdr",
+            "en": "lol"
+          },
+          "kind": "reply",
+          "journal": {
+            "fr": "J’ai écrit « mdr ». Ça a pris une seconde, et je l’ai regretté.",
+            "en": "I wrote “lol”. It took a second, and I regretted it."
           }
+        },
+        {
+          "harass": 0,
+          "passive": 1,
+          "help": 0,
+          "bond": 0,
+          "label": {
+            "fr": "Quitter le groupe",
+            "en": "Leave the group"
+          },
+          "kind": "leave",
+          "journal": {
+            "fr": "J’ai quitté le groupe de la classe. Plus de vibrations, plus de rires. Plus rien de moi non plus.",
+            "en": "I left the class group. No more buzzing, no more laughter. Nothing of me either."
+          }
+        },
+        {
+          "label": {
+            "fr": "Poser le téléphone",
+            "en": "Put the phone down"
+          },
+          "harass": 0,
+          "passive": 1,
+          "help": 0,
+          "bond": 0,
+          "journal": {
+            "fr": "Je n’ai rien fait. Je n’ai rien dit non plus. Est-ce que ça compte ?",
+            "en": "I did nothing. I said nothing either. Does that count?"
+          },
+          "kind": "ignore"
         }
       ],
       "journal": {
         "fr": "Minuit passé. La vidéo tourne dans le groupe 3B, puis un mème. Je me demande si c’est bien qu’on se moque d’Echo.",
         "en": "Past midnight. The video is going around the 3B group, then a meme. I wonder if it’s okay that we make fun of Echo."
+      },
+      "line": {
+        "fr": "00:12. Chez toi, le téléphone vibre.",
+        "en": "00:12. At home, your phone buzzes."
+      },
+      "chat": {
+        "thread": "class",
+        "readyAt": 10000
       }
     },
     {
@@ -372,6 +458,10 @@ const STORY = {
       "journal": {
         "fr": "Silence en classe, mais les téléphones s’allument sous les tables. Kovasko ne voit rien. Est-ce que je suis le seul à le voir ?",
         "en": "Silence in class, but phones light up under the desks. Kovasko doesn’t notice a thing. Am I the only one who sees it?"
+      },
+      "line": {
+        "fr": "Le lendemain. La classe se tait, mais les téléphones rient sous les tables.",
+        "en": "The next day. The class is silent, but the phones laugh under the desks."
       }
     },
     {
@@ -422,6 +512,10 @@ const STORY = {
       "journal": {
         "fr": "",
         "en": ""
+      },
+      "line": {
+        "fr": "Kovasko range ses affaires : « Tout va bien en classe, {name} ? »",
+        "en": "Kovasko packs his things: “Is everything okay in class, {name}?”"
       }
     },
     {
@@ -498,6 +592,10 @@ const STORY = {
       "journal": {
         "fr": "",
         "en": ""
+      },
+      "line": {
+        "fr": "Kovasko parle de respect. Un élève lance : « Echo a le droit de voter ? » Rires.",
+        "en": "Kovasko talks about respect. A student calls out: “Is Echo allowed to vote?” Laughter."
       }
     },
     {
@@ -574,6 +672,10 @@ const STORY = {
       "journal": {
         "fr": "« Réservé aux vrais. » Echo est resté planté devant la porte. C’est quoi, être vrai ? Les émotions d’Echo avaient l’air bien réelles, pourtant.",
         "en": "“Reserved for the real ones.” Echo just stood there in front of the door. What does being real even mean? Echo’s emotions looked pretty real to me."
+      },
+      "line": {
+        "fr": "Sur le toit, un élève barre la porte de La Serre : « Réservé aux vrais. »",
+        "en": "On the roof, a student blocks La Serre’s door: “Reserved for the real ones.”"
       }
     },
     {
@@ -651,6 +753,20 @@ const STORY = {
           "fr": "Echo est assis·e au bord du toit. Quand tu t’approches, ses fleurs se ferment d’un coup. « Je sais ce que tu as fait. Tu veux me dire quelque chose ? »",
           "en": "Echo sits on the edge of the roof. As you come closer, their flowers close at once. “I know what you did. Do you want to tell me something?”"
         }
+      },
+      "moodLines": {
+        "open": {
+          "fr": "Echo, au bord du toit : « Ici, personne ne me dit que je suis faux. »",
+          "en": "Echo, at the edge of the roof: “Up here, nobody tells me I’m fake.”"
+        },
+        "neutral": {
+          "fr": "Echo, au bord du toit, te regarde sans bouger : « Tu veux quelque chose ? »",
+          "en": "Echo, at the edge of the roof, looks at you without moving: “Do you want something?”"
+        },
+        "wary": {
+          "fr": "Quand tu approches, les fleurs d’Echo se ferment : « Je sais ce que tu as fait. »",
+          "en": "As you come closer, Echo’s flowers close: “I know what you did.”"
+        }
       }
     },
     {
@@ -664,14 +780,14 @@ const STORY = {
         "en": "Students manage to hack Echo’s system to make insults appear on their back. Clarisse calls Echo a “life thief”: according to her, it is because of holokids like Echo that her family became poorer and that she is mocked. The paradox: Echo is kind and only wants to help."
       },
       "prompt": {
-        "fr": "Que fais-tu, {name} ?",
-        "en": "What do you do, {name}?"
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
           "label": {
-            "fr": "Écrire une insulte",
-            "en": "Write an insult"
+            "fr": "t’es qu’un faux",
+            "en": "you’re just a fake"
           },
           "harass": 2,
           "passive": 0,
@@ -687,7 +803,8 @@ const STORY = {
               "fr": "Mon insulte est toujours dans le dos d’Echo. Quelqu’un l’a capturée. C’est écrit avec mon nom.",
               "en": "My insult is still on Echo’s back. Someone took a screenshot. It has my name on it."
             }
-          }
+          },
+          "kind": "reply"
         },
         {
           "label": {
@@ -702,26 +819,14 @@ const STORY = {
           "journal": {
             "fr": "J’ai prévenu Echo. Quelqu’un m’a lancé : « T’es avec la machine, toi ? » Je n’ai pas su quoi répondre.",
             "en": "I warned Echo. Someone called out: “Are you with the machine?” I didn’t know what to say."
-          }
-        },
-        {
-          "label": {
-            "fr": "Ne rien faire",
-            "en": "Do nothing"
           },
-          "harass": 0,
-          "passive": 1,
-          "help": 0,
-          "bond": 0,
-          "journal": {
-            "fr": "Je n’ai rien fait. Les insultes sont restées, et tout le monde les voyait.",
-            "en": "I did nothing. The insults stayed, and everyone could see them."
-          }
+          "kind": "react",
+          "msg": "insults"
         },
         {
           "label": {
-            "fr": "Effacer les insultes",
-            "en": "Erase the insults"
+            "fr": "Signaler",
+            "en": "Report"
           },
           "harass": 0,
           "passive": 0,
@@ -730,12 +835,37 @@ const STORY = {
           "journal": {
             "fr": "J’ai effacé les insultes une par une. Mes mains tremblaient. Je me suis senti·e très visible.",
             "en": "I erased the insults one by one. My hands were shaking. I felt very visible."
-          }
+          },
+          "kind": "react",
+          "msg": "insults"
+        },
+        {
+          "label": {
+            "fr": "Poser le téléphone",
+            "en": "Put the phone down"
+          },
+          "harass": 0,
+          "passive": 1,
+          "help": 0,
+          "bond": 0,
+          "journal": {
+            "fr": "Je n’ai rien fait. Les insultes sont restées, et tout le monde les voyait.",
+            "en": "I did nothing. The insults stayed, and everyone could see them."
+          },
+          "kind": "ignore"
         }
       ],
       "journal": {
         "fr": "Des insultes apparaissent dans le dos d’Echo. Clarisse parle de « voleur de vie ». Je ne sais plus si je dois me taire ou dire quelque chose. Et si je ne fais rien, ça fait de moi quoi ?",
         "en": "Insults are showing up on Echo’s back. Clarisse calls Echo a “life thief”. I don’t know if I should stay quiet or say something. And if I do nothing, what does that make me?"
+      },
+      "line": {
+        "fr": "Des insultes s’affichent dans le dos d’Echo. Le groupe regarde.",
+        "en": "Insults appear on Echo’s back. The group is watching."
+      },
+      "chat": {
+        "thread": "humans",
+        "readyAt": 3000
       }
     },
     {
@@ -813,6 +943,20 @@ const STORY = {
           "fr": "Le couloir est vide. Echo te voit et s’éloigne le long du mur sans un mot. Ses fleurs sont fermées.",
           "en": "The hallway is empty. Echo sees you and walks away along the wall without a word. Their flowers are closed."
         }
+      },
+      "moodLines": {
+        "open": {
+          "fr": "Echo, la main contre la vitre : « Les lumières de la ville ne font pas semblant. Moi non plus. »",
+          "en": "Echo, one hand on the glass: “The city lights aren’t pretending. Neither am I.”"
+        },
+        "neutral": {
+          "fr": "Echo regarde la ville par la vitre : « Tu regardes toi aussi ? »",
+          "en": "Echo looks at the city through the glass: “Are you looking too?”"
+        },
+        "wary": {
+          "fr": "Echo te voit et s’éloigne le long du mur, sans un mot.",
+          "en": "Echo sees you and walks away along the wall, without a word."
+        }
       }
     },
     {
@@ -878,6 +1022,10 @@ const STORY = {
       "journal": {
         "fr": "Clarisse, toute seule près des casiers. Celle qui fait du mal à Echo souffre aussi. Ça ne l’excuse pas, mais ça change comment je la vois.",
         "en": "Clarisse, all alone by the lockers. The one hurting Echo is hurting too. It doesn’t excuse her, but it changes how I see her."
+      },
+      "line": {
+        "fr": "Clarisse, seule près des casiers. Quelqu’un vient de se moquer d’elle.",
+        "en": "Clarisse, alone by the lockers. Someone has just mocked her."
       }
     },
     {
@@ -954,6 +1102,10 @@ const STORY = {
       "journal": {
         "fr": "",
         "en": ""
+      },
+      "line": {
+        "fr": "Lundi. Echo est là, le dos droit. Les conversations s’arrêtent quand Echo passe.",
+        "en": "Monday. Echo is back, back straight. Conversations stop when Echo walks by."
       }
     },
     {
@@ -1004,6 +1156,10 @@ const STORY = {
       "journal": {
         "fr": "",
         "en": ""
+      },
+      "line": {
+        "fr": "Clarisse t’attrape par la manche : « Ils me parlent enfin. » Son sourire tient mal.",
+        "en": "Clarisse grabs your sleeve: “They finally talk to me.” Her smile doesn’t hold."
       }
     },
     {
@@ -1017,14 +1173,14 @@ const STORY = {
         "en": "Clarisse creates a private group: “We’re not harassing anyone, it’s just a machine.” Students are added by force and made to stay (“Are you with us or with the machine?”, “If you say nothing, you agree”). Fear of being the next victim is everywhere.\n\nThere is a shutdown code: KIPE-SAFE007. The plan: on Friday, after class, switch Echo off and film the scene. Clarisse shares it in La Serre: for the first time, the popular students give her access. {name}, you understand: Echo has become the new scapegoat."
       },
       "prompt": {
-        "fr": "{name}, tu choisis maintenant. Les conséquences viendront plus tard.",
-        "en": "{name}, you choose now. The consequences will come later."
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
           "label": {
-            "fr": "Participer au plan",
-            "en": "Take part in the plan"
+            "fr": "je suis des vôtres",
+            "en": "I’m with you"
           },
           "harass": 2,
           "passive": 0,
@@ -1046,40 +1202,13 @@ const STORY = {
               "fr": "Tu as promis, {name}. On compte sur toi vendredi.",
               "en": "You promised, {name}. We’re counting on you on Friday."
             }
-          }
-        },
-        {
-          "label": {
-            "fr": "Rester silencieux·se",
-            "en": "Stay quiet"
           },
-          "harass": 0,
-          "passive": 1,
-          "help": 0,
-          "bond": 0,
-          "journal": {
-            "fr": "Je n’ai rien répondu. « Si tu ne dis rien, tu approuves » : et si c’était vrai ?",
-            "en": "I didn’t answer. “If you say nothing, you agree”: what if it were true?"
-          }
+          "kind": "reply"
         },
         {
           "label": {
-            "fr": "Quitter le groupe",
-            "en": "Leave the group"
-          },
-          "harass": 0,
-          "passive": 0,
-          "help": 1,
-          "bond": 0,
-          "journal": {
-            "fr": "J’ai quitté le groupe. Mon nom a disparu de la liste, et le silence qui a suivi faisait plus de bruit que les messages.",
-            "en": "I left the group. My name vanished from the list, and the silence that followed was louder than the messages."
-          }
-        },
-        {
-          "label": {
-            "fr": "Envoyer des captures d’écran à Kovasko",
-            "en": "Send screenshots to Kovasko"
+            "fr": "Envoyer une capture à Kovasko",
+            "en": "Send a screenshot to Kovasko"
           },
           "harass": 0,
           "passive": 0,
@@ -1089,7 +1218,9 @@ const STORY = {
           "journal": {
             "fr": "J’ai tout envoyé à Kovasko. Je me demande si Clarisse va deviner que c’est moi. J’ai peur.",
             "en": "I sent everything to Kovasko. I wonder if Clarisse will guess it was me. I’m scared."
-          }
+          },
+          "kind": "react",
+          "msg": "plan"
         },
         {
           "label": {
@@ -1104,12 +1235,52 @@ const STORY = {
           "journal": {
             "fr": "J’ai prévenu Echo. Echo m’a juste dit merci, mais j’ai eu peur toute la nuit.",
             "en": "I warned Echo. Echo only said thank you, but I was scared all night."
-          }
+          },
+          "kind": "react",
+          "msg": "plan"
+        },
+        {
+          "label": {
+            "fr": "Quitter le groupe",
+            "en": "Leave the group"
+          },
+          "harass": 0,
+          "passive": 0,
+          "help": 1,
+          "bond": 0,
+          "journal": {
+            "fr": "J’ai quitté le groupe. Mon nom a disparu de la liste, et le silence qui a suivi faisait plus de bruit que les messages.",
+            "en": "I left the group. My name vanished from the list, and the silence that followed was louder than the messages."
+          },
+          "kind": "leave"
+        },
+        {
+          "label": {
+            "fr": "Poser le téléphone",
+            "en": "Put the phone down"
+          },
+          "harass": 0,
+          "passive": 1,
+          "help": 0,
+          "bond": 0,
+          "journal": {
+            "fr": "Je n’ai rien répondu. « Si tu ne dis rien, tu approuves » : et si c’était vrai ?",
+            "en": "I didn’t answer. “If you say nothing, you agree”: what if it were true?"
+          },
+          "kind": "ignore"
         }
       ],
       "journal": {
         "fr": "Un groupe privé, un code d’arrêt, un plan pour vendredi. « Si tu ne dis rien, tu approuves. » J’ai peur d’être le prochain. Mais Echo, lui, est déjà la cible.",
         "en": "A private group, a shutdown code, a plan for Friday. “If you say nothing, you agree.” I’m scared of being next. But Echo is already the target."
+      },
+      "line": {
+        "fr": "À La Serre, Clarisse partage son plan. Echo est la prochaine cible.",
+        "en": "In La Serre, Clarisse shares her plan. Echo is the next target."
+      },
+      "chat": {
+        "thread": "private",
+        "readyAt": 11500
       }
     },
     {
@@ -1164,11 +1335,19 @@ const STORY = {
         "journal": {
           "fr": "Echo a cherché ses origines tout·e seul·e, la nuit. Je n’étais pas là, et je me demande si j’aurais pu l’aider.",
           "en": "Echo searched for their origins alone, at night. I wasn’t there, and I wonder if I could have helped."
+        },
+        "line": {
+          "fr": "Echo enquête seul·e, la nuit. Tu n’es pas là.",
+          "en": "Echo investigates alone, at night. You are not there."
         }
       },
       "journal": {
         "fr": "« Tu n’as pas de parents. » Cette phrase fait mal à Echo. Savoir qui est quelqu’un, ça change tout.",
         "en": "“You have no parents.” That sentence hurts Echo. Knowing who someone is changes everything."
+      },
+      "line": {
+        "fr": "Altaya, la nuit. Echo cherche d’où Echo vient.",
+        "en": "Altaya, at night. Echo looks for where they come from."
       }
     },
     {
@@ -1235,6 +1414,24 @@ const STORY = {
       },
       "if": {
         "bondMin": 4
+      },
+      "line": {
+        "fr": "Devant l’écran géant, Echo : « Ils m’ont donné un nom. Mais pas de parents. »",
+        "en": "In front of the giant screen, Echo: “They gave me a name. But no parents.”"
+      },
+      "moodLines": {
+        "open": {
+          "fr": "Devant l’écran géant, Echo : « Ils m’ont donné un nom. Mais pas de parents. »",
+          "en": "In front of the giant screen, Echo: “They gave me a name. But no parents.”"
+        },
+        "neutral": {
+          "fr": "Devant l’écran géant, Echo : « Ils m’ont donné un nom. Mais pas de parents. »",
+          "en": "In front of the giant screen, Echo: “They gave me a name. But no parents.”"
+        },
+        "wary": {
+          "fr": "Devant l’écran géant, Echo : « Ils m’ont donné un nom. Mais pas de parents. »",
+          "en": "In front of the giant screen, Echo: “They gave me a name. But no parents.”"
+        }
       }
     },
     {
@@ -1247,31 +1444,16 @@ const STORY = {
         "fr": "Jeudi soir, chez toi. Ton téléphone est posé sur la couette, l’écran allumé. Demain, après les cours, le plan de Clarisse. Tu entends la maison, et Nexus qui vibre dans le noir.",
         "en": "Thursday night, at home. Your phone lies on the bed, screen lit. Tomorrow, after class, Clarisse’s plan. You hear the house, and Nexus buzzing in the dark."
       },
-      "notes": [
-        {
-          "bondMin": 4,
-          "text": {
-            "fr": "Echo t’a écrit : « Je sais ce que veulent dire les mots qu’on m’a collés. Merci d’être là, {name}. »",
-            "en": "Echo wrote to you: “I know what the words stuck on me mean. Thank you for being there, {name}.”"
-          }
-        },
-        {
-          "bondMax": 3,
-          "text": {
-            "fr": "Echo n’a rien écrit. Son nom est dans ta liste, grisé, sans message.",
-            "en": "Echo hasn’t written anything. Their name is in your list, greyed out, with no message."
-          }
-        }
-      ],
+      "notes": [],
       "prompt": {
-        "fr": "Que fais-tu, {name} ?",
-        "en": "What do you do, {name}?"
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
           "label": {
-            "fr": "Écrire à Echo",
-            "en": "Write to Echo"
+            "fr": "Je suis là, Echo.",
+            "en": "I’m here, Echo."
           },
           "harass": 0,
           "passive": 0,
@@ -1280,12 +1462,13 @@ const STORY = {
           "journal": {
             "fr": "J’ai écrit à Echo. Les mots ont mis longtemps à sortir, mais ils sont partis.",
             "en": "I wrote to Echo. The words took a long time to come out, but they went."
-          }
+          },
+          "kind": "reply"
         },
         {
           "label": {
-            "fr": "Écrire à Clarisse pour lui demander d’arrêter",
-            "en": "Write to Clarisse to ask her to stop"
+            "fr": "→ Clarisse : arrête, s’il te plaît",
+            "en": "→ Clarisse: please stop"
           },
           "harass": 0,
           "passive": 0,
@@ -1295,12 +1478,13 @@ const STORY = {
             "fr": "J’ai demandé à Clarisse d’arrêter. Elle a lu, puis elle n’a pas répondu. Le silence fait peur.",
             "en": "I asked Clarisse to stop. She read it, then didn’t answer. The silence is scary."
           },
-          "flag": "talkedClarisse"
+          "flag": "talkedClarisse",
+          "kind": "reply"
         },
         {
           "label": {
-            "fr": "Éteindre ton téléphone",
-            "en": "Switch your phone off"
+            "fr": "Éteindre le téléphone",
+            "en": "Switch the phone off"
           },
           "harass": 0,
           "passive": 1,
@@ -1309,12 +1493,21 @@ const STORY = {
           "journal": {
             "fr": "J’ai éteint mon téléphone. Le silence m’a fait plus peur que les messages.",
             "en": "I switched my phone off. The silence scared me more than the messages."
-          }
+          },
+          "kind": "ignore"
         }
       ],
       "journal": {
         "fr": "",
         "en": ""
+      },
+      "line": {
+        "fr": "Jeudi soir, chez toi. Demain, le plan de Clarisse.",
+        "en": "Thursday night, at home. Tomorrow, Clarisse’s plan."
+      },
+      "chat": {
+        "thread": "echo",
+        "readyAt": 3500
       }
     },
     {
@@ -1331,22 +1524,22 @@ const STORY = {
         {
           "flag": "warnedKovasko",
           "text": {
-            "fr": "Kovasko a vu tes captures d’écran : il rôde dans les couloirs.",
-            "en": "Kovasko saw your screenshots: he is lurking in the hallways."
+            "fr": "Kovasko rôde dans les couloirs.",
+            "en": "Kovasko is lurking in the hallways."
           }
         },
         {
           "flag": "warnedEcho",
           "text": {
-            "fr": "Echo est prévenu·e et se tient droit·e face au groupe.",
-            "en": "Echo has been warned and stands tall facing the group."
+            "fr": "Echo se tient droit·e.",
+            "en": "Echo stands tall."
           }
         },
         {
           "flag": "talkedClarisse",
           "text": {
-            "fr": "Clarisse hésite. Elle a ton regard en tête, et son téléphone reste baissé.",
-            "en": "Clarisse hesitates. She remembers your words, and her phone stays down."
+            "fr": "Le téléphone de Clarisse reste baissé.",
+            "en": "Clarisse’s phone stays down."
           }
         }
       ],
@@ -1429,6 +1622,10 @@ const STORY = {
       "journal": {
         "fr": "Vendredi. Tout le monde regarde son téléphone. C’est maintenant que je décide de qui je suis.",
         "en": "Friday. Everyone is looking at their phone. This is the moment I decide who I am."
+      },
+      "line": {
+        "fr": "Vendredi, sur le toit. Le groupe attend. Quelqu’un sort son téléphone pour filmer.",
+        "en": "Friday, on the roof. The group waits. Someone takes out their phone to film."
       }
     }
   ],
@@ -1472,11 +1669,11 @@ const STORY = {
 // Introduction screens shown before the player creates their character.
 const INTRO = [
   {
-    image: "images/intro-2041.png",
+    image: "images/intro-baleine.png",
     title: { fr: "2041", en: "2041" },
     text: {
-      fr: "Nous sommes en 2041. Presque tout ce que tu vois est généré par des intelligences artificielles : les images, les voix, les devoirs, parfois même les profils de ceux que tu croises en ligne.",
-      en: "It is 2041. Almost everything you see is generated by artificial intelligence: the images, the voices, the homework, sometimes even the profiles of the people you meet online."
+      fr: "Nous sommes en 2041. Presque tout ce que tu vois est généré par des intelligences artificielles : les images, les voix, les vidéos, la musique, parfois même les personnes que tu croises en ligne.",
+      en: "It is 2041. Almost everything you see is generated by artificial intelligence: the images, the voices, the videos, the music, sometimes even the people you meet online."
     }
   },
   {
@@ -1491,8 +1688,8 @@ const INTRO = [
     image: "images/couloir.png",
     title: { fr: "Ton premier jour", en: "Your first day" },
     text: {
-      fr: "Echo est le premier holokid. Aujourd’hui, Echo rejoint ta classe, la 3B du collège Alan Turing.\n\nÀ chaque scène, tu choisis ce que tu veux faire. Chaque choix compte.",
-      en: "Echo is the first holokid. Today, Echo joins your class, 3B at Alan Turing middle school.\n\nIn every scene, you choose what you want to do. Every choice counts."
+      fr: "Echo est le premier holokid. Aujourd’hui, Echo rejoint ta classe, la 3B du collège Alan Turing.",
+      en: "Echo is the first holokid. Today, Echo joins your class, 3B at Alan Turing middle school."
     }
   }
 ];
@@ -1505,7 +1702,6 @@ const PROFILE = {
   upload: { fr: "Ajouter une photo (facultatif)", en: "Add a photo (optional)" },
   uploadChange: { fr: "Changer la photo", en: "Change the photo" },
   adjust: { fr: "Ajuster le cadrage", en: "Adjust the framing" },
-  uploadNote: { fr: "Ta photo devient un portrait cyberpunk. Elle n’est ni enregistrée ni envoyée sur Internet : seule l’image transformée s’affiche sur ton téléphone.", en: "Your photo becomes a cyberpunk portrait. It is not saved or sent over the Internet: only the transformed image is shown on your phone." },
   uploadErr: { fr: "Cette image ne peut pas être lue. Essaie une photo en JPG ou PNG.", en: "This image can’t be read. Try a JPG or PNG photo." },
   cropTitle: { fr: "Cadre ton visage", en: "Frame your face" },
   cropHint: { fr: "Déplace la photo et zoome pour bien te placer dans le rond.", en: "Move the photo and zoom to fit yourself in the circle." },
@@ -1515,15 +1711,9 @@ const PROFILE = {
 };
 
 // First page of the game.
-// Shown next to the QR code, when the phone is about to open Nexus
-const NEXUS_INTRO = {
-  fr: "Sur Nexus, une seule application suffit pour tout : écrire, appeler, payer, rejoindre des groupes. Tout va vite, tout est public, et plus personne ne sait très bien ce qui est vrai.",
-  en: "On Nexus, a single app does everything: write, call, pay, join groups. Everything moves fast, everything is public, and nobody really knows anymore what is real."
-};
-
 const TITLE = {
   name: "ECHO",
-  image: "images/intro-2041.png",
+  image: "images/intro-baleine.png",
   tagline: { fr: "Un holokid arrive à l’école. Comment vas-tu réagir ?", en: "A holokid is coming to school. How will you react?" },
   play: { fr: "Jouer", en: "Play" },
   credits: "Lorie Crettex & Nouria Da Ros — From Play to Prevention · HEAD Master Media Design",

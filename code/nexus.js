@@ -18,11 +18,11 @@ const NEXUS = {
       { t: "class", from: "Maé", fr: "{name}, t’as vu sa main qui traverse", en: "{name}, did you see his hand go through", at: 2500 },
     ],
     evening: [
-      { t: "class", from: "Lucas", fr: "[vidéo] Echo dit bonjour", en: "[video] Echo says hello", image: "images/video-hello.png", at: 800 },
+      { t: "class", from: "Lucas", fr: "[vidéo] Echo dit bonjour", en: "[video] Echo says hello", image: "images/video-hello.png", key: "video", at: 1000 },
       { t: "class", from: "Inès", fr: "t’es même pas réel", en: "you’re not even real", at: 3500 },
-      { t: "class", from: "Sam", fr: "tes émotions c’est des fictions", en: "your emotions are fictions", at: 8000 },
-      { t: "class", from: "Maé", fr: "[mème]", en: "[meme]", image: "images/meme-echo.png", at: 14000 },
-      { t: "humans", from: null, fr: "Maé a créé le groupe « Humains de la 3B uniquement ». Echo n’en fait pas partie.", en: "Maé created the group “Humans of 3B only”. Echo is not part of it.", at: 22000 },
+      { t: "class", from: "Sam", fr: "tes émotions c’est des fictions", en: "your emotions are fictions", at: 6000 },
+      { t: "class", from: "Maé", fr: "[mème]", en: "[meme]", image: "images/meme-echo.png", key: "meme", at: 9000 },
+      { t: "humans", from: null, fr: "Maé a créé le groupe « Humains de la 3B uniquement ». Echo n’en fait pas partie.", en: "Maé created the group “Humans of 3B only”. Echo is not part of it.", at: 14000 },
     ],
     lunch: [
       { t: "class", from: "Maé", fr: "[photo] Echo, tout seul·e sur son banc", en: "[photo] Echo, all alone on the bench", at: 2500 },
@@ -41,18 +41,21 @@ const NEXUS = {
       { t: "humans", from: "Noa", fr: "réservé aux vrais, lol", en: "reserved for the real ones, lol", at: 1500 },
     ],
     labels: [
-      { t: "humans", from: "Inès", fr: "j’ai piraté son dos, regardez ce qui s’affiche", en: "I hacked its back, look what shows up", at: 1500 },
-      { t: "humans", from: "Clarisse", fr: "voleur de vie.", en: "life thief.", at: 4000 },
-      { t: "class", from: "Yaël", fr: "je vais pas bien en ce moment", en: "I’m not doing well right now", at: 9000 },
-      { t: "class", from: "Echo", fr: "Je suis là. Tu veux en parler ?", en: "I’m here. Do you want to talk?", at: 12000 },
-      { t: "class", from: "Sam", fr: "tu peux pas comprendre, t’es pas humain", en: "you can’t understand, you’re not human", at: 15500 },
+      { t: "humans", from: "Inès", fr: "j’ai piraté son dos, regardez ce qui s’affiche", en: "I hacked its back, look what shows up", key: "insults", at: 1000 },
+      { t: "humans", from: "Clarisse", fr: "voleur de vie.", en: "life thief.", at: 3000 },
+      { t: "humans", from: "Yaël", fr: "je vais pas bien en ce moment", en: "I’m not doing well right now", at: 6000 },
+      { t: "humans", from: "Echo", fr: "Je suis là. Tu veux en parler ?", en: "I’m here. Do you want to talk?", at: 8500 },
+      { t: "humans", from: "Sam", fr: "tu peux pas comprendre, t’es pas humain", en: "you can’t understand, you’re not human", at: 11000 },
     ],
     turnoff: [
-      { t: "private", from: null, fr: "Clarisse t’a ajouté·e au groupe « On harcèle personne ».", en: "Clarisse added you to the group “We harass nobody”.", at: 1000 },
-      { t: "private", from: "Clarisse", fr: "On harcèle personne, c’est juste une machine.", en: "We’re not harassing anyone, it’s just a machine.", at: 3500 },
-      { t: "private", from: "Clarisse", fr: "{name}, t’es avec nous ou avec la machine ?", en: "{name}, are you with us or with the machine?", at: 7000 },
-      { t: "private", from: "Lucas", fr: "{name}, si tu dis rien, tu approuves", en: "{name}, if you say nothing, you agree", at: 10000 },
-      { t: "private", from: "Clarisse", fr: "Vendredi après les cours, on l’éteint. Code : KIPE-SAFE007", en: "Friday after class, we switch it off. Code: KIPE-SAFE007", at: 14000 },
+      { t: "private", from: null, fr: "Clarisse t’a ajouté·e au groupe « On harcèle personne ».", en: "Clarisse added you to the group “We harass nobody”.", at: 800 },
+      { t: "private", from: "Clarisse", fr: "On harcèle personne, c’est juste une machine.", en: "We’re not harassing anyone, it’s just a machine.", at: 3000 },
+      { t: "private", from: "Clarisse", fr: "{name}, t’es avec nous ou avec la machine ?", en: "{name}, are you with us or with the machine?", at: 6000 },
+      { t: "private", from: "Lucas", fr: "{name}, si tu dis rien, tu approuves", en: "{name}, if you say nothing, you agree", at: 8500 },
+      { t: "private", from: "Clarisse", fr: "Vendredi après les cours, on l’éteint. Code : KIPE-SAFE007", en: "Friday after class, we switch it off. Code: KIPE-SAFE007", key: "plan", at: 11000 },
+    ],
+    night: [
+      { t: "echo", from: "Echo", fr: "Je sais ce que veulent dire les mots qu’on m’a collés. Merci d’être là, {name}.", en: "I know what the words stuck on me mean. Thank you for being there, {name}.", key: "echo", at: 2000, if: { bondMin: 4 } },
     ],
     friday: [
       { t: "private", from: "Clarisse", fr: "16h30, sur le toit. Viens filmer, {name}.", en: "4:30 pm, on the roof. Come film, {name}.", at: 1500 },
@@ -75,28 +78,34 @@ const NEXUS = {
   left_out: { t: "friday", from: null, fr: "Tu as été retiré·e du groupe « Sortie vendredi ».", en: "You were removed from the group “Friday outing”." },
 };
 
-// Pace: messages are spread out (every delay is multiplied), so the player has time to read the story
+// The scenes played inside a conversation (the player acts in it): which thread opens. In them nothing is stretched or silenced.
+const NEXUS_CHATS = { evening: "class", labels: "humans", turnoff: "private", night: "echo" };
+
+// Pace: in the other scenes the messages are spread out (every delay is multiplied), so the player has time to read
 const PACE = 2.6;
 
 const Nexus = (() => {
   let timers = [];
-  // quiet = the message just lands in the conversation (a badge, no banner, no sound): only the first message of a scene and the group events make noise
-  const push = (m, at, quiet) => timers.push(setTimeout(() => {
-    Link.send({ type: "msg", thread: m.t, threadName: NEXUS.threads[m.t], from: m.from, fr: fill(m.fr), en: fill(m.en), image: m.image, quiet: !!quiet && m.from !== null && !m.feel, feel: m.feel || (m.from ? undefined : "group") });  // a system line (added to / removed from a group) is a group notification
-  }, at * PACE));
+  const send = (m, quiet) => Link.send({ type: "msg", thread: m.t, threadName: NEXUS.threads[m.t], from: m.from, fr: fill(m.fr), en: fill(m.en), image: m.image, key: m.key,
+    quiet: !!quiet && m.from !== null && !m.feel, feel: m.feel || (m.from ? undefined : "group") });   // a system line (added / removed) is a group notification
   return {
     reset() { timers.forEach(clearTimeout); timers = []; },
     // The scene `id` starts: its messages arrive on the phone.
     beat(id) {
-      (NEXUS.beats[id] || []).forEach((m, i) => push(m, m.at, i > 0));
+      const live = !!NEXUS_CHATS[id];
+      (NEXUS.beats[id] || []).forEach((m, i) => {
+        if (m.if && typeof state !== "undefined" && state.bond < m.if.bondMin) return;   // e.g. Echo only writes if the bond is strong
+        // a quiet message just lands (a dot, no banner, no sound): only the first message of a scene and group events make noise
+        timers.push(setTimeout(() => send(m, !live && i > 0), live ? m.at : m.at * PACE));
+      });
       const p = NEXUS.prompts[id];
       if (p) timers.push(setTimeout(() => Link.send({ type: "prompt", id, fr: fill(p.fr), en: fill(p.en) }), p.at * PACE));
     },
-    // The player helped Echo: a cold answer, and sometimes being removed from a group.
-    cold(level) {
+    // The player helped Echo: a cold answer (in the conversation they are in), and sometimes being removed from a group.
+    cold(level, thread) {
       const c = NEXUS.cold[Math.floor(Math.random() * NEXUS.cold.length)];
-      push({ ...c, t: "class", feel: "cold" }, 4000);
-      if (level >= 2) push({ ...NEXUS.left_out, feel: "left_out" }, 9000);
+      timers.push(setTimeout(() => send({ ...c, t: thread || "class", feel: "cold" }, false), 3500));
+      if (level >= 2) timers.push(setTimeout(() => send({ ...NEXUS.left_out, feel: "left_out" }, false), 9000));
     },
   };
 })();

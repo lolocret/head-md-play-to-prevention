@@ -2,6 +2,7 @@
   "name": "echo-server",
   "private": true,
   "description": "Serves the Echo game and relays messages between the computer (host) and the phone.",
-  "scripts": { "start": "node server.js" },
+  "scripts": { "start": "node server.js",
+    "tunnel": "TUNNEL=1 node server.js" },
   "dependencies": { "ws": "^8.18.0" }
 }

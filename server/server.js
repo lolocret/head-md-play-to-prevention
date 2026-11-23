@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const os = require("os");
 const { WebSocketServer } = require("ws");
+const { spawn } = require("child_process");
 
 const ROOT = path.resolve(__dirname, "..", "code");
 const PORT = Number(process.env.PORT) || 3000;
@@ -19,11 +20,18 @@ function lanIPs() {
     .filter(i => i && i.family === "IPv4" && !i.internal).map(i => i.address);
 }
 
+// The address the phone should use. Set it yourself (PUBLIC_URL=https://...) or let the server open a free Cloudflare tunnel (TUNNEL=1, needs cloudflared).
+let publicUrl = process.env.PUBLIC_URL || null;
+
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, "http://localhost");
   if (url.pathname === "/api/info") {
-    res.writeHead(200, { "content-type": "application/json" });
-    return res.end(JSON.stringify({ port: PORT, ips: lanIPs() }));
+    // The page may be opened as a file or from another local port: let those (and only those) read this.
+    const origin = req.headers.origin;
+    const headers = { "content-type": "application/json" };
+    if (origin === "null" || /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin || "")) headers["access-control-allow-origin"] = origin;
+    res.writeHead(200, headers);
+    return res.end(JSON.stringify({ port: PORT, ips: lanIPs(), publicUrl }));
   }
   let rel = decodeURIComponent(url.pathname);
   if (rel === "/") rel = "/index.html";
@@ -70,7 +78,20 @@ wss.on("connection", (ws, req) => {
   });
 });
 
+function startTunnel() {
+  const t = spawn("cloudflared", ["tunnel", "--url", `http://localhost:${PORT}`], { stdio: ["ignore", "pipe", "pipe"] });
+  const look = chunk => {
+    const m = String(chunk).match(/https:\/\/[a-z0-9-]+\.trycloudflare\.com/);
+    if (m && m[0] !== publicUrl) { publicUrl = m[0]; console.log(`\n  Tunnel ready: ${publicUrl}\n  The QR code now points to it (phones on any network can scan it).\n`); }
+  };
+  t.stdout.on("data", look); t.stderr.on("data", look);
+  t.on("error", () => console.log("  cloudflared is not installed: no tunnel. Phones need the same Wi-Fi."));
+  process.on("exit", () => t.kill());
+  console.log("  Opening a tunnel...");
+}
+
 server.listen(PORT, () => {
   console.log(`Echo server on http://localhost:${PORT}`);
   lanIPs().forEach(ip => console.log(`  phones on the same Wi-Fi can reach http://${ip}:${PORT}`));
+  if (process.env.TUNNEL) startTunnel();
 });

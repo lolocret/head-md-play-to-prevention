@@ -39,6 +39,9 @@ function maybeStartBeat() {
   setTimeout(() => {
     if (phase === "world" && beatIndex === idx && Scene.atBeat()) {
       phase = "dialog";
+      chatReady = false; chatAnswered = false;
+      const ch = STORY.beats[idx].chat;
+      if (ch) setTimeout(() => { if (phase === "dialog" && beatIndex === idx) { chatReady = true; syncPhone(); } }, ch.readyAt);
       fireDelayed(idx);                       // an old choice comes back
       if (idx === STORY.beats.length - 1) lastSnap = { state: JSON.parse(JSON.stringify(state)), beatIndex: idx };   // to try the last scene again
       render();
@@ -96,12 +99,17 @@ function fireDelayed(idx) {
 }
 
 function choose(c) {
+  const chat = STORY.beats[beatIndex].chat;
   if (c.later) state.delayed.push({ at: beatIndex + c.later.after, later: c.later, done: false });
   for (const k of ["harass", "passive", "help", "bond"]) state[k] += c[k] || 0;
   if (c.flag) state.flags[c.flag] = true;
-  if (c.help > 0) Nexus.cold(c.help);       // helping Echo: the others answer coldly
+  if (c.help > 0) Nexus.cold(c.help, chat && chat.thread);       // helping Echo: the others answer coldly, in the conversation the player is in
   if (c.journal) state.extra.push({ beat: beatIndex, text: c.journal });
-  next();
+  if (chat) {                                            // stay in the conversation a moment: the answers and the cold reply are seen
+    chatAnswered = true; syncPhone();
+    const idx = beatIndex;
+    setTimeout(() => { if (phase === "dialog" && beatIndex === idx) next(); }, 4800);
+  } else next();
 }
 
 let lastSnap = null;   // the state at the start of the last scene (a second chance after an ending that is not "Echo stays")
@@ -115,6 +123,8 @@ function retryLastScene() {
 
 // ---------------------------------------------------------------- the phone
 
+let chatReady = false, chatAnswered = false;   // a scene played inside a conversation: the options appear once the messages are in
+
 let pending = null;   // what the phone may answer right now: { token, kind: "choice" | "continue" | "restart", choices }
 let sentSig = null;   // the last state sent (to send only what changed)
 
@@ -126,6 +136,13 @@ function phoneState() {
     const alone = beat.alone && state.bond < STORY.bondToUnlock;
     const choices = alone ? (beat.alone.choices || []) : beat.choices;
     const token = "b" + beatIndex;
+    if (beat.chat) {                                   // the player is in the conversation and acts in it
+      const thread = beat.chat.thread;
+      const base = { mode: "choose", ui: "chat", token, thread, threadName: NEXUS.threads[thread], place, prompt: empty, ready: chatReady, answered: chatAnswered };
+      if (!chatReady || chatAnswered) return { ...base, choices: [] };
+      pending = { token, kind: "choice", choices };
+      return { ...base, choices: choices.map(c => ({ fr: fill(c.label.fr), en: fill(c.label.en), kind: c.kind || "reply", msg: c.msg })) };
+    }
     if (choices && choices.length) {
       pending = { token, kind: "choice", choices };
       return { mode: "choose", token, place, prompt: beat.prompt ? { fr: fill(beat.prompt.fr), en: fill(beat.prompt.en) } : empty,
@@ -224,8 +241,9 @@ function renderScreen() {
   // variants: "alone" when the player is not close enough to Echo (Altaya stays closed); Echo's mood when the scene has one
   const alone = beat.alone && state.bond < STORY.bondToUnlock;
   if (alone) state.flags["alone_" + beat.id] = true;
-  const text = alone ? beat.alone.text : (beat.moodText ? (beat.moodText[mood()] || beat.text) : beat.text);
-  $("title").textContent = L(beat.title);
+  const text = alone ? (beat.alone.line || beat.alone.text)
+    : (beat.moodLines ? (beat.moodLines[mood()] || beat.line) : (beat.line || (beat.moodText ? (beat.moodText[mood()] || beat.text) : beat.text)));
+  $("title").textContent = "";           // no title, no paragraph: one short line, the rest is lived on the phone
   let body = L(text);
   (beat.notes || []).forEach(n => { if (noteApplies(n)) body += "\n\n" + L(n.text); });
   $("body").textContent = body;
@@ -293,7 +311,6 @@ function renderProfile() {
   $("uploadText").textContent = L(player.photo ? PROFILE.uploadChange : PROFILE.upload);
   $("adjustBtn").hidden = !player.photo;
   $("adjustBtn").textContent = L(PROFILE.adjust);
-  $("uploadNote").textContent = L(PROFILE.uploadNote);
   $("uploadErr").textContent = L(PROFILE.uploadErr);
   addButton(L(PROFILE.start), () => { player.name = $("nameInput").value.trim(); startPhoneStep(); });
   const start = $("choices").lastChild;
@@ -317,7 +334,6 @@ async function startPhoneStep() {
 
 function renderPhoneStep() {
   $("callLabel").textContent = french ? "Ouverture…" : "Opening…";
-  $("nexusIntro").textContent = phase === "phone" ? L(NEXUS_INTRO) : "";   // the world of Nexus, told when the QR code appears
   $("qr").hidden = noServer; $("qrRoom").hidden = noServer;
   $("qrText").textContent = noServer
     ? (french ? "Le jeu a besoin du serveur. Lance « npm start » dans le dossier server, puis ouvre http://localhost:3000." : "The game needs the server. Run “npm start” in the server folder, then open http://localhost:3000.")

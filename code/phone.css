@@ -148,3 +148,24 @@ body.silent { filter:grayscale(1) brightness(.55); }
 
 .who { display:flex; align-items:center; gap:10px; }
 #mePic { width:36px; height:36px; border-radius:50%; object-fit:cover; border:2px solid var(--pink); box-shadow:0 0 10px rgba(255,79,195,.5); }
+
+/* ---- Inside a live conversation ---- */
+.bubble.me { align-self:flex-end; background:rgba(255,79,195,.22); border-color:var(--pink); border-radius:18px 18px 6px 18px; }
+.bubble.tappable { border-color:var(--cyan); box-shadow:0 0 14px rgba(77,240,255,.3); cursor:pointer; }
+.bubble.tappable::after { content:"•••"; display:block; text-align:right; color:var(--cyan); font-size:12px; letter-spacing:3px; margin-top:2px; }
+.bubble.system { font-style:normal; }
+.threadbar { gap:8px; }
+#leaveBtn { margin-left:auto; padding:8px 14px; min-height:40px; font-size:14px; border-radius:20px; border-color:rgba(255,79,195,.6); }
+#composer { flex:none; padding:8px 0 calc(10px + env(safe-area-inset-bottom)); border-top:1px solid rgba(138,92,255,.3); }
+#hint { margin:0 0 8px; color:var(--cyan); font-size:13px; text-align:center; }
+#hint:empty { display:none; }
+#chips { display:flex; flex-wrap:wrap; gap:8px; }
+.chip { flex:1 1 auto; min-height:48px; padding:10px 16px; border-radius:24px; font-size:16px; border:1px solid var(--cyan); background:rgba(77,240,255,.12); color:#d9fdff; text-align:center; }
+.chip:active { background:rgba(77,240,255,.35); }
+#ignoreBtn { display:block; margin:10px auto 0; background:none; border:0; color:var(--grey); font-size:14px; text-decoration:underline; min-height:36px; }
+#sheet { position:fixed; inset:0; z-index:12; display:flex; align-items:flex-end; background:rgba(2,2,8,.7); }
+#sheet[hidden] { display:none; }
+.sheetbox { width:100%; max-width:520px; margin:0 auto; padding:16px 16px calc(16px + env(safe-area-inset-bottom)); background:rgba(20,16,44,.98); border-radius:22px 22px 0 0; border:1px solid var(--line); }
+#sheetBtns { display:flex; flex-direction:column; gap:10px; }
+#sheetBtns button { min-height:56px; font-size:18px; text-align:center; border-color:var(--cyan); background:rgba(77,240,255,.12); }
+#sheetClose { width:100%; margin-top:10px; min-height:48px; text-align:center; background:none; }

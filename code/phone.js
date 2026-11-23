@@ -6,6 +6,7 @@ const $ = id => document.getElementById(id);
 let french = true, ws, openThread = null, closedByUs = false, view = "choice";
 const threads = {};                 // id -> { name, msgs: [{ from, fr, en, image, time }], unread }
 let entries = [], prompts = [], jUnread = 0;
+let chat = null;                    // the scene played in a conversation: { token, ready, answered, choices }
 let game = { mode: "wait" };        // what the story asks of the player now (sent by the computer)
 let answered = null;                // token of the choice already answered
 const saved = (() => { try { return JSON.parse(localStorage.getItem("echo-journal-" + room) || "{}"); } catch (e) { return {}; } })();
@@ -27,6 +28,8 @@ const TXT = {
   jNotif: { fr: "Une question pour toi", en: "A question for you" },
   entry: { fr: "Entrée", en: "Entry" },
   saved: { fr: "Enregistré", en: "Saved" },
+  tap: { fr: "Touche un message pour réagir.", en: "Tap a message to react." },
+  cancel: { fr: "Annuler", en: "Cancel" },
   jEmpty: { fr: "Ton journal se remplit au fil de l’histoire.", en: "Your journal fills in as the story goes." },
 };
 const T = k => TXT[k][french ? "fr" : "en"];
@@ -80,12 +83,71 @@ function startCall() {
 // ---------------------------------------------------------------- the main screen: what to do now
 
 function onState(m) {
+  const wasChat = game.ui === "chat";
   const isNew = m.mode === "choose" && (game.mode !== "choose" || game.token !== m.token);
   game = m;
   $("bloom").innerHTML = Flower.svg(m.bloom === undefined ? 1 : m.bloom, 34);
+  if (m.ui === "chat") {
+    chat = { token: m.token, ready: m.ready, answered: m.answered, choices: m.choices || [] };
+    if (!threads[m.thread]) threads[m.thread] = { name: m.threadName, msgs: [], unread: 0 };
+    openThread = m.thread; threads[m.thread].unread = 0;
+    if (isNew) feel("normal");
+    show("chat"); renderThread(); renderChat(); paintStatic();
+    return;
+  }
+  chat = null;
   renderGame();
   paintStatic();
+  if (wasChat) show("choice");                          // the conversation is over: back to the main screen
   if (isNew) { feel("normal"); show("choice"); }       // the story needs an answer: bring the player here
+}
+
+// ---------------------------------------------------------------- inside the conversation: reply, react, leave, put the phone down
+
+function renderChat() {
+  const comp = $("composer"), chips = $("chips");
+  chips.innerHTML = "";
+  const active = chat && chat.ready && !chat.answered && answered !== chat.token;
+  comp.hidden = !active;
+  $("leaveBtn").hidden = true; $("ignoreBtn").hidden = true;
+  renderThread();
+  if (!active) return;
+  chat.choices.forEach((c, i) => {
+    if (c.kind === "reply") {
+      const b = document.createElement("button"); b.className = "chip"; b.textContent = pick(c);
+      b.onclick = () => act(i);
+      chips.appendChild(b);
+    } else if (c.kind === "leave") {
+      const b = $("leaveBtn"); b.hidden = false; b.textContent = pick(c); b.onclick = () => act(i);
+    } else if (c.kind === "ignore") {
+      const b = $("ignoreBtn"); b.hidden = false; b.textContent = pick(c); b.onclick = () => act(i);
+    }
+  });
+  $("hint").textContent = chat.choices.some(c => c.kind === "react") ? T("tap") : "";
+}
+
+// Do the action chosen in the conversation: it is sent to the story, and shown here at once
+function act(i) {
+  if (!chat || !chat.ready || chat.answered || answered === chat.token) return;
+  const c = chat.choices[i], token = chat.token, t = threads[openThread];
+  answered = token;
+  send({ type: "choose", token, index: i });
+  if (t) t.msgs.push(c.kind === "reply" ? { from: "__me", fr: c.fr, en: c.en, time: clock() } : { from: null, fr: "✓ " + c.fr, en: "✓ " + c.en, sys: true });
+  $("sheet").hidden = true;
+  renderChat();
+  if (c.kind === "ignore") silence();
+}
+
+// Tap a message: what you can do with it (like, report, screenshot…)
+function openSheet(key) {
+  if (!chat || !chat.ready || chat.answered || answered === chat.token) return;
+  const opts = chat.choices.map((c, i) => ({ c, i })).filter(x => x.c.kind === "react" && x.c.msg === key);
+  if (!opts.length) return;
+  const box = $("sheetBtns"); box.innerHTML = "";
+  opts.forEach(x => { const b = document.createElement("button"); b.textContent = pick(x.c); b.onclick = () => act(x.i); box.appendChild(b); });
+  $("sheetTitle").textContent = "";
+  $("sheetClose").textContent = T("cancel");
+  $("sheet").hidden = false;
 }
 
 function renderGame() {
@@ -116,12 +178,15 @@ function renderGame() {
 
 function show(v) {
   view = v;
+  const inChat = v === "chat";
   $("choiceView").hidden = v !== "choice";
   $("list").hidden = v !== "msgs" || !!openThread;
-  $("thread").hidden = v !== "msgs" || !openThread;
+  $("thread").hidden = !((v === "msgs" && !!openThread) || inChat);
   $("journalView").hidden = v !== "journal";
-  $("viewBar").hidden = v === "choice" || (v === "msgs" && !!openThread);
+  $("viewBar").hidden = v === "choice" || inChat || (v === "msgs" && !!openThread);
+  $("back").hidden = inChat;                                 // in a live conversation there is no way out but to act
   $("viewTitle").textContent = v === "journal" ? T("jTitle") : T("msgs");
+  if (!inChat) { $("composer").hidden = true; $("leaveBtn").hidden = true; $("sheet").hidden = true; }
   if (v === "journal") { jUnread = 0; renderJournal(); $("journalView").scrollTop = 0; }
   paintStatic();
 }
@@ -130,15 +195,15 @@ function show(v) {
 
 function onMessage(m) {
   const t = threads[m.thread] || (threads[m.thread] = { name: m.threadName, msgs: [], unread: 0 });
-  t.msgs.push({ from: m.from, fr: m.fr, en: m.en, image: m.image, time: clock() });
-  const reading = view === "msgs" && openThread === m.thread;
+  t.msgs.push({ from: m.from, fr: m.fr, en: m.en, image: m.image, key: m.key, time: clock() });
+  const reading = (view === "msgs" || view === "chat") && openThread === m.thread;
   if (!reading) t.unread++;
   const isGroupEvent = !m.from;
   if (!m.quiet) feel(m.feel || "normal");
   if (isGroupEvent) toast(french ? "Groupe" : "Group", pick(m), "group", m.thread);
   else if (!reading && !m.quiet) toast(m.from, pick(m), "msg", m.thread);
   paintStatic();
-  if (reading) renderThread();
+  if (reading) { renderThread(); if (view === "chat") renderChat(); }
 }
 
 const GROUP_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.2c2.7.2 4.5 2.4 4.5 5.3"/></svg>';
@@ -164,7 +229,7 @@ function toast(title, body, kind, thread) {
 
 function renderList() {
   const el = $("list"); el.innerHTML = "";
-  const ids = Object.keys(threads);
+  const ids = Object.keys(threads).filter(id => threads[id].msgs.length);   // a conversation that has just opened is still empty
   if (!ids.length) { const p = document.createElement("p"); p.className = "empty"; p.textContent = T("empty"); el.appendChild(p); return; }
   const initials = s => s.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase();
   ids.reverse().forEach(id => {
@@ -188,12 +253,15 @@ function renderThread() {
   const t = threads[openThread]; if (!t) return;
   $("threadTitle").textContent = pick(t.name);
   const box = $("bubbles"); box.innerHTML = "";
+  const canReact = key => chat && chat.ready && !chat.answered && chat.choices.some(c => c.kind === "react" && c.msg === key);
   t.msgs.forEach(m => {
-    const d = document.createElement("div"); d.className = "bubble" + (m.from ? "" : " system");
-    if (m.from) { const s = document.createElement("small"); s.textContent = m.from; s.style.setProperty("--c", colorOf(m.from)); d.appendChild(s); }
+    const mine = m.from === "__me";
+    const d = document.createElement("div"); d.className = "bubble" + (mine ? " me" : (m.from ? "" : " system"));
+    if (m.from && !mine) { const s = document.createElement("small"); s.textContent = m.from; s.style.setProperty("--c", colorOf(m.from)); d.appendChild(s); }
     if (m.image) { const im = document.createElement("img"); im.src = m.image; im.alt = pick(m); im.loading = "lazy"; d.appendChild(im); }
     else d.appendChild(document.createTextNode(pick(m)));
-    if (m.time) { const tm = document.createElement("time"); tm.textContent = m.time; d.appendChild(tm); }
+    if (m.time && !m.sys) { const tm = document.createElement("time"); tm.textContent = m.time; d.appendChild(tm); }
+    if (m.key && view === "chat") { d.dataset.key = m.key; if (canReact(m.key)) { d.classList.add("tappable"); d.onclick = () => openSheet(m.key); } }
     box.appendChild(d);
   });
   box.scrollTop = box.scrollHeight;
@@ -268,7 +336,8 @@ document.addEventListener("visibilitychange", () => { if (!document.hidden && au
 
 $("btnMsgs").onclick = () => { openThread = null; show("msgs"); };
 $("btnJournal").onclick = () => show("journal");
-$("closeView").onclick = () => show("choice");
+$("closeView").onclick = () => show(chat ? "chat" : "choice");
+$("sheetClose").onclick = () => { $("sheet").hidden = true; };
 $("back").onclick = () => { openThread = null; show("msgs"); };
 // A tap is needed before the browser lets the page play sounds (the same on iPhone and Android).
 $("answer").onclick = () => { unlockSound(); buzz(40); keepAwake(); $("answer").disabled = true; connect(); };

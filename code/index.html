@@ -29,7 +29,6 @@
       <div class="phone"><div class="screen"><b class="logo">NEXUS</b><small id="callLabel"></small><div class="loadbar"><i></i></div></div></div></div>
     </div>
     <div class="qrbox">
-      <p id="nexusIntro"></p>
       <div id="qr"></div>
       <p id="qrText"></p>
       <p id="qrRoom"></p>
@@ -57,16 +56,23 @@
     <p id="body"></p>
     <p id="prompt"></p>
     <div id="profile" hidden>
-      <label id="nameLabel" for="nameInput"></label>
-      <input id="nameInput" maxlength="20" autocomplete="off">
-      <label id="uploadBtn" class="slot">
-        <input type="file" id="photoInput" accept="image/*" hidden>
-        <span class="plus" id="slotPlus">+</span>
-        <img id="slotImg" alt="" hidden>
-      </label>
-      <span id="uploadText"></span>
-      <button id="adjustBtn" type="button" hidden></button>
-      <small id="uploadNote"></small>
+      <div id="nameRow">
+        <div class="col" id="nameCol">
+          <label id="nameLabel" for="nameInput"></label>
+          <input id="nameInput" maxlength="20" autocomplete="off">
+        </div>
+        <div class="col" id="photoCol">
+          <span id="uploadText"></span>
+          <div id="slotLine">
+            <label id="uploadBtn" class="slot">
+              <input type="file" id="photoInput" accept="image/*" hidden>
+              <span class="plus" id="slotPlus">+</span>
+              <img id="slotImg" alt="" hidden>
+            </label>
+            <button id="adjustBtn" type="button" hidden></button>
+          </div>
+        </div>
+      </div>
       <small id="uploadErr" hidden></small>
     </div>
     <div id="choices"></div>

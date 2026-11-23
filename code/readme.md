@@ -39,5 +39,9 @@ Next to the name, the player can add a photo: she frames it (drag and zoom, like
 ## Phone: the same on iPhone and Android
 Sound and a small shake for every message, a pink notification for group events, grey silence when the player is left out. Vibration is added where the browser allows it (most Android phones; iPhone browsers do not). Notifications with the screen locked and the pointer are not used.
 
-## Tunnel (when the Wi-Fi blocks the phone)
-Run `cloudflared tunnel --url http://localhost:3000`, then open the game on the computer with `http://localhost:3000/?base=<the https address it prints>`. The QR code then points to the tunnel.
+## Tunnel (when the QR code does not work: Wi-Fi that blocks phones, phone on 4G)
+```
+cd server
+npm run tunnel
+```
+This starts the game and opens a free Cloudflare tunnel (needs `cloudflared`). The terminal prints the public address, and the QR code uses it by itself: any phone, on any network, can scan it. Keep opening the game on the computer at http://localhost:3000. While the tunnel is open, anyone with the address can open the game: use it for tests only.
