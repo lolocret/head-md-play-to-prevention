@@ -191,7 +191,7 @@ function render() {
 // The picture behind an introduction page: its own, or the one of the previous pages
 const introPicture = i => INTRO[i].image || (i > 0 ? introPicture(i - 1) : "");
 function showPicture(url) {
-  $("introBg").style.backgroundImage = url ? `url(${url})` : "";
+  $("introBg").style.backgroundImage = url ? `url(${Assets.url(url)})` : "";
   $("introBg").hidden = !url;
 }
 
@@ -200,7 +200,7 @@ function renderScreen() {
   $("prompt").textContent = "";
   $("profile").hidden = true;
   $("titleScreen").hidden = phase !== "title";
-  if (phase === "title") { $("introBg").style.backgroundImage = `url(${TITLE.image})`; $("introBg").hidden = false; }   // the title page shows the 2041 picture
+  if (phase === "title") { $("introBg").style.backgroundImage = `url(${Assets.url(TITLE.image)})`; $("introBg").hidden = false; }   // the title page shows the 2041 picture
   else if (phase === "profile" || phase === "phone") showPicture(introPicture(INTRO.length - 1));                         // the last picture stays until the game starts
   else if (phase !== "intro") $("introBg").hidden = true;
   document.body.classList.toggle("on-title", phase === "title");
@@ -231,7 +231,6 @@ function renderScreen() {
   const text = alone ? (beat.alone.line || beat.alone.text)
     : (beat.moodLines ? (beat.moodLines[mood()] || beat.line) : (beat.line || (beat.moodText ? (beat.moodText[mood()] || beat.text) : beat.text)));
   let body = L(text);
-  (beat.notes || []).forEach(n => { if (noteApplies(n)) body += "\n\n" + L(n.text); });
   $("storyLine").textContent = body;     // one short line above the choices
   $("storyLine").classList.toggle("long", body.length > 140);
 }
@@ -307,8 +306,7 @@ function renderProfile() {
 
 function renderEnding() {
   const e = STORY.endings.find(x => x.id === endingId()) || STORY.endings[0];
-  const lore = state.bond >= STORY.bondToUnlock ? STORY.loreUnlocked : STORY.loreClosed;
-  $("storyLine").textContent = L(e.title) + "\n\n" + L(e.text) + "\n\n" + fill(french ? "{name}, voici l’état d’Echo à la fin : " : "{name}, here is Echo’s state at the end: ") + L(STORY.stages[stage()]) + "\n" + L(lore);
+  $("storyLine").textContent = L(e.title) + "\n\n" + L(e.text);
   $("storyLine").classList.add("long");
 }
 
@@ -342,8 +340,21 @@ $("playBtn").onclick = () => { phase = "intro"; render(); };
 state = newState();
 beatIndex = 0;
 finished = false;
-Scene.init($("scene"));
-render();
+Scene.init($("scene"));   // nothing is drawn yet: the pictures load first (see below)
+
+// Everything is loaded before the game starts: the pictures of the title, the introduction, the places, the characters and the messages
+(function loadEverything() {
+  $("loaderText").textContent = french ? "Chargement…" : "Loading…";
+  const list = [TITLE.image, ...INTRO.map(p => p.image).filter(Boolean),
+    ...["couloir", "classe", "toit", "serre", "chambre", "altaya"].map(id => `images/${id}.png`),
+    ...["echo", "kovasko", "clarisse", "student"].map(id => `images/characters/${id}.png`)];
+  Object.values(NEXUS.beats).forEach(msgs => msgs.forEach(m => { if (m.image) list.push(m.image); }));
+  Assets.preload(list, p => { $("loaderFill").style.width = Math.round(p * 100) + "%"; }).then(() => {
+    render();                                   // the pictures are ready: show the title page
+    $("loader").classList.add("done");
+    setTimeout(() => { $("loader").hidden = true; }, 600);
+  });
+})();
 
 // Decorative glowing lights drifting up the background.
 for (let i = 0; i < 12; i++) {

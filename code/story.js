@@ -401,8 +401,8 @@ const STORY = {
         "en": "The next day, the class is silent, but laughter bursts out on the phones. Kovasko notices nothing."
       },
       "prompt": {
-        "fr": "Que fais-tu, {name} ?",
-        "en": "What do you do, {name}?"
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
@@ -475,8 +475,8 @@ const STORY = {
         "en": "Kovasko packs up his things. “You look worried, {name}. Is everything okay in class?” He looks at you, really, for the first time."
       },
       "prompt": {
-        "fr": "Que fais-tu, {name} ?",
-        "en": "What do you do, {name}?"
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
@@ -529,8 +529,8 @@ const STORY = {
         "en": "Kovasko talks about respect and diversity. A student raises a hand: “Sir, is Echo allowed to vote?” Laughter. Kovasko smiles without understanding and goes on with his lesson. Echo looks at the desk, flowers closed."
       },
       "prompt": {
-        "fr": "Que fais-tu, {name} ?",
-        "en": "What do you do, {name}?"
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
@@ -609,8 +609,8 @@ const STORY = {
         "en": "At break, Echo follows the others to the roof. In front of La Serre’s door, a student blocks the way: “It’s reserved for the real ones.” Echo tries to enter anyway. Clarisse has no access to La Serre either. Mocked for her poverty, she harasses Echo hoping to make a place for herself there."
       },
       "prompt": {
-        "fr": "Que fais-tu, {name} ?",
-        "en": "What do you do, {name}?"
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
@@ -689,8 +689,8 @@ const STORY = {
         "en": "Echo sits on the edge of the roof, facing the city. Echo looks at you without moving. “Do you want something?” The flowers stay half closed."
       },
       "prompt": {
-        "fr": "Que fais-tu, {name} ?",
-        "en": "What do you do, {name}?"
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
@@ -879,8 +879,8 @@ const STORY = {
         "en": "The hallway is empty. Echo looks at the city through the glass, one hand against it. “Are you looking too?”"
       },
       "prompt": {
-        "fr": "Que fais-tu, {name} ?",
-        "en": "What do you do, {name}?"
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
@@ -970,8 +970,8 @@ const STORY = {
         "en": "In the hallway, Clarisse has been left alone by the lockers. Someone just made fun of her clothes. For a few seconds, she doesn’t look like the one harassing Echo: she looks like someone trying not to cry."
       },
       "prompt": {
-        "fr": "Que fais-tu, {name} ?",
-        "en": "What do you do, {name}?"
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
@@ -1119,8 +1119,8 @@ const STORY = {
         "en": "Clarisse grabs your sleeve. “Did you see how they look at me now? They finally talk to me.” Her smile doesn’t hold well. She searches your face to see if you are with her."
       },
       "prompt": {
-        "fr": "Que fais-tu, {name} ?",
-        "en": "What do you do, {name}?"
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
@@ -1294,8 +1294,8 @@ const STORY = {
         "en": "“You have no parents.” That sentence haunts Echo. Tonight you join Echo at Altaya: memory fragments, archives, a trail. Altaya is a small team that created the Holokids program for isolated children who couldn’t express their feelings. Echo finally understands who they are and what they are for."
       },
       "prompt": {
-        "fr": "Que fais-tu, {name} ?",
-        "en": "What do you do, {name}?"
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
@@ -1361,8 +1361,8 @@ const STORY = {
         "en": "In the Altaya room, Echo watches the giant screen. “Here, they gave me a name. But no parents.”"
       },
       "prompt": {
-        "fr": "Que fais-tu, {name} ?",
-        "en": "What do you do, {name}?"
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
@@ -1544,8 +1544,8 @@ const STORY = {
         }
       ],
       "prompt": {
-        "fr": "Que fais-tu, {name} ?",
-        "en": "What do you do, {name}?"
+        "fr": "",
+        "en": ""
       },
       "choices": [
         {
@@ -1637,8 +1637,8 @@ const STORY = {
         "en": "Echo short-circuits"
       },
       "text": {
-        "fr": "La jauge est au maximum. Echo n’en peut plus et disjoncte : Echo s’éteint, dépassé·e par tout ce qui lui est arrivé. Ce n’est pas une fin pour toujours : Echo peut être rallumé·e, et ce que tu fais maintenant compte encore.",
-        "en": "The gauge is at its maximum. Echo can’t take any more and short-circuits: Echo shuts down, overwhelmed by everything that happened. It isn’t forever: Echo can be switched back on, and what you do now still matters."
+        "fr": "Echo n’en peut plus et s’éteint. Ce n’est pas pour toujours : ce que tu fais maintenant compte encore.",
+        "en": "Echo can’t take any more and shuts down. It isn’t forever: what you do now still matters."
       }
     },
     {
@@ -1648,8 +1648,8 @@ const STORY = {
         "en": "Echo doesn’t come back"
       },
       "text": {
-        "fr": "Le plan pour éteindre Echo se déroule : Echo est éteint contre la porte vitrée et la vidéo est affichée à La Serre. Le code envoie un signal à Altaya, qui redémarre Echo quelques jours plus tard. Mais Echo ne revient pas en 3B, et son siège reste vide.",
-        "en": "The plan to turn Echo off goes ahead: Echo is switched off against the glass door and the video is displayed in La Serre. The code sends a signal to Altaya, who restarts Echo a few days later. But Echo doesn’t come back to 3B, and their seat stays empty."
+        "fr": "Echo est éteint·e et la vidéo circule. Altaya le·la redémarre quelques jours plus tard, mais Echo ne revient pas en 3B. Son siège reste vide.",
+        "en": "Echo is switched off and the video spreads. Altaya restarts Echo a few days later, but Echo doesn’t come back to 3B. Their seat stays empty."
       }
     },
     {
@@ -1659,8 +1659,8 @@ const STORY = {
         "en": "Echo stays"
       },
       "text": {
-        "fr": "Le plan échoue. Tu peux ouvrir la porte à Echo, même si le groupe te rejette. Clarisse comprend qu’il n’y avait pas de machine à combattre, seulement le groupe, et le doute s’installe. Echo reste. Tu fais l’histoire de sa famille avec Echo, et tout va mieux en classe : plus de harcèlement moral, non au cyberharcèlement.",
-        "en": "The plan fails. You can open the door to Echo, even if the group rejects you. Clarisse realizes there was no machine to fight, only the group, and doubt sets in. Echo stays. You go through Echo’s family story together, and things get better in class: no more bullying, no to cyberbullying."
+        "fr": "Le plan échoue. Tu ouvres la porte à Echo, même si le groupe te rejette. Le doute s’installe chez Clarisse. Echo reste, et ça va mieux en classe.",
+        "en": "The plan fails. You open the door to Echo, even if the group rejects you. Doubt sets in for Clarisse. Echo stays, and things get better in class."
       }
     }
   ]
@@ -1672,24 +1672,24 @@ const INTRO = [
     image: "images/intro-baleine.png",
     title: { fr: "2041", en: "2041" },
     text: {
-      fr: "Nous sommes en 2041. Presque tout ce que tu vois est généré par des intelligences artificielles : les images, les voix, les vidéos, la musique, parfois même les personnes que tu croises en ligne.",
-      en: "It is 2041. Almost everything you see is generated by artificial intelligence: the images, the voices, the videos, the music, sometimes even the people you meet online."
+      fr: "Presque tout ce que tu vois en ligne est généré par des IA.",
+      en: "Almost everything you see online is made by AI."
     }
   },
   {
     image: "images/altaya.png",
     title: { fr: "Holo’Kids", en: "Holo’Kids" },
     text: {
-      fr: "Altaya, un institut de recherche sur les nouvelles technologies, lance le programme Holo’Kids : des enfants hologrammes qui entrent dans les écoles pour soutenir les élèves en difficulté et renforcer la solidarité dans les classes.",
-      en: "Altaya, a research institute on new technologies, launches the Holo’Kids program: hologram children who join schools to support students in difficulty and strengthen solidarity within classes."
+      fr: "Des enfants hologrammes entrent dans les écoles pour soutenir les élèves en difficulté.",
+      en: "Hologram children join schools to support students in difficulty."
     }
   },
   {
     image: "images/couloir.png",
     title: { fr: "Ton premier jour", en: "Your first day" },
     text: {
-      fr: "Echo est le premier holokid. Aujourd’hui, Echo rejoint ta classe, la 3B du collège Alan Turing.",
-      en: "Echo is the first holokid. Today, Echo joins your class, 3B at Alan Turing middle school."
+      fr: "Aujourd’hui, Echo, le premier holokid, rejoint ta classe : la 3B.",
+      en: "Today, Echo, the first holokid, joins your class: 3B."
     }
   }
 ];

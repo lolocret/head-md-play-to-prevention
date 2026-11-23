@@ -44,6 +44,8 @@ const Scene = (() => {
   };
 
   function loadBackground(id, apply) {
+    const light = Assets.url(`images/${id}.png`);   // the light copy loaded at the start
+    if (light !== `images/${id}.png`) return apply(light);
     const exts = ["jpg", "png", "webp", "jpeg"];
     (function tryNext(i) {
       if (i >= exts.length) return apply(null);
@@ -84,7 +86,7 @@ const Scene = (() => {
   }
 
   Object.assign(api, {
-    init(e) { el = e; render(); },
+    init(e) { el = e; },
     refresh() { render(); },
     // go to another place (a short fade)
     go(id) {

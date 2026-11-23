@@ -1,8 +1,15 @@
 {
   "name": "echo-server",
   "private": true,
-  "description": "Serves the Echo game and relays messages between the computer (host) and the phone.",
-  "scripts": { "start": "node server.js",
-    "tunnel": "TUNNEL=1 node server.js" },
-  "dependencies": { "ws": "^8.18.0" }
+  "description": "Serves the Echo game (static files) and opens an optional tunnel.",
+  "scripts": {
+    "prestart": "node optimize-images.js",
+    "start": "node server.js",
+    "pretunnel": "node optimize-images.js",
+    "tunnel": "TUNNEL=1 node server.js",
+    "images": "node optimize-images.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
 }

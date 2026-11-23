@@ -52,10 +52,10 @@ const NEXUS = {
   },
   // Questions that appear in the phone's journal at intense moments: the player writes her own answer.
   prompts: {
-    evening: { at: 24000, fr: "Cette soirée me rappelle une scène que j’ai déjà vécue. Je ne sais plus laquelle. Qu’est-ce que je ressentais, à ce moment-là ?", en: "This night reminds me of a scene I’ve already lived. I don’t remember which one. What was I feeling back then?" },
-    labels: { at: 20000, fr: "Quand quelqu’un a dit « tu peux pas comprendre, t’es pas humain », qu’est-ce que j’aurais voulu dire ?", en: "When someone said “you can’t understand, you’re not human”, what would I have wanted to say?" },
-    turnoff: { at: 18000, fr: "« Si tu dis rien, tu approuves. » Est-ce que c’est vrai ? Une fois, je n’ai rien dit : qu’est-ce qui m’a retenu·e ?", en: "“If you say nothing, you agree.” Is that true? Once, I said nothing: what held me back?" },
-    friday: { at: 6000, fr: "Si je pouvais revenir en arrière dans une situation, ce serait laquelle ? Qu’est-ce que je ferais autrement ?", en: "If I could go back to one situation, which would it be? What would I do differently?" },
+    evening: { at: 24000, fr: "Cette soirée me rappelle une scène déjà vécue. Qu’est-ce que je ressentais ?", en: "This night reminds me of a scene I’ve already lived. What was I feeling?" },
+    labels: { at: 20000, fr: "Qu’est-ce que j’aurais voulu répondre à « t’es pas humain » ?", en: "What would I have wanted to answer to “you’re not human”?" },
+    turnoff: { at: 18000, fr: "Une fois, je n’ai rien dit. Qu’est-ce qui m’a retenu·e ?", en: "Once, I said nothing. What held me back?" },
+    friday: { at: 6000, fr: "Si je pouvais revenir en arrière, que ferais-je autrement ?", en: "If I could go back, what would I do differently?" },
   },
   // Cold answers after the player helps Echo: indifference, then being left out.
   cold: [

@@ -39,6 +39,9 @@ Next to the name, the player can add a photo: she frames it (drag and zoom, like
 ## Phone: the same on iPhone and Android
 Sound and a small shake for every message, a pink notification for group events, grey silence when the player is left out. Vibration is added where the browser allows it (most Android phones; iPhone browsers do not). Notifications with the screen locked and the pointer are not used.
 
+## Pictures
+All pictures are loaded before the title page appears (a loading bar shows the progress). `npm start` first makes light copies of the pictures in `code/images/web/` (about 10 times smaller, so phones load fast); the originals in `code/images/` are never changed, and a copy is rebuilt when its original changes. Commit `code/images/web/` if the game is hosted without running `npm start`.
+
 ## Tunnel (to try it on a phone that is not on the same Wi-Fi)
 ```
 cd server

@@ -19,7 +19,7 @@ button:disabled { opacity:.4; }
 #scene { position:absolute; inset:0; overflow:hidden; container-type:size; transition:opacity .3s; }
 #scene.fading { opacity:0; }
 body.pre-game #scene { opacity:0; }
-#scene .place-name { position:absolute; left:50%; top:calc(env(safe-area-inset-top) + 92px); transform:translateX(-50%); font:bold 14px system-ui; letter-spacing:1px; text-transform:uppercase; white-space:nowrap; color:var(--glow); text-shadow:0 0 10px var(--glow), 0 0 4px #000; }
+#scene .place-name { display:none; position:absolute; left:50%; top:calc(env(safe-area-inset-top) + 92px); transform:translateX(-50%); font:bold 14px system-ui; letter-spacing:1px; text-transform:uppercase; white-space:nowrap; color:var(--glow); text-shadow:0 0 10px var(--glow), 0 0 4px #000; }
 #scene .sprite { position:absolute; transform:translate(-50%,-100%); width:14cqh; text-align:center; filter:drop-shadow(0 8px 14px rgba(0,0,0,.55)); }
 #scene .fig-img { height:34cqh; width:auto; max-width:none; display:block; margin:0 auto; }
 #scene .sprite small { display:block; margin-top:4px; font:bold 13px system-ui; color:#fff; text-shadow:0 0 8px #000; }
@@ -43,7 +43,7 @@ body.on-title #gaugeBox, body.pre-game #gaugeBox { display:none; }
 .gflower { display:inline-flex; flex:none; filter:drop-shadow(0 0 6px rgba(255,143,216,.6)); }
 
 /* ---------- title page ---------- */
-#titleScreen { position:fixed; inset:0; z-index:4; display:flex; flex-direction:column; align-items:center; text-align:center; padding:12vh 24px 0; overflow:hidden;
+#titleScreen { position:fixed; inset:0; z-index:4; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 24px; overflow:hidden;
   background:radial-gradient(ellipse at center, rgba(1,2,6,.3), rgba(0,0,3,.7)); animation:fadein 1.2s ease; }
 #gameName { font-family:"Bodoni Moda", "Didot", "Playfair Display", serif; font-weight:900; text-transform:uppercase; letter-spacing:.06em; padding-left:.06em; margin:0; line-height:1; font-size:clamp(70px, 24vw, 130px);
   color:#b9b1de; filter:drop-shadow(0 0 10px rgba(150,120,255,.35)); }
@@ -115,15 +115,14 @@ section { min-height:0; }
   text-shadow:0 0 6px #fff, 0 0 18px #b87bff, 0 0 40px #ff4fc3, 0 0 70px #8a5cff; animation:neonflick 5s infinite; }
 @keyframes neonflick { 0%,92%,100% { opacity:1; } 93% { opacity:.55; } 95% { opacity:1; } 97% { opacity:.7; } }
 #answer { margin-top:16vh; font-size:21px; font-weight:700; padding:16px 38px; min-height:58px; border-radius:40px; border-color:var(--cyan); background:rgba(77,240,255,.12); box-shadow:0 0 30px rgba(77,240,255,.4); }
+#gateNote:empty { display:none; }
 #gateNote { position:absolute; left:0; right:0; bottom:calc(18px + env(safe-area-inset-bottom)); margin:0 auto; color:var(--grey); font-size:14px; max-width:260px; }
 @media (prefers-reduced-motion: reduce) { #gateText { animation:none; } }
 
 /* the choice: a panel at the bottom, the scene stays visible above */
 #choiceView { margin-top:auto; max-height:56dvh; overflow-y:auto; -webkit-overflow-scrolling:touch; display:flex; flex-direction:column; gap:10px;
   margin-left:-16px; margin-right:-16px; padding:34px 16px calc(14px + env(safe-area-inset-bottom)); background:linear-gradient(rgba(5,4,16,0), rgba(5,4,16,.9) 26px); }
-#echoState { display:flex; align-items:center; justify-content:center; gap:8px; color:var(--grey); font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
-#bloom { display:inline-flex; filter:drop-shadow(0 0 6px rgba(255,143,216,.6)); }
-#placeName { margin:0; text-align:center; font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--pink); }
+#echoState, #placeName { display:none !important; }
 #storyLine { margin:0; font-size:21px; line-height:1.4; color:#fff; text-shadow:0 0 12px #000; white-space:pre-line; }
 #storyLine:empty { display:none; }
 #storyLine.long { font-size:17px; line-height:1.45; }
@@ -201,3 +200,19 @@ section { min-height:0; }
 #notif.group .n-icon, #notif.group .n-title { color:var(--pink); }
 @keyframes drop { from { transform:translateY(-20px); opacity:0; } }
 @media (prefers-reduced-motion: reduce) { #app.ping, #app.cold { animation:none; } }
+
+/* ---------- loading: every picture is loaded before the game starts ---------- */
+#loader { position:fixed; inset:0; z-index:50; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:var(--bg); transition:opacity .5s; }
+#loader.done { opacity:0; pointer-events:none; }
+#loader b { font:900 clamp(56px, 20vw, 100px)/1 "Bodoni Moda", "Didot", serif; letter-spacing:.06em; color:#b9b1de; filter:drop-shadow(0 0 10px rgba(150,120,255,.35)); }
+#loaderBar { width:min(240px, 60vw); height:4px; border-radius:2px; background:rgba(255,255,255,.12); overflow:hidden; }
+#loaderBar i { display:block; height:100%; width:0; background:linear-gradient(90deg, var(--violet), var(--cyan)); transition:width .25s; }
+#loaderText { margin:0; color:var(--grey); font-size:14px; letter-spacing:.14em; text-transform:uppercase; }
+
+/* a phone held sideways: the choices go to the right, the picture stays visible on the left */
+@media (orientation:landscape) and (max-height:520px) {
+  #choiceView { margin-top:0; margin-left:auto; margin-right:-16px; width:min(54%, 460px); height:calc(100% - 56px); max-height:none; justify-content:flex-end; padding:14px 16px calc(10px + env(safe-area-inset-bottom)); background:rgba(5,4,16,.82); }
+  #storyLine { font-size:18px; } #storyLine.long { font-size:15px; }
+  .choice { min-height:46px; padding:8px 14px; font-size:15px; }
+  #gaugeBox { top:calc(env(safe-area-inset-top) + 54px); } #gauge { margin:0 auto 0 0; max-width:40%; }
+}

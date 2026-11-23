@@ -14,7 +14,7 @@ const save = () => { try { localStorage.setItem("echo-journal", JSON.stringify(s
 const TXT = {
   calling: { fr: "Bienvenue sur Nexus", en: "Welcome to Nexus" },
   answer: { fr: "Ouvrir", en: "Open" },
-  note: { fr: "Le jeu se joue sur ton téléphone.", en: "The game is played on your phone." },
+  note: { fr: "", en: "" },
   msgs: { fr: "Messages", en: "Messages" },
   jTitle: { fr: "Mon journal", en: "My journal" },
   back: { fr: "Retour au jeu", en: "Back to the game" },
@@ -248,7 +248,7 @@ function renderThread() {
     const mine = m.from === "__me";
     const d = document.createElement("div"); d.className = "bubble" + (mine ? " me" : (m.from ? "" : " system"));
     if (m.from && !mine) { const s = document.createElement("small"); s.textContent = m.from; s.style.setProperty("--c", colorOf(m.from)); d.appendChild(s); }
-    if (m.image) { const im = document.createElement("img"); im.src = m.image; im.alt = pick(m); im.loading = "lazy"; d.appendChild(im); }
+    if (m.image) { const im = document.createElement("img"); im.src = Assets.url(m.image); im.alt = pick(m); im.loading = "lazy"; d.appendChild(im); }
     else d.appendChild(document.createTextNode(pick(m)));
     if (m.time && !m.sys) { const tm = document.createElement("time"); tm.textContent = m.time; d.appendChild(tm); }
     if (m.key && view === "chat") { d.dataset.key = m.key; if (canReact(m.key)) { d.classList.add("tappable"); d.onclick = () => openSheet(m.key); } }
