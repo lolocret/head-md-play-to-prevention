@@ -98,13 +98,14 @@ function fireDelayed(idx) {
   });
 }
 
-function choose(c) {
+function choose(c, text) {
   const chat = STORY.beats[beatIndex].chat;
   if (c.later) state.delayed.push({ at: beatIndex + c.later.after, later: c.later, done: false });
   for (const k of ["harass", "passive", "help", "bond"]) state[k] += c[k] || 0;
   if (c.flag) state.flags[c.flag] = true;
   if (c.help > 0) Nexus.cold(c.help, chat && chat.thread);       // helping Echo: the others answer coldly, in the conversation the player is in
   if (c.journal) state.extra.push({ beat: beatIndex, text: c.journal });
+  if (text) state.extra.push({ beat: beatIndex, text: { fr: `J’ai écrit à Echo : « ${text} »`, en: `I wrote to Echo: “${text}”` } });   // her own words go in the journal
   if (chat) {                                            // stay in the conversation a moment: the answers and the cold reply are seen
     chatAnswered = true; syncPhone();
     const idx = beatIndex;
@@ -141,12 +142,15 @@ function phoneState() {
       const base = { mode: "choose", ui: "chat", token, thread, threadName: NEXUS.threads[thread], place, prompt: empty, ready: chatReady, answered: chatAnswered };
       if (!chatReady || chatAnswered) return { ...base, choices: [] };
       pending = { token, kind: "choice", choices };
-      return { ...base, choices: choices.map(c => ({ fr: fill(c.label.fr), en: fill(c.label.en), kind: c.kind || "reply", msg: c.msg })) };
+      const ix = INTERACT[beat.id] || {};
+      return { ...base, choices: choices.map((c, i) => ({ fr: fill(c.label.fr), en: fill(c.label.en), kind: ix.write === i ? "write" : (c.kind || "reply"), msg: c.msg })) };
     }
     if (choices && choices.length) {
       pending = { token, kind: "choice", choices };
+      const ix = alone ? {} : (INTERACT[beat.id] || {});
       return { mode: "choose", token, place, prompt: beat.prompt ? { fr: fill(beat.prompt.fr), en: fill(beat.prompt.en) } : empty,
-        choices: choices.map(c => ({ fr: fill(c.label.fr), en: fill(c.label.en) })) };
+        choices: choices.map((c, i) => ({ fr: fill(c.label.fr), en: fill(c.label.en), hold: (ix.hold || []).includes(i) })),
+        timer: ix.timer || 0, fallback: ix.fallback || 0 };
     }
     pending = { token, kind: "continue" };
     return { mode: "choose", token, place, prompt: empty, choices: [{ fr: "Continuer", en: "Continue" }] };
@@ -173,7 +177,7 @@ function syncPhone() {
 Link.onMessage = m => {
   if (m.type !== "choose" || !pending || m.token !== pending.token) return;
   const p = pending; pending = null;
-  if (p.kind === "choice") { const c = p.choices[m.index]; if (c) choose(c); }
+  if (p.kind === "choice") { const c = p.choices[m.index]; if (c) choose(c, typeof m.text === "string" ? m.text.slice(0, 120).trim() : ""); }
   else if (p.kind === "continue") next();
   else if (p.kind === "restart") { if (m.index === 1) retryLastScene(); else restart(); }
 };

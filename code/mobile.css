@@ -216,3 +216,16 @@ section { min-height:0; }
   .choice { min-height:46px; padding:8px 14px; font-size:15px; }
   #gaugeBox { top:calc(env(safe-area-inset-top) + 54px); } #gauge { margin:0 auto 0 0; max-width:40%; }
 }
+
+/* ---------- variety: a time limit, press and hold, writing ---------- */
+.choice { position:relative; isolation:isolate; overflow:hidden; touch-action:manipulation; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
+.choice small { display:block; margin-top:2px; color:var(--cyan); font-size:12px; letter-spacing:.08em; text-transform:uppercase; }
+.choice.hold { border-color:var(--cyan); }
+.choice.hold::before { content:""; position:absolute; inset:0; width:0; z-index:-1; background:rgba(77,240,255,.4); transition:width .15s; }
+.choice.holding::before { width:100%; transition:width .9s linear; }
+#timer { flex:none; height:6px; border-radius:3px; background:rgba(255,255,255,.12); overflow:hidden; }
+#timer i { display:block; height:100%; width:100%; background:linear-gradient(90deg, var(--pink), var(--cyan)); }
+#writeRow { display:flex; gap:8px; }
+#writeRow input { flex:1; min-width:0; height:52px; padding:0 16px; font:inherit; font-size:16px; color:#fff; background:rgba(0,0,0,.4); border:1px solid var(--cyan); border-radius:26px; }
+#writeRow input:focus { outline:0; box-shadow:0 0 14px rgba(77,240,255,.4); }
+#writeRow button { min-height:52px; padding:0 20px; border-radius:26px; border-color:var(--cyan); background:rgba(77,240,255,.18); }

@@ -30,6 +30,10 @@ const TXT = {
   saved: { fr: "Enregistré", en: "Saved" },
   tap: { fr: "Touche un message pour réagir.", en: "Tap a message to react." },
   cancel: { fr: "Annuler", en: "Cancel" },
+  hold: { fr: "Maintiens appuyé", en: "Press and hold" },
+  writeBtn: { fr: "Écrire à Echo…", en: "Write to Echo…" },
+  writePh: { fr: "Tes mots pour Echo", en: "Your words for Echo" },
+  send: { fr: "Envoyer", en: "Send" },
   jEmpty: { fr: "Ton journal se remplit au fil de l’histoire.", en: "Your journal fills in as the story goes." },
 };
 const T = k => TXT[k][french ? "fr" : "en"];
@@ -111,6 +115,15 @@ function renderChat() {
       const b = document.createElement("button"); b.className = "chip"; b.textContent = pick(c);
       b.onclick = () => act(i);
       chips.appendChild(b);
+    } else if (c.kind === "write") {                    // she writes her own words
+      const b = document.createElement("button"); b.className = "chip"; b.textContent = "✎ " + T("writeBtn");
+      b.onclick = () => {
+        chips.hidden = true; $("writeRow").hidden = false;
+        $("writeInput").placeholder = T("writePh"); $("writeSend").textContent = T("send"); $("writeInput").focus();
+        const go = () => { const v = $("writeInput").value.trim(); if (v) act(i, v); };
+        $("writeSend").onclick = go; $("writeInput").onkeydown = e => { if (e.key === "Enter") go(); };
+      };
+      chips.appendChild(b);
     } else if (c.kind === "leave") {
       const b = $("leaveBtn"); b.hidden = false; b.textContent = pick(c); b.onclick = () => act(i);
     } else if (c.kind === "ignore") {
@@ -121,12 +134,13 @@ function renderChat() {
 }
 
 // Do the action chosen in the conversation: it is sent to the story, and shown here at once
-function act(i) {
+function act(i, text) {
   if (!chat || !chat.ready || chat.answered || answered === chat.token) return;
   const c = chat.choices[i], token = chat.token, t = threads[openThread];
   answered = token;
-  send({ type: "choose", token, index: i });
-  if (t) t.msgs.push(c.kind === "reply" ? { from: "__me", fr: c.fr, en: c.en, time: clock() } : { from: null, fr: "✓ " + c.fr, en: "✓ " + c.en, sys: true });
+  send({ type: "choose", token, index: i, text });
+  $("writeRow").hidden = true; $("chips").hidden = false; $("writeInput").value = "";
+  if (t) t.msgs.push(c.kind === "write" ? { from: "__me", fr: text, en: text, time: clock() } : c.kind === "reply" ? { from: "__me", fr: c.fr, en: c.en, time: clock() } : { from: null, fr: "✓ " + c.fr, en: "✓ " + c.en, sys: true });
   $("sheet").hidden = true;
   renderChat();
   if (c.kind === "ignore") silence();
@@ -144,26 +158,53 @@ function openSheet(key) {
   $("sheet").hidden = false;
 }
 
+let timerFor = null, timerId = null;
+function stopTimer() { clearTimeout(timerId); timerId = null; timerFor = null; $("timer").hidden = true; }
+// A choice with a time limit: when the bar is empty, `fallback` is chosen for her (saying nothing is a choice too)
+function startTimer(token, secs, fallback) {
+  timerFor = token;
+  const bar = $("timer").firstElementChild;
+  $("timer").hidden = false;
+  bar.style.transition = "none"; bar.style.width = "100%"; void bar.offsetWidth;
+  bar.style.transition = `width ${secs}s linear`; bar.style.width = "0";
+  timerId = setTimeout(() => answerChoice(token, fallback), secs * 1000);
+}
+function answerChoice(token, i) {
+  if (answered === token) return;
+  answered = token;
+  stopTimer();
+  send({ type: "choose", token, index: i });
+  renderGame();
+}
+// A choice you must press and hold (standing up for someone takes effort): a bar fills while you hold
+function holdToConfirm(b, done) {
+  b.classList.add("hold");
+  const hint = document.createElement("small"); hint.textContent = T("hold"); b.appendChild(hint);
+  let t = null;
+  const start = e => { if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return; e.preventDefault(); if (t) return; b.classList.add("holding"); t = setTimeout(() => { t = null; b.classList.remove("holding"); buzz(60); done(); }, 900); };
+  const cancel = () => { clearTimeout(t); t = null; b.classList.remove("holding"); };
+  b.addEventListener("pointerdown", start); b.addEventListener("keydown", start);
+  ["pointerup", "pointerleave", "pointercancel", "keyup", "blur"].forEach(ev => b.addEventListener(ev, cancel));
+  b.addEventListener("contextmenu", e => e.preventDefault());
+}
+
 function renderGame() {
-  $("placeName").textContent = game.place ? pick(game.place) : "";
   const list = $("choiceList"), sent = $("choiceSent");
   list.innerHTML = ""; sent.hidden = true;
   $("choicePrompt").textContent = "";
   if (game.mode === "choose") {
     $("choicePrompt").textContent = game.prompt ? pick(game.prompt) : "";
-    if (answered === game.token) { sent.textContent = T("sent"); sent.hidden = false; return; }
+    if (answered === game.token) { stopTimer(); sent.textContent = T("sent"); sent.hidden = false; return; }
     const token = game.token;
     game.choices.forEach((c, i) => {
-      const b = document.createElement("button"); b.className = "choice"; b.textContent = pick(c);
-      b.onclick = () => {
-        if (answered === token) return;
-        answered = token;
-        send({ type: "choose", token, index: i });
-        renderGame();
-      };
+      const b = document.createElement("button"); b.className = "choice"; b.append(pick(c));
+      if (c.hold) holdToConfirm(b, () => answerChoice(token, i));
+      else b.onclick = () => answerChoice(token, i);
       list.appendChild(b);
     });
+    if (game.timer) { if (timerFor !== token) startTimer(token, game.timer, game.fallback); } else stopTimer();
   } else {
+    stopTimer();
     sent.textContent = T("wait"); sent.hidden = false;     // the story goes on by itself: nothing to do but watch
   }
 }

@@ -1718,3 +1718,14 @@ const TITLE = {
   play: { fr: "Jouer", en: "Play" },
   credits: "Lorie Crettex & Nouria Da Ros — From Play to Prevention · HEAD Master Media Design",
 };
+
+// Variety: in some scenes the way you answer changes.
+//   timer: seconds to answer, then `fallback` (the index of the choice) is chosen for you: saying nothing is a choice too
+//   hold: the choices (by index) that you must press and hold: standing up for someone takes effort
+//   write: the choice (by index, in a conversation) where you write your own words
+const INTERACT = {
+  lesson: { timer: 8, fallback: 2, hold: [1] },
+  door: { timer: 8, fallback: 1, hold: [0] },
+  friday: { timer: 10, fallback: 1, hold: [3, 4] },
+  night: { write: 0 },
+};
