@@ -82,7 +82,8 @@ const Nexus = (() => {
     // The scene `id` starts: its messages arrive on the phone.
     beat(id) {
       const live = !!NEXUS_CHATS[id];
-      (NEXUS.beats[id] || []).forEach((m, i) => {
+      // Only a scene played inside a conversation has messages: nothing pops up while the player reads the story
+      (live ? NEXUS.beats[id] || [] : []).forEach((m, i) => {
         if (m.if && typeof state !== "undefined" && state.bond < m.if.bondMin) return;   // e.g. Echo only writes if the bond is strong
         // a quiet message just lands (a dot, no banner, no sound): only the first message of a scene and group events make noise
         timers.push(setTimeout(() => send(m, !live && i > 0), live ? m.at : m.at * PACE));

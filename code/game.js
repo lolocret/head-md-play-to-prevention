@@ -53,6 +53,8 @@ Scene.onEnter = () => { syncPhone(); maybeStartBeat(); };
 
 // The story takes the player to the next scene, wherever it happens
 function next() {
+  Nexus.reset();                 // the messages of the scene that just ended do not arrive in the next one
+  $("notif").hidden = true;
   beatIndex = nextAvailable(beatIndex + 1);
   if (beatIndex >= STORY.beats.length) { finished = true; phase = "ending"; render(); return; }
   phase = "world";
@@ -91,10 +93,6 @@ function fireDelayed(idx) {
     if (d.done || d.at > idx) return;
     d.done = true;
     if (d.later.journal) state.extra.push({ beat: Math.max(0, idx - 1), text: d.later.journal });
-    if (d.later.msg) {
-      const m = d.later.msg;
-      setTimeout(() => Link.send({ type: "msg", thread: m.t, threadName: NEXUS.threads[m.t], from: m.from, fr: fill(m.fr), en: fill(m.en), feel: "normal" }), 5000);
-    }
   });
 }
 
@@ -103,7 +101,7 @@ function choose(c, text) {
   if (c.later) state.delayed.push({ at: beatIndex + c.later.after, later: c.later, done: false });
   for (const k of ["harass", "passive", "help", "bond"]) state[k] += c[k] || 0;
   if (c.flag) state.flags[c.flag] = true;
-  if (c.help > 0) Nexus.cold(c.help, chat && chat.thread);       // helping Echo: the others answer coldly, in the conversation the player is in
+  if (c.help > 0 && chat) Nexus.cold(c.help, chat.thread);       // helping Echo: the others answer coldly, in the conversation the player is in
   if (c.journal) state.extra.push({ beat: beatIndex, text: c.journal });
   if (text) state.extra.push({ beat: beatIndex, text: { fr: `J’ai écrit à Echo : « ${text} »`, en: `I wrote to Echo: “${text}”` } });   // her own words go in the journal
   if (chat) {                                            // stay in the conversation a moment: the answers and the cold reply are seen
@@ -150,7 +148,7 @@ function phoneState() {
       const ix = alone ? {} : (INTERACT[beat.id] || {});
       return { mode: "choose", token, place, prompt: beat.prompt ? { fr: fill(beat.prompt.fr), en: fill(beat.prompt.en) } : empty,
         choices: choices.map((c, i) => ({ fr: fill(c.label.fr), en: fill(c.label.en), hold: (ix.hold || []).includes(i) })),
-        timer: ix.timer || 0, fallback: ix.fallback || 0 };
+        timer: ix.timer || 0, fallback: ix.fallback || 0, holdMs: ix.holdMs || 900, mech: ix.mech || "", seconds: ix.seconds || 0, words: ix.words || [] };
     }
     pending = { token, kind: "continue" };
     return { mode: "choose", token, place, prompt: empty, choices: [{ fr: "Continuer", en: "Continue" }] };
@@ -359,15 +357,3 @@ Scene.init($("scene"));   // nothing is drawn yet: the pictures load first (see 
     setTimeout(() => { $("loader").hidden = true; }, 600);
   });
 })();
-
-// Decorative glowing lights drifting up the background.
-for (let i = 0; i < 12; i++) {
-  const f = document.createElement("span");
-  f.className = "flower";
-  f.style.left = Math.random() * 100 + "vw";
-  f.style.width = f.style.height = (8 + Math.random() * 14) + "px";
-  f.style.animationDelay = (-Math.random() * 14) + "s";
-  f.style.animationDuration = (10 + Math.random() * 10) + "s";
-  f.style.setProperty("--c", ["#ff4fc3", "#4df0ff", "#8a5cff"][i % 3]);
-  document.body.appendChild(f);
-}

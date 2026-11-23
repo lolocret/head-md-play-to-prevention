@@ -22,6 +22,7 @@ const Scene = (() => {
     lesson:         { place: "classe", npcs: [{ id: "kovasko", x: 64, y: 82 }] },
     door:           { place: "toit", npcs: [{ id: "student", x: 80, y: 88 }, { id: "echo", x: 60, y: 92 }] },
     echo_roof:      { place: "toit", npcs: [{ id: "echo", x: 56, y: 92 }] },
+    wipe:           { place: "couloir", npcs: [{ id: "echo", x: 46, y: 90 }] },
     labels:         { place: "couloir", npcs: [{ id: "clarisse", x: 66, y: 90 }, { id: "echo", x: 38, y: 92 }] },
     echo_hall:      { place: "couloir", npcs: [{ id: "echo", x: 52, y: 92 }] },
     clarisse:       { place: "couloir", npcs: [{ id: "clarisse", x: 66, y: 90 }] },

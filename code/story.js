@@ -1719,13 +1719,43 @@ const TITLE = {
   credits: "Lorie Crettex & Nouria Da Ros — From Play to Prevention · HEAD Master Media Design",
 };
 
-// Variety: in some scenes the way you answer changes.
+// Variety: the way you answer changes from scene to scene.
 //   timer: seconds to answer, then `fallback` (the index of the choice) is chosen for you: saying nothing is a choice too
-//   hold: the choices (by index) that you must press and hold: standing up for someone takes effort
+//   hold: the choices (by index) you must press and hold (holdMs: how long): standing up for someone takes effort
 //   write: the choice (by index, in a conversation) where you write your own words
+//   mech: a small game that picks the choice for you
+//     "laugh": the class laughs; tap to join in (many taps = choice 0), or say no (choice 1)
+//     "drag": slide yourself on the bench: left = choice 0, right = choice 1, middle = choice 2
+//     "wipe": erase the insults before they disappear: most erased = choice 0, some = choice 1, few = choice 2
 const INTERACT = {
+  hello: { mech: "laugh", seconds: 5 },
+  lunch: { mech: "drag" },
   lesson: { timer: 8, fallback: 2, hold: [1] },
   door: { timer: 8, fallback: 1, hold: [0] },
+  echo_roof: { hold: [1], holdMs: 3000 },
+  wipe: { mech: "wipe", seconds: 8, words: [
+    { fr: "faux", en: "fake" }, { fr: "machine", en: "machine" }, { fr: "pas réel", en: "not real" }, { fr: "voleur de vie", en: "life thief" },
+    { fr: "bug", en: "glitch" }, { fr: "dégage", en: "go away" }, { fr: "t’es rien", en: "you’re nothing" }, { fr: "personne t’aime", en: "nobody likes you" } ] },
   friday: { timer: 10, fallback: 1, hold: [3, 4] },
   night: { write: 0 },
 };
+
+// A scene made to be played as a small game: the insults on Echo's back
+STORY.beats.push({
+  id: "wipe",
+  line: { fr: "Les insultes restent affichées dans le dos d’Echo. Efface-les avant que les autres arrivent.", en: "The insults stay displayed on Echo’s back. Wipe them off before the others arrive." },
+  prompt: { fr: "", en: "" },
+  choices: [
+    { label: { fr: "Tout effacer", en: "Wipe them all" }, harass: 0, passive: 0, help: 2, bond: 1,
+      journal: { fr: "J’ai effacé presque toutes les insultes, aussi vite que possible. Echo n’a rien vu.", en: "I wiped off almost all the insults as fast as I could. Echo saw nothing." } },
+    { label: { fr: "En effacer quelques-unes", en: "Wipe some of them" }, harass: 0, passive: 0, help: 1, bond: 0,
+      journal: { fr: "J’en ai effacé quelques-unes. Les autres sont restées là.", en: "I wiped off a few. The others stayed." } },
+    { label: { fr: "Trop tard", en: "Too late" }, harass: 0, passive: 1, help: 0, bond: 0,
+      journal: { fr: "Je n’ai pas réussi à les effacer. Les mots sont restés.", en: "I couldn’t wipe them off. The words stayed." } },
+  ],
+});
+
+// The red thread: the scenes the game plays, in order. The other scenes stay written in this file but are not played.
+// (To play one again, add its id here, in the right place.)
+const SPINE = ["arrival", "hello", "lunch", "evening", "lesson", "door", "echo_roof", "labels", "wipe", "turnoff", "night", "friday"];
+STORY.beats = SPINE.map(id => STORY.beats.find(b => b.id === id)).filter(Boolean);

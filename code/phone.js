@@ -48,6 +48,7 @@ function paintStatic() {
   $("gateNote").textContent = T("note");
   $("closeText").textContent = T("back");
   $("btnJournal").hidden = !journalOn;
+  $("btnMsgs").hidden = !journalOn;          // messages and journal are only there at the end
   $("btnJournal").querySelector(".dotb").hidden = !jUnread;
   $("btnMsgs").querySelector(".dotb").hidden = !Object.values(threads).some(t => t.unread);
   renderList();
@@ -96,7 +97,7 @@ function onState(m) {
   chat = null;
   renderGame();
   paintStatic();
-  if (wasChat) show("choice");                          // the conversation is over: back to the main screen
+  if (wasChat) { show("choice"); $("notif").hidden = true; }                          // the conversation is over: back to the main screen
   if (isNew) { feel("normal"); show("choice"); }       // the story needs an answer: bring the player here
 }
 
@@ -172,23 +173,28 @@ function startTimer(token, secs, fallback) {
 function answerChoice(token, i) {
   if (answered === token) return;
   answered = token;
-  stopTimer();
+  stopTimer(); stopMech();
   send({ type: "choose", token, index: i });
   renderGame();
 }
 // A choice you must press and hold (standing up for someone takes effort): a bar fills while you hold
-function holdToConfirm(b, done) {
+function holdToConfirm(b, done, ms = 900) {
+  b.style.setProperty("--hold", ms + "ms");
   b.classList.add("hold");
   const hint = document.createElement("small"); hint.textContent = T("hold"); b.appendChild(hint);
   let t = null;
-  const start = e => { if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return; e.preventDefault(); if (t) return; b.classList.add("holding"); t = setTimeout(() => { t = null; b.classList.remove("holding"); buzz(60); done(); }, 900); };
+  const start = e => { if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return; e.preventDefault(); if (t) return; b.classList.add("holding"); t = setTimeout(() => { t = null; b.classList.remove("holding"); buzz(60); done(); }, ms); };
   const cancel = () => { clearTimeout(t); t = null; b.classList.remove("holding"); };
   b.addEventListener("pointerdown", start); b.addEventListener("keydown", start);
   ["pointerup", "pointerleave", "pointercancel", "keyup", "blur"].forEach(ev => b.addEventListener(ev, cancel));
   b.addEventListener("contextmenu", e => e.preventDefault());
 }
 
+let mechFor = null, mechStops = [];
+function stopMech() { mechStops.forEach(f => f()); mechStops = []; mechFor = null; }
+
 function renderGame() {
+  if (game.mode === "choose" && game.mech && mechFor === game.token && answered !== game.token) return;   // a small game is running: do not restart it
   const list = $("choiceList"), sent = $("choiceSent");
   list.innerHTML = ""; sent.hidden = true;
   $("choicePrompt").textContent = "";
@@ -196,18 +202,80 @@ function renderGame() {
     $("choicePrompt").textContent = game.prompt ? pick(game.prompt) : "";
     if (answered === game.token) { stopTimer(); sent.textContent = T("sent"); sent.hidden = false; return; }
     const token = game.token;
+    if (game.mech && MECH[game.mech]) { stopTimer(); stopMech(); mechFor = token; MECH[game.mech](list, token); return; }
     game.choices.forEach((c, i) => {
       const b = document.createElement("button"); b.className = "choice"; b.append(pick(c));
-      if (c.hold) holdToConfirm(b, () => answerChoice(token, i));
+      if (c.hold) holdToConfirm(b, () => answerChoice(token, i), game.holdMs);
       else b.onclick = () => answerChoice(token, i);
       list.appendChild(b);
     });
     if (game.timer) { if (timerFor !== token) startTimer(token, game.timer, game.fallback); } else stopTimer();
   } else {
-    stopTimer();
+    stopTimer(); stopMech();
     sent.textContent = T("wait"); sent.hidden = false;     // the story goes on by itself: nothing to do but watch
   }
 }
+
+
+// ---------------------------------------------------------------- small games that choose for you
+
+const MECH = {
+  // The class laughs: tap to join in (4 taps or more = laugh), or say no
+  laugh(list, token) {
+    const secs = game.seconds || 5;
+    list.innerHTML = `<div class="crowd"><span>${french ? "Les autres rient…" : "The others are laughing…"}</span><div class="meter"><i id="crowdBar"></i></div></div>
+      <button class="laughBtn" id="laughBtn" type="button">${french ? "HA HA" : "HA HA"}</button>
+      <div class="meter you"><i id="youBar"></i></div>
+      <button class="choice" id="noLaugh" type="button"></button>`;
+    $("noLaugh").textContent = pick(game.choices[1]);
+    let taps = 0, done = false;
+    const crowd = $("crowdBar"); crowd.style.transition = `width ${secs}s ease-out`; void crowd.offsetWidth; crowd.style.width = "100%";
+    const finish = i => { if (done) return; done = true; answerChoice(token, i); };
+    $("laughBtn").onpointerdown = e => { e.preventDefault(); if (done) return; taps++; $("youBar").style.width = Math.min(100, taps * 25) + "%"; buzz(15); $("laughBtn").classList.remove("pop"); void $("laughBtn").offsetWidth; $("laughBtn").classList.add("pop"); };
+    $("noLaugh").onclick = () => finish(1);
+    const id = setTimeout(() => finish(taps >= 4 ? 0 : 1), secs * 1000);
+    mechStops.push(() => clearTimeout(id));
+  },
+
+  // Slide yourself along the bench: next to Echo, alone, or with the group
+  drag(list, token) {
+    list.innerHTML = `<div class="track" id="track"><span class="zl"></span><span class="zm"></span><span class="zr"></span><div class="token" id="token"></div></div>`;
+    const tr = $("track"), tk = $("token");
+    tr.querySelector(".zl").textContent = pick(game.choices[0]); tr.querySelector(".zm").textContent = pick(game.choices[2]); tr.querySelector(".zr").textContent = pick(game.choices[1]);
+    const pic = $("mePic"); if (!pic.hidden && pic.src) tk.style.backgroundImage = `url(${pic.src})`; else tk.textContent = "◉";
+    let x = 0.5, moved = false, drag = false;
+    const place = () => { tk.style.left = (x * 100) + "%"; const z = x < 0.34 ? "zl" : x > 0.66 ? "zr" : "zm"; tr.dataset.zone = z; };
+    const move = e => { const r = tr.getBoundingClientRect(); x = Math.max(0.06, Math.min(0.94, (e.clientX - r.left) / r.width)); moved = true; place(); };
+    tk.onpointerdown = e => { drag = true; tk.setPointerCapture(e.pointerId); e.preventDefault(); };
+    tk.onpointermove = e => { if (drag) move(e); };
+    const end = () => { if (!drag) return; drag = false; if (!moved) return; buzz(40); const z = tr.dataset.zone; answerChoice(token, z === "zl" ? 0 : z === "zr" ? 1 : 2); };
+    tk.onpointerup = end; tk.onpointercancel = end;
+    place();
+  },
+
+  // Insults appear on Echo's back: tap them to wipe them off before they stay
+  wipe(list, token) {
+    const secs = game.seconds || 8, words = game.words || [];
+    list.innerHTML = `<div class="wipeInfo"><span id="wipeCount"></span><div class="meter"><i id="wipeBar"></i></div></div><div class="wipeArea" id="wipeArea"></div>`;
+    const area = $("wipeArea"); let spawned = 0, erased = 0, over = false;
+    const total = Math.max(1, Math.floor(secs * 1000 / 650));
+    const count = () => { $("wipeCount").textContent = erased + " / " + total; };
+    count();
+    const bar = $("wipeBar"); bar.style.width = "100%"; bar.style.transition = "none"; void bar.offsetWidth; bar.style.transition = `width ${secs}s linear`; bar.style.width = "0";
+    const spawn = () => {
+      if (over || spawned >= total) return;
+      const w = words[spawned % words.length], b = document.createElement("button");
+      b.className = "insult"; b.type = "button"; b.textContent = pick(w);
+      b.style.left = (4 + Math.random() * 58) + "%"; b.style.top = (4 + Math.random() * 78) + "%"; b.style.setProperty("--r", (Math.random() * 12 - 6) + "deg");
+      b.onpointerdown = e => { e.preventDefault(); if (b.dataset.gone) return; b.dataset.gone = 1; erased++; count(); buzz(20); b.classList.add("gone"); setTimeout(() => b.remove(), 200); };
+      area.appendChild(b); spawned++;
+      setTimeout(() => { if (!b.dataset.gone) b.classList.add("stay"); }, 1700);   // it stays on Echo's back
+    };
+    const iv = setInterval(spawn, 650); spawn();
+    const end = setTimeout(() => { over = true; clearInterval(iv); const r = erased / total; answerChoice(token, r >= 0.6 ? 0 : r >= 0.3 ? 1 : 2); }, secs * 1000 + 600);
+    mechStops.push(() => { clearInterval(iv); clearTimeout(end); });
+  },
+};
 
 // ---------------------------------------------------------------- which screen is shown
 
@@ -361,7 +429,7 @@ function feel(kind) {
   else { tone(880, 0, 0.15, 0.2); tone(1175, 0.16, 0.2, 0.2); shake(app, "ping"); buzz([130, 70, 130]); }
 }
 function shake(el, cls) { el.classList.remove("ping", "cold"); void el.offsetWidth; el.classList.add(cls); }
-function silence() { document.body.classList.add("silent"); clearTimeout(silence.id); silence.id = setTimeout(() => document.body.classList.remove("silent"), 7000); }
+function silence() { /* no grey screen any more: one thing at a time */ }
 // Keeps the screen on so the page stays connected (works on recent iPhone and Android).
 async function keepAwake() { try { if (navigator.wakeLock) await navigator.wakeLock.request("screen"); } catch (err) { /* optional */ } }
 document.addEventListener("visibilitychange", () => { if (!document.hidden && audio) { audio.resume(); keepAwake(); } });
