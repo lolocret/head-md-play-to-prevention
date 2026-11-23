@@ -138,14 +138,14 @@ const STORY = {
           "later": {
             "after": 2,
             "journal": {
-              "fr": "Je me suis vu·e dans la vidéo. À 0:07, c’est moi qui ris. Je ne me reconnais pas.",
-              "en": "I saw myself in the video. At 0:07, that’s me laughing. I don’t recognise myself."
+              "fr": "Je me suis revu·e en train de rire, dans le groupe. Je ne me reconnais pas.",
+              "en": "I saw myself laughing again, in the group. I don’t recognise myself."
             },
             "msg": {
               "t": "class",
               "from": "Maé",
-              "fr": "{name}, tu es dans la vidéo, à 0:07. On te voit rire.",
-              "en": "{name}, you’re in the video, at 0:07. We can see you laughing."
+              "fr": "{name}, on t’a vu·e rire tout à l’heure. Tu étais là.",
+              "en": "{name}, we saw you laughing earlier. You were there."
             }
           }
         },
@@ -310,10 +310,10 @@ const STORY = {
             "en": "Screenshot"
           },
           "kind": "react",
-          "msg": "video",
+          "msg": "meme",
           "journal": {
-            "fr": "J’ai fait une capture d’écran de la vidéo. Je ne sais pas encore à qui la montrer.",
-            "en": "I took a screenshot of the video. I don’t know yet who to show it to."
+            "fr": "J’ai fait une capture d’écran du mème. Je ne sais pas encore à qui la montrer.",
+            "en": "I took a screenshot of the meme. I don’t know yet who to show it to."
           }
         },
         {
@@ -375,11 +375,38 @@ const STORY = {
             "en": "I did nothing. I said nothing either. Does that count?"
           },
           "kind": "ignore"
+        },
+        {
+          "label": {
+            "fr": "Créer un mème",
+            "en": "Make a meme"
+          },
+          "kind": "meme",
+          "harass": 0,
+          "passive": 0,
+          "help": 0,
+          "bond": 0,
+          "mock": {
+            "harass": 2,
+            "bond": -2,
+            "journal": {
+              "fr": "J’ai fait un mème sur Echo et je l’ai posté dans le groupe. Ça a fait rire. Moi, je ne suis pas sûr·e de savoir pourquoi.",
+              "en": "I made a meme about Echo and posted it in the group. It got laughs. I’m not sure why."
+            }
+          },
+          "support": {
+            "help": 1,
+            "bond": 1,
+            "journal": {
+              "fr": "J’ai fait un mème pour défendre Echo. Personne n’a vraiment compris, mais je l’ai posté.",
+              "en": "I made a meme to defend Echo. Nobody really got it, but I posted it."
+            }
+          }
         }
       ],
       "journal": {
-        "fr": "Minuit passé. La vidéo tourne dans le groupe 3B, puis un mème. Je me demande si c’est bien qu’on se moque d’Echo.",
-        "en": "Past midnight. The video is going around the 3B group, then a meme. I wonder if it’s okay that we make fun of Echo."
+        "fr": "Minuit passé. Un mème tourne dans le groupe 3B. Je me demande si c’est bien qu’on se moque d’Echo.",
+        "en": "Past midnight. A meme is going around the 3B group. I wonder if it’s okay that we make fun of Echo."
       },
       "line": {
         "fr": "00:12. Chez toi, le téléphone vibre.",
@@ -1467,8 +1494,8 @@ const STORY = {
         },
         {
           "label": {
-            "fr": "→ Clarisse : arrête, s’il te plaît",
-            "en": "→ Clarisse: please stop"
+            "fr": "Écrire à Clarisse : arrête, s’il te plaît",
+            "en": "Write to Clarisse: please stop"
           },
           "harass": 0,
           "passive": 0,
@@ -1479,7 +1506,7 @@ const STORY = {
             "en": "I asked Clarisse to stop. She read it, then didn’t answer. The silence is scary."
           },
           "flag": "talkedClarisse",
-          "kind": "reply"
+          "kind": "action"
         },
         {
           "label": {
@@ -1648,8 +1675,8 @@ const STORY = {
         "en": "Echo doesn’t come back"
       },
       "text": {
-        "fr": "Echo est éteint·e et la vidéo circule. Altaya le·la redémarre quelques jours plus tard, mais Echo ne revient pas en 3B. Son siège reste vide.",
-        "en": "Echo is switched off and the video spreads. Altaya restarts Echo a few days later, but Echo doesn’t come back to 3B. Their seat stays empty."
+        "fr": "Echo est éteint·e et le mème circule. Altaya le·la redémarre quelques jours plus tard, mais Echo ne revient pas en 3B. Son siège reste vide.",
+        "en": "Echo is switched off and the meme spreads. Altaya restarts Echo a few days later, but Echo doesn’t come back to 3B. Their seat stays empty."
       }
     },
     {

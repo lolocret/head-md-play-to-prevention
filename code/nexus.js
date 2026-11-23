@@ -16,10 +16,9 @@ const NEXUS = {
     hello: [
     ],
     evening: [
-      { t: "class", from: "Lucas", fr: "[vidéo] Echo dit bonjour", en: "[video] Echo says hello", image: "images/video-hello.png", key: "video", at: 1000 },
-      { t: "class", from: "Sam", fr: "tes émotions c’est des fictions", en: "your emotions are fictions", at: 6000 },
-      { t: "class", from: "Maé", fr: "[mème]", en: "[meme]", image: "images/meme-echo.png", key: "meme", at: 9000 },
-      { t: "humans", from: null, fr: "Maé a créé le groupe « Humains de la 3B uniquement ». Echo n’en fait pas partie.", en: "Maé created the group “Humans of 3B only”. Echo is not part of it.", at: 14000 },
+      { t: "class", from: "Sam", fr: "tes émotions c’est des fictions", en: "your emotions are fictions", at: 1000 },
+      { t: "class", from: "Maé", fr: "[mème]", en: "[meme]", image: "images/meme-echo.png", key: "meme", at: 3500 },
+      { t: "humans", from: null, fr: "Maé a créé le groupe « Humains de la 3B uniquement ». Echo n’en fait pas partie.", en: "Maé created the group “Humans of 3B only”. Echo is not part of it.", at: 6000 },
     ],
     lunch: [
     ],
@@ -35,13 +34,12 @@ const NEXUS = {
     ],
     labels: [
       { t: "humans", from: "Inès", fr: "j’ai piraté son dos, regardez ce qui s’affiche", en: "I hacked its back, look what shows up", key: "insults", at: 1000 },
-      { t: "humans", from: "Sam", fr: "tu peux pas comprendre, t’es pas humain", en: "you can’t understand, you’re not human", at: 11000 },
     ],
     turnoff: [
       { t: "private", from: null, fr: "Clarisse t’a ajouté·e au groupe « On harcèle personne ».", en: "Clarisse added you to the group “We harass nobody”.", at: 800 },
-      { t: "private", from: "Clarisse", fr: "On harcèle personne, c’est juste une machine.", en: "We’re not harassing anyone, it’s just a machine.", at: 3000 },
-      { t: "private", from: "Clarisse", fr: "{name}, t’es avec nous ou avec la machine ?", en: "{name}, are you with us or with the machine?", at: 6000 },
-      { t: "private", from: "Clarisse", fr: "Vendredi après les cours, on l’éteint. Code : KIPE-SAFE007", en: "Friday after class, we switch it off. Code: KIPE-SAFE007", key: "plan", at: 11000 },
+      { t: "private", from: "Clarisse", fr: "On harcèle personne, c’est juste une machine.", en: "We’re not harassing anyone, it’s just a machine.", at: 2800 },
+      { t: "private", from: "Clarisse", fr: "{name}, t’es avec nous ou avec la machine ?", en: "{name}, are you with us or with the machine?", at: 5000 },
+      { t: "private", from: "Clarisse", fr: "Vendredi après les cours, on l’éteint. Code : KIPE-SAFE007", en: "Friday after class, we switch it off. Code: KIPE-SAFE007", key: "plan", at: 7500 },
     ],
     night: [
       { t: "echo", from: "Echo", fr: "Je sais ce que veulent dire les mots qu’on m’a collés. Merci d’être là, {name}.", en: "I know what the words stuck on me mean. Thank you for being there, {name}.", key: "echo", at: 2000, if: { bondMin: 4 } },
@@ -53,18 +51,40 @@ const NEXUS = {
   // Questions that appear in the phone's journal at intense moments: the player writes her own answer.
   prompts: {
     evening: { at: 24000, fr: "Cette soirée me rappelle une scène déjà vécue. Qu’est-ce que je ressentais ?", en: "This night reminds me of a scene I’ve already lived. What was I feeling?" },
-    labels: { at: 20000, fr: "Qu’est-ce que j’aurais voulu répondre à « t’es pas humain » ?", en: "What would I have wanted to answer to “you’re not human”?" },
+    labels: { at: 20000, fr: "Si j’avais pu répondre à Inès, qu’aurais-je dit ?", en: "If I could have answered Inès, what would I have said?" },
     turnoff: { at: 18000, fr: "Une fois, je n’ai rien dit. Qu’est-ce qui m’a retenu·e ?", en: "Once, I said nothing. What held me back?" },
     friday: { at: 6000, fr: "Si je pouvais revenir en arrière, que ferais-je autrement ?", en: "If I could go back, what would I do differently?" },
   },
-  // Cold answers after the player helps Echo: indifference, then being left out.
-  cold: [
-    { from: "Maé", fr: "ah ok, {name}.", en: "oh ok, {name}." },
-    { from: "Lucas", fr: "pk tu fais ça, {name}", en: "why are you doing that, {name}" },
-    { from: "Noa", fr: "personne t’a rien demandé, {name}", en: "nobody asked you, {name}" },
-    { from: "Inès", fr: "{name}, c’est bon, on a compris", en: "{name}, ok, we get it" },
-  ],
-  left_out: { t: "friday", from: null, fr: "Tu as été retiré·e du groupe « Sortie vendredi ».", en: "You were removed from the group “Friday outing”." },
+  // What the others do after the player acts in a conversation. Keyed by the choice's number (and ":mock" / ":support" for the meme).
+  // thread = the conversation the player is in. `quiet`: a confirmation line (no sound, no banner).
+  after: {
+    evening: {
+      0: [{ from: "Maé", fr: "{name} a de l’humour", en: "{name} has a sense of humour", at: 1500 }],
+      1: [{ from: null, quiet: true, fr: "Mème signalé. Réponse automatique : « Ce contenu respecte nos règles. »", en: "Meme reported. Automatic reply: “This content follows our rules.”", at: 600 },
+          { from: "Lucas", fr: "t’as signalé un mème ? sérieux ?", en: "you reported a meme? seriously?", at: 3000 }],
+      2: [{ from: null, quiet: true, fr: "Capture d’écran enregistrée.", en: "Screenshot saved.", at: 600 }],
+      3: [{ from: "Inès", fr: "oh ça va, c’est une blague", en: "oh come on, it’s a joke", at: 1500 }, { from: "Sam", fr: "{name} fait sa morale", en: "{name} is lecturing us", at: 3200 }],
+      4: [{ from: "Lucas", fr: "haha {name} a compris la blague", en: "haha {name} gets the joke", at: 1500 }],
+      5: [{ from: null, quiet: true, fr: "Tu as quitté le groupe « 3B ».", en: "You left the group “3B”.", at: 600 }],
+      "7:mock": [{ from: "Maé", fr: "ahahah celui-là est trop bien", en: "ahahah that one is so good", at: 1500 }, { from: "Lucas", fr: "{name} le roi des mèmes", en: "{name}, king of memes", at: 3200 }],
+      "7:support": [{ from: "Inès", fr: "c’est quoi ce mème ?", en: "what is this meme?", at: 1500 }, { from: "Lucas", fr: "{name} fait de la morale en mème, lol", en: "{name} is moralizing in memes, lol", at: 3200 }],
+    },
+    labels: {
+      0: [{ from: "Inès", fr: "ahah exactement", en: "ahah exactly", at: 1500 }, { from: "Clarisse", fr: "voleur de vie.", en: "life thief.", at: 3200 }],
+      1: [{ from: null, quiet: true, fr: "Message envoyé à Echo.", en: "Message sent to Echo.", at: 600 }, { from: "Lucas", fr: "t’es avec la machine, {name} ?", en: "are you with the machine, {name}?", at: 3000 }],
+      2: [{ from: null, quiet: true, fr: "Insultes signalées.", en: "Insults reported.", at: 600 }, { from: "Clarisse", fr: "{name}, tu fais quoi là ?", en: "{name}, what are you doing?", at: 3000 }],
+    },
+    turnoff: {
+      0: [{ from: "Clarisse", fr: "Parfait. Rendez-vous vendredi, {name}.", en: "Perfect. See you Friday, {name}.", at: 1500 }, { from: "Lucas", fr: "bienvenue", en: "welcome", at: 3000 }],
+      1: [{ from: null, quiet: true, fr: "Capture envoyée à M. Kovasko.", en: "Screenshot sent to Mr. Kovasko.", at: 600 }],
+      2: [{ from: null, quiet: true, fr: "Message envoyé à Echo.", en: "Message sent to Echo.", at: 600 }],
+      3: [{ from: null, quiet: true, fr: "Tu as quitté le groupe « On harcèle personne ».", en: "You left the group “We harass nobody”.", at: 600 }],
+    },
+    night: {
+      0: [{ from: "Echo", fr: "Merci. Ça fait du bien de ne pas être seul·e.", en: "Thank you. It feels good not to be alone.", at: 2000 }],
+      1: [{ from: null, quiet: true, fr: "Message envoyé à Clarisse.", en: "Message sent to Clarisse.", at: 600 }],
+    },
+  },
 };
 
 // The scenes played inside a conversation (the player acts in it): which thread opens. In them nothing is stretched or silenced.
@@ -91,11 +111,13 @@ const Nexus = (() => {
       const p = NEXUS.prompts[id];
       if (p) timers.push(setTimeout(() => Link.send({ type: "prompt", id, fr: fill(p.fr), en: fill(p.en) }), p.at * PACE));
     },
-    // The player helped Echo: a cold answer (in the conversation they are in), and sometimes being removed from a group.
-    cold(level, thread) {
-      const c = NEXUS.cold[Math.floor(Math.random() * NEXUS.cold.length)];
-      timers.push(setTimeout(() => send({ ...c, t: thread || "class", feel: "cold" }, false), 3500));
-      if (level >= 2) timers.push(setTimeout(() => send({ ...NEXUS.left_out, feel: "left_out" }, false), 9000));
+    // When the player has seen every message of a scene played in a conversation (the options appear then)
+    readyAt(id) { return Math.max(0, ...(NEXUS.beats[id] || []).map(m => m.at)) + 1200; },
+    // The player acted in the conversation `thread`: the others react (the same people, in the same place), then how long to stay
+    after(id, key, thread) {
+      const list = (NEXUS.after[id] && (NEXUS.after[id][key] || NEXUS.after[id][String(key).split(":")[0]])) || [];
+      list.forEach(m => timers.push(setTimeout(() => Link.send({ type: "msg", thread, threadName: NEXUS.threads[thread], from: m.from, fr: fill(m.fr), en: fill(m.en), quiet: !!m.quiet, feel: m.from ? undefined : "normal" }), m.at)));
+      return 2200 + Math.max(0, ...list.map(m => m.at));
     },
   };
 })();

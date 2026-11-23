@@ -34,6 +34,18 @@ const TXT = {
   writeBtn: { fr: "Écrire à Echo…", en: "Write to Echo…" },
   writePh: { fr: "Tes mots pour Echo", en: "Your words for Echo" },
   send: { fr: "Envoyer", en: "Send" },
+  memeBtn: { fr: "Créer un mème", en: "Make a meme" },
+  memeTitle: { fr: "Ton mème sur Echo", en: "Your meme about Echo" },
+  memeTop: { fr: "Texte du haut", en: "Top text" },
+  memeBottom: { fr: "Texte du bas", en: "Bottom text" },
+  memeMock: { fr: "Pour se moquer", en: "To make fun" },
+  memeSupport: { fr: "Pour la défendre", en: "To defend Echo" },
+  memePost: { fr: "Publier", en: "Post" },
+  feelTitle: { fr: "Comment tu te sens ?", en: "How do you feel?" },
+  feelMemory: { fr: "Ça me fait penser à une scène que j’ai vécue…", en: "It reminds me of a scene I lived…" },
+  feelOther: { fr: "Ce que j’aurais voulu faire ou dire…", en: "What I would have wanted to do or say…" },
+  noteBtn: { fr: "Ajouter ma note", en: "Add my note" },
+  notePh: { fr: "Ça me rappelle… / ce que je ressens…", en: "It reminds me of… / what I feel…" },
   jEmpty: { fr: "Ton journal se remplit au fil de l’histoire.", en: "Your journal fills in as the story goes." },
 };
 const T = k => TXT[k][french ? "fr" : "en"];
@@ -116,6 +128,14 @@ function renderChat() {
       const b = document.createElement("button"); b.className = "chip"; b.textContent = pick(c);
       b.onclick = () => act(i);
       chips.appendChild(b);
+    } else if (c.kind === "action") {                   // an action shown as a line, not as a message of hers
+      const b = document.createElement("button"); b.className = "chip"; b.textContent = pick(c);
+      b.onclick = () => act(i);
+      chips.appendChild(b);
+    } else if (c.kind === "meme") {
+      const b = document.createElement("button"); b.className = "chip"; b.textContent = "✎ " + T("memeBtn");
+      b.onclick = () => openMemeMaker(i);
+      chips.appendChild(b);
     } else if (c.kind === "write") {                    // she writes her own words
       const b = document.createElement("button"); b.className = "chip"; b.textContent = "✎ " + T("writeBtn");
       b.onclick = () => {
@@ -135,13 +155,13 @@ function renderChat() {
 }
 
 // Do the action chosen in the conversation: it is sent to the story, and shown here at once
-function act(i, text) {
+function act(i, text, extra = {}) {
   if (!chat || !chat.ready || chat.answered || answered === chat.token) return;
   const c = chat.choices[i], token = chat.token, t = threads[openThread];
   answered = token;
-  send({ type: "choose", token, index: i, text });
+  send({ type: "choose", token, index: i, text, stance: extra.stance });
   $("writeRow").hidden = true; $("chips").hidden = false; $("writeInput").value = "";
-  if (t) t.msgs.push(c.kind === "write" ? { from: "__me", fr: text, en: text, time: clock() } : c.kind === "reply" ? { from: "__me", fr: c.fr, en: c.en, time: clock() } : { from: null, fr: "✓ " + c.fr, en: "✓ " + c.en, sys: true });
+  if (t) t.msgs.push(extra.image ? { from: "__me", fr: "[mème]", en: "[meme]", image: extra.image, time: clock() } : c.kind === "write" ? { from: "__me", fr: text, en: text, time: clock() } : c.kind === "reply" ? { from: "__me", fr: c.fr, en: c.en, time: clock() } : { from: null, fr: "✓ " + c.fr, en: "✓ " + c.en, sys: true });
   $("sheet").hidden = true;
   renderChat();
   if (c.kind === "ignore") silence();
@@ -304,7 +324,7 @@ function onMessage(m) {
   if (!reading) t.unread++;
   const isGroupEvent = !m.from;
   if (!m.quiet) feel(m.feel || "normal");
-  if (isGroupEvent) toast(french ? "Groupe" : "Group", pick(m), "group", m.thread);
+  if (isGroupEvent && !m.quiet && !reading) toast(french ? "Groupe" : "Group", pick(m), "group", m.thread);
   else if (!reading && !m.quiet) toast(m.from, pick(m), "msg", m.thread);
   paintStatic();
   if (reading) { renderThread(); if (view === "chat") renderChat(); }
@@ -371,6 +391,63 @@ function renderThread() {
   box.scrollTop = box.scrollHeight;
 }
 
+
+// ---------------------------------------------------------------- the meme maker: a picture, two lines of text, and what it is for
+
+const MEME_BGS = ["images/classe.png", "images/couloir.png", "images/toit.png"];
+function openMemeMaker(index) {
+  const box = $("memeMaker"), cv = $("memeCanvas"), g = cv.getContext("2d");
+  let bg = MEME_BGS[0], tone = null, mine = null;   // mine: a picture imported from the phone
+  $("memeTitle").textContent = T("memeTitle");
+  $("memeTop").placeholder = T("memeTop"); $("memeBottom").placeholder = T("memeBottom");
+  $("memeTop").value = ""; $("memeBottom").value = "";
+  const [bMock, bSupport] = $("memeTone").children;
+  bMock.textContent = T("memeMock"); bSupport.textContent = T("memeSupport");
+  $("memeCancel").textContent = T("cancel"); $("memePost").textContent = T("memePost");
+  const thumbs = $("memeBgs"); thumbs.innerHTML = "";
+  MEME_BGS.forEach(p => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "thumb"; b.style.backgroundImage = `url(${Assets.url(p)})`;
+    b.onclick = () => { bg = p; draw(); };
+    thumbs.appendChild(b);
+  });
+  const up = document.createElement("label"); up.className = "thumb upload"; up.innerHTML = '<span>+</span><input type="file" accept="image/*" hidden>';
+  up.querySelector("input").onchange = e => {
+    const f = e.target.files && e.target.files[0]; e.target.value = ""; if (!f) return;
+    const url = URL.createObjectURL(f), im = new Image();
+    im.onload = () => { mine = im; bg = "mine"; up.style.backgroundImage = `url(${url})`; draw(); };
+    im.src = url;
+  };
+  thumbs.appendChild(up);
+  // the text sits on the picture, white with a black outline, as small as needed to fit
+  const line = (txt, y, base) => {
+    txt = txt.toUpperCase(); if (!txt) return;
+    let size = 54; g.font = `900 ${size}px Impact, "Arial Black", sans-serif`;
+    while (g.measureText(txt).width > cv.width - 40 && size > 20) { size -= 2; g.font = `900 ${size}px Impact, "Arial Black", sans-serif`; }
+    g.textAlign = "center"; g.textBaseline = base; g.lineJoin = "round"; g.lineWidth = Math.max(5, size / 7); g.strokeStyle = "#000"; g.fillStyle = "#fff";
+    g.strokeText(txt, cv.width / 2, y); g.fillText(txt, cv.width / 2, y);
+  };
+  function draw() {
+    g.fillStyle = "#08070f"; g.fillRect(0, 0, cv.width, cv.height);
+    const im = bg === "mine" ? mine : Assets.img(bg);
+    if (im) { const s = Math.max(cv.width / im.width, cv.height / im.height); g.drawImage(im, (cv.width - im.width * s) / 2, (cv.height - im.height * s) / 2, im.width * s, im.height * s); }
+    const echo = bg === "mine" ? null : Assets.img("images/characters/echo.png");   // her own picture is shown alone
+    if (echo) { const h = cv.height * 0.8, w = echo.width * h / echo.height; g.drawImage(echo, (cv.width - w) / 2, cv.height - h - 10, w, h); }
+    line($("memeTop").value, 14, "top"); line($("memeBottom").value, cv.height - 14, "bottom");
+    [...thumbs.children].forEach((b, i) => b.classList.toggle("on", i < MEME_BGS.length ? MEME_BGS[i] === bg : bg === "mine"));
+    $("memePost").disabled = !tone || !($("memeTop").value.trim() || $("memeBottom").value.trim());
+  }
+  [bMock, bSupport].forEach(b => { b.classList.remove("on"); b.onclick = () => { tone = b.dataset.tone; bMock.classList.toggle("on", b === bMock); bSupport.classList.toggle("on", b === bSupport); draw(); }; });
+  $("memeTop").oninput = draw; $("memeBottom").oninput = draw;
+  $("memeCancel").onclick = () => { box.hidden = true; };
+  $("memePost").onclick = () => {
+    const caption = [$("memeTop").value.trim(), $("memeBottom").value.trim()].filter(Boolean).join(" / ");
+    const image = cv.toDataURL("image/jpeg", 0.72);
+    box.hidden = true;
+    act(index, caption, { stance: tone, image });
+  };
+  box.hidden = false; draw();
+}
+
 // ---------------------------------------------------------------- journal: written entries + questions the player answers herself
 
 function onPrompt(m) {
@@ -379,14 +456,51 @@ function onPrompt(m) {
   paintStatic(); renderJournal();
 }
 
+const FEELINGS = [
+  { id: "sad", fr: "Triste", en: "Sad" }, { id: "angry", fr: "En colère", en: "Angry" }, { id: "uneasy", fr: "Mal à l’aise", en: "Uneasy" },
+  { id: "guilty", fr: "Coupable", en: "Guilty" }, { id: "relieved", fr: "Soulagé·e", en: "Relieved" }, { id: "proud", fr: "Fier·ère", en: "Proud" },
+  { id: "lost", fr: "Perdu·e", en: "Lost" }, { id: "nothing", fr: "Rien de spécial", en: "Nothing special" },
+];
+// A text box that saves what is written, on this phone only
+function noteBox(key, placeholder, minH = 90) {
+  const ta = document.createElement("textarea"); ta.placeholder = placeholder; ta.value = saved[key] || "";
+  const grow = () => { ta.style.height = "auto"; ta.style.height = Math.max(minH, ta.scrollHeight) + "px"; };
+  const ok = document.createElement("span"); ok.className = "ok"; ok.textContent = "✓ " + T("saved");
+  ta.oninput = () => { saved[key] = ta.value; save(); grow(); ok.classList.add("on"); clearTimeout(ta.okId); ta.okId = setTimeout(() => ok.classList.remove("on"), 1500); };
+  ta.onfocus = () => setTimeout(() => ta.scrollIntoView({ block: "center", behavior: "smooth" }), 300);
+  setTimeout(grow, 0);
+  return [ta, ok];
+}
+
 function renderJournal() {
+  // How do I feel? Does it remind me of something I lived? (free, saved on the phone)
+  const fb = $("jFeel"); fb.innerHTML = "";
+  const card = document.createElement("div"); card.className = "prompt feel";
+  const q = document.createElement("p"); q.className = "q"; q.textContent = T("feelTitle");
+  const chips = document.createElement("div"); chips.className = "feelChips";
+  const picked = new Set(saved.feel || []);
+  FEELINGS.forEach(f => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "feelChip" + (picked.has(f.id) ? " on" : ""); b.textContent = pick(f);
+    b.onclick = () => { picked.has(f.id) ? picked.delete(f.id) : picked.add(f.id); saved.feel = [...picked]; save(); b.classList.toggle("on", picked.has(f.id)); };
+    chips.appendChild(b);
+  });
+  const [m1, ok1] = noteBox("memory", T("feelMemory")), [m2, ok2] = noteBox("other", T("feelOther"));
+  const foot = document.createElement("div"); foot.className = "foot"; const stay = document.createElement("span"); stay.textContent = T("stays"); foot.append(stay, ok1, ok2);
+  card.append(q, chips, m1, m2, foot); fb.appendChild(card);
+
   const box = $("jEntries"); box.innerHTML = "";
   if (!entries.length) { const e = document.createElement("p"); e.className = "jempty"; e.textContent = T("jEmpty"); box.appendChild(e); }
   entries.forEach((e, i) => {
     const d = document.createElement("div"); d.className = "entry";
     const s = document.createElement("small"); s.textContent = T("entry") + " " + (i + 1);
     const t = document.createElement("p"); t.textContent = pick(e);
-    d.append(s, t); box.appendChild(d);
+    d.append(s, t);
+    // under each entry: "does it remind me of something?", opened by a small button
+    const key = "note-" + i, wrap = document.createElement("div"); wrap.className = "entryNote";
+    const open = () => { wrap.innerHTML = ""; const [ta, ok] = noteBox(key, T("notePh")); wrap.append(ta, ok); ta.focus(); };
+    if (saved[key]) open();
+    else { const b = document.createElement("button"); b.type = "button"; b.className = "noteBtn"; b.textContent = "✎ " + T("noteBtn"); b.onclick = open; wrap.appendChild(b); }
+    d.appendChild(wrap); box.appendChild(d);
   });
   const pr = $("jPrompts"); pr.innerHTML = "";
   prompts.forEach(q => {

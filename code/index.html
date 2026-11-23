@@ -72,6 +72,7 @@
     <section id="choiceView" hidden>
       <div id="echoState"><span id="bloom"></span><span id="echoName">Echo</span></div>
       <h2 id="placeName"></h2>
+      <div id="echoCard" hidden></div>
       <p id="storyLine"></p>
       <p id="choicePrompt"></p>
       <div id="timer" hidden><i></i></div>
@@ -98,6 +99,18 @@
       </div>
     </section>
 
+    <div id="memeMaker" hidden>
+      <div class="memebox">
+        <h3 id="memeTitle"></h3>
+        <canvas id="memeCanvas" width="480" height="480"></canvas>
+        <div id="memeBgs"></div>
+        <input id="memeTop" maxlength="26" autocomplete="off">
+        <input id="memeBottom" maxlength="26" autocomplete="off">
+        <div id="memeTone"><button type="button" data-tone="mock"></button><button type="button" data-tone="support"></button></div>
+        <div class="memeBtns"><button type="button" id="memeCancel"></button><button type="button" id="memePost"></button></div>
+      </div>
+    </div>
+
     <div id="sheet" hidden>
       <div class="sheetbox">
         <p id="sheetTitle"></p>
@@ -107,6 +120,7 @@
     </div>
 
     <section id="journalView" hidden>
+      <div id="jFeel"></div>
       <div id="jEntries"></div>
       <div id="jPrompts"></div>
     </section>

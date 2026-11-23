@@ -41,7 +41,7 @@ function maybeStartBeat() {
       phase = "dialog";
       chatReady = false; chatAnswered = false;
       const ch = STORY.beats[idx].chat;
-      if (ch) setTimeout(() => { if (phase === "dialog" && beatIndex === idx) { chatReady = true; syncPhone(); } }, ch.readyAt);
+      if (ch) setTimeout(() => { if (phase === "dialog" && beatIndex === idx) { chatReady = true; syncPhone(); } }, Nexus.readyAt(STORY.beats[idx].id));   // once every message is in
       fireDelayed(idx);                       // an old choice comes back
       if (idx === STORY.beats.length - 1) lastSnap = { state: JSON.parse(JSON.stringify(state)), beatIndex: idx };   // to try the last scene again
       render();
@@ -96,18 +96,19 @@ function fireDelayed(idx) {
   });
 }
 
-function choose(c, text) {
+function choose(c, text, index, stance) {
   const chat = STORY.beats[beatIndex].chat;
+  if (c.kind === "meme") c = { ...c, ...(c[stance === "support" ? "support" : "mock"] || {}) };   // a meme counts for what it was made for
   if (c.later) state.delayed.push({ at: beatIndex + c.later.after, later: c.later, done: false });
   for (const k of ["harass", "passive", "help", "bond"]) state[k] += c[k] || 0;
   if (c.flag) state.flags[c.flag] = true;
-  if (c.help > 0 && chat) Nexus.cold(c.help, chat.thread);       // helping Echo: the others answer coldly, in the conversation the player is in
-  if (c.journal) state.extra.push({ beat: beatIndex, text: c.journal });
-  if (text) state.extra.push({ beat: beatIndex, text: { fr: `J’ai écrit à Echo : « ${text} »`, en: `I wrote to Echo: “${text}”` } });   // her own words go in the journal
-  if (chat) {                                            // stay in the conversation a moment: the answers and the cold reply are seen
+  if (c.journal) state.extra.push({ beat: beatIndex, text: text && c.kind === "meme" ? { fr: c.journal.fr + " « " + text + " »", en: c.journal.en + " “" + text + "”" } : c.journal });
+  if (text && c.kind !== "meme") state.extra.push({ beat: beatIndex, text: { fr: `J’ai écrit à Echo : « ${text} »`, en: `I wrote to Echo: “${text}”` } });   // her own words go in the journal
+  if (chat) {                                            // stay in the conversation a moment: the others answer, then the story goes on
     chatAnswered = true; syncPhone();
     const idx = beatIndex;
-    setTimeout(() => { if (phase === "dialog" && beatIndex === idx) next(); }, 4800);
+    const stay = Nexus.after(STORY.beats[idx].id, stance ? index + ":" + stance : index, chat.thread);
+    setTimeout(() => { if (phase === "dialog" && beatIndex === idx) next(); }, stay);
   } else next();
 }
 
@@ -175,7 +176,7 @@ function syncPhone() {
 Link.onMessage = m => {
   if (m.type !== "choose" || !pending || m.token !== pending.token) return;
   const p = pending; pending = null;
-  if (p.kind === "choice") { const c = p.choices[m.index]; if (c) choose(c, typeof m.text === "string" ? m.text.slice(0, 120).trim() : ""); }
+  if (p.kind === "choice") { const c = p.choices[m.index]; if (c) choose(c, typeof m.text === "string" ? m.text.slice(0, 120).trim() : "", m.index, m.stance === "support" || m.stance === "mock" ? m.stance : ""); }
   else if (p.kind === "continue") next();
   else if (p.kind === "restart") { if (m.index === 1) retryLastScene(); else restart(); }
 };
@@ -217,6 +218,7 @@ function renderScreen() {
   $("main").hidden = phase !== "intro" && phase !== "profile";          // the pages before the game; in the game the story line is in the Nexus panel
   $("app").hidden = !(phase === "phone" || inGame);                     // Nexus: the welcome screen, then the game
   $("storyLine").textContent = "";
+  $("echoCard").hidden = true; document.body.classList.remove("ended");
   updateGauge();
   updateJournal();
 
@@ -306,10 +308,26 @@ function renderProfile() {
   check();
 }
 
+// The end: Echo's card, like an identity card of the holokid, with how she is and how it ended
 function renderEnding() {
-  const e = STORY.endings.find(x => x.id === endingId()) || STORY.endings[0];
-  $("storyLine").textContent = L(e.title) + "\n\n" + L(e.text);
-  $("storyLine").classList.add("long");
+  const e = STORY.endings.find(x => x.id === endingId()) || STORY.endings[0], st = stage();
+  const el = (tag, cls, txt) => { const n = document.createElement(tag); if (cls) n.className = cls; if (txt !== undefined) n.textContent = txt; return n; };
+  const bar = (label, v, cls) => { const r = el("div", "ec-stat " + cls); const m = el("div", "ec-meter"); const i = el("i"); i.style.width = Math.round(Math.max(0, Math.min(1, v)) * 100) + "%"; m.appendChild(i); r.append(el("span", "", label), m); return r; };
+  const card = $("echoCard");
+  card.hidden = false; card.textContent = ""; card.className = "echoCard end-" + e.id + " stage" + st;
+  document.body.classList.add("ended");
+
+  const top = el("div", "ec-top"); top.append(el("span", "", "HOLO’KIDS · ALAN TURING"), el("span", "", "ID 3B-001"));
+  const portrait = el("div", "ec-portrait");
+  const pic = Assets.img("images/characters/echo.png"); if (pic) portrait.appendChild(pic.cloneNode());
+  const who = el("div", "ec-who");
+  const flowers = el("div", "ec-flowers"); flowers.innerHTML = [0, 1, 2].map(() => Flower.svg(bloomValue(), 26)).join("");
+  who.append(el("div", "ec-name", "ECHO"), el("div", "ec-sub", french ? "Holokid · classe 3B" : "Holokid · class 3B"), el("div", "ec-state", L(STORY.stages[st])), flowers);
+  const head = el("div", "ec-head"); head.append(portrait, who);
+  const stats = el("div", "ec-stats");
+  stats.append(bar(fill(french ? "Lien avec {name}" : "Bond with {name}"), state.bond / (STORY.bondToUnlock * 2), "bond"), bar(french ? "Blessures" : "Hurt", state.harass / Math.max(1, STORY.harassStage3), "hurt"));
+  const end = el("div", "ec-end"); end.append(el("h3", "", L(e.title)), el("p", "", L(e.text)));
+  card.append(top, head, stats, end);
 }
 
 // Gauge: a flower in bloom on the left, a wilted one on the right, the bar between them (green -> orange -> red)
