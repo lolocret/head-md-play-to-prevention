@@ -5,6 +5,7 @@ const $ = id => document.getElementById(id);
 let french = true, openThread = null, view = "choice";
 const threads = {};                 // id -> { name, msgs: [{ from, fr, en, image, time }], unread }
 let entries = [], prompts = [], jUnread = 0;
+let journalOn = false;              // the journal is only there at the end of the story
 let chat = null;                    // the scene played in a conversation: { token, ready, answered, choices }
 let game = { mode: "wait" };        // what the story asks of the player now (sent by the computer)
 let answered = null;                // token of the choice already answered
@@ -42,6 +43,7 @@ function paintStatic() {
   $("answer").textContent = T("answer");
   $("gateNote").textContent = T("note");
   $("closeText").textContent = T("back");
+  $("btnJournal").hidden = !journalOn;
   $("btnJournal").querySelector(".dotb").hidden = !jUnread;
   $("btnMsgs").querySelector(".dotb").hidden = !Object.values(threads).some(t => t.unread);
   renderList();
@@ -72,6 +74,9 @@ function startCall() {
 // ---------------------------------------------------------------- the main screen: what to do now
 
 function onState(m) {
+  const end = m.token === "end";
+  if (end && !journalOn) { journalOn = true; jUnread = 1; }   // the story is over: the journal appears
+  if (!end && journalOn) { journalOn = false; jUnread = 0; if (view === "journal") show("choice"); }   // played again: hidden again
   const wasChat = game.ui === "chat";
   const isNew = m.mode === "choose" && (game.mode !== "choose" || game.token !== m.token);
   game = m;
@@ -248,7 +253,7 @@ function renderThread() {
     const mine = m.from === "__me";
     const d = document.createElement("div"); d.className = "bubble" + (mine ? " me" : (m.from ? "" : " system"));
     if (m.from && !mine) { const s = document.createElement("small"); s.textContent = m.from; s.style.setProperty("--c", colorOf(m.from)); d.appendChild(s); }
-    if (m.image) { const im = document.createElement("img"); im.src = Assets.url(m.image); im.alt = pick(m); im.loading = "lazy"; d.appendChild(im); }
+    if (m.image) { const im = document.createElement("img"); im.src = Assets.url(m.image); im.alt = pick(m); d.appendChild(im); }
     else d.appendChild(document.createTextNode(pick(m)));
     if (m.time && !m.sys) { const tm = document.createElement("time"); tm.textContent = m.time; d.appendChild(tm); }
     if (m.key && view === "chat") { d.dataset.key = m.key; if (canReact(m.key)) { d.classList.add("tappable"); d.onclick = () => openSheet(m.key); } }
@@ -262,8 +267,6 @@ function renderThread() {
 function onPrompt(m) {
   if (prompts.some(x => x.id === m.id)) return;
   prompts.push({ id: m.id, fr: m.fr, en: m.en });
-  if (view !== "journal") { jUnread++; toast(T("jTitle"), T("jNotif"), "journal"); }
-  feel("normal");
   paintStatic(); renderJournal();
 }
 

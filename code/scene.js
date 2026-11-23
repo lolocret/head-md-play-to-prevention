@@ -70,9 +70,8 @@ const Scene = (() => {
   }
 
   function addSprite(n) {
-    const c = CHARS[n.id], token = api.current;
-    const img = new Image();
-    img.onload = () => {
+    const c = CHARS[n.id], token = api.current, src = `images/characters/${n.id}.png`;
+    const show = img => {
       if (token !== api.current) return;
       const d = document.createElement("div");
       d.className = "sprite" + (n.id === "echo" ? " echo stage" + Math.min(api.stage, 3) : "");
@@ -82,7 +81,11 @@ const Scene = (() => {
       if (c.n) { const l = document.createElement("small"); l.textContent = c.n; d.appendChild(l); }
       el.appendChild(d);
     };
-    img.src = `images/characters/${n.id}.png`;
+    const ready = Assets.img(src);
+    if (ready) return show(ready.cloneNode());   // already loaded at the start: it appears at once
+    const img = new Image();
+    img.onload = () => show(img);
+    img.src = src;
   }
 
   Object.assign(api, {
