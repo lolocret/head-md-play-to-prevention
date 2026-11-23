@@ -12,46 +12,35 @@ const NEXUS = {
   beats: {
     arrival: [
       { t: "class", from: "Kovasko", fr: "Bienvenue à Echo dans notre classe !", en: "Welcome to Echo in our class!", at: 1500 },
-      { t: "class", from: "Lucas", fr: "un hologramme en 3B, on a gagné quoi", en: "a hologram in 3B, what did we win", at: 6000 },
     ],
     hello: [
-      { t: "class", from: "Maé", fr: "{name}, t’as vu sa main qui traverse", en: "{name}, did you see his hand go through", at: 2500 },
     ],
     evening: [
       { t: "class", from: "Lucas", fr: "[vidéo] Echo dit bonjour", en: "[video] Echo says hello", image: "images/video-hello.png", key: "video", at: 1000 },
-      { t: "class", from: "Inès", fr: "t’es même pas réel", en: "you’re not even real", at: 3500 },
       { t: "class", from: "Sam", fr: "tes émotions c’est des fictions", en: "your emotions are fictions", at: 6000 },
       { t: "class", from: "Maé", fr: "[mème]", en: "[meme]", image: "images/meme-echo.png", key: "meme", at: 9000 },
       { t: "humans", from: null, fr: "Maé a créé le groupe « Humains de la 3B uniquement ». Echo n’en fait pas partie.", en: "Maé created the group “Humans of 3B only”. Echo is not part of it.", at: 14000 },
     ],
     lunch: [
-      { t: "class", from: "Maé", fr: "[photo] Echo, tout seul·e sur son banc", en: "[photo] Echo, all alone on the bench", at: 2500 },
     ],
     lesson: [
-      { t: "class", from: "Sam", fr: "t’as vu la tête de Kovasko, il comprend rien", en: "did you see Kovasko’s face, he gets nothing", at: 3000 },
     ],
     monday: [
       { t: "humans", from: "Clarisse", fr: "Qui est avec nous cette semaine ?", en: "Who is with us this week?", at: 2500 },
     ],
     nextday: [
-      { t: "class", from: "Kovasko", fr: "Bonjour à tous, pensez à rendre vos devoirs.", en: "Good morning everyone, remember to hand in your homework.", at: 1500 },
       { t: "humans", from: "Lucas", fr: "regarde sa tête, haha", en: "look at his face, haha", at: 5000 },
     ],
     door: [
-      { t: "humans", from: "Noa", fr: "réservé aux vrais, lol", en: "reserved for the real ones, lol", at: 1500 },
     ],
     labels: [
       { t: "humans", from: "Inès", fr: "j’ai piraté son dos, regardez ce qui s’affiche", en: "I hacked its back, look what shows up", key: "insults", at: 1000 },
-      { t: "humans", from: "Clarisse", fr: "voleur de vie.", en: "life thief.", at: 3000 },
-      { t: "humans", from: "Yaël", fr: "je vais pas bien en ce moment", en: "I’m not doing well right now", at: 6000 },
-      { t: "humans", from: "Echo", fr: "Je suis là. Tu veux en parler ?", en: "I’m here. Do you want to talk?", at: 8500 },
       { t: "humans", from: "Sam", fr: "tu peux pas comprendre, t’es pas humain", en: "you can’t understand, you’re not human", at: 11000 },
     ],
     turnoff: [
       { t: "private", from: null, fr: "Clarisse t’a ajouté·e au groupe « On harcèle personne ».", en: "Clarisse added you to the group “We harass nobody”.", at: 800 },
       { t: "private", from: "Clarisse", fr: "On harcèle personne, c’est juste une machine.", en: "We’re not harassing anyone, it’s just a machine.", at: 3000 },
       { t: "private", from: "Clarisse", fr: "{name}, t’es avec nous ou avec la machine ?", en: "{name}, are you with us or with the machine?", at: 6000 },
-      { t: "private", from: "Lucas", fr: "{name}, si tu dis rien, tu approuves", en: "{name}, if you say nothing, you agree", at: 8500 },
       { t: "private", from: "Clarisse", fr: "Vendredi après les cours, on l’éteint. Code : KIPE-SAFE007", en: "Friday after class, we switch it off. Code: KIPE-SAFE007", key: "plan", at: 11000 },
     ],
     night: [

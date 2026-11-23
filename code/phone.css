@@ -169,3 +169,5 @@ body.silent { filter:grayscale(1) brightness(.55); }
 #sheetBtns { display:flex; flex-direction:column; gap:10px; }
 #sheetBtns button { min-height:56px; font-size:18px; text-align:center; border-color:var(--cyan); background:rgba(77,240,255,.12); }
 #sheetClose { width:100%; margin-top:10px; min-height:48px; text-align:center; background:none; }
+#gate #answer { margin-top:16vh; }
+@media (max-height:560px) { #gate #answer { margin-top:4vh; } }
