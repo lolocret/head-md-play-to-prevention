@@ -74,7 +74,7 @@ const Scene = (() => {
       if (token !== api.current) return;
       const d = document.createElement("div");
       d.className = "sprite" + (n.id === "echo" ? " echo stage" + Math.min(api.stage, 3) : "");
-      d.style.cssText = `left:${n.x}%;top:${n.y}%`;
+      d.style.cssText = `left:${n.x}%;top:${n.y * 0.56}%`;   // the characters stand in the upper part of the screen: the choices cover the bottom
       img.className = "fig-img";
       d.appendChild(img);
       if (c.n) { const l = document.createElement("small"); l.textContent = c.n; d.appendChild(l); }

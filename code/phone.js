@@ -1,28 +1,27 @@
 // The player's phone: it is the controller of the game. One main screen (what to do now);
 // messages and the journal are two small buttons at the top. Same on iPhone and Android.
-const params = new URLSearchParams(location.search);
-const room = (params.get("room") || "").toUpperCase();
+const Phone = (() => {
 const $ = id => document.getElementById(id);
-let french = true, ws, openThread = null, closedByUs = false, view = "choice";
+let french = true, openThread = null, view = "choice";
 const threads = {};                 // id -> { name, msgs: [{ from, fr, en, image, time }], unread }
 let entries = [], prompts = [], jUnread = 0;
 let chat = null;                    // the scene played in a conversation: { token, ready, answered, choices }
 let game = { mode: "wait" };        // what the story asks of the player now (sent by the computer)
 let answered = null;                // token of the choice already answered
-const saved = (() => { try { return JSON.parse(localStorage.getItem("echo-journal-" + room) || "{}"); } catch (e) { return {}; } })();
-const save = () => { try { localStorage.setItem("echo-journal-" + room, JSON.stringify(saved)); } catch (e) { /* optional */ } };
+const saved = (() => { try { return JSON.parse(localStorage.getItem("echo-journal") || "{}"); } catch (e) { return {}; } })();
+const save = () => { try { localStorage.setItem("echo-journal", JSON.stringify(saved)); } catch (e) { /* optional */ } };
 
 const TXT = {
   calling: { fr: "Bienvenue sur Nexus", en: "Welcome to Nexus" },
   answer: { fr: "Ouvrir", en: "Open" },
-  note: { fr: "Garde cette page ouverte pendant le jeu.", en: "Keep this page open during the game." },
+  note: { fr: "Le jeu se joue sur ton téléphone.", en: "The game is played on your phone." },
   msgs: { fr: "Messages", en: "Messages" },
   jTitle: { fr: "Mon journal", en: "My journal" },
   back: { fr: "Retour au jeu", en: "Back to the game" },
   empty: { fr: "Aucun message pour l’instant.", en: "No messages yet." },
   noRoom: { fr: "Cette session n’existe plus. Scanne le QR code de l’ordinateur.", en: "This session no longer exists. Scan the computer’s QR code." },
-  wait: { fr: "Regarde l’écran.", en: "Look at the screen." },
-  sent: { fr: "Choix envoyé. Regarde l’écran.", en: "Choice sent. Look at the screen." },
+  wait: { fr: "", en: "" },
+  sent: { fr: "", en: "" },
   write: { fr: "Écris ici, juste pour toi…", en: "Write here, just for you…" },
   stays: { fr: "Ce que tu écris reste sur ton téléphone.", en: "What you write stays on your phone." },
   jNotif: { fr: "Une question pour toi", en: "A question for you" },
@@ -49,30 +48,20 @@ function paintStatic() {
   if (openThread) renderThread();
 }
 
-// ---------------------------------------------------------------- connection
+// ---------------------------------------------------------------- the story talks to the phone (in the same page)
 
-function connect() {
-  if (!/^[A-Z0-9]{4}$/.test(room)) { $("gateText").textContent = T("noRoom"); $("answer").hidden = true; return; }
-  const proto = location.protocol === "https:" ? "wss" : "ws";
-  ws = new WebSocket(`${proto}://${location.host}/?role=phone&room=${room}`);
-  ws.onopen = () => send({ type: "hello" });
-  ws.onmessage = e => {
-    let m; try { m = JSON.parse(e.data); } catch (err) { return; }
-    if (m.type === "error") { $("gateText").textContent = T("noRoom"); $("answer").hidden = true; $("gate").hidden = false; closedByUs = true; }
-    else if (m.type === "peer" && m.connected && $("gate").hidden === false) startCall();
-    else if (m.type === "profile") {
-      french = m.french !== false;
-      if (m.photo) { $("mePic").src = m.photo; $("mePic").hidden = false; } else $("mePic").hidden = true;   // the cyberpunk portrait, if the player added one
-      paintStatic(); renderGame();
-    }
-    else if (m.type === "msg") onMessage(m);
-    else if (m.type === "journal") { entries = m.entries || []; renderJournal(); }
-    else if (m.type === "prompt") onPrompt(m);
-    else if (m.type === "state") onState(m);
-  };
-  ws.onclose = () => { if (!closedByUs) setTimeout(connect, 1500); };
+function receive(m) {
+  if (m.type === "profile") {
+    french = m.french !== false;
+    if (m.photo) { $("mePic").src = m.photo; $("mePic").hidden = false; } else $("mePic").hidden = true;   // the cyberpunk portrait, if the player added one
+    paintStatic(); renderGame();
+  }
+  else if (m.type === "msg") onMessage(m);
+  else if (m.type === "journal") { entries = m.entries || []; renderJournal(); }
+  else if (m.type === "prompt") onPrompt(m);
+  else if (m.type === "state") onState(m);
 }
-const send = m => { if (ws && ws.readyState === 1) ws.send(JSON.stringify(m)); };
+const send = m => Link.toGame(m);
 
 function startCall() {
   $("app").classList.remove("on-gate");   // the small NEXUS bar appears once the welcome screen is gone
@@ -178,6 +167,7 @@ function renderGame() {
 
 function show(v) {
   view = v;
+  $("app").classList.toggle("overlay", v !== "choice");
   const inChat = v === "chat";
   $("choiceView").hidden = v !== "choice";
   $("list").hidden = v !== "msgs" || !!openThread;
@@ -340,6 +330,9 @@ $("closeView").onclick = () => show(chat ? "chat" : "choice");
 $("sheetClose").onclick = () => { $("sheet").hidden = true; };
 $("back").onclick = () => { openThread = null; show("msgs"); };
 // A tap is needed before the browser lets the page play sounds (the same on iPhone and Android).
-$("answer").onclick = () => { unlockSound(); buzz(40); keepAwake(); $("answer").disabled = true; connect(); };
+$("answer").onclick = () => { unlockSound(); buzz(40); keepAwake(); startCall(); Phone.onOpen(); };
 
 paintStatic();
+
+return { receive, onOpen: () => {} };
+})();

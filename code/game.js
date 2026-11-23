@@ -1,5 +1,5 @@
-// Echo — a story played from a phone. The computer only displays (the places, the text, Echo's state);
-// everything the player does (choices, "Continue", "Play again") happens on the phone.
+// Echo — a story played on a phone. The scene, the story line and the choices are all on the same screen;
+// phone.js is the Nexus part (choices, messages, journal) and talks to this file through link.js.
 // French by default; add ?lang=en to the address for English
 let french = new URLSearchParams(location.search).get("lang") !== "en";
 let state, beatIndex, finished;
@@ -91,7 +91,7 @@ function fireDelayed(idx) {
     if (d.done || d.at > idx) return;
     d.done = true;
     if (d.later.journal) state.extra.push({ beat: Math.max(0, idx - 1), text: d.later.journal });
-    if (d.later.msg && Link.connected) {
+    if (d.later.msg) {
       const m = d.later.msg;
       setTimeout(() => Link.send({ type: "msg", thread: m.t, threadName: NEXUS.threads[m.t], from: m.from, fr: fill(m.fr), en: fill(m.en), feel: "normal" }), 5000);
     }
@@ -163,7 +163,6 @@ function phoneState() {
 function syncPhone() {
   const s = phoneState();
   s.bloom = +bloomValue().toFixed(2);          // the phone shows Echo's flowers too
-  if (!Link.connected) return;
   const sig = JSON.stringify(s);
   if (sig === sentSig) return;
   sentSig = sig;
@@ -179,17 +178,8 @@ Link.onMessage = m => {
   else if (p.kind === "restart") { if (m.index === 1) retryLastScene(); else restart(); }
 };
 
-Link.onPeer = connected => {
-  if (connected) {
-    Link.send(profileMsg());
-    updateJournal.sig = null; updateJournal();
-    sentSig = null;                                  // a phone (re)connected: send it the whole state again
-    if (phase === "phone") setTimeout(() => { if (phase === "phone") restart(); }, 1800);
-    else render();
-  } else {
-    sentSig = null; render();                        // the phone left: the game waits for it
-  }
-};
+// The player opened Nexus (the welcome screen): the story starts
+Phone.onOpen = () => { if (phase === "phone") { sentSig = null; restart(); } };
 
 // ---------------------------------------------------------------- the screen
 
@@ -222,12 +212,9 @@ function renderScreen() {
   Scene.refresh();
   const inGame = phase === "world" || phase === "dialog" || phase === "ending";
   document.body.classList.toggle("pre-game", !inGame);   // before the game starts, no place is shown behind the pages
-  const needPhone = phase === "phone" || (inGame && !Link.connected);   // no phone, no game
-  $("main").hidden = phase === "title" || phase === "world" || phase === "phone" || needPhone;
-  $("phoneScreen").hidden = !needPhone;
-  if (needPhone) renderPhoneStep();
-  document.body.classList.toggle("vn", phase === "dialog");
-  document.body.classList.toggle("await-phone", phase === "dialog" && Link.connected);   // the scene darkens while the player answers on the phone
+  $("main").hidden = phase !== "intro" && phase !== "profile";          // the pages before the game; in the game the story line is in the Nexus panel
+  $("app").hidden = !(phase === "phone" || inGame);                     // Nexus: the welcome screen, then the game
+  $("storyLine").textContent = "";
   updateGauge();
   updateJournal();
 
@@ -243,11 +230,10 @@ function renderScreen() {
   if (alone) state.flags["alone_" + beat.id] = true;
   const text = alone ? (beat.alone.line || beat.alone.text)
     : (beat.moodLines ? (beat.moodLines[mood()] || beat.line) : (beat.line || (beat.moodText ? (beat.moodText[mood()] || beat.text) : beat.text)));
-  $("title").textContent = "";           // no title, no paragraph: one short line, the rest is lived on the phone
   let body = L(text);
   (beat.notes || []).forEach(n => { if (noteApplies(n)) body += "\n\n" + L(n.text); });
-  $("body").textContent = body;
-  // the questions and the buttons are on the phone: the computer only tells the story
+  $("storyLine").textContent = body;     // one short line above the choices
+  $("storyLine").classList.toggle("long", body.length > 140);
 }
 
 function renderTitle() {
@@ -312,43 +298,18 @@ function renderProfile() {
   $("adjustBtn").hidden = !player.photo;
   $("adjustBtn").textContent = L(PROFILE.adjust);
   $("uploadErr").textContent = L(PROFILE.uploadErr);
-  addButton(L(PROFILE.start), () => { player.name = $("nameInput").value.trim(); startPhoneStep(); });
+  addButton(L(PROFILE.start), () => { player.name = $("nameInput").value.trim(); phase = "phone"; Link.send(profileMsg()); render(); });
   const start = $("choices").lastChild;
   const check = () => { start.disabled = !$("nameInput").value.trim(); };   // only the name is required
   $("nameInput").oninput = check;
   check();
 }
 
-let noServer = false;
-async function startPhoneStep() {
-  const info = await Link.start();
-  phase = "phone";
-  noServer = !info;
-  $("qr").innerHTML = "";
-  if (info) {
-    new QRCode($("qr"), { text: info.url, width: 200, height: 200, colorDark: "#0a0a1c", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
-    $("qrRoom").textContent = info.url.replace(/^https?:\/\//, "");
-  }
-  render();
-}
-
-function renderPhoneStep() {
-  $("callLabel").textContent = french ? "Ouverture…" : "Opening…";
-  $("qr").hidden = noServer; $("qrRoom").hidden = noServer;
-  $("qrText").textContent = noServer
-    ? (french ? "Le jeu a besoin du serveur. Lance « npm start » dans le dossier server, puis ouvre http://localhost:3000." : "The game needs the server. Run “npm start” in the server folder, then open http://localhost:3000.")
-    : phase === "phone"
-      ? (french ? "Scanne pour ouvrir Nexus sur ton téléphone." : "Scan to open Nexus on your phone.")
-      : (french ? "Ton téléphone s’est déconnecté. Scanne le QR code pour reprendre." : "Your phone disconnected. Scan the QR code to continue.");
-}
-
 function renderEnding() {
   const e = STORY.endings.find(x => x.id === endingId()) || STORY.endings[0];
-  $("title").textContent = L(e.title);
-  $("body").textContent = L(e.text);
   const lore = state.bond >= STORY.bondToUnlock ? STORY.loreUnlocked : STORY.loreClosed;
-  $("prompt").textContent = fill(french ? "{name}, voici l’état d’Echo à la fin : " : "{name}, here is Echo’s state at the end: ") + L(STORY.stages[stage()]) + "\n" + L(lore);
-  $("prompt").style.whiteSpace = "pre-line";
+  $("storyLine").textContent = L(e.title) + "\n\n" + L(e.text) + "\n\n" + fill(french ? "{name}, voici l’état d’Echo à la fin : " : "{name}, here is Echo’s state at the end: ") + L(STORY.stages[stage()]) + "\n" + L(lore);
+  $("storyLine").classList.add("long");
 }
 
 // Gauge: a flower in bloom on the left, a wilted one on the right, the bar between them (green -> orange -> red)
@@ -370,7 +331,7 @@ function updateJournal() {
     else state.extra.filter(x => x.beat === i).forEach(x => entries.push(x.text));
   });
   const sig = entries.length + "|" + french;
-  if (sig !== updateJournal.sig && Link.connected) {
+  if (sig !== updateJournal.sig) {
     updateJournal.sig = sig;
     Link.send({ type: "journal", entries: entries.map(t => ({ fr: fill(t.fr), en: fill(t.en) })) });
   }

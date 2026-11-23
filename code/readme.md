@@ -1,17 +1,17 @@
 # Code: Echo (playable prototype)
 
-A story played **from a phone**: the computer only displays (the place, the text, Echo's state), and everything the player does happens on the phone. A phone is required.
+A story played **entirely on a phone**. One page, one screen: the place on top, the story line and the choices at the bottom, and two small buttons (messages, journal) in the corner. There is no computer screen and no QR code.
 
 ```
 cd server
 npm install      # only the first time
 npm start
 ```
-Open http://localhost:3000 on the computer. Three short pages of introduction, then a name (and an optional profile photo), then a QR code. Scan it with the phone (same Wi-Fi, or through a tunnel, see below), tap "Ouvrir", keep the page open. If the phone disconnects, the game waits and shows the QR code again.
+Then open http://localhost:3000 (on a phone: your computer's address on the same Wi-Fi, or the tunnel address below). The game is only static files: any web host works, and the server is not needed once the files are online.
 
 ## What the player sees and does
-- **Computer:** the picture of the place, the story text at the bottom, a gauge (a flower in bloom on the left, a wilted one on the right, a bar between). The scene darkens while the player answers.
-- **Phone, one main screen:** the question and the choices (or "Look at the screen"). Messages (Nexus) and the journal are two small buttons at the top; a pink dot says there is something new.
+- **Top:** the picture of the place (and Echo or others standing in it), a gauge under the NEXUS bar (a flower in bloom on the left, a wilted one on the right, a bar between). A pink dot on a button says something new arrived.
+- **Bottom:** one short line of story, then the choices. Some scenes are played inside a Nexus conversation, full screen.
 - **No walking, no free exploration:** the story takes the player from scene to scene by itself.
 
 ## Profile photo (optional)
@@ -26,9 +26,9 @@ Next to the name, the player can add a photo: she frames it (drag and zoom, like
 
 ## Files
 - `story.js`: all the text, choices and their points (`harass`, `passive`, `help`, `bond`), the introduction, the title page. `{name}` in any text becomes the player's name.
-- `nexus.js`: the Nexus messages and when they arrive. `scene.js`: where each scene happens and who is there. `game.js`: the flow. `link.js`: the connection to the server.
-- `avatar.js`, `cropper.js`: the optional profile photo (cyberpunk filter, framing). `phone.html`, `phone.js`, `phone.css`: the page the phone opens. `flower.js`: Echo's flowers. `lib/qrcode.min.js`: QR code (MIT).
-- `../server/server.js`: serves the game and passes messages between computer and phone, by 4-letter room code.
+- `nexus.js`: the Nexus messages and when they arrive. `scene.js`: where each scene happens and who is there. `game.js`: the flow. `phone.js`: the Nexus screen (choices, messages, journal). `link.js`: the small bridge between `game.js` and `phone.js` (same page). `mobile.css`: all the styles.
+- `avatar.js`, `cropper.js`: the optional profile photo (cyberpunk filter, framing). `flower.js`: Echo's flowers. 
+- `../server/server.js`: only serves the files (and opens an optional tunnel).
 - `images/`: one picture per place (`couloir`, `classe`, `toit`, `serre`, `altaya`, `chambre`), the introduction pictures, the meme and the video still. Characters: `images/characters/echo.png` (and `kovasko.png`, `clarisse.png`, `student.png` if you add them).
 
 ## Rules (placeholders, to tune in `story.js`)
@@ -39,9 +39,9 @@ Next to the name, the player can add a photo: she frames it (drag and zoom, like
 ## Phone: the same on iPhone and Android
 Sound and a small shake for every message, a pink notification for group events, grey silence when the player is left out. Vibration is added where the browser allows it (most Android phones; iPhone browsers do not). Notifications with the screen locked and the pointer are not used.
 
-## Tunnel (when the QR code does not work: Wi-Fi that blocks phones, phone on 4G)
+## Tunnel (to try it on a phone that is not on the same Wi-Fi)
 ```
 cd server
 npm run tunnel
 ```
-This starts the game and opens a free Cloudflare tunnel (needs `cloudflared`). The terminal prints the public address, and the QR code uses it by itself: any phone, on any network, can scan it. Keep opening the game on the computer at http://localhost:3000. While the tunnel is open, anyone with the address can open the game: use it for tests only.
+This starts the server and opens a free Cloudflare tunnel (needs `cloudflared`). The terminal prints a public address: open it on the phone. While the tunnel is open, anyone with the address can open the game: use it for tests only.

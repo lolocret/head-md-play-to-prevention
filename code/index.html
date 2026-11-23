@@ -2,14 +2,15 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
   <title>Echo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700;6..96,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <meta name="theme-color" content="#08070f">
+  <link rel="stylesheet" href="mobile.css">
 </head>
 <body>
-  <header>
+  <header id="gaugeBox">
     <div id="gauge" aria-live="polite">
       <span class="gflower" id="gFlowerOpen"></span>
       <div id="gaugeBar"><div id="gaugeFill"></div></div>
@@ -24,19 +25,6 @@
     <p id="credits"></p>
   </section>
 
-  <section id="phoneScreen" hidden>
-    <div class="phone3d" aria-hidden="true">
-      <div class="phone"><div class="screen"><b class="logo">NEXUS</b><small id="callLabel"></small><div class="loadbar"><i></i></div></div></div></div>
-    </div>
-    <div class="qrbox">
-      <div id="qr"></div>
-      <p id="qrText"></p>
-      <p id="qrRoom"></p>
-    </div>
-  </section>
-
-  <div id="toast" hidden></div>
-
   <div id="introBg" hidden></div>
 
   <div id="stage"><div id="scene"></div></div>
@@ -49,6 +37,81 @@
       <input type="range" id="cropZoom" min="1" max="4" step="0.01" value="1" aria-label="Zoom">
       <div class="cropBtns"><button id="cropCancel"></button><button id="cropOk"></button></div>
     </div>
+  </div>
+
+  <div id="app" class="on-gate" hidden>
+    <!-- the welcome screen -->
+    <section id="gate">
+      <p id="gateText"></p>
+      <button id="answer"></button>
+      <p id="gateNote"></p>
+    </section>
+
+    <!-- once opened: the game is always the main screen; messages and journal are two small buttons -->
+    <header id="status">
+      <span class="who"><img id="mePic" alt="" hidden><span class="brand">NEXUS</span></span>
+      <span class="hbtns">
+        <button id="btnMsgs" class="ibtn" aria-label="Messages">
+          <svg width="24" height="24" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M4 5h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H12l-5 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>
+          <i class="dotb" hidden></i>
+        </button>
+        <button id="btnJournal" class="ibtn" aria-label="Journal">
+          <svg width="24" height="24" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"><path d="M6 3h13a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6z"/><path d="M6 3v20M10 8h6M10 12h6"/></svg>
+          <i class="dotb" hidden></i>
+        </button>
+      </span>
+    </header>
+
+    <div id="viewBar" hidden>
+      <button id="closeView"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 2 10l8 8"/></svg><span id="closeText"></span></button>
+      <h2 id="viewTitle"></h2>
+    </div>
+
+    <section id="choiceView" hidden>
+      <div id="echoState"><span id="bloom"></span><span id="echoName">Echo</span></div>
+      <h2 id="placeName"></h2>
+      <p id="storyLine"></p>
+      <p id="choicePrompt"></p>
+      <div id="choiceList"></div>
+      <p id="choiceSent" hidden></p>
+    </section>
+
+    <section id="list" hidden></section>
+
+    <section id="thread" hidden>
+      <div class="threadbar">
+        <button id="back" aria-label="Retour">
+          <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 2 10l8 8"/></svg>
+        </button>
+        <h2 id="threadTitle"></h2>
+        <button id="leaveBtn" hidden></button>
+      </div>
+      <div id="bubbles"></div>
+      <div id="composer" hidden>
+        <p id="hint"></p>
+        <div id="chips"></div>
+        <button id="ignoreBtn" hidden></button>
+      </div>
+    </section>
+
+    <div id="sheet" hidden>
+      <div class="sheetbox">
+        <p id="sheetTitle"></p>
+        <div id="sheetBtns"></div>
+        <button id="sheetClose"></button>
+      </div>
+    </div>
+
+    <section id="journalView" hidden>
+      <div id="jEntries"></div>
+      <div id="jPrompts"></div>
+    </section>
+
+    <button id="notif" hidden type="button">
+      <span class="n-head"><span class="n-icon" id="nIcon"></span><span class="n-app">NEXUS</span><span class="n-time" id="nTime"></span></span>
+      <b class="n-title" id="nTitle"></b>
+      <span class="n-body" id="nBody"></span>
+    </button>
   </div>
 
   <main id="main" hidden>
@@ -78,12 +141,12 @@
     <div id="choices"></div>
   </main>
 
-  <script src="lib/qrcode.min.js"></script>
   <script src="story.js"></script>
   <script src="flower.js"></script>
   <script src="avatar.js"></script>
   <script src="cropper.js"></script>
   <script src="link.js"></script>
+  <script src="phone.js"></script>
   <script src="nexus.js"></script>
   <script src="scene.js"></script>
   <script src="game.js"></script>
