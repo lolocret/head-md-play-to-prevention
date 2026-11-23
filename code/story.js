@@ -1730,13 +1730,13 @@ const TITLE = {
 const INTERACT = {
   hello: { mech: "laugh", seconds: 5 },
   lunch: { mech: "drag" },
-  lesson: { timer: 8, fallback: 2, hold: [1] },
-  door: { timer: 8, fallback: 1, hold: [0] },
+  lesson: { hold: [1] },
+  door: { hold: [0] },
   echo_roof: { hold: [1], holdMs: 3000 },
   wipe: { mech: "wipe", seconds: 8, words: [
     { fr: "faux", en: "fake" }, { fr: "machine", en: "machine" }, { fr: "pas réel", en: "not real" }, { fr: "voleur de vie", en: "life thief" },
     { fr: "bug", en: "glitch" }, { fr: "dégage", en: "go away" }, { fr: "t’es rien", en: "you’re nothing" }, { fr: "personne t’aime", en: "nobody likes you" } ] },
-  friday: { timer: 10, fallback: 1, hold: [3, 4] },
+  friday: { hold: [3, 4] },
   night: { write: 0 },
 };
 
