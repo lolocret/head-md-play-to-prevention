@@ -10,14 +10,13 @@
   <link rel="stylesheet" href="mobile.css">
   <script>/* ?room=ABCD = the phone (remote); otherwise the computer (screen) */ document.documentElement.className = new URLSearchParams(location.search).get("room") ? "role-phone" : "role-screen";</script>
 </head>
-<body>
+<body class="pre-game on-title">   <!-- no place is shown before the game: the title page starts clean -->
   <div id="loader"><b>ECHO</b><div id="loaderBar"><i id="loaderFill"></i></div><p id="loaderText"></p></div>
 
   <header id="gaugeBox">
     <div id="gauge" aria-live="polite">
       <span class="gflower" id="gFlowerOpen"></span>
       <div id="gaugeBar"><div id="gaugeFill"></div></div>
-      <span class="gflower" id="gFlowerWilt"></span>
     </div>
   </header>
 

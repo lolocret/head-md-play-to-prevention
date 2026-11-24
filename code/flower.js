@@ -8,6 +8,7 @@ const Flower = (() => {
       const base = -150 + i * 60, ang = base * (0.12 + 0.88 * o), L = 6 + 4 * o, rx = 2.6 + 1.4 * o;
       petals += `<ellipse cx="20" cy="${(20 - L).toFixed(1)}" rx="${rx.toFixed(1)}" ry="6.5" transform="rotate(${ang.toFixed(1)} 20 20)" fill="${color}" opacity="${wilt ? 0.75 : 0.92}"/>`;
     }
+    if (o > 0.85) for (let i = 0; i < 6; i++) petals += `<ellipse cx="20" cy="${(20 - 5).toFixed(1)}" rx="1.6" ry="3.4" transform="rotate(${30 + i * 60} 20 20)" fill="#ffd3f1" opacity=".9"/>`;   // a close bond: a second, lighter ring
     const heart = o > 0.4 ? '<circle cx="20" cy="20" r="3.6" fill="#fff6a8"/>' : "";
     const droop = wilt ? ` style="transform:rotate(${Math.round((0.3 - o) * 160)}deg);transform-origin:50% 90%"` : "";
     const dim = size ? ` width="${size}" height="${size}"` : "";

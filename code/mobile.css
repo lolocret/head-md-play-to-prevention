@@ -505,3 +505,5 @@ html .prompt { border-color:rgba(255,255,255,.18); background:rgba(255,255,255,.
 html .prompt .q { color:#fff; }
 html #viewBar h2 { color:#b9b4d4; }
 html .prompt.feel .feelChip { border-color:rgba(255,255,255,.2); }
+
+body.pre-game #scene { transition:none; }   /* before the game the places never flash behind the title */

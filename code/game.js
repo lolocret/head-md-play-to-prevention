@@ -68,7 +68,8 @@ function next() {
 }
 
 // How open Echo's flowers are: 1 = fine, 0 = closed (the worse Echo feels, the more they close)
-const bloomValue = () => 1 - Math.min(1, state.harass / Math.max(1, STORY.harassStage3));
+// How open Echo's flower is: it grows with the bond (the closer we are, the more it blooms) and closes with the hurt
+const bloomValue = () => Math.max(0, Math.min(1, 0.4 + 0.6 * Math.min(1, Math.max(0, state.bond) / STORY.bondToUnlock) - 0.7 * Math.min(1, state.harass / Math.max(1, STORY.harassStage3))));
 
 // 0 stable, 1 bugs, 2 crises, 3 Echo short-circuits
 function stage() {
@@ -326,8 +327,7 @@ function updateGauge() {
   const color = `hsl(${130 - 130 * v}, 75%, 50%)`;
   $("gaugeFill").style.width = (v * 100) + "%";
   $("gaugeFill").style.background = color;
-  $("gFlowerOpen").innerHTML = Flower.svg(1, 30);
-  $("gFlowerWilt").innerHTML = Flower.wilted(34);
+  $("gFlowerOpen").innerHTML = Flower.svg(bloomValue(), 40);   // one flower that evolves: it blooms with the bond, droops with the hurt
 }
 
 // The journal lives on the phone: one entry per scene (what you did and how it felt)
