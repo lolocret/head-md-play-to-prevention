@@ -12,28 +12,29 @@ const Scene = (() => {
   // Characters: shown only when images/characters/<id>.png exists.
   const CHARS = { echo: { n: "Echo" }, kovasko: { n: "Kovasko" }, clarisse: { n: "Clarisse" }, student: { n: "" } };
   // Where each scene happens and who is there (x, y = feet position in %).
-  const BEATS = {
-    arrival:        { place: "classe", npcs: [{ id: "kovasko", x: 68, y: 82 }, { id: "echo", x: 46, y: 90 }] },
-    hello:          { place: "classe", npcs: [{ id: "echo", x: 46, y: 90 }, { id: "student", x: 28, y: 90 }] },
-    lunch:          { place: "couloir", npcs: [{ id: "echo", x: 38, y: 92 }] },
+  const BEATS = {   // x = middle of the feet, y = feet, both in % of the picture: the feet always stand on the floor of the place
+    arrival:        { place: "classe", npcs: [{ id: "kovasko", x: 66, y: 72 }, { id: "echo", x: 54, y: 78 }] },
+    hello:          { place: "classe", npcs: [{ id: "echo", x: 54, y: 78 }, { id: "student", x: 66, y: 74 }] },
+    lunch:          { place: "couloir", npcs: [{ id: "echo", x: 31, y: 78 }] },      // next to the bench
     evening:        { place: "chambre", npcs: [] },   // midnight: the player is at home with the phone
-    nextday:        { place: "classe", npcs: [{ id: "kovasko", x: 64, y: 82 }] },
-    kovasko_class:  { place: "classe", npcs: [{ id: "kovasko", x: 64, y: 82 }] },
-    lesson:         { place: "classe", npcs: [{ id: "kovasko", x: 64, y: 82 }] },
-    door:           { place: "toit", npcs: [{ id: "student", x: 80, y: 88 }, { id: "echo", x: 60, y: 92 }] },
-    echo_roof:      { place: "toit", npcs: [{ id: "echo", x: 56, y: 92 }] },
-    wipe:           { place: "couloir", npcs: [{ id: "echo", x: 46, y: 90 }] },
-    labels:         { place: "couloir", npcs: [{ id: "clarisse", x: 66, y: 90 }, { id: "echo", x: 38, y: 92 }] },
-    echo_hall:      { place: "couloir", npcs: [{ id: "echo", x: 52, y: 92 }] },
-    clarisse:       { place: "couloir", npcs: [{ id: "clarisse", x: 66, y: 90 }] },
-    monday:         { place: "classe", npcs: [{ id: "echo", x: 46, y: 90 }] },
-    clarisse_hall:  { place: "couloir", npcs: [{ id: "clarisse", x: 62, y: 90 }] },
+    nextday:        { place: "classe", npcs: [{ id: "kovasko", x: 62, y: 80 }] },
+    kovasko_class:  { place: "classe", npcs: [{ id: "kovasko", x: 62, y: 80 }] },
+    lesson:         { place: "classe", npcs: [{ id: "kovasko", x: 62, y: 80 }] },
+    door:           { place: "toit", npcs: [{ id: "student", x: 36, y: 82 }, { id: "echo", x: 20, y: 80 }] },
+    echo_roof:      { place: "toit", npcs: [{ id: "echo", x: 24, y: 80 }] },
+    wipe:           { place: "couloir", npcs: [{ id: "echo", x: 52, y: 78 }] },
+    labels:         { place: "couloir", npcs: [{ id: "clarisse", x: 68, y: 74 }, { id: "echo", x: 46, y: 78 }] },
+    echo_hall:      { place: "couloir", npcs: [{ id: "echo", x: 54, y: 88 }] },
+    clarisse:       { place: "couloir", npcs: [{ id: "clarisse", x: 66, y: 84 }] },
+    monday:         { place: "classe", npcs: [{ id: "echo", x: 48, y: 87 }] },
+    clarisse_hall:  { place: "couloir", npcs: [{ id: "clarisse", x: 64, y: 84 }] },
     turnoff:        { place: "serre", npcs: [] },       // Clarisse shares her plan in La Serre
-    origins:        { place: "altaya", fallback: "couloir", npcs: [{ id: "echo", x: 50, y: 90 }] },
-    echo_altaya:    { place: "altaya", npcs: [{ id: "echo", x: 50, y: 90 }] },
+    origins:        { place: "altaya", fallback: "couloir", npcs: [{ id: "echo", x: 50, y: 50 }] },
+    echo_altaya:    { place: "altaya", npcs: [{ id: "echo", x: 50, y: 50 }] },
     night:          { place: "chambre", npcs: [] },
-    friday:         { place: "toit", npcs: [{ id: "echo", x: 52, y: 92 }, { id: "clarisse", x: 74, y: 88 }, { id: "student", x: 88, y: 90 }] },
+    friday:         { place: "toit", npcs: [{ id: "echo", x: 16, y: 80 }, { id: "clarisse", x: 28, y: 80 }, { id: "student", x: 40, y: 82 }] },
   };
+
 
   const api = { current: "couloir", unlocked: {}, french: true, stage: 0, bloom: 1, beatId: null, onEnter: () => {} };
   let el;
@@ -76,7 +77,7 @@ const Scene = (() => {
       if (token !== api.current) return;
       const d = document.createElement("div");
       d.className = "sprite" + (n.id === "echo" ? " echo stage" + Math.min(api.stage, 3) : "");
-      d.style.cssText = `left:${n.x}%;top:${n.y * 0.56}%`;   // the characters stand in the upper part of the screen: the choices cover the bottom
+      d.style.cssText = `left:${n.x}%;top:${n.y}%`;   // the feet stand on the floor of the picture
       img.className = "fig-img";
       d.appendChild(img);
       if (c.n) { const l = document.createElement("small"); l.textContent = c.n; d.appendChild(l); }

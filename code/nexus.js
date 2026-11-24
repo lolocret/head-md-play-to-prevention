@@ -60,8 +60,8 @@ const NEXUS = {
   after: {
     evening: {
       0: [{ from: "Maé", fr: "{name} a de l’humour", en: "{name} has a sense of humour", at: 1500 }],
-      1: [{ from: null, quiet: true, fr: "Mème signalé. Réponse automatique : « Ce contenu respecte nos règles. »", en: "Meme reported. Automatic reply: “This content follows our rules.”", at: 600 },
-          { from: "Lucas", fr: "t’as signalé un mème ? sérieux ?", en: "you reported a meme? seriously?", at: 3000 }],
+      1: [{ from: null, quiet: true, fr: "Tu n’as pas aimé ce message.", en: "You disliked this message.", at: 600 },
+          { from: "Lucas", fr: "t’aimes pas ? sérieux ?", en: "you don’t like it? seriously?", at: 3000 }],
       2: [{ from: null, quiet: true, fr: "Capture d’écran enregistrée.", en: "Screenshot saved.", at: 600 }],
       3: [{ from: "Inès", fr: "oh ça va, c’est une blague", en: "oh come on, it’s a joke", at: 1500 }, { from: "Sam", fr: "{name} fait sa morale", en: "{name} is lecturing us", at: 3200 }],
       4: [{ from: "Lucas", fr: "haha {name} a compris la blague", en: "haha {name} gets the joke", at: 1500 }],
@@ -92,6 +92,7 @@ const NEXUS_CHATS = { evening: "class", labels: "humans", turnoff: "private", ni
 
 // Pace: in the other scenes the messages are spread out (every delay is multiplied), so the player has time to read
 const PACE = 2.6;
+const LIVE = 1.7;   // in a conversation scene the messages are slowed down too: time to read each one
 
 const Nexus = (() => {
   let timers = [];
@@ -106,18 +107,18 @@ const Nexus = (() => {
       (live ? NEXUS.beats[id] || [] : []).forEach((m, i) => {
         if (m.if && typeof state !== "undefined" && state.bond < m.if.bondMin) return;   // e.g. Echo only writes if the bond is strong
         // a quiet message just lands (a dot, no banner, no sound): only the first message of a scene and group events make noise
-        timers.push(setTimeout(() => send(m, !live && i > 0), live ? m.at : m.at * PACE));
+        timers.push(setTimeout(() => send(m, !live && i > 0), live ? m.at * LIVE : m.at * PACE));
       });
       const p = NEXUS.prompts[id];
       if (p) timers.push(setTimeout(() => Link.send({ type: "prompt", id, fr: fill(p.fr), en: fill(p.en) }), p.at * PACE));
     },
     // When the player has seen every message of a scene played in a conversation (the options appear then)
-    readyAt(id) { return Math.max(0, ...(NEXUS.beats[id] || []).map(m => m.at)) + 1200; },
+    readyAt(id) { return Math.max(0, ...(NEXUS.beats[id] || []).map(m => m.at)) * LIVE + 2500; },
     // The player acted in the conversation `thread`: the others react (the same people, in the same place), then how long to stay
     after(id, key, thread) {
       const list = (NEXUS.after[id] && (NEXUS.after[id][key] || NEXUS.after[id][String(key).split(":")[0]])) || [];
-      list.forEach(m => timers.push(setTimeout(() => Link.send({ type: "msg", thread, threadName: NEXUS.threads[thread], from: m.from, fr: fill(m.fr), en: fill(m.en), quiet: !!m.quiet, feel: m.from ? undefined : "normal" }), m.at)));
-      return 2200 + Math.max(0, ...list.map(m => m.at));
+      list.forEach(m => timers.push(setTimeout(() => Link.send({ type: "msg", thread, threadName: NEXUS.threads[thread], from: m.from, fr: fill(m.fr), en: fill(m.en), quiet: !!m.quiet, feel: m.from ? undefined : "normal" }), m.at * LIVE)));
+      return 3500 + Math.max(0, ...list.map(m => m.at)) * LIVE;
     },
   };
 })();

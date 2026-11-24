@@ -144,7 +144,7 @@ function phoneState() {
       if (!chatReady || chatAnswered) return { ...base, choices: [] };
       pending = { token, kind: "choice", choices };
       const ix = INTERACT[beat.id] || {};
-      return { ...base, choices: choices.map((c, i) => ({ fr: fill(c.label.fr), en: fill(c.label.en), kind: ix.write === i ? "write" : (c.kind || "reply"), msg: c.msg })) };
+      return { ...base, choices: choices.map((c, i) => ({ fr: fill(c.label.fr), en: fill(c.label.en), kind: (ix.hide || []).includes(i) ? "hidden" : ix.write === i ? "write" : (c.kind || "reply"), msg: c.msg })) };
     }
     if (choices && choices.length) {
       pending = { token, kind: "choice", choices };
@@ -292,26 +292,15 @@ function renderIntro() {
   });
 }
 
-// The end: Echo's card, like an identity card of the holokid, with how she is and how it ended
+// The end: a quiet page: how it ended for Echo, in a few words, and how their flowers are
 function renderEnding() {
   const e = STORY.endings.find(x => x.id === endingId()) || STORY.endings[0], st = stage();
   const el = (tag, cls, txt) => { const n = document.createElement(tag); if (cls) n.className = cls; if (txt !== undefined) n.textContent = txt; return n; };
-  const bar = (label, v, cls) => { const r = el("div", "ec-stat " + cls); const m = el("div", "ec-meter"); const i = el("i"); i.style.width = Math.round(Math.max(0, Math.min(1, v)) * 100) + "%"; m.appendChild(i); r.append(el("span", "", label), m); return r; };
   const card = $("echoCard");
-  card.hidden = false; card.textContent = ""; card.className = "echoCard end-" + e.id + " stage" + st;
+  card.hidden = false; card.textContent = ""; card.className = "endCard end-" + e.id + " stage" + st;
   document.body.classList.add("ended");
-
-  const top = el("div", "ec-top"); top.append(el("span", "", "HOLO’KIDS · ALAN TURING"), el("span", "", "ID 3B-001"));
-  const portrait = el("div", "ec-portrait");
-  const pic = Assets.img("images/characters/echo.png"); if (pic) portrait.appendChild(pic.cloneNode());
-  const who = el("div", "ec-who");
-  const flowers = el("div", "ec-flowers"); flowers.innerHTML = [0, 1, 2].map(() => Flower.svg(bloomValue(), 26)).join("");
-  who.append(el("div", "ec-name", "ECHO"), el("div", "ec-sub", french ? "Holokid · classe 3B" : "Holokid · class 3B"), el("div", "ec-state", L(STORY.stages[st])), flowers);
-  const head = el("div", "ec-head"); head.append(portrait, who);
-  const stats = el("div", "ec-stats");
-  stats.append(bar(fill(french ? "Lien avec {name}" : "Bond with {name}"), state.bond / (STORY.bondToUnlock * 2), "bond"), bar(french ? "Blessures" : "Hurt", state.harass / Math.max(1, STORY.harassStage3), "hurt"));
-  const end = el("div", "ec-end"); end.append(el("h3", "", L(e.title)), el("p", "", L(e.text)));
-  card.append(top, head, stats, end);
+  const flowers = el("div", "en-flowers"); flowers.innerHTML = [0, 1, 2].map(() => Flower.svg(bloomValue(), 34)).join("");
+  card.append(el("p", "en-kicker", french ? "Fin" : "The end"), el("h3", "", L(e.title)), el("p", "en-text", L(e.text)), flowers, el("p", "en-state", L(STORY.stages[st])));
 }
 
 // Gauge: a flower in bloom on the left, a wilted one on the right, the bar between them (green -> orange -> red)

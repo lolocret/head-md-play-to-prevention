@@ -125,6 +125,7 @@ function onState(m) {
   chat = null;
   renderGame();
   paintStatic();
+  if (end) renderJournal();   // the replay buttons are in the journal too
   if (wasChat) { show("choice"); $("notif").hidden = true; }                          // the conversation is over: back to the main screen
   if (isNew) { feel("normal"); show("choice"); }       // the story needs an answer: bring the player here
 }
@@ -148,7 +149,7 @@ function renderChat() {
       const b = document.createElement("button"); b.className = "chip"; b.textContent = pick(c);
       b.onclick = () => act(i);
       chips.appendChild(b);
-    } else if (c.kind === "meme") {
+    } else if (c.kind === "meme" && !chat.choices.some(o => o.kind === "react")) {   // with reactions, the meme maker is in the reaction sheet
       const b = document.createElement("button"); b.className = "chip"; b.textContent = "✎ " + T("memeBtn");
       b.onclick = () => openMemeMaker(i);
       chips.appendChild(b);
@@ -186,10 +187,10 @@ function act(i, text, extra = {}) {
 // Tap a message: what you can do with it (like, report, screenshot…)
 function openSheet(key) {
   if (!chat || !chat.ready || chat.answered || answered === chat.token) return;
-  const opts = chat.choices.map((c, i) => ({ c, i })).filter(x => x.c.kind === "react" && x.c.msg === key);
+  const opts = chat.choices.map((c, i) => ({ c, i })).filter(x => (x.c.kind === "react" && x.c.msg === key) || x.c.kind === "meme");   // the meme maker is one of the reactions
   if (!opts.length) return;
   const box = $("sheetBtns"); box.innerHTML = "";
-  opts.forEach(x => { const b = document.createElement("button"); b.textContent = pick(x.c); b.onclick = () => act(x.i); box.appendChild(b); });
+  opts.forEach(x => { const b = document.createElement("button"); b.textContent = (x.c.kind === "meme" ? "✎ " : "") + pick(x.c); b.onclick = () => { if (x.c.kind === "meme") { $("sheet").hidden = true; openMemeMaker(x.i); } else act(x.i); }; box.appendChild(b); });
   $("sheetTitle").textContent = "";
   $("sheetClose").textContent = T("cancel");
   $("sheet").hidden = false;
@@ -271,21 +272,22 @@ function renderGame() {
 // ---------------------------------------------------------------- small games that choose for you
 
 const MECH = {
-  // The class laughs: tap to join in (4 taps or more = laugh), or say no
+  // The class laughs: tap to join in (a "HA" for every tap, no time limit), or say no
   laugh(list, token) {
-    const secs = game.seconds || 5;
-    list.innerHTML = `<div class="crowd"><span>${french ? "Les autres rient…" : "The others are laughing…"}</span><div class="meter"><i id="crowdBar"></i></div></div>
-      <button class="laughBtn" id="laughBtn" type="button">${french ? "HA HA" : "HA HA"}</button>
-      <div class="meter you"><i id="youBar"></i></div>
+    list.innerHTML = `<div class="crowd"><span>${french ? "Les autres rient…" : "The others are laughing…"}</span></div>
+      <button class="laughBtn" id="laughBtn" type="button">…</button>
       <button class="choice" id="noLaugh" type="button"></button>`;
     $("noLaugh").textContent = pick(game.choices[1]);
-    let taps = 0, done = false;
-    const crowd = $("crowdBar"); crowd.style.transition = `width ${secs}s ease-out`; void crowd.offsetWidth; crowd.style.width = "100%";
-    const finish = i => { if (done) return; done = true; answerChoice(token, i); };
-    $("laughBtn").onpointerdown = e => { e.preventDefault(); if (done) return; taps++; $("youBar").style.width = Math.min(100, taps * 25) + "%"; buzz(15); $("laughBtn").classList.remove("pop"); void $("laughBtn").offsetWidth; $("laughBtn").classList.add("pop"); };
+    let taps = 0, done = false, t = null;
+    const finish = i => { if (done) return; done = true; clearTimeout(t); answerChoice(token, i); };
+    $("laughBtn").onpointerdown = e => {
+      e.preventDefault(); if (done) return; taps++;
+      $("laughBtn").textContent = Array(taps).fill("HA").join(" "); $("laughBtn").style.fontSize = Math.max(16, 28 - taps * 1.5) + "px";
+      buzz(15); $("laughBtn").classList.remove("pop"); void $("laughBtn").offsetWidth; $("laughBtn").classList.add("pop");
+      clearTimeout(t); t = setTimeout(() => finish(0), 1400);   // the laugh is sent a moment after the last tap
+    };
     $("noLaugh").onclick = () => finish(1);
-    const id = setTimeout(() => finish(taps >= 4 ? 0 : 1), secs * 1000);
-    mechStops.push(() => clearTimeout(id));
+    mechStops.push(() => clearTimeout(t));
   },
 
   // A flower sticker to move: up left = alone, far from the others; up right = near Echo; down = with the group
@@ -331,12 +333,11 @@ const MECH = {
   // Insults appear on Echo's back: tap them to wipe them off before they stay
   wipe(list, token) {
     const secs = game.seconds || 8, words = game.words || [];
-    list.innerHTML = `<div class="wipeInfo"><span id="wipeCount"></span><div class="meter"><i id="wipeBar"></i></div></div><div class="wipeArea" id="wipeArea"></div>`;
+    list.innerHTML = `<div class="wipeInfo"><span id="wipeCount"></span></div><div class="wipeArea" id="wipeArea"></div>`;
     const area = $("wipeArea"); let spawned = 0, erased = 0, over = false;
     const total = Math.max(1, Math.floor(secs * 1000 / 650));
     const count = () => { $("wipeCount").textContent = erased + " / " + total; };
     count();
-    const bar = $("wipeBar"); bar.style.width = "100%"; bar.style.transition = "none"; void bar.offsetWidth; bar.style.transition = `width ${secs}s linear`; bar.style.width = "0";
     const spawn = () => {
       if (over || spawned >= total) return;
       const w = words[spawned % words.length], b = document.createElement("button");
@@ -347,7 +348,7 @@ const MECH = {
       setTimeout(() => { if (!b.dataset.gone) b.classList.add("stay"); }, 1700);   // it stays on Echo's back
     };
     const iv = setInterval(spawn, 650); spawn();
-    const end = setTimeout(() => { over = true; clearInterval(iv); const r = erased / total; answerChoice(token, r >= 0.6 ? 0 : r >= 0.3 ? 1 : 2); }, secs * 1000 + 600);
+    const end = setTimeout(() => { over = true; clearInterval(iv); const r = erased / total; answerChoice(token, r >= 0.6 ? 0 : r >= 0.3 ? 1 : 2); }, total * 650 + 2000);   // once the last insult has had its time
     mechStops.push(() => { clearInterval(iv); clearTimeout(end); });
   },
 };
@@ -527,6 +528,14 @@ function noteBox(key, placeholder, minH = 90) {
   return [ta, ok];
 }
 
+// The questions at the end, to answer in her own words (they stay on the phone)
+const END_Q = [
+  { id: "end1", fr: "Quelle scène m’a le plus marqué·e, et pourquoi ?", en: "Which scene stayed with me the most, and why?" },
+  { id: "end2", fr: "Est-ce que j’ai déjà vécu quelque chose de pareil ? Qu’est-ce que j’ai fait ?", en: "Have I ever lived something like this? What did I do?" },
+  { id: "end3", fr: "Qu’est-ce que j’aurais voulu faire ou dire autrement ?", en: "What would I have wanted to do or say differently?" },
+  { id: "end4", fr: "Si Echo existait dans ma classe, qu’est-ce que je voudrais lui dire ?", en: "If Echo existed in my class, what would I want to tell them?" },
+];
+
 function renderJournal() {
   // How do I feel? Does it remind me of something I lived? (free, saved on the phone)
   const fb = $("jFeel"); fb.innerHTML = "";
@@ -539,26 +548,11 @@ function renderJournal() {
     b.onclick = () => { picked.has(f.id) ? picked.delete(f.id) : picked.add(f.id); saved.feel = [...picked]; save(); b.classList.toggle("on", picked.has(f.id)); };
     chips.appendChild(b);
   });
-  const [m1, ok1] = noteBox("memory", T("feelMemory")), [m2, ok2] = noteBox("other", T("feelOther"));
-  const foot = document.createElement("div"); foot.className = "foot"; const stay = document.createElement("span"); stay.textContent = T("stays"); foot.append(stay, ok1, ok2);
-  card.append(q, chips, m1, m2, foot); fb.appendChild(card);
+  card.append(q, chips); fb.appendChild(card);
 
-  const box = $("jEntries"); box.innerHTML = "";
-  if (!entries.length) { const e = document.createElement("p"); e.className = "jempty"; e.textContent = T("jEmpty"); box.appendChild(e); }
-  entries.forEach((e, i) => {
-    const d = document.createElement("div"); d.className = "entry";
-    const s = document.createElement("small"); s.textContent = T("entry") + " " + (i + 1);
-    const t = document.createElement("p"); t.textContent = pick(e);
-    d.append(s, t);
-    // under each entry: "does it remind me of something?", opened by a small button
-    const key = "note-" + i, wrap = document.createElement("div"); wrap.className = "entryNote";
-    const open = () => { wrap.innerHTML = ""; const [ta, ok] = noteBox(key, T("notePh")); wrap.append(ta, ok); ta.focus(); };
-    if (saved[key]) open();
-    else { const b = document.createElement("button"); b.type = "button"; b.className = "noteBtn"; b.textContent = "✎ " + T("noteBtn"); b.onclick = open; wrap.appendChild(b); }
-    d.appendChild(wrap); box.appendChild(d);
-  });
+  $("jEntries").innerHTML = "";   // what happened is now told on the computer screen: here, only questions
   const pr = $("jPrompts"); pr.innerHTML = "";
-  prompts.forEach(q => {
+  [...prompts, ...END_Q].forEach(q => {
     const card = document.createElement("div"); card.className = "prompt";
     const t = document.createElement("p"); t.className = "q"; t.textContent = pick(q);
     const ta = document.createElement("textarea"); ta.placeholder = T("write"); ta.value = saved[q.id] || "";
@@ -574,6 +568,13 @@ function renderJournal() {
     ta.onfocus = () => setTimeout(() => card.scrollIntoView({ block: "center", behavior: "smooth" }), 300);   // keep it above the keyboard
     card.append(t, ta, foot); pr.appendChild(card);
     setTimeout(grow, 0);
+  });
+  // play again, or go back to the last scene and choose differently
+  const rp = $("jReplay"); rp.innerHTML = "";
+  if (game.token === "end" && game.choices) game.choices.forEach((c, i) => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "replayBtn"; b.textContent = pick(c);
+    b.onclick = () => answerChoice("end", i);
+    rp.appendChild(b);
   });
 }
 

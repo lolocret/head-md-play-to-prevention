@@ -1743,6 +1743,7 @@ const TITLE = {
 //     "wipe": erase the insults before they disappear: most erased = choice 0, some = choice 1, few = choice 2
 const INTERACT = {
   arrival: { emoji: true },
+  evening: { hide: [3, 4, 5] },   // the night chat: only react (like, dislike, screenshot, meme) or do not answer
   hello: { mech: "laugh", seconds: 5 },
   lunch: { mech: "drag", spots: [{ i: 2, at: "tl" }, { i: 0, at: "tr" }, { i: 1, at: "b" }] },
   lesson: { hold: [1], big: { 0: "HA" } },
@@ -1812,6 +1813,12 @@ arrival.choices = [
 const lunch = STORY.beats.find(b => b.id === "lunch");
 lunch.prompt = { fr: "Où est-ce que je décide de m’asseoir ?", en: "Where do I decide to sit?" };
 lunch.choices[2].label = { fr: "Seul·e, loin des autres", en: "Alone, far from the others" };
+
+// Scene "00:12": the player only reacts to the meme (tap it): like, dislike, screenshot, make a meme, or do not answer
+const eve = STORY.beats.find(b => b.id === "evening");
+eve.choices[1].label = { fr: "Je n’aime pas", en: "Dislike" };
+eve.choices[1].journal = { fr: "Je n’ai pas aimé le mème. Je l’ai fait savoir, tout bas.", en: "I disliked the meme. I made it known, quietly." };
+eve.choices[6].label = { fr: "Ne pas répondre", en: "Don’t answer" };
 
 // Scenes 4 to 6, as drawn: the phone asks in "I" too
 STORY.beats.find(b => b.id === "door").prompt = { fr: "Qu’est-ce que je fais ?", en: "What do I do?" };

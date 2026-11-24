@@ -36,7 +36,7 @@ body.pre-game #scene { opacity:0; }
 
 /* gauge: a flower in bloom, a wilted one, the bar between */
 #gaugeBox { position:fixed; z-index:5; left:0; right:0; top:calc(env(safe-area-inset-top) + 58px); padding:0 16px; pointer-events:none; }
-body.on-title #gaugeBox { display:none; }   /* shown as soon as the introduction starts */
+body.on-title #gaugeBox, body.pre-game #gaugeBox { display:none; }   /* only once the story has started */
 #gauge { display:flex; align-items:center; gap:10px; max-width:360px; margin:0 auto; }
 #gaugeBar { flex:1; height:12px; background:rgba(30,26,60,.7); border:1px solid rgba(138,92,255,.4); border-radius:8px; overflow:hidden; box-shadow:0 0 10px rgba(138,92,255,.25); }
 #gaugeFill { height:100%; width:0; background:#4dcc66; transition:width .4s, background .4s; }
@@ -280,41 +280,16 @@ section { min-height:0; }
 
 /* ---------- Echo's card, at the end ---------- */
 body.ended #choiceView { max-height:94dvh; }
-.echoCard { position:relative; overflow:hidden; border-radius:22px; padding:16px 16px 18px; color:var(--text); isolation:isolate;
-  background:linear-gradient(155deg, rgba(40,34,90,.92), rgba(12,10,32,.96) 60%), #0b0a1c;
-  border:1px solid rgba(77,240,255,.55); box-shadow:0 0 0 1px rgba(138,92,255,.35), 0 0 34px rgba(77,240,255,.22), inset 0 0 40px rgba(138,92,255,.12); }
-.echoCard::before { content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; background:repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 4px); }
-.echoCard::after { content:""; position:absolute; left:-30%; right:-30%; top:-60%; height:60%; z-index:-1; pointer-events:none; background:linear-gradient(transparent, rgba(77,240,255,.12), transparent); animation:ecbeam 5s linear infinite; }
-@keyframes ecbeam { to { top:110%; } }
-.ec-top { display:flex; justify-content:space-between; font-size:10px; letter-spacing:.22em; color:rgba(168,246,255,.75); margin-bottom:12px; }
-.ec-head { display:flex; gap:14px; align-items:stretch; }
-.ec-portrait { flex:none; width:104px; height:132px; border-radius:16px; overflow:hidden; position:relative; display:flex; align-items:flex-end; justify-content:center;
-  background:radial-gradient(ellipse at 50% 35%, rgba(77,240,255,.28), rgba(138,92,255,.12) 60%, rgba(5,4,16,.6)); border:1px solid rgba(77,240,255,.45); box-shadow:inset 0 0 22px rgba(77,240,255,.2); }
-.ec-portrait img { height:128%; width:auto; max-width:none; filter:drop-shadow(0 0 8px rgba(77,240,255,.8)); opacity:.95; margin-bottom:-6%;
-  -webkit-mask-image:repeating-linear-gradient(transparent 0 1px, #000 1px 3px); mask-image:repeating-linear-gradient(transparent 0 1px, #000 1px 3px); }
-.ec-who { flex:1; min-width:0; display:flex; flex-direction:column; justify-content:center; gap:6px; }
-.ec-name { font:900 34px/1 "Bodoni Moda", "Didot", serif; letter-spacing:.08em; color:#cfc8f5; text-shadow:0 0 14px rgba(150,120,255,.5); }
-.ec-sub { font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--grey); }
-.ec-state { align-self:flex-start; padding:3px 12px; border-radius:14px; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#06222a; background:var(--cyan); box-shadow:0 0 14px rgba(77,240,255,.5); }
-.stage1 .ec-state { background:#ffc857; box-shadow:0 0 14px rgba(255,200,87,.5); }
-.stage2 .ec-state { background:#ff9a52; box-shadow:0 0 14px rgba(255,154,82,.5); }
-.stage3 .ec-state { background:#ff4f6a; color:#fff; box-shadow:0 0 16px rgba(255,79,106,.6); }
-.ec-flowers { display:flex; gap:4px; filter:drop-shadow(0 0 6px rgba(255,143,216,.55)); }
-.ec-stats { display:flex; flex-direction:column; gap:8px; margin:14px 0 4px; padding:12px 0; border-top:1px solid rgba(138,92,255,.35); border-bottom:1px solid rgba(138,92,255,.35); }
-.ec-stat { display:flex; align-items:center; gap:10px; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--grey); }
-.ec-stat span { flex:none; width:118px; }
-.ec-meter { flex:1; height:8px; border-radius:4px; background:rgba(255,255,255,.1); overflow:hidden; }
-.ec-meter i { display:block; height:100%; border-radius:4px; transition:width .8s; }
-.ec-stat.bond i { background:linear-gradient(90deg, var(--violet), var(--cyan)); }
-.ec-stat.hurt i { background:linear-gradient(90deg, #ffc857, #ff4f6a); }
-.ec-end h3 { margin:12px 0 4px; font-size:22px; line-height:1.15; color:#fff; text-shadow:0 0 12px rgba(77,240,255,.4); }
-.ec-end p { margin:0; font-size:15px; line-height:1.45; color:#e4e4f6; }
-.end-help { border-color:rgba(111,230,160,.6); box-shadow:0 0 0 1px rgba(111,230,160,.3), 0 0 34px rgba(111,230,160,.25), inset 0 0 40px rgba(111,230,160,.08); }
-.end-passive { border-color:rgba(167,139,255,.55); }
-.end-passive .ec-portrait img { opacity:.55; }
-.end-harass { border-color:rgba(255,79,106,.7); box-shadow:0 0 0 1px rgba(255,79,106,.35), 0 0 34px rgba(255,79,106,.3); }
-.end-harass .ec-portrait img { opacity:.35; filter:grayscale(.6) drop-shadow(0 0 8px rgba(255,79,106,.8)); animation:flicker 1.2s infinite; }
-@media (prefers-reduced-motion: reduce) { .echoCard::after, .end-harass .ec-portrait img { animation:none; } }
+/* the end: a quiet page, no gadgets */
+.endCard { text-align:center; color:var(--text); }
+.endCard .en-kicker { margin:0 0 14px; font-size:13px; letter-spacing:.32em; text-transform:uppercase; color:var(--grey); }
+.endCard h3 { margin:0 0 18px; font:900 clamp(34px, 4.6vw, 64px)/1.05 "Bodoni Moda", "Didot", serif; letter-spacing:.02em; color:#f3f1ff; }
+.endCard .en-text { margin:0 auto; max-width:640px; font-size:clamp(18px, 1.9vw, 25px); line-height:1.55; color:#e4e4f6; }
+.endCard .en-flowers { display:flex; justify-content:center; gap:10px; margin:30px 0 10px; }
+.endCard .en-state { margin:0; font-size:15px; color:var(--grey); font-style:italic; }
+.endCard.stage3 .en-state { color:#ff9aa8; }
+.endCard.end-passive .en-flowers { opacity:.75; }
+.endCard.end-harass .en-flowers { opacity:.55; }
 
 /* ---------- two pages: the computer is the screen, the phone is the remote ---------- */
 html.role-phone #stage, html.role-phone #gaugeBox, html.role-phone #titleScreen, html.role-phone #introBg, html.role-phone #main,
@@ -347,7 +322,7 @@ html.role-screen #body { font-size:clamp(20px, 2.3vw, 32px); line-height:1.5; }
   background:linear-gradient(transparent, rgba(5,4,16,.78) 55%); }
 #screenText #storyLine { max-width:900px; margin:0 auto; font-size:clamp(22px, 2.5vw, 34px); line-height:1.4; }
 #screenText #storyLine.long { font-size:clamp(18px, 2vw, 27px); }
-#screenText #echoCard { max-width:520px; margin:0 auto 14px; text-align:left; pointer-events:auto; }
+#screenText #echoCard { max-width:760px; margin:0 auto 14px; text-align:center; pointer-events:auto; }
 body.ended #screenText { top:0; display:flex; flex-direction:column; justify-content:center; background:rgba(5,4,16,.7); }
 body.ended #screenText #storyLine { display:none; }
 #linkBanner { position:fixed; z-index:30; left:50%; top:12px; transform:translateX(-50%); margin:0; padding:10px 20px; border-radius:22px; background:rgba(255,79,106,.92); color:#fff; font-size:15px; text-align:center; max-width:90vw; }
@@ -388,3 +363,8 @@ html.role-phone #app { padding-top:calc(env(safe-area-inset-top) + 22px); }
 
 .choice.bigtile .ha { max-width:100%; overflow-wrap:anywhere; transition:font-size .1s; }
 .choice.bigtile.tapped { animation:pop .12s; }
+
+#jReplay { display:flex; flex-direction:column; gap:10px; margin-top:18px; }
+.replayBtn { border-color:var(--cyan); background:rgba(77,240,255,.1); }
+#jEntries:empty { display:none; }
+body.ended #scene .sprite { display:none; }
