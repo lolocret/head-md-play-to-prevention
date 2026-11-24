@@ -579,3 +579,5 @@ html.role-phone #echoState { position:static !important; display:flex !important
 html.role-phone #echoState #bloom { width:40px; height:40px; display:flex; align-items:center; justify-content:center; }
 html.role-phone #echoState #bloom svg { width:36px; height:36px; }
 html.role-phone #app.on-gate #echoState { display:none !important; }
+html .choice.bigtile .silenceDots { position:relative; display:block; font-size:22px; letter-spacing:.3em; color:rgba(255,255,255,.45); line-height:1; margin-bottom:-6px; }
+html .choice.bigtile .bigIcon.silenceDots { font-size:56px; letter-spacing:.25em; color:rgba(255,255,255,.55); margin:0; padding-left:.25em; }

@@ -322,7 +322,7 @@ const MECH = {
   // The class laughs: tap to join in (a "HA" for every tap, no time limit), or say no
   laugh(list, token) {
     list.innerHTML = `<button class="laughBtn" id="laughBtn" type="button"></button>
-      <button class="choice bigtile iconTile" id="noLaugh" type="button"><span class="bigIcon" id="noIcon">🤐</span><small id="noCap"></small></button>`;
+      <button class="choice bigtile iconTile" id="noLaugh" type="button"><span class="bigIcon silenceDots" id="noIcon">···</span><small id="noCap"></small></button>`;
     $("noCap").textContent = pick(game.choices[1]);
     const addHA = haLayer($("laughBtn")); addHA();   // one "HA" is already written
     let taps = 1, done = false, t = null;
@@ -333,11 +333,9 @@ const MECH = {
       buzz(15); $("laughBtn").classList.remove("pop"); void $("laughBtn").offsetWidth; $("laughBtn").classList.add("pop");
       clearTimeout(t); t = setTimeout(() => finish(0), 900);   // the laugh is sent a moment after the last tap
     };
-    let squeeze = 0;   // "no": the closed mouth grows with every tap, then the answer is sent
+    // "no": three quiet dots (silence); a tap sends the answer a moment later
     $("noLaugh").onclick = () => {
       if (done) return;
-      if (squeeze < 5) squeeze++;
-      $("noIcon").style.fontSize = (64 + squeeze * 16) + "px";
       buzz(15); $("noLaugh").classList.remove("tapped"); void $("noLaugh").offsetWidth; $("noLaugh").classList.add("tapped");
       clearTimeout(t); t = setTimeout(() => finish(1), 900);
     };

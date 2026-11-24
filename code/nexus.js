@@ -16,7 +16,7 @@ const NEXUS = {
     hello: [
     ],
     evening: [
-      { t: "class", from: "Sam", fr: "on veut pas de toi ici", en: "we don’t want you here", at: 1000 },
+      { t: "class", from: "Sam", fr: "on veut pas de toi ici Echo", en: "we don’t want you here Echo", at: 1000 },
       { t: "class", from: "Maé", fr: "[mème]", en: "[meme]", image: "images/meme-echo.png", key: "meme", at: 3500 },
       { t: "humans", from: null, fr: "Maé a créé le groupe « Humains de la 3B uniquement ». Echo n’en fait pas partie.", en: "Maé created the group “Humans of 3B only”. Echo is not part of it.", at: 6000 },
     ],
