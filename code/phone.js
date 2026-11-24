@@ -197,7 +197,8 @@ function openSheet(key) {
   const opts = sheetChoices(key);   // the meme maker is one of the reactions
   if (!opts.length) return;
   const box = $("sheetBtns"); box.innerHTML = "";
-  opts.forEach(x => { const b = document.createElement("button"); b.textContent = x.c.icon || ((x.c.kind === "meme" ? "✎ " : "") + pick(x.c)); if (x.c.icon) { b.className = "emojiReact"; b.setAttribute("aria-label", pick(x.c)); } b.onclick = () => { if (x.c.kind === "meme") { $("sheet").hidden = true; openMemeMaker(x.i); } else act(x.i); }; box.appendChild(b); });
+  opts.forEach(x => { const b = document.createElement("button"); b.textContent = x.c.icon || ((x.c.kind === "meme" ? "✎ " : "") + pick(x.c)); if (x.c.icon) { b.className = "emojiReact"; b.setAttribute("aria-label", pick(x.c)); }
+    if (x.c.iconImg) { b.textContent = ""; const im = document.createElement("img"); im.src = x.c.iconImg; im.alt = ""; im.draggable = false; b.append(im); } b.onclick = () => { if (x.c.kind === "meme") { $("sheet").hidden = true; openMemeMaker(x.i); } else act(x.i); }; box.appendChild(b); });
   $("sheetTitle").textContent = "";
   $("sheetClose").textContent = T("cancel");
   $("sheet").hidden = false;

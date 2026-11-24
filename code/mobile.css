@@ -595,3 +595,4 @@ html.role-phone #choiceView.emojiMode .laughBtn, html.role-phone #choiceView.emo
 /* scene 1: reaction pictures (GIFs) fill their square */
 html .choice.emoji { position:relative; overflow:hidden; padding:0; }
 html .choice.emoji img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; }
+#sheetBtns button.emojiReact img { height:44px; width:auto; max-width:100%; border-radius:8px; pointer-events:none; }

@@ -632,8 +632,8 @@ const STORY = {
         "en": "La Serre’s door"
       },
       "text": {
-        "fr": "À la récréation, les élèves montent sur le toit, vers La Serre, leur lieu de rendez-vous. Echo les suit. Devant la porte, un élève lui barre le passage, « C’est réservé aux vrais. » Echo tente d’entrer malgré tout. Clarisse n’a pas accès à La Serre non plus. Moquée pour sa pauvreté, elle harcèle Echo dans l’espoir de s’y faire une place.",
-        "en": "At break, the students head up to the roof, to La Serre, their meeting place. Echo follows them. In front of the door, a student blocks the way, “It’s reserved for the real ones.” Echo tries to enter anyway. Clarisse has no access to La Serre either. Mocked for her poverty, she harasses Echo hoping to make a place for herself there."
+        "fr": "À la récréation, les élèves montent sur le toit, vers La Serre, leur lieu de rendez-vous. Echo les suit. Devant la porte, Tom lui barre le passage, « C’est pas pour les fakes ici. » Echo tente d’entrer malgré tout. Clarisse n’a pas accès à La Serre non plus. Moquée pour sa pauvreté, elle harcèle Echo dans l’espoir de s’y faire une place.",
+        "en": "At break, the students head up to the roof, to La Serre, their meeting place. Echo follows them. In front of the door, Tom blocks the way, “This isn’t for fakes.” Echo tries to enter anyway. Clarisse has no access to La Serre either. Mocked for her poverty, she harasses Echo hoping to make a place for herself there."
       },
       "prompt": {
         "fr": "",
@@ -684,12 +684,12 @@ const STORY = {
         }
       ],
       "journal": {
-        "fr": "« Réservé aux vrais. » Echo est resté planté devant la porte. C’est quoi, être vrai ? Les émotions d’Echo avaient l’air bien réelles, pourtant.",
-        "en": "“Reserved for the real ones.” Echo just stood there in front of the door. What does being real even mean? Echo’s emotions looked pretty real to me."
+        "fr": "« C’est pas pour les fakes ici. » Echo est resté planté devant la porte. C’est quoi, être vrai ? Les émotions d’Echo avaient l’air bien réelles, pourtant.",
+        "en": "“This isn’t for fakes.” Echo just stood there in front of the door. What does being real even mean? Echo’s emotions looked pretty real to me."
       },
       "line": {
-        "fr": "À la récré, les élèves montent sur le toit, vers La Serre. Echo nous suit. Un élève lui barre la porte, « Réservé aux vrais. »",
-        "en": "At break, the students head up to the roof, to La Serre. Echo follows us. A student blocks the door, “Reserved for the real ones.”"
+        "fr": "À la récré, les élèves montent sur le toit, vers La Serre. Echo nous suit. Tom lui barre la route, « C’est pas pour les fakes ici. »",
+        "en": "At break, the students head up to the roof, to La Serre. Echo follows us. Tom blocks the way, “This isn’t for fakes.”"
       }
     },
     {
@@ -1779,7 +1779,7 @@ const THOUGHTS = {
   lunch: { fr: "J’ai trop faim, c’est déjà midi. Tiens, Echo est tout·e seul·e sur le banc. Je fais quoi ?", en: "I’m starving, it’s already noon. Look, Echo is all alone on the bench. What do I do?" },
   evening: { fr: "00:12. Mon téléphone vibre. Argh, qui m’écrit à cette heure ?! Je devrais dormir… bon, je regarde quand même.", en: "12:12 am. My phone buzzes. Ugh, who’s writing to me at this hour?! I should be asleep… fine, I look anyway." },
   lesson: { fr: "Kovasko parle de respect, et là Clarisse balance, « Echo a le droit de voter ? » Tout le monde éclate de rire. Clarisse, celle qu’on moque pour ses fringues, parce que sa famille a pas d’argent… Tiens, c’est bizarre, c’est la première fois qu’elle se moque de quelqu’un. Et moi, je fais quoi ?", en: "Kovasko talks about respect, and then Clarisse blurts out, “Is Echo allowed to vote?” Everyone cracks up. Clarisse, the one they mock for her clothes, because her family has no money… Huh, that’s weird, it’s the first time she’s making fun of someone. And me, what do I do?" },
-  door: { fr: "Récré. Tout le monde monte sur le toit, vers La Serre, sauf Clarisse, elle a pas accès. Echo nous suit. Et là, un élève lui barre la porte, « Réservé aux vrais. » Mon cœur cogne.", en: "Break. Everyone heads up to the roof, to La Serre, except Clarisse, she has no access. Echo follows us. And then a student blocks the door, “Reserved for the real ones.” My heart is pounding." },
+  door: { fr: "C’est la récré, on va tous sur le toit vers La Serre, comme d’habitude, sauf Clarisse. Echo nous suit. Tom lui barre la route, « C’est pas pour les fakes ici ». Je suis partagé·e, je ne sais pas quoi faire.", en: "It’s break, we all head up to the roof, to La Serre, like always, except Clarisse. Echo follows us. Tom blocks their way, “This isn’t for fakes.” I’m torn, I don’t know what to do." },
   echo_roof: { fr: "Le groupe nous laisse pas entrer non plus, ni Echo ni moi. On est mis dehors tous les deux, sur le toit. Echo regarde la ville, je suis juste à côté. Je dis quoi ?", en: "The group doesn’t let us in either, neither Echo nor me. We’re both put outside, on the roof. Echo looks at the city, I’m right next to them. What do I say?" },
   labels: { fr: "Oh non… des insultes s’affichent dans le dos d’Echo. Clarisse le traite de « voleur de vie », pour elle, c’est à cause des holokids que sa famille est pauvre. Le groupe regarde. Moi aussi.", en: "Oh no… insults appear on Echo’s back. Clarisse calls Echo a “life thief”, for her, holokids are why her family is poor. The group is watching. So am I." },
   wipe: { fr: "Les mots restent collés sur son dos. Vite, je touche chaque mot pour l’effacer, avant que les autres arrivent ! Mes mains tremblent un peu.", en: "The words stay stuck on their back. Quick, I tap each word to wipe it off, before the others arrive! My hands are shaking a little." },
@@ -1964,7 +1964,7 @@ eve.choices[2].flag = "memeProof";
 eve.choices[2].later = { after: 3, journal: { fr: "Ma capture est toujours dans mon téléphone. Une preuve pour le prof, si un jour j’ose.", en: "My screenshot is still in my phone. Proof for the teacher, if I ever dare." } };
 const memeC = eve.choices[7];
 delete memeC.mock; delete memeC.support;
-memeC.icon = "✏️";
+memeC.icon = "✏️"; memeC.iconImg = "images/reactions/make-meme.png";
 Object.assign(memeC, { label: { fr: "Créer un mème pour se moquer d’Echo", en: "Make a meme to mock Echo" }, harass: 2, bond: -2,
   journal: { fr: "J’ai fait un mème sur Echo et je l’ai posté dans le groupe. Ça a fait rire. Moi, je ne suis pas sûr·e de savoir pourquoi.", en: "I made a meme about Echo and posted it in the group. It got laughs. I’m not sure why." } });
 
