@@ -57,6 +57,7 @@ const Link = (() => {
   // The server: this page's own address, then the usual local ports (so the screen also works when opened as a file).
   async function findServer() {
     const here = location.protocol === "file:" ? [] : [location.origin];
+    if (location.hostname.endsWith("github.io")) return null;   // a static page: there is no server to find
     const local = location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname);   // a public page never probes the visitor's own machine
     for (const o of [...here, ...(local ? ["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:3001"] : [])]) {
       try {
@@ -70,7 +71,7 @@ const Link = (() => {
   // The remote: joins the room of the screen.
   if (role === "phone") {
     api.room = params.get("room").toUpperCase();
-    fetch(location.origin + "/api/info").then(r => { if (!r.ok) throw 0; mode = "ws"; }).catch(() => { mode = "p2p"; }).then(connect);
+    (location.hostname.endsWith("github.io") ? Promise.reject() : fetch(location.origin + "/api/info").then(r => { if (!r.ok) throw 0; mode = "ws"; })).catch(() => { mode = "p2p"; }).then(connect);
   }
 
   // The screen: opens a room. Returns { room, url } to show as a QR code, or null when there is no server.

@@ -10,6 +10,7 @@ const Scene = (() => {
     altaya: { name: { fr: "Altaya", en: "Altaya" }, sky: ["#1a1030", "#0a0a1c"], glow: "#4df0ff" },
   };
   // Characters: shown only when images/characters/<id>.png exists.
+  const CHARACTER_FILES = ["echo"];   // the pictures that exist in images/characters (add "kovasko", "clarisse", "student" when their pictures are added)
   const CHARS = { echo: { n: "Echo" }, kovasko: { n: "Kovasko" }, clarisse: { n: "Clarisse" }, student: { n: "" } };
   // Where each scene happens and who is there (x, y = feet position in %).
   const BEATS = {   // x = middle of the feet, y = feet, both in % of the picture: the feet always stand on the floor of the place
@@ -39,7 +40,7 @@ const Scene = (() => {
   };
 
 
-  const api = { current: "couloir", unlocked: {}, french: true, stage: 0, bloom: 1, beatId: null, onEnter: () => {} };
+  const api = { characterFiles: CHARACTER_FILES, current: "couloir", unlocked: {}, french: true, stage: 0, bloom: 1, beatId: null, onEnter: () => {} };
   let el;
 
   // Where the current scene happens (Altaya is a closed place unless the bond with Echo is strong: then another place is used)
@@ -75,6 +76,7 @@ const Scene = (() => {
   }
 
   function addSprite(n) {
+    if (!CHARACTER_FILES.includes(n.id)) return;   // no picture for this one: nothing to load (and no 404 in the console)
     const c = CHARS[n.id], token = api.current, src = `images/characters/${n.id}.png`;
     const show = img => {
       if (token !== api.current) return;

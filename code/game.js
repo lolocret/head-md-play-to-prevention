@@ -383,7 +383,7 @@ Scene.init($("scene"));   // nothing is drawn yet: the pictures load first (see 
   $("loaderText").textContent = french ? "Chargement…" : "Loading…";
   const list = [TITLE.image, ...INTRO.map(p => p.image).filter(Boolean),
     ...["couloir", "classe", "toit", "serre", "chambre", "altaya"].map(id => `images/${id}.png`),
-    ...["echo", "kovasko", "clarisse", "student"].map(id => `images/characters/${id}.png`)];
+    ...Scene.characterFiles.map(id => `images/characters/${id}.png`)];
   Object.values(NEXUS.beats).forEach(msgs => msgs.forEach(m => { if (m.image) list.push(m.image); }));
   Link.start().then(info => {      // opens the room: the phone joins with the QR code
     if (!info) { noServer = true; $("qr").hidden = true; $("qrBox").hidden = false; $("qrText").textContent = french ? "Il faut le serveur : lance « npm start » (dossier server), puis ouvre http://localhost:3000." : "The server is needed: run “npm start” (server folder), then open http://localhost:3000."; return; }

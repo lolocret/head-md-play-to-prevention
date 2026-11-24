@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700;6..96,900&display=swap" rel="stylesheet">
   <meta name="theme-color" content="#08070f">
-  <link rel="stylesheet" href="mobile.css?v=20261124a">
+  <link rel="stylesheet" href="mobile.css?v=20261124b">
   <script>/* ?room=ABCD = the phone (remote); otherwise the computer (screen) */ document.documentElement.className = new URLSearchParams(location.search).get("room") ? "role-phone" : "role-screen";</script>
 </head>
 <body class="pre-game on-title">   <!-- no place is shown before the game: the title page starts clean -->
@@ -178,7 +178,7 @@
       ? ["story.js", "assets.js", "flower.js", "avatar.js", "cropper.js", "lib/peerjs.min.js", "link.js", "phone.js"]
       : ["story.js", "assets.js", "flower.js", "avatar.js", "cropper.js", "lib/qrcode.min.js", "lib/peerjs.min.js", "link.js", "nexus.js", "scene.js", "game.js"];
     function Link_role() { return document.documentElement.className === "role-phone" ? "phone" : "host"; }
-    const V = "20261124a";   // change it when publishing: browsers then fetch the new files
+    const V = "20261124b";   // change it when publishing: browsers then fetch the new files
     files.forEach(f => document.write('<script src="' + f + '?v=' + V + '"><\/script>'));
   </script>
 </body>
