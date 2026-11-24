@@ -8,6 +8,7 @@ const NEXUS = {
     private: { fr: "On harcèle personne", en: "We harass nobody" },
     friday: { fr: "Sortie vendredi", en: "Friday outing" },
     echo: { fr: "Echo", en: "Echo" },
+    clarisse: { fr: "Clarisse", en: "Clarisse" },
   },
   beats: {
     arrival: [
@@ -51,7 +52,7 @@ const NEXUS = {
       { t: "echo", from: "Echo", fr: "Je n’arrive pas à dormir. Merci d’être là, {name}.", en: "I can’t sleep. Thank you for being there, {name}.", at: 1500 },
     ],
     night_clarisse: [
-      { t: "private", from: "Clarisse", fr: "Demain, 16h30. Tu dors pas non plus ?", en: "Tomorrow, 4:30. You can’t sleep either?", at: 1500 },
+      { t: "clarisse", from: "Clarisse", fr: "Demain, 16h30. Tu dors pas non plus ?", en: "Tomorrow, 4:30. You can’t sleep either?", at: 1500 },
     ],
     friday: [
       { t: "private", from: "Clarisse", fr: "16h30, sur le toit. Viens filmer, {name}.", en: "4:30 pm, on the roof. Come film, {name}.", at: 1500 },
@@ -103,7 +104,7 @@ const NEXUS = {
 };
 
 // The scenes played inside a conversation (the player acts in it): which thread opens. In them nothing is stretched or silenced.
-const NEXUS_CHATS = { evening: "class", labels: "humans", turnoff: "private", night: "echo", night_echo: "echo", night_clarisse: "private" };
+const NEXUS_CHATS = { evening: "class", labels: "humans", turnoff: "private", night: "echo", night_echo: "echo", night_clarisse: "clarisse" };
 
 // Pace: in the other scenes the messages are spread out (every delay is multiplied), so the player has time to read
 const PACE = 2.6;

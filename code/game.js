@@ -12,7 +12,7 @@ const $ = id => document.getElementById(id);
 // {name} in any text becomes the player’s name, to make the story personal
 const fill = s => String(s).replace(/\{name\}/g, (typeof player !== "undefined" && player.name) || "");
 const L = t => fill(french ? t.fr : t.en);
-const nexusImages = () => { const l = []; Object.values(NEXUS.beats).forEach(msgs => msgs.forEach(m => { if (m.image) l.push(m.image); })); return l; };
+const nexusImages = () => { const l = []; Object.values(NEXUS.beats).forEach(msgs => msgs.forEach(m => { if (m.image) l.push(m.image); })); ["happy", "neutral", "laugh", "angry"].forEach(n => l.push("images/reactions/" + n + ".gif")); return l; };
 const profileMsg = () => ({ type: "profile", french, preload: nexusImages(), started: phase !== "phone" });   // the phone logs in, or comes back during the game
 const readyMsg = () => ({ type: "ready", french });   // the introduction is over: the phone may log in
 
@@ -152,7 +152,7 @@ function phoneState() {
       if (!chatReady || chatAnswered) return { ...base, choices: [] };
       pending = { token, kind: "choice", choices };
       const ix = INTERACT[beat.id] || {};
-      return { ...base, choices: choices.map((c, i) => ({ fr: fill(c.label.fr), en: fill(c.label.en), kind: (ix.hide || []).includes(i) ? "hidden" : ix.write === i ? "write" : (c.kind || "reply"), msg: c.msg })) };
+      return { ...base, choices: choices.map((c, i) => ({ fr: fill(c.label.fr), en: fill(c.label.en), kind: (ix.hide || []).includes(i) ? "hidden" : ix.write === i ? "write" : (c.kind || "reply"), msg: c.msg, icon: c.icon, img: c.img })) };
     }
     if (choices && choices.length) {
       pending = { token, kind: "choice", choices };

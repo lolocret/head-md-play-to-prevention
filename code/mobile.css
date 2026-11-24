@@ -581,3 +581,17 @@ html.role-phone #echoState #bloom svg { width:36px; height:36px; }
 html.role-phone #app.on-gate #echoState { display:none !important; }
 html .choice.bigtile .silenceDots { position:relative; display:block; font-size:22px; letter-spacing:.3em; color:rgba(255,255,255,.45); line-height:1; margin-bottom:-6px; }
 html .choice.bigtile .bigIcon.silenceDots { font-size:56px; letter-spacing:.25em; color:rgba(255,255,255,.55); margin:0; padding-left:.25em; }
+@keyframes dotBlink { 0%, 100% { opacity:.15; } 50% { opacity:1; } }
+html .choice.bigtile .bigIcon.silenceDots.blink { animation:dotBlink 1.1s ease-in-out infinite; }
+html .choice.bigtile .bigIcon.silenceDots { font-size:72px; letter-spacing:.12em; padding-left:0; }
+/* the laugh scene: both boxes have the same size */
+html.role-phone #choiceView.emojiMode .laughBtn, html.role-phone #choiceView.emojiMode #noLaugh { flex:1 1 0 !important; min-height:0; }
+html.role-phone #choiceView.emojiMode #noLaugh { justify-content:center !important; padding:0 12px !important; }
+html.role-phone #choiceView.emojiMode .laughBtn, html.role-phone #choiceView.emojiMode #noLaugh { padding:0 !important; }
+/* the reactions to a message are emojis in one row */
+#sheetBtns { flex-direction:row; flex-wrap:wrap; }
+#sheetBtns button.emojiReact { flex:1 1 0; min-width:64px; min-height:64px; font-size:30px; padding:0; }
+#sheetBtns button:not(.emojiReact) { flex:1 1 100%; }
+/* scene 1: reaction pictures (GIFs) fill their square */
+html .choice.emoji { position:relative; overflow:hidden; padding:0; }
+html .choice.emoji img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; }

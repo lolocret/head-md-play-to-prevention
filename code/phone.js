@@ -197,7 +197,7 @@ function openSheet(key) {
   const opts = sheetChoices(key);   // the meme maker is one of the reactions
   if (!opts.length) return;
   const box = $("sheetBtns"); box.innerHTML = "";
-  opts.forEach(x => { const b = document.createElement("button"); b.textContent = (x.c.kind === "meme" ? "✎ " : "") + pick(x.c); b.onclick = () => { if (x.c.kind === "meme") { $("sheet").hidden = true; openMemeMaker(x.i); } else act(x.i); }; box.appendChild(b); });
+  opts.forEach(x => { const b = document.createElement("button"); b.textContent = x.c.icon || ((x.c.kind === "meme" ? "✎ " : "") + pick(x.c)); if (x.c.icon) { b.className = "emojiReact"; b.setAttribute("aria-label", pick(x.c)); } b.onclick = () => { if (x.c.kind === "meme") { $("sheet").hidden = true; openMemeMaker(x.i); } else act(x.i); }; box.appendChild(b); });
   $("sheetTitle").textContent = "";
   $("sheetClose").textContent = T("cancel");
   $("sheet").hidden = false;
@@ -255,14 +255,14 @@ function renderGame() {
       if (game.icons && game.icons[i]) {   // a big emoji with its caption (looking away: a pair of eyes)
         b.classList.add("bigtile", "iconTile");
         const ic = document.createElement("span"); ic.className = "bigIcon"; ic.textContent = game.icons[i];
-        const cap = document.createElement("small"); cap.textContent = pick(c); b.append(ic, cap);
+        b.append(ic);
         b.onclick = () => answerChoice(token, i);
         list.appendChild(b); return;
       }
       if (game.big && game.big[i] === "PFF") {   // "pfff": every tap adds an "f" (a few at most), sent a moment after the last tap
         b.classList.add("bigtile", "pffTile");
         const word = document.createElement("span"); word.className = "bigIcon pffWord"; let k = 2; word.textContent = "pf" + "f".repeat(k - 1);
-        const cap = document.createElement("small"); cap.textContent = pick(c); b.append(word, cap);
+        b.append(word);
         let t = null;
         b.onclick = () => {
           if (k < 8) { k++; word.textContent = "p" + "f".repeat(k); }
@@ -274,7 +274,7 @@ function renderGame() {
       if (game.big && game.big[i]) {   // the laugh: a big tile, one more "HA" at every tap; the laugh is sent a moment after the last tap
         b.classList.add("bigtile");
         const addHA = haLayer(b); addHA();   // one "HA" is already written
-        const cap = document.createElement("small"); cap.textContent = pick(c); b.append(cap);
+        
         let t = null;
         b.onclick = () => {
           addHA();
@@ -283,6 +283,7 @@ function renderGame() {
         };
         list.appendChild(b); return;
       }
+      else if (game.emoji && c.img) { const im = document.createElement("img"); im.src = c.img; im.alt = ""; im.draggable = false; b.append(im); b.setAttribute("aria-label", pick(c)); }   // scene 1: a reaction picture instead of an emoji
       else b.append(pick(c));
       if (c.hold) holdToConfirm(b, () => answerChoice(token, i), game.holdMs);
       else b.onclick = () => answerChoice(token, i);
@@ -322,8 +323,7 @@ const MECH = {
   // The class laughs: tap to join in (a "HA" for every tap, no time limit), or say no
   laugh(list, token) {
     list.innerHTML = `<button class="laughBtn" id="laughBtn" type="button"></button>
-      <button class="choice bigtile iconTile" id="noLaugh" type="button"><span class="bigIcon silenceDots" id="noIcon">···</span><small id="noCap"></small></button>`;
-    $("noCap").textContent = pick(game.choices[1]);
+      <button class="choice bigtile iconTile" id="noLaugh" type="button"><span class="bigIcon silenceDots blink" id="noIcon">.</span></button>`;
     const addHA = haLayer($("laughBtn")); addHA();   // one "HA" is already written
     let taps = 1, done = false, t = null;
     const finish = i => { if (done) return; done = true; clearTimeout(t); answerChoice(token, i); };
@@ -334,10 +334,12 @@ const MECH = {
       clearTimeout(t); t = setTimeout(() => finish(0), 900);   // the laugh is sent a moment after the last tap
     };
     // "no": three quiet dots (silence); a tap sends the answer a moment later
+    let noTaps = 0;   // one dot, blinking: three taps make three dots, then "no" is sent
     $("noLaugh").onclick = () => {
       if (done) return;
+      noTaps++; $("noIcon").classList.remove("blink"); $("noIcon").textContent = ".".repeat(noTaps + 1 > 3 ? 3 : noTaps + 1);
       buzz(15); $("noLaugh").classList.remove("tapped"); void $("noLaugh").offsetWidth; $("noLaugh").classList.add("tapped");
-      clearTimeout(t); t = setTimeout(() => finish(1), 900);
+      if (noTaps >= 3) { clearTimeout(t); t = setTimeout(() => finish(1), 500); }
     };
     mechStops.push(() => clearTimeout(t));
   },

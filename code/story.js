@@ -1802,13 +1802,13 @@ STORY.beats.forEach(b => {
 const arrival = STORY.beats.find(b => b.id === "arrival");
 arrival.prompt = { fr: "Comment je réagis ?", en: "How do I react?" };
 arrival.choices = [
-  { label: { fr: "😊", en: "😊" }, harass: 0, passive: 0, help: 1, bond: 1,
+  { label: { fr: "😊", en: "😊" }, img: "images/reactions/happy.gif", harass: 0, passive: 0, help: 1, bond: 1,
     journal: { fr: "J’ai souri à Echo. Deux élèves l’ont vu et ont ricané. Mon sourire m’a soudain paru très lourd.", en: "I smiled at Echo. Two students saw it and snickered. My smile suddenly felt very heavy." } },
-  { label: { fr: "😐", en: "😐" }, harass: 0, passive: 1, help: 0, bond: 0,
+  { label: { fr: "😐", en: "😐" }, img: "images/reactions/neutral.gif", harass: 0, passive: 1, help: 0, bond: 0,
     journal: { fr: "Je n’ai rien fait. J’ai regardé mes mains pendant qu’Echo se présentait.", en: "I did nothing. I looked at my hands while Echo introduced themself." } },
-  { label: { fr: "😂", en: "😂" }, harass: 1, passive: 0, help: 0, bond: -1,
+  { label: { fr: "😂", en: "😂" }, img: "images/reactions/laugh.gif", harass: 1, passive: 0, help: 0, bond: -1,
     journal: { fr: "J’ai ri, comme les autres. Sur le coup, c’était facile. Maintenant, je ne sais plus de quoi je riais.", en: "I laughed, like the others. At the time it was easy. Now I don’t know what I was laughing at." } },
-  { label: { fr: "😠", en: "😠" }, harass: 1, passive: 0, help: 0, bond: -1,
+  { label: { fr: "😠", en: "😠" }, img: "images/reactions/angry.gif", harass: 1, passive: 0, help: 0, bond: -1,
     journal: { fr: "J’ai regardé Echo avec colère. Je ne sais pas pourquoi ça m’énervait autant.", en: "I looked at Echo with anger. I don’t know why it annoyed me so much." },
     later: { after: 3, journal: { fr: "Echo se tient toujours un peu plus loin de moi. Je crois que mon regard du premier jour ne s’est pas effacé.", en: "Echo still stands a little further from me. I think my look from the first day hasn’t gone away." } } },
 ];
@@ -1823,6 +1823,7 @@ const eve = STORY.beats.find(b => b.id === "evening");
 eve.choices[1].label = { fr: "Je n’aime pas", en: "Dislike" };
 eve.choices[1].journal = { fr: "Je n’ai pas aimé le mème. Je l’ai fait savoir, tout bas.", en: "I disliked the meme. I made it known, quietly." };
 eve.choices[6].label = { fr: "Ne pas répondre", en: "Don’t answer" };
+eve.choices[0].icon = "👍"; eve.choices[1].icon = "👎"; eve.choices[2].icon = "📸";   // the reactions to the meme are emojis
 
 // Door scene (5): the third choice hurts Echo ("Faire un stop"): the gauge goes up and the story goes straight to Clarisse's plan
 const doorB = STORY.beats.find(b => b.id === "door");
@@ -1943,7 +1944,7 @@ const nightEcho = { ...nightB, id: "night_echo", if: { anyFlag: ["nightEcho"] },
     { label: { fr: "Demain, reste loin du toit.", en: "Tomorrow, stay away from the roof." }, harass: 0, passive: 0, help: 2, bond: 2, flag: "warnedEcho", kind: "reply",
       journal: { fr: "J’ai dit à Echo de rester loin du toit demain. Je n’ai pas tout expliqué, mais j’ai prévenu.", en: "I told Echo to stay away from the roof tomorrow. I didn’t explain everything, but I warned." } },
   ] };
-const nightClar = { ...nightB, id: "night_clarisse", if: { anyFlag: ["nightClarisse"] }, chat: { thread: "private", readyAt: 3500 },
+const nightClar = { ...nightB, id: "night_clarisse", if: { anyFlag: ["nightClarisse"] }, chat: { thread: "clarisse", readyAt: 3500 },
   line: nightB.line,
   choices: [
     { label: { fr: "Arrête, s’il te plaît.", en: "Please stop." }, harass: 0, passive: 0, help: 1, bond: 0, flag: "talkedClarisse", kind: "reply",
@@ -1963,6 +1964,7 @@ eve.choices[2].flag = "memeProof";
 eve.choices[2].later = { after: 3, journal: { fr: "Ma capture est toujours dans mon téléphone. Une preuve pour le prof, si un jour j’ose.", en: "My screenshot is still in my phone. Proof for the teacher, if I ever dare." } };
 const memeC = eve.choices[7];
 delete memeC.mock; delete memeC.support;
+memeC.icon = "✏️";
 Object.assign(memeC, { label: { fr: "Créer un mème pour se moquer d’Echo", en: "Make a meme to mock Echo" }, harass: 2, bond: -2,
   journal: { fr: "J’ai fait un mème sur Echo et je l’ai posté dans le groupe. Ça a fait rire. Moi, je ne suis pas sûr·e de savoir pourquoi.", en: "I made a meme about Echo and posted it in the group. It got laughs. I’m not sure why." } });
 
