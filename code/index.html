@@ -175,8 +175,8 @@
   <script>
     // The same page, two roles: the computer plays the story, the phone is the remote.
     const files = Link_role() === "phone"
-      ? ["story.js", "assets.js", "flower.js", "avatar.js", "cropper.js", "link.js", "phone.js"]
-      : ["story.js", "assets.js", "flower.js", "avatar.js", "cropper.js", "lib/qrcode.min.js", "link.js", "nexus.js", "scene.js", "game.js"];
+      ? ["story.js", "assets.js", "flower.js", "avatar.js", "cropper.js", "lib/peerjs.min.js", "link.js", "phone.js"]
+      : ["story.js", "assets.js", "flower.js", "avatar.js", "cropper.js", "lib/qrcode.min.js", "lib/peerjs.min.js", "link.js", "nexus.js", "scene.js", "game.js"];
     function Link_role() { return document.documentElement.className === "role-phone" ? "phone" : "host"; }
     files.forEach(f => document.write('<script src="' + f + '"><\/script>'));
   </script>
