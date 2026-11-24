@@ -23,7 +23,7 @@ const TXT = {
   back: { fr: "Retour au jeu", en: "Back to the game" },
   empty: { fr: "Aucun message pour l’instant.", en: "No messages yet." },
   noRoom: { fr: "Cette session n’existe plus. Scanne le QR code de l’ordinateur.", en: "This session no longer exists. Scan the computer’s QR code." },
-  wait: { fr: "", en: "" },
+  wait: { fr: "Regarde l’écran de l’ordinateur.", en: "Look at the computer screen." },
   sent: { fr: "", en: "" },
   write: { fr: "Écris ici, juste pour toi…", en: "Write here, just for you…" },
   stays: { fr: "Ce que tu écris reste sur ton téléphone.", en: "What you write stays on your phone." },
@@ -48,6 +48,11 @@ const TXT = {
   feelOther: { fr: "Ce que j’aurais voulu faire ou dire…", en: "What I would have wanted to do or say…" },
   noteBtn: { fr: "Ajouter ma note", en: "Add my note" },
   notePh: { fr: "Ça me rappelle… / ce que je ressens…", en: "It reminds me of… / what I feel…" },
+  qIntro: { fr: "Ces questions sont pour la classe. Tu peux envoyer ta réponse anonymement : personne ne saura que c’est toi, et on en parlera ensemble. Ou la garder pour toi.", en: "These questions are for the class. You can send your answer anonymously: nobody will know it’s you, and we’ll talk about it together. Or keep it to yourself." },
+  qSend: { fr: "Envoyer anonymement", en: "Send anonymously" },
+  qKeep: { fr: "Garder pour moi", en: "Keep it to myself" },
+  qSent: { fr: "✓ Envoyée anonymement", en: "✓ Sent anonymously" },
+  qKept: { fr: "✓ Gardée pour moi", en: "✓ Kept to myself" },
   jEmpty: { fr: "Ton journal se remplit au fil de l’histoire.", en: "Your journal fills in as the story goes." },
 };
 const T = k => TXT[k][french ? "fr" : "en"];
@@ -72,8 +77,8 @@ function paintStatic() {
   if (me.photo) $("slotImg").src = me.photo.big;
   $("answer").disabled = !ready || !$("nameInput").value.trim();   // only the name is required
   $("closeText").textContent = T("back");
-  $("btnJournal").hidden = !journalOn;
-  $("btnMsgs").hidden = !journalOn;          // messages and journal are only there at the end
+  $("btnJournal").hidden = true;
+  $("btnMsgs").hidden = true;                // no chat or journal buttons: the journal simply opens at the end
   $("btnJournal").querySelector(".dotb").hidden = !jUnread;
   $("btnMsgs").querySelector(".dotb").hidden = !Object.values(threads).some(t => t.unread);
   renderList();
@@ -125,9 +130,9 @@ function onState(m) {
   chat = null;
   renderGame();
   paintStatic();
-  if (end) renderJournal();   // the replay buttons are in the journal too
+  if (end) { renderJournal(); show("journal"); }   // the story is over: the journal is the screen (questions, replay)
   if (wasChat) { show("choice"); $("notif").hidden = true; }                          // the conversation is over: back to the main screen
-  if (isNew) { feel("normal"); show("choice"); }       // the story needs an answer: bring the player here
+  if (isNew && !end) { feel("normal"); show("choice"); }       // the story needs an answer: bring the player here (not at the end: the journal stays)
 }
 
 // ---------------------------------------------------------------- inside the conversation: reply, react, leave, put the phone down
@@ -141,7 +146,8 @@ function renderChat() {
   renderThread();
   if (!active) return;
   chat.choices.forEach((c, i) => {
-    if (c.kind === "reply") {
+    if ((c.kind === "reply" || c.kind === "action") && usesSheet()) { /* in the tap sheet */ }
+    else if (c.kind === "reply") {
       const b = document.createElement("button"); b.className = "chip"; b.textContent = pick(c);
       b.onclick = () => act(i);
       chips.appendChild(b);
@@ -149,7 +155,7 @@ function renderChat() {
       const b = document.createElement("button"); b.className = "chip"; b.textContent = pick(c);
       b.onclick = () => act(i);
       chips.appendChild(b);
-    } else if (c.kind === "meme" && !chat.choices.some(o => o.kind === "react")) {   // with reactions, the meme maker is in the reaction sheet
+    } else if (c.kind === "meme" && !usesSheet()) {   // with a message to tap, the meme maker is in the sheet
       const b = document.createElement("button"); b.className = "chip"; b.textContent = "✎ " + T("memeBtn");
       b.onclick = () => openMemeMaker(i);
       chips.appendChild(b);
@@ -168,7 +174,7 @@ function renderChat() {
       const b = $("ignoreBtn"); b.hidden = false; b.textContent = pick(c); b.onclick = () => act(i);
     }
   });
-  $("hint").textContent = chat.choices.some(c => c.kind === "react") ? T("tap") : "";
+  $("hint").textContent = chat.choices.some(c => c.kind === "react") || usesSheet() ? T("tap") : "";
 }
 
 // Do the action chosen in the conversation: it is sent to the story, and shown here at once
@@ -187,7 +193,7 @@ function act(i, text, extra = {}) {
 // Tap a message: what you can do with it (like, report, screenshot…)
 function openSheet(key) {
   if (!chat || !chat.ready || chat.answered || answered === chat.token) return;
-  const opts = chat.choices.map((c, i) => ({ c, i })).filter(x => (x.c.kind === "react" && x.c.msg === key) || x.c.kind === "meme");   // the meme maker is one of the reactions
+  const opts = sheetChoices(key);   // the meme maker is one of the reactions
   if (!opts.length) return;
   const box = $("sheetBtns"); box.innerHTML = "";
   opts.forEach(x => { const b = document.createElement("button"); b.textContent = (x.c.kind === "meme" ? "✎ " : "") + pick(x.c); b.onclick = () => { if (x.c.kind === "meme") { $("sheet").hidden = true; openMemeMaker(x.i); } else act(x.i); }; box.appendChild(b); });
@@ -232,13 +238,14 @@ function stopMech() { mechStops.forEach(f => f()); mechStops = []; mechFor = nul
 
 function renderGame() {
   if (game.mode === "choose" && game.mech && mechFor === game.token && answered !== game.token) return;   // a small game is running: do not restart it
-  $("choiceView").classList.toggle("emojiMode", game.mode === "choose" && (!!game.emoji || game.mech === "drag") && answered !== game.token);   // the four faces and the flower fill the whole screen
+  $("choiceView").classList.toggle("emojiMode", game.token !== "end");   // the phone screen is always entirely used
   const list = $("choiceList"), sent = $("choiceSent");
   list.innerHTML = ""; list.classList.remove("emojis"); sent.hidden = true;
   $("choicePrompt").textContent = "";
+  if (game.token === "end") return;   // the end: no buttons here, the journal is the screen (replay is a long press there)
   if (game.mode === "choose") {
     $("choicePrompt").textContent = game.prompt ? pick(game.prompt) : "";
-    if (answered === game.token) { stopTimer(); sent.textContent = T("sent"); sent.hidden = false; return; }
+    if (answered === game.token) { stopTimer(); waitPanel(list); return; }
     const token = game.token;
     if (game.mech && MECH[game.mech]) { stopTimer(); stopMech(); mechFor = token; MECH[game.mech](list, token); return; }
     list.classList.toggle("emojis", !!game.emoji);   // scene 1: four faces
@@ -246,13 +253,13 @@ function renderGame() {
       const b = document.createElement("button"); b.className = game.emoji ? "choice emoji" : "choice";
       if (game.big && game.big[i]) {   // the laugh: a big tile, one more "HA" at every tap; the laugh is sent a moment after the last tap
         b.classList.add("bigtile");
-        const h = document.createElement("span"); h.className = "ha"; h.textContent = "…";
+        const h = document.createElement("span"); h.className = "ha"; h.textContent = "HA";
         const s = document.createElement("small"); s.textContent = pick(c); b.append(h, s);
-        let n = 0, t = null;
+        let n = 1, t = null;   // one "HA" is already written
         b.onclick = () => {
-          n++; h.textContent = Array(n).fill("HA").join(" "); h.style.fontSize = Math.max(18, 44 - n * 2.5) + "px";
+          n++; h.textContent = Array(n).fill("HA").join(" "); h.style.fontSize = Math.max(24, 64 - n * 4) + "px";
           buzz(15); b.classList.remove("tapped"); void b.offsetWidth; b.classList.add("tapped");
-          clearTimeout(t); t = setTimeout(() => answerChoice(token, i), 1400);
+          clearTimeout(t); t = setTimeout(() => answerChoice(token, i), 1500);   // a short moment to tap again
         };
         list.appendChild(b); return;
       }
@@ -264,8 +271,13 @@ function renderGame() {
     if (game.timer) { if (timerFor !== token) startTimer(token, game.timer, game.fallback); } else stopTimer();
   } else {
     stopTimer(); stopMech();
-    sent.textContent = T("wait"); sent.hidden = false;     // the story goes on by itself: nothing to do but watch
+    waitPanel(list);                                        // the story goes on by itself: nothing to do but watch
   }
+}
+
+// Nothing to answer: a calm full page (a flower, "look at the screen") so the phone is never empty
+function waitPanel(list) {
+  list.innerHTML = `<div class="waitFill"><div class="waitFlower">${Flower.svg(1, 96)}</div><p>${T("wait")}</p></div>`;
 }
 
 
@@ -275,31 +287,36 @@ const MECH = {
   // The class laughs: tap to join in (a "HA" for every tap, no time limit), or say no
   laugh(list, token) {
     list.innerHTML = `<div class="crowd"><span>${french ? "Les autres rient…" : "The others are laughing…"}</span></div>
-      <button class="laughBtn" id="laughBtn" type="button">…</button>
+      <button class="laughBtn" id="laughBtn" type="button">HA</button>
       <button class="choice" id="noLaugh" type="button"></button>`;
     $("noLaugh").textContent = pick(game.choices[1]);
-    let taps = 0, done = false, t = null;
+    let taps = 1, done = false, t = null;   // one "HA" is already written
     const finish = i => { if (done) return; done = true; clearTimeout(t); answerChoice(token, i); };
     $("laughBtn").onpointerdown = e => {
       e.preventDefault(); if (done) return; taps++;
       $("laughBtn").textContent = Array(taps).fill("HA").join(" "); $("laughBtn").style.fontSize = Math.max(16, 28 - taps * 1.5) + "px";
       buzz(15); $("laughBtn").classList.remove("pop"); void $("laughBtn").offsetWidth; $("laughBtn").classList.add("pop");
-      clearTimeout(t); t = setTimeout(() => finish(0), 1400);   // the laugh is sent a moment after the last tap
+      clearTimeout(t); t = setTimeout(() => finish(0), 1500);   // the laugh is sent a moment after the last tap
     };
     $("noLaugh").onclick = () => finish(1);
     mechStops.push(() => clearTimeout(t));
   },
 
-  // A flower sticker to move: up left = alone, far from the others; up right = near Echo; down = with the group
+  // A flower sticker to move to one of the places written on the screen (positions in game.spots)
   drag(list, token) {
-    list.innerHTML = `<div class="stArea" id="stArea"><span class="sz szl"></span><span class="sz szr"></span><span class="sz szb"></span><div class="stFlower" id="stFlower"></div></div>`;
+    const POS = { tl: [0.22, 0.12], tr: [0.78, 0.12], b: [0.5, 0.9], t: [0.5, 0.1], l: [0.22, 0.5], bl: [0.22, 0.9] };   // x, y in the area
+    const spots = game.spots && game.spots.length ? game.spots : [{ i: 2, at: "tl" }, { i: 0, at: "tr" }, { i: 1, at: "b" }];
+    list.innerHTML = `<div class="stArea" id="stArea">${spots.map((sp, k) => `<span class="sz" data-k="${k}" style="left:${POS[sp.at][0] * 100}%;top:${POS[sp.at][1] * 100}%"></span>`).join("")}<div class="stFlower" id="stFlower"></div></div>`;
     const area = $("stArea"), fl = $("stFlower");
-    const spots = game.spots && game.spots.length ? game.spots : [{ i: 2, at: "tl" }, { i: 0, at: "tr" }, { i: 1, at: "b" }];   // which choice sits where
-    const spot = at => spots.find(s => s.at === at).i;
-    area.querySelector(".szl").textContent = pick(game.choices[spot("tl")]); area.querySelector(".szr").textContent = pick(game.choices[spot("tr")]); area.querySelector(".szb").textContent = pick(game.choices[spot("b")]);
+    area.querySelectorAll(".sz").forEach((el, k) => { el.textContent = pick(game.choices[spots[k].i]); });
     fl.innerHTML = Flower.svg(1, 84);
     let x = 0.5, y = 0.52, moved = false, drag = false;
-    const zone = () => (Math.hypot(x - 0.5, y - 0.52) < 0.16 ? "" : y > 0.66 ? "szb" : x < 0.5 ? "szl" : "szr");
+    const zone = () => {   // the nearest place, once the flower has left the middle
+      if (Math.hypot(x - 0.5, y - 0.52) < 0.16) return -1;
+      let best = 0, d = 9;
+      spots.forEach((sp, k) => { const e = Math.hypot(x - POS[sp.at][0], (y - POS[sp.at][1]) * 0.7); if (e < d) { d = e; best = k; } });
+      return best;
+    };
     const place = () => { fl.style.left = (x * 100) + "%"; fl.style.top = (y * 100) + "%"; area.dataset.zone = zone(); };
     const move = e => { const r = area.getBoundingClientRect(); x = Math.max(0.08, Math.min(0.92, (e.clientX - r.left) / r.width)); y = Math.max(0.1, Math.min(0.92, (e.clientY - r.top) / r.height)); moved = true; place(); };
     fl.onpointerdown = e => { drag = true; fl.classList.add("dragging"); fl.setPointerCapture(e.pointerId); e.preventDefault(); };
@@ -307,8 +324,8 @@ const MECH = {
     const end = () => {
       if (!drag) return; drag = false; fl.classList.remove("dragging");
       const z = zone();
-      if (!moved || !z) { x = 0.5; y = 0.52; moved = false; place(); return; }   // not far enough: the flower goes back
-      buzz(40); answerChoice(token, spot(z === "szl" ? "tl" : z === "szr" ? "tr" : "b"));
+      if (!moved || z < 0) { x = 0.5; y = 0.52; moved = false; place(); return; }   // not far enough: the flower goes back
+      buzz(40); answerChoice(token, spots[z].i);
     };
     fl.onpointerup = end; fl.onpointercancel = end;
     place();
@@ -366,6 +383,7 @@ function show(v) {
   $("viewBar").hidden = v === "choice" || inChat || (v === "msgs" && !!openThread);
   $("back").hidden = inChat;                                 // in a live conversation there is no way out but to act
   $("viewTitle").textContent = v === "journal" ? T("jTitle") : T("msgs");
+  $("closeView").hidden = journalOn && v === "journal";   // at the end there is no way back: only replay
   if (!inChat) { $("composer").hidden = true; $("leaveBtn").hidden = true; $("sheet").hidden = true; }
   if (v === "journal") { jUnread = 0; renderJournal(); $("journalView").scrollTop = 0; }
   paintStatic();
@@ -389,7 +407,7 @@ function onMessage(m) {
 const GROUP_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.2c2.7.2 4.5 2.4 4.5 5.3"/></svg>';
 const MSG_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5h16v11H11l-4 3.5V16H4z"/></svg>';
 
-// A notification at the top of the phone (tap it to read). kind: "group", "msg" or "journal"
+// A notification at the top of the phone (only to look at). kind: "group", "msg" or "journal"
 function toast(title, body, kind, thread) {
   const n = $("notif");
   n.classList.toggle("group", kind === "group");
@@ -398,11 +416,7 @@ function toast(title, body, kind, thread) {
   $("nTitle").textContent = title;
   $("nBody").textContent = body;
   n.hidden = false;
-  n.onclick = () => {
-    n.hidden = true;
-    if (kind === "journal") show("journal");
-    else if (thread && threads[thread]) { openThread = thread; threads[thread].unread = 0; show("msgs"); renderThread(); }
-  };
+  n.onclick = null;   // a notification is only to look at: it cannot be tapped
   n.style.animation = "none"; void n.offsetWidth; n.style.animation = "";
   clearTimeout(toast.id); toast.id = setTimeout(() => { n.hidden = true; }, kind === "group" ? 6500 : 4500);
 }
@@ -429,11 +443,15 @@ function renderList() {
   });
 }
 
+// In a conversation the player acts by tapping the message (the image): which choices that opens.
+// A scene with a message to tap puts every answer there (reply, action, reaction, meme); the other buttons stay below.
+const usesSheet = () => { const t = threads[openThread]; return !!(chat && t && t.msgs.some(m => m.key) && !chat.choices.some(c => c.kind === "write")); };
+const sheetChoices = key => (chat ? chat.choices.map((c, i) => ({ c, i })).filter(x => (x.c.kind === "react" && x.c.msg === key) || (usesSheet() && ["reply", "action", "meme"].includes(x.c.kind))) : []);
 function renderThread() {
   const t = threads[openThread]; if (!t) return;
   $("threadTitle").textContent = pick(t.name);
   const box = $("bubbles"); box.innerHTML = "";
-  const canReact = key => chat && chat.ready && !chat.answered && chat.choices.some(c => c.kind === "react" && c.msg === key);
+  const canReact = key => chat && chat.ready && !chat.answered && sheetChoices(key).length > 0;
   t.msgs.forEach(m => {
     const mine = m.from === "__me";
     const d = document.createElement("div"); d.className = "bubble" + (mine ? " me" : (m.from ? "" : " system"));
@@ -552,6 +570,7 @@ function renderJournal() {
 
   $("jEntries").innerHTML = "";   // what happened is now told on the computer screen: here, only questions
   const pr = $("jPrompts"); pr.innerHTML = "";
+  const intro = document.createElement("p"); intro.className = "qIntro"; intro.textContent = T("qIntro"); pr.appendChild(intro);
   [...prompts, ...END_Q].forEach(q => {
     const card = document.createElement("div"); card.className = "prompt";
     const t = document.createElement("p"); t.className = "q"; t.textContent = pick(q);
@@ -561,12 +580,28 @@ function renderJournal() {
     const note = document.createElement("span"); note.textContent = T("stays");
     const ok = document.createElement("span"); ok.className = "ok"; ok.textContent = "✓ " + T("saved");
     foot.append(note, ok);
+    // send it anonymously to the class, or keep it to myself
+    const acts = document.createElement("div"); acts.className = "qActs";
+    const sendB = document.createElement("button"); sendB.type = "button"; sendB.className = "qSend";
+    const keepB = document.createElement("button"); keepB.type = "button"; keepB.className = "qKeep";
+    const paint = () => {
+      const mode = saved[q.id + "_mode"];
+      sendB.textContent = mode === "sent" ? T("qSent") : T("qSend"); sendB.disabled = mode === "sent" || !ta.value.trim();
+      keepB.textContent = mode === "kept" ? T("qKept") : T("qKeep"); keepB.disabled = mode === "sent";
+      ta.readOnly = mode === "sent";
+    };
+    sendB.onclick = () => { const text = ta.value.trim(); if (!text) return; saved[q.id + "_mode"] = "sent"; save(); send({ type: "answer", id: q.id, q: pick(q), text }); paint(); };
+    keepB.onclick = () => { saved[q.id + "_mode"] = "kept"; save(); paint(); };
+    acts.append(sendB, keepB);
     ta.oninput = () => {
+      if (saved[q.id + "_mode"] === "kept") { delete saved[q.id + "_mode"]; }
+      paint();
       saved[q.id] = ta.value; save(); grow();
       ok.classList.add("on"); clearTimeout(ta.okId); ta.okId = setTimeout(() => ok.classList.remove("on"), 1500);
     };
     ta.onfocus = () => setTimeout(() => card.scrollIntoView({ block: "center", behavior: "smooth" }), 300);   // keep it above the keyboard
-    card.append(t, ta, foot); pr.appendChild(card);
+    card.append(t, ta, acts, foot); pr.appendChild(card);
+    paint();
     setTimeout(grow, 0);
   });
   // play again, or go back to the last scene and choose differently

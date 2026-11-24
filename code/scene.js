@@ -24,13 +24,13 @@ const Scene = (() => {
     echo_roof:      { place: "toit", npcs: [{ id: "echo", x: 24, y: 80 }] },
     wipe:           { place: "couloir", npcs: [{ id: "echo", x: 52, y: 78 }] },
     labels:         { place: "couloir", npcs: [{ id: "clarisse", x: 68, y: 74 }, { id: "echo", x: 46, y: 78 }] },
-    echo_hall:      { place: "couloir", npcs: [{ id: "echo", x: 54, y: 88 }] },
-    clarisse:       { place: "couloir", npcs: [{ id: "clarisse", x: 66, y: 84 }] },
+    echo_hall:      { place: "couloir", npcs: [{ id: "echo", x: 54, y: 78 }] },
+    clarisse:       { place: "couloir", npcs: [{ id: "clarisse", x: 64, y: 78 }] },
     monday:         { place: "classe", npcs: [{ id: "echo", x: 48, y: 87 }] },
-    clarisse_hall:  { place: "couloir", npcs: [{ id: "clarisse", x: 64, y: 84 }] },
+    clarisse_hall:  { place: "couloir", npcs: [{ id: "clarisse", x: 64, y: 78 }] },
     turnoff:        { place: "serre", npcs: [] },       // Clarisse shares her plan in La Serre
-    origins:        { place: "altaya", fallback: "couloir", npcs: [{ id: "echo", x: 50, y: 50 }] },
-    echo_altaya:    { place: "altaya", npcs: [{ id: "echo", x: 50, y: 50 }] },
+    origins:        { place: "altaya", fallback: "couloir", npcs: [{ id: "echo", x: 38, y: 86 }] },
+    echo_altaya:    { place: "altaya", npcs: [{ id: "echo", x: 38, y: 86 }] },
     night:          { place: "chambre", npcs: [] },
     friday:         { place: "toit", npcs: [{ id: "echo", x: 16, y: 80 }, { id: "clarisse", x: 28, y: 80 }, { id: "student", x: 40, y: 82 }] },
   };

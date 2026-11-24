@@ -18,7 +18,8 @@ const readyMsg = () => ({ type: "ready", french });   // the introduction is ove
 // ---------------------------------------------------------------- flow
 
 // Some scenes only happen under a condition (e.g. Echo at Altaya needs a strong bond)
-const available = b => !b.if || state.bond >= (b.if.bondMin || -Infinity);
+// A scene may need: a bond with Echo (bondMin), or one of some flags set by an earlier choice (anyFlag): the story branches
+const available = b => !b.if || ((b.if.bondMin === undefined || state.bond >= b.if.bondMin) && (!b.if.anyFlag || b.if.anyFlag.some(f => state.flags[f])));
 function nextAvailable(i) { while (i < STORY.beats.length && !available(STORY.beats[i])) i++; return i; }
 
 function restart() {
@@ -175,7 +176,9 @@ function syncPhone() {
 }
 
 // The phone answered
+const shared = [];   // the answers the players sent anonymously to the class (no name, no photo)
 Link.onMessage = m => {
+  if (m.type === "answer") { if (m.text && !shared.some(x => x.id === m.id && x.text === m.text)) shared.unshift({ id: m.id, q: String(m.q || "").slice(0, 160), text: String(m.text).slice(0, 400) }); if (phase === "ending") renderEnding(); return; }
   if (m.type === "open") { if (phase === "phone") { player.name = String(m.name || "").slice(0, 20).trim(); Link.send(profileMsg()); sentSig = null; restart(); } return; }   // the player opened Nexus on the phone: the story starts
   if (m.type !== "choose" || !pending || m.token !== pending.token) return;
   const p = pending; pending = null;
@@ -290,6 +293,10 @@ function renderIntro() {
     if (introIndex >= INTRO.length) { phase = "phone"; Link.send(readyMsg()); }
     render();
   });
+  const dots = document.createElement("div"); dots.className = "dots";   // where we are in the introduction
+  INTRO.forEach((_, i) => { const d = document.createElement("i"); if (i === introIndex) d.className = "on"; dots.appendChild(d); });
+  $("choices").appendChild(dots);
+  $("main").classList.remove("turn"); void $("main").offsetWidth; $("main").classList.add("turn");   // the text rises in at every page
 }
 
 // The end: a quiet page: how it ended for Echo, in a few words, and how their flowers are
@@ -300,7 +307,17 @@ function renderEnding() {
   card.hidden = false; card.textContent = ""; card.className = "endCard end-" + e.id + " stage" + st;
   document.body.classList.add("ended");
   const flowers = el("div", "en-flowers"); flowers.innerHTML = [0, 1, 2].map(() => Flower.svg(bloomValue(), 34)).join("");
-  card.append(el("p", "en-kicker", french ? "Fin" : "The end"), el("h3", "", L(e.title)), el("p", "en-text", L(e.text)), flowers, el("p", "en-state", L(STORY.stages[st])));
+  // two plain lines: our bond with Echo, and where Echo's gauge ended
+  const row = (label, v, word) => { const r = el("div", "en-row"); const m = el("div", "en-line"); const i = el("i"); i.style.width = Math.round(Math.max(0, Math.min(1, v)) * 100) + "%"; m.appendChild(i); r.append(el("span", "en-label", label), m, el("span", "en-word", word)); return r; };
+  const bond = state.bond >= STORY.bondToUnlock ? (french ? "fort" : "strong") : state.bond >= 1 ? (french ? "fragile" : "fragile") : (french ? "absent" : "none");
+  const rows = el("div", "en-rows");
+  rows.append(row(french ? "Notre lien" : "Our bond", state.bond / (STORY.bondToUnlock * 2), bond), row(french ? "Jauge d’Echo" : "Echo’s gauge", state.harass / Math.max(1, STORY.harassStage3), L(STORY.stages[st])));
+  card.append(el("p", "en-kicker", french ? "Fin" : "The end"), el("h3", "", L(e.title)), el("p", "en-text", L(e.text)), flowers, rows);
+  if (shared.length) {   // what the class sent anonymously
+    const box = el("div", "sharedBox"); box.appendChild(el("h4", "", french ? "Réponses anonymes de la classe" : "Anonymous answers from the class"));
+    shared.slice(0, 4).forEach(x => { const q = el("blockquote"); q.append(el("small", "", x.q), document.createTextNode(x.text)); box.appendChild(q); });
+    card.appendChild(box);
+  }
 }
 
 // Gauge: a flower in bloom on the left, a wilted one on the right, the bar between them (green -> orange -> red)
@@ -329,6 +346,12 @@ function updateJournal() {
 }
 
 $("playBtn").onclick = () => { phase = "intro"; render(); };
+// Enter, Space or the right arrow turn the page, like the button
+document.addEventListener("keydown", e => {
+  if (!["Enter", " ", "ArrowRight"].includes(e.key) || (e.target && /INPUT|TEXTAREA/.test(e.target.tagName))) return;
+  const b = phase === "intro" ? document.querySelector("#choices button") : phase === "title" && !$("playBtn").disabled ? $("playBtn") : null;
+  if (b) { e.preventDefault(); b.click(); }
+});
 
 state = newState();
 beatIndex = 0;

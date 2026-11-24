@@ -341,9 +341,8 @@ body.ended #screenText #storyLine { display:none; }
 .choice.emoji { text-align:center; font-size:46px; line-height:1; min-height:92px; border-radius:24px; }
 /* scene "bench": the flower sticker */
 .stArea { position:relative; width:100%; align-self:stretch; height:min(40dvh, 320px); border-radius:22px; border:1px solid var(--line); background:rgba(255,255,255,.03); touch-action:none; overflow:hidden; }
-.sz { position:absolute; width:44%; font-size:clamp(19px, 5.4vw, 26px); font-weight:600; line-height:1.2; color:#cfc8f5; text-align:center; transition:color .2s, text-shadow .2s; }
-.szl { left:4%; top:8%; } .szr { right:4%; top:8%; } .szb { left:29%; bottom:7%; }
-.stArea[data-zone="szl"] .szl, .stArea[data-zone="szr"] .szr, .stArea[data-zone="szb"] .szb { color:#fff; font-weight:700; text-shadow:0 0 12px var(--cyan); }
+.sz { position:absolute; transform:translate(-50%,-50%); width:40%; font-size:clamp(19px, 5.4vw, 26px); font-weight:600; line-height:1.2; color:#cfc8f5; text-align:center; transition:color .2s, text-shadow .2s; }
+.stArea[data-zone="0"] .sz[data-k="0"], .stArea[data-zone="1"] .sz[data-k="1"], .stArea[data-zone="2"] .sz[data-k="2"] { color:#fff; text-shadow:0 0 14px var(--cyan); transform:translate(-50%,-50%) scale(1.12); }
 .stFlower { position:absolute; left:50%; top:52%; width:84px; height:84px; margin:-42px 0 0 -42px; touch-action:none; cursor:grab; filter:drop-shadow(0 0 12px rgba(255,143,216,.7)); transition:left .25s, top .25s; }
 .stFlower.dragging { transition:none; cursor:grabbing; }
 
@@ -368,3 +367,141 @@ html.role-phone #app { padding-top:calc(env(safe-area-inset-top) + 22px); }
 .replayBtn { border-color:var(--cyan); background:rgba(77,240,255,.1); }
 #jEntries:empty { display:none; }
 body.ended #scene .sprite { display:none; }
+
+.endCard .en-rows { max-width:460px; margin:22px auto 0; display:flex; flex-direction:column; gap:12px; text-align:left; }
+.endCard .en-row { display:grid; grid-template-columns:110px 1fr auto; align-items:center; gap:14px; font-size:15px; color:var(--grey); }
+.endCard .en-label { letter-spacing:.04em; }
+.endCard .en-line { height:2px; background:rgba(255,255,255,.18); }
+.endCard .en-line i { display:block; height:100%; background:#e9e6ff; transition:width .8s; }
+.endCard .en-word { color:#e9e6ff; min-width:60px; text-align:right; }
+
+/* the start (title, introduction, login): calm and clean, no neon */
+#gameName, #loader b { color:#f1ecff; filter:none; letter-spacing:.14em; padding-left:.14em; }
+#tagline { color:#d4cee8; font-size:19px; letter-spacing:.02em; }
+#credits { color:rgba(235,230,250,.5); }
+#playBtn, html.role-screen #choices button, #answer { border:1px solid rgba(255,255,255,.55); color:#fff; background:rgba(255,255,255,.08); box-shadow:none; transition:background .2s, border-color .2s, transform .1s; }
+#playBtn:hover:not(:disabled), html.role-screen #choices button:hover:not(:disabled), #answer:hover:not(:disabled) { background:rgba(255,255,255,.18); border-color:#fff; }
+#main h1 { text-shadow:0 2px 16px rgba(0,0,0,.6); font-family:"Bodoni Moda", "Didot", "Playfair Display", serif; font-weight:700; letter-spacing:.01em; }
+#body { text-shadow:0 2px 14px rgba(0,0,0,.7); }
+#gateText { font-family:"Bodoni Moda", "Didot", "Playfair Display", serif; font-weight:700; letter-spacing:.02em; color:#f1ecff; text-shadow:0 2px 16px rgba(0,0,0,.6); animation:none; }
+#nameInput:focus { border-color:#fff; box-shadow:none; }
+#qr { box-shadow:0 4px 24px rgba(0,0,0,.5); }
+#qr.ok { box-shadow:0 4px 24px rgba(0,0,0,.5); }
+#qrText { color:#e4e0f2; } #qrUrl { color:rgba(235,230,250,.45); }
+/* introduction: the text rises in, a few dots show where we are */
+@keyframes rise { from { opacity:0; transform:translateY(10px); } }
+#main.turn h1, #main.turn #body { animation:rise .6s ease both; }
+.dots { display:flex; justify-content:center; gap:9px; margin-top:22px; }
+.dots i { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.28); }
+.dots i.on { background:#fff; }
+
+/* the phone: logging in to Nexus, in the manner of an iPhone sign-in sheet */
+html.role-phone #gate { justify-content:flex-start; align-items:stretch; text-align:left; gap:0; padding:calc(env(safe-area-inset-top) + 7dvh) 4px calc(18px + env(safe-area-inset-bottom)); }
+html.role-phone #app.on-gate { background:linear-gradient(#0d0c1c, #070713); }
+.gateHead { text-align:center; }
+.gateLogo { display:block; margin-bottom:20px; font-size:13px; font-weight:600; letter-spacing:.46em; padding-left:.46em; color:#9a96b8; }
+html.role-phone #gateText { margin:0; max-width:none; font:700 32px/1.1 -apple-system, "SF Pro Display", system-ui, sans-serif; letter-spacing:-.02em; color:#fff; text-shadow:none; animation:none; text-align:center; }
+html.role-phone #gateNote { position:static; display:flex; align-items:center; justify-content:center; gap:10px; max-width:none; margin:22px 0 0; font-size:16px; color:#9a96b8; }
+html.role-phone #gateNote:empty { display:none; }
+html.role-phone #gateNote::before { content:""; width:18px; height:18px; border-radius:50%; border:2px solid rgba(255,255,255,.2); border-top-color:#fff; animation:spin .9s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+html.role-phone #gate #profile { max-width:none; margin-top:30px; display:flex; flex-direction:column; gap:26px; }
+html.role-phone #gate #profile[hidden] { display:none; }
+#photoCol { display:flex; flex-direction:column; align-items:center; gap:10px; width:auto; flex:none; }
+html.role-phone .slot { width:108px; height:108px; border:0; background:rgba(255,255,255,.08); color:#a8a3c4; transition:background .2s; }
+html.role-phone .slot:active { background:rgba(255,255,255,.14); }
+html.role-phone .slot .plus { display:flex; font-size:0; color:inherit; font-weight:400; }
+html.role-phone #uploadText { margin:0; min-height:0; cursor:pointer; }
+
+html.role-phone #nameCol { display:block; width:100%; }
+html.role-phone #nameLabel { display:block; min-height:0; margin:0 0 8px 16px; font-size:13px; font-weight:500; letter-spacing:.05em; text-transform:uppercase; color:#9a96b8; }
+html.role-phone #nameInput { height:54px; padding:0 16px; font-size:17px; border:0; border-radius:14px; background:rgba(255,255,255,.09); color:#fff; caret-color:#fff; }
+html.role-phone #nameInput::placeholder { color:rgba(255,255,255,.35); }
+html.role-phone #nameInput:focus { box-shadow:0 0 0 1.5px rgba(255,255,255,.7); background:rgba(255,255,255,.12); }
+html.role-phone #uploadErr { margin:-14px 0 0 16px; }
+html.role-phone #answer { width:100%; margin:auto 0 0; }
+
+#notif { pointer-events:none; cursor:default; }
+
+/* ================= one design for every button =================
+   primary   = the main action of a page (Play, Next, Log in, Play again, Done, Post, Send)
+   secondary = a choice or a small action (same shape, quieter)
+   text      = a link-like action (add a photo, adjust, don't answer)
+   One shape (rounded 16 px), one white accent, no neon. */
+html #playBtn, html.role-screen #choices button, html #answer, html .replayBtn, html #cropOk, html #memePost, html #writeSend {
+  display:inline-flex; align-items:center; justify-content:center; min-height:52px; padding:0 34px; border-radius:16px; border:1px solid rgba(255,255,255,.6); background:rgba(255,255,255,.14);
+  color:#fff; font-size:17px; font-weight:600; letter-spacing:0; text-transform:none; text-align:center; box-shadow:none; }
+html.role-screen #playBtn, html.role-screen #choices button { min-height:58px; font-size:20px; padding:0 46px; }
+html #playBtn:hover:not(:disabled), html.role-screen #choices button:hover:not(:disabled), html #answer:hover:not(:disabled), html .replayBtn:hover { background:rgba(255,255,255,.24); border-color:#fff; }
+html #playBtn:active, html #answer:active, html .replayBtn:active, html #cropOk:active, html #memePost:active, html #writeSend:active { background:rgba(255,255,255,.3); transform:scale(.98); }
+html #playBtn:disabled, html #answer:disabled, html #writeSend:disabled { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.18); color:rgba(255,255,255,.4); opacity:1; }
+html .replayBtn { width:100%; }
+html.role-phone #answer { width:100%; }
+
+html .choice, html .chip, html #sheetBtns button, html #sheetClose, html #closeView, html #leaveBtn, html #cropCancel, html #memeCancel, html #memeTone button, html .feelChip, html .laughBtn {
+  border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.08); color:#fff; border-radius:16px; box-shadow:none; font-weight:500; }
+html .chip, html .feelChip, html #memeTone button, html #leaveBtn { border-radius:14px; }
+html #back, html .ibtn { border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.08); color:#fff; box-shadow:none; }
+html .choice:active, html .chip:active, html #sheetBtns button:active, html #sheetClose:active, html #closeView:active, html #leaveBtn:active, html #cropCancel:active, html #memeCancel:active, html #memeTone button:active, html .feelChip:active, html .laughBtn:active {
+  background:rgba(255,255,255,.18); border-color:rgba(255,255,255,.7); box-shadow:none; }
+html .feelChip.on, html #memeTone button.on, html .thumb.on { border-color:#fff; background:rgba(255,255,255,.22); }
+html .thumb.on { background-color:transparent; border-width:2px; }
+html .thumb.upload { border:2px dashed rgba(255,255,255,.4); color:#fff; }
+html .choice.hold { border-color:rgba(255,255,255,.2); }
+html .choice.hold::before, html .choice.holding::before { background:rgba(255,255,255,.22); }
+html .choice.bigtile { border-color:rgba(255,255,255,.2); background:rgba(255,255,255,.08); }
+html .choice.bigtile .ha { color:#fff; text-shadow:none; }
+html .choice small, html .choice.hold small { color:rgba(255,255,255,.6); }
+html .row.unread { border-color:rgba(255,255,255,.5); background:rgba(255,255,255,.12); }
+
+html #uploadText, html #adjustBtn, html #ignoreBtn, html .noteBtn { background:none; border:0; padding:6px 10px; min-height:0; border-radius:10px; box-shadow:none; color:#d9d4f5; font-size:15px; font-weight:500; text-decoration:none; }
+html #uploadText:active, html #adjustBtn:active, html #ignoreBtn:active, html .noteBtn:active { color:#fff; transform:none; background:rgba(255,255,255,.08); }
+
+html #choicePrompt { color:#fff; text-shadow:none; }
+html #hint { color:#b9b4d4; }
+html .bubble.tappable { border-color:rgba(255,255,255,.5); box-shadow:none; }
+html #notif { border-color:rgba(255,255,255,.25); box-shadow:0 8px 30px rgba(0,0,0,.6); }
+html #notif .n-icon, html #notif .n-title { color:#fff; }
+html #notif.group .n-icon, html #notif.group .n-title { color:#ffb4e4; }
+html #notif.group { border-color:rgba(255,255,255,.25); }
+html #writeRow input:focus, html #nameInput:focus, html input:focus, html textarea:focus { outline:0; box-shadow:0 0 0 1.5px rgba(255,255,255,.7); border-color:transparent; }
+/* text fields and dialog titles: the same everywhere */
+html #memeTitle, html .memebox h3, html .cropbox h3 { color:#fff; text-shadow:none; font-weight:600; }
+html #memeTop, html #memeBottom, html #writeInput, html .prompt textarea, html .entryNote textarea { border:0; border-radius:14px; background:rgba(255,255,255,.09); color:#fff; }
+html #memeTop, html #memeBottom, html #writeInput { height:50px; padding:0 14px; font-size:16px; }
+html #memeTop::placeholder, html #memeBottom::placeholder, html #writeInput::placeholder, html textarea::placeholder { color:rgba(255,255,255,.35); }
+html #cropHint { color:#b9b4d4; }
+html #cropZoom { accent-color:#fff; }
+
+/* the phone screen is always entirely used: the choices stretch to fill it */
+html.role-phone #choiceView.emojiMode { flex:1; margin-top:0; max-height:none; padding:14px 0 calc(16px + env(safe-area-inset-bottom)); margin-left:0; margin-right:0; background:none; }
+html.role-phone #choiceView.emojiMode #choiceList { flex:1; min-height:0; }
+html.role-phone #choiceView.emojiMode #choiceList:not(.emojis) { display:flex; flex-direction:column; gap:12px; }
+html.role-phone #choiceView.emojiMode .choice:not(.emoji) { flex:1 1 0; min-height:60px; display:flex; flex-direction:column; justify-content:center; }
+html.role-phone #choiceView.emojiMode .choice.bigtile { flex:3 1 0; justify-content:flex-start; padding-top:26px; }
+html.role-phone #choiceView.emojiMode .choice.bigtile .ha { font-size:64px; line-height:1.1; }
+html.role-phone #choiceView.emojiMode .laughBtn { flex:1 1 0; min-height:0; }
+html.role-phone #choiceView.emojiMode .crowd { flex:none; }
+html.role-phone #choiceView.emojiMode .wipeArea { flex:1; height:auto; min-height:0; }
+html.role-phone #choiceView.emojiMode #choicePrompt { font-size:22px; line-height:1.25; }
+.waitFill { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; color:#b9b4d4; text-align:center; font-size:17px; }
+.waitFill p { margin:0; max-width:240px; }
+.waitFlower { filter:drop-shadow(0 0 14px rgba(255,143,216,.4)); animation:breathe 3.6s ease-in-out infinite; }
+@keyframes breathe { 50% { transform:scale(1.08); opacity:.8; } }
+@media (prefers-reduced-motion: reduce) { .waitFlower { animation:none; } }
+
+.qIntro { margin:0 0 14px; padding:14px 16px; border-radius:14px; background:rgba(255,255,255,.08); color:#e4e0f2; font-size:15px; line-height:1.45; }
+.qActs { display:flex; gap:10px; margin-top:10px; }
+.qActs button { flex:1; min-height:48px; font-size:15px; }
+.qSend { border-color:rgba(255,255,255,.6) !important; background:rgba(255,255,255,.14) !important; font-weight:600; }
+.qActs button:disabled { opacity:.55; }
+.sharedBox { max-width:760px; margin:26px auto 0; text-align:left; }
+.sharedBox h4 { margin:0 0 10px; font-size:13px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--grey); text-align:center; }
+.sharedBox blockquote { margin:0 0 8px; padding:10px 14px; border-left:2px solid rgba(255,255,255,.35); color:#e4e0f2; font-size:16px; line-height:1.4; }
+.sharedBox blockquote small { display:block; margin-bottom:2px; color:var(--grey); font-size:12px; }
+body.ended #screenText { overflow-y:auto; pointer-events:auto; }
+/* journal: same calm look as the rest */
+html .prompt { border-color:rgba(255,255,255,.18); background:rgba(255,255,255,.05); }
+html .prompt .q { color:#fff; }
+html #viewBar h2 { color:#b9b4d4; }
+html .prompt.feel .feelChip { border-color:rgba(255,255,255,.2); }

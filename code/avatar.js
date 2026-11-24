@@ -1,5 +1,7 @@
-// Turns a photo into a cyberpunk portrait, entirely in the browser (nothing is uploaded or saved):
-// duotone neon colours, glowing cyan edges, red/blue split, scanlines and a few glitch bands.
+// Prepares the player's profile picture, entirely in the browser (nothing is uploaded or saved).
+// The photo stays as it is (framed and cropped to a square). The old cyberpunk filter (duotone neon, glitch)
+// is still below: set CYBER_FILTER to true to bring it back.
+const CYBER_FILTER = false;
 const Cyber = (() => {
   const make = (w, h) => { const c = document.createElement("canvas"); c.width = w; c.height = h; return c; };
   const STOPS = [[0, [8, 4, 32]], [0.35, [70, 20, 160]], [0.62, [255, 79, 195]], [0.85, [77, 240, 255]], [1, [150, 250, 255]]];
@@ -20,6 +22,7 @@ const Cyber = (() => {
     const side = crop ? crop.side : Math.min(sw, sh), sx = crop ? crop.sx : (sw - side) / 2, sy = crop ? crop.sy : (sh - side) * 0.3;
     const base = make(size, size), ctx = base.getContext("2d");
     ctx.drawImage(source, sx, sy, side, side, 0, 0, size, size);
+    if (!CYBER_FILTER) return base;                                  // the normal photo
     const s = ctx.getImageData(0, 0, size, size).data, n = size * size;
 
     const lum = new Uint8Array(n);                                   // brightness with more contrast

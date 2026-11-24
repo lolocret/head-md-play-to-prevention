@@ -632,8 +632,8 @@ const STORY = {
         "en": "La Serre’s door"
       },
       "text": {
-        "fr": "À la récréation, les élèves montent sur le toit, vers La Serre : c’est là qu’Echo reste, d’habitude. Devant la porte, un élève lui barre le passage : « C’est réservé aux vrais. » Echo tente d’entrer malgré tout. Clarisse n’a pas accès à La Serre non plus. Moquée pour sa pauvreté, elle harcèle Echo dans l’espoir de s’y faire une place.",
-        "en": "At break, the students head up to the roof, to La Serre: it’s where Echo usually stays. In front of the door, a student blocks the way: “It’s reserved for the real ones.” Echo tries to enter anyway. Clarisse has no access to La Serre either. Mocked for her poverty, she harasses Echo hoping to make a place for herself there."
+        "fr": "À la récréation, les élèves montent sur le toit, vers La Serre, leur lieu de rendez-vous. Echo les suit. Devant la porte, un élève lui barre le passage : « C’est réservé aux vrais. » Echo tente d’entrer malgré tout. Clarisse n’a pas accès à La Serre non plus. Moquée pour sa pauvreté, elle harcèle Echo dans l’espoir de s’y faire une place.",
+        "en": "At break, the students head up to the roof, to La Serre, their meeting place. Echo follows them. In front of the door, a student blocks the way: “It’s reserved for the real ones.” Echo tries to enter anyway. Clarisse has no access to La Serre either. Mocked for her poverty, she harasses Echo hoping to make a place for herself there."
       },
       "prompt": {
         "fr": "",
@@ -688,8 +688,8 @@ const STORY = {
         "en": "“Reserved for the real ones.” Echo just stood there in front of the door. What does being real even mean? Echo’s emotions looked pretty real to me."
       },
       "line": {
-        "fr": "À la récré, les élèves montent sur le toit, vers La Serre : c’est là qu’Echo reste. Tu les suis. Un élève barre la porte : « Réservé aux vrais. »",
-        "en": "At break, the students head up to the roof, to La Serre: it’s where Echo always stays. You follow them. A student blocks the door: “Reserved for the real ones.”"
+        "fr": "À la récré, les élèves montent sur le toit, vers La Serre. Echo nous suit. Un élève lui barre la porte : « Réservé aux vrais. »",
+        "en": "At break, the students head up to the roof, to La Serre. Echo follows us. A student blocks the door: “Reserved for the real ones.”"
       }
     },
     {
@@ -699,8 +699,8 @@ const STORY = {
         "en": "Echo, on the roof"
       },
       "text": {
-        "fr": "Echo est assis·e devant La Serre, sur le toit, face à la ville. Echo te regarde sans bouger. « Tu veux quelque chose ? » Les fleurs restent à moitié fermées.",
-        "en": "Echo sits in front of La Serre, on the roof, facing the city. Echo looks at you without moving. “Do you want something?” The flowers stay half closed."
+        "fr": "Echo est assis·e au bord du toit, face à la ville. Echo te regarde sans bouger. « Tu veux quelque chose ? » Les fleurs restent à moitié fermées.",
+        "en": "Echo sits on the edge of the roof, facing the city. Echo looks at you without moving. “Do you want something?” The flowers stay half closed."
       },
       "prompt": {
         "fr": "",
@@ -756,26 +756,26 @@ const STORY = {
       },
       "moodText": {
         "open": {
-          "fr": "Echo est assis·e devant La Serre, sur le toit, face à la ville. Quand tu t’approches, une fleur s’ouvre. « Je me demandais si tu viendrais. Ici, personne ne me dit que je suis faux. »",
-          "en": "Echo sits in front of La Serre, on the roof, facing the city. As you come closer, a flower opens. “I wondered if you’d come. Up here, nobody tells me I’m fake.”"
+          "fr": "Echo est assis·e au bord du toit, face à la ville. Quand tu t’approches, une fleur s’ouvre. « Je me demandais si tu viendrais. Ici, personne ne me dit que je suis faux. »",
+          "en": "Echo sits on the edge of the roof, facing the city. As you come closer, a flower opens. “I wondered if you’d come. Up here, nobody tells me I’m fake.”"
         },
         "neutral": {
-          "fr": "Echo est assis·e devant La Serre, sur le toit, face à la ville. Echo te regarde sans bouger. « Tu veux quelque chose ? » Les fleurs restent à moitié fermées.",
-          "en": "Echo sits in front of La Serre, on the roof, facing the city. Echo looks at you without moving. “Do you want something?” The flowers stay half closed."
+          "fr": "Echo est assis·e au bord du toit, face à la ville. Echo te regarde sans bouger. « Tu veux quelque chose ? » Les fleurs restent à moitié fermées.",
+          "en": "Echo sits on the edge of the roof, facing the city. Echo looks at you without moving. “Do you want something?” The flowers stay half closed."
         },
         "wary": {
-          "fr": "Echo est assis·e devant La Serre, sur le toit. Quand tu t’approches, ses fleurs se ferment d’un coup. « Je sais ce que tu as fait. Tu veux me dire quelque chose ? »",
-          "en": "Echo sits in front of La Serre, on the roof. As you come closer, their flowers close at once. “I know what you did. Do you want to tell me something?”"
+          "fr": "Echo est assis·e au bord du toit. Quand tu t’approches, ses fleurs se ferment d’un coup. « Je sais ce que tu as fait. Tu veux me dire quelque chose ? »",
+          "en": "Echo sits on the edge of the roof. As you come closer, their flowers close at once. “I know what you did. Do you want to tell me something?”"
         }
       },
       "moodLines": {
         "open": {
-          "fr": "Echo, devant La Serre : « Ici, personne ne me dit que je suis faux. »",
-          "en": "Echo, in front of La Serre: “Up here, nobody tells me I’m fake.”"
+          "fr": "Echo, au bord du toit : « Ici, personne ne me dit que je suis faux. »",
+          "en": "Echo, at the edge of the roof: “Up here, nobody tells me I’m fake.”"
         },
         "neutral": {
-          "fr": "Echo, devant La Serre, te regarde sans bouger : « Tu veux quelque chose ? »",
-          "en": "Echo, in front of La Serre, looks at you without moving: “Do you want something?”"
+          "fr": "Echo, au bord du toit, te regarde sans bouger : « Tu veux quelque chose ? »",
+          "en": "Echo, at the edge of the roof, looks at you without moving: “Do you want something?”"
         },
         "wary": {
           "fr": "Quand tu approches, les fleurs d’Echo se ferment : « Je sais ce que tu as fait. »",
@@ -1745,7 +1745,7 @@ const INTERACT = {
   arrival: { emoji: true },
   evening: { hide: [3, 4, 5] },   // the night chat: only react (like, dislike, screenshot, meme) or do not answer
   hello: { mech: "laugh", seconds: 5 },
-  lunch: { mech: "drag", spots: [{ i: 2, at: "tl" }, { i: 0, at: "tr" }, { i: 1, at: "b" }] },
+  lunch: { mech: "drag", spots: [{ i: 1, at: "t" }, { i: 2, at: "l" }, { i: 0, at: "bl" }] },   // group at the top, alone in the middle left, near Echo at the bottom left
   lesson: { hold: [1], big: { 0: "HA" } },
   door: { mech: "drag", spots: [{ i: 1, at: "tl" }, { i: 0, at: "tr" }, { i: 2, at: "b" }] },
   echo_roof: { hold: [1], holdMs: 3000 },
@@ -1773,21 +1773,26 @@ STORY.beats.push({
 
 // The inner voice: what the player thinks, written in "I", shown on the computer screen (it replaces the story line and partly the journal).
 const THOUGHTS = {
-  arrival: { fr: "Kovasko nous présente Echo. Un holokid, dans MA classe. Tout le monde regarde, et moi je ne sais pas quoi faire de ma tête. Je souris ? Je fais comme les autres ?", en: "Kovasko introduces Echo to us. A holokid, in MY class. Everyone’s staring, and I don’t know what to do with my face. Do I smile? Do I do what the others do?" },
-  hello: { fr: "Echo tend la main à un élève… elle la traverse. Ça rit. Mon ventre se serre. Si je ne ris pas, c’est moi qu’on va regarder.", en: "Echo holds out a hand to a student… it goes right through. Laughter. My stomach tightens. If I don’t laugh, they’ll look at me." },
-  lunch: { fr: "Midi. Echo mange seul·e sur le banc. Le groupe rigole plus loin. J’ai l’impression que, où que je m’assoie, ça voudra dire quelque chose.", en: "Noon. Echo eats alone on the bench. The group laughs further away. It feels like wherever I sit, it will mean something." },
-  evening: { fr: "00:12. Mon téléphone vibre. Argh, qui m’écrit à cette heure ?! Je devrais dormir. Je regarde quand même.", en: "12:12 am. My phone buzzes. Ugh, who’s writing to me at this hour?! I should be asleep. I look anyway." },
-  lesson: { fr: "Kovasko parle de respect. Quelqu’un lance : « Echo a le droit de voter ? » Le rire part tout seul dans la classe. Et moi, je fais quoi ?", en: "Kovasko talks about respect. Someone calls out: “Is Echo allowed to vote?” The laugh spreads through the class by itself. And me, what do I do?" },
-  door: { fr: "À la récré, on monte sur le toit, vers La Serre : c’est là qu’Echo traîne d’habitude. Un élève lui barre la porte : « Réservé aux vrais. » Mon cœur cogne. Tout le monde regarde.", en: "At break, we go up to the roof, to La Serre: it’s where Echo usually hangs out. A student blocks the door: “Reserved for the real ones.” My heart is pounding. Everyone’s watching." },
+  arrival: { fr: "Bon. Kovasko nous présente Echo. Un holokid, dans MA classe, genre. Tout le monde regarde, et moi je sais pas quoi faire de ma tête… Je souris ? Je fais comme les autres ?", en: "Okay. Kovasko introduces Echo. A holokid, in MY class, like. Everyone’s staring, and I don’t know what to do with my face… Do I smile? Do I do what the others do?" },
+  hello: { fr: "Echo tend la main à un élève… et elle passe à travers. Ça rigole. Mon ventre se serre. Si je ris pas, c’est sur moi que ça va tomber.", en: "Echo holds out a hand to a student… and it goes right through. Everyone laughs. My stomach tightens. If I don’t laugh, it’s going to land on me." },
+  lunch: { fr: "C’est midi, j’ai faim… argh. Je vois Echo, mais iel est tout·e seul·e sur le banc. Les autres rigolent plus loin. Où que je m’assoie, ça va vouloir dire un truc.", en: "It’s noon, I’m starving… ugh. I see Echo, but they’re all alone on the bench. The others laugh further away. Wherever I sit, it’s going to mean something." },
+  evening: { fr: "00:12. Mon téléphone vibre. Argh, qui m’écrit à cette heure ?! Je devrais dormir… bon, je regarde quand même.", en: "12:12 am. My phone buzzes. Ugh, who’s writing to me at this hour?! I should be asleep… fine, I look anyway." },
+  lesson: { fr: "Kovasko parle de respect, et là quelqu’un balance : « Echo a le droit de voter ? » Tout le monde éclate de rire. Et moi… je fais quoi ?", en: "Kovasko talks about respect, and then someone blurts out: “Is Echo allowed to vote?” Everyone cracks up. And me… what do I do?" },
+  door: { fr: "Récré. Tout le monde monte sur le toit, vers La Serre, comme d’hab. Echo nous suit. Et là, un élève lui barre la porte : « Réservé aux vrais. » Mon cœur cogne. Tout le monde regarde.", en: "Break. Everyone heads up to the roof, to La Serre, as usual. Echo follows us. And then a student blocks the door: “Reserved for the real ones.” My heart is pounding. Everyone’s watching." },
   echo_roof: { moods: {
-    open: { fr: "J’ose m’approcher d’Echo, devant La Serre. Une fleur s’ouvre. « Ici, personne ne me dit que je suis faux. » Ça me serre la gorge.", en: "I dare to walk up to Echo, in front of La Serre. A flower opens. “Up here, nobody tells me I’m fake.” My throat tightens." },
-    neutral: { fr: "J’ose m’approcher d’Echo, devant La Serre. Echo me fixe, immobile : « Tu veux quelque chose ? » Je ne sais pas quoi répondre.", en: "I dare to walk up to Echo, in front of La Serre. Echo stares at me, still: “Do you want something?” I don’t know what to say." },
-    wary: { fr: "Quand je m’approche, ses fleurs se ferment d’un coup. « Je sais ce que tu as fait. » J’ai envie de disparaître.", en: "As I come closer, their flowers snap shut. “I know what you did.” I want to disappear." } } },
-  labels: { fr: "Des insultes s’affichent dans le dos d’Echo. Le groupe regarde. Moi aussi. Regarder sans rien faire, ça compte comme participer ?", en: "Insults appear on Echo’s back. The group is watching. So am I. Does watching and doing nothing count as taking part?" },
-  wipe: { fr: "Les mots restent sur son dos. Vite, avant que les autres arrivent. Mes mains tremblent un peu.", en: "The words stay on their back. Quick, before the others arrive. My hands are shaking a little." },
-  turnoff: { fr: "À La Serre, Clarisse partage son plan : éteindre Echo. Je lis tout. Et si je ne dis rien, je suis avec eux ?", en: "In La Serre, Clarisse shares her plan: switch Echo off. I read all of it. And if I say nothing, am I with them?" },
-  night: { fr: "Jeudi soir. Je fixe le plafond. Demain, le plan de Clarisse. Impossible de dormir.", en: "Thursday night. I stare at the ceiling. Tomorrow, Clarisse’s plan. I can’t sleep." },
-  friday: { fr: "Vendredi, sur le toit. Le groupe attend. Quelqu’un sort son téléphone pour filmer. Tout le monde me regarde, ou j’imagine ? Et moi, je suis qui, là-dedans ?", en: "Friday, on the roof. The group waits. Someone takes out their phone to film. Is everyone looking at me, or am I imagining it? And who am I in all this?" },
+    open: { fr: "Echo est au bord du toit, tout·e seul·e. Je m’approche. Une fleur s’ouvre : « Ici, personne ne me dit que je suis faux. » Ça me serre la gorge.", en: "Echo is on the edge of the roof, all alone. I walk up. A flower opens: “Up here, nobody tells me I’m fake.” My throat tightens." },
+    neutral: { fr: "Echo est au bord du toit. J’ose m’approcher. Iel me fixe : « Tu veux quelque chose ? » Euh… je sais pas quoi dire.", en: "Echo is on the edge of the roof. I dare to walk up. They stare at me: “Do you want something?” Uh… I don’t know what to say." },
+    wary: { fr: "Je m’approche d’Echo et ses fleurs se ferment d’un coup. « Je sais ce que tu as fait. » Là, j’ai juste envie de disparaître.", en: "I walk up to Echo and their flowers snap shut. “I know what you did.” Right now I just want to disappear." } } },
+  labels: { fr: "Oh non… des insultes s’affichent dans le dos d’Echo. Le groupe regarde. Moi aussi. Regarder sans rien faire, ça compte comme participer ?", en: "Oh no… insults appear on Echo’s back. The group is watching. So am I. Does watching and doing nothing count as taking part?" },
+  wipe: { fr: "Les mots restent collés sur son dos. Vite, avant que les autres arrivent ! Mes mains tremblent un peu.", en: "The words stay stuck on their back. Quick, before the others arrive! My hands are shaking a little." },
+  echo_hall: { fr: "Le couloir est vide, sauf Echo. Iel regarde la ville, une main contre la vitre. « Tu regardes toi aussi ? » Je me sens nul·le d’être resté·e planté·e devant cette porte.", en: "The hallway is empty, except for Echo. They look at the city, one hand on the glass. “You’re looking too?” I feel like garbage for just standing there at that door." },
+  clarisse: { fr: "Près des casiers, Clarisse est seule. Quelqu’un vient de se moquer de ses fringues. Là, elle a l’air toute petite… pas du tout celle qui s’en prend à Echo.", en: "By the lockers, Clarisse is alone. Someone just made fun of her clothes. Right now she looks tiny… nothing like the one who goes after Echo." },
+  clarisse_hall: { fr: "Clarisse m’attrape par la manche : « T’as vu comment ils me regardent ? Ils me parlent, enfin. » Son sourire tient mal. Elle cherche si je suis avec elle.", en: "Clarisse grabs my sleeve: “Did you see how they look at me now? They finally talk to me.” Her smile is barely holding. She’s checking if I’m with her." },
+  turnoff: { fr: "Clarisse balance son plan à La Serre : éteindre Echo. Je lis tout. Et si je dis rien… je suis avec eux ?", en: "Clarisse drops her plan in La Serre: switch Echo off. I read all of it. And if I say nothing… am I with them?" },
+  origins: { fr: "Cette nuit, je retrouve Echo à Altaya. Archives, souvenirs en morceaux… Jamais je me suis senti·e aussi utile. Mais j’ai peur qu’on nous découvre.", en: "Tonight I meet Echo at Altaya. Archives, memories in pieces… I’ve never felt so useful. But I’m scared we’ll get caught." },
+  echo_altaya: { fr: "Dans la salle d’Altaya, Echo fixe l’écran géant : « Ici, ils m’ont donné un nom. Mais pas de parents. » Je sais pas quoi dire.", en: "In the Altaya room, Echo stares at the giant screen: “Here, they gave me a name. But no parents.” I don’t know what to say." },
+  night: { fr: "Jeudi soir, chez moi. Demain, le plan de Clarisse. Je fixe le plafond, impossible de dormir.", en: "Thursday night, at home. Tomorrow, Clarisse’s plan. I stare at the ceiling, no way I’m sleeping." },
+  friday: { fr: "Vendredi, sur le toit. Le groupe attend. Quelqu’un sort son téléphone pour filmer. Tout le monde me regarde… ou j’imagine ? Et moi, je suis qui, là-dedans ?", en: "Friday, on the roof. The group waits. Someone takes out their phone to film. Is everyone looking at me… or am I imagining it? And who am I in all this?" },
 };
 STORY.beats.forEach(b => {
   const t = THOUGHTS[b.id]; if (!t) return;
@@ -1826,7 +1831,23 @@ const roof = STORY.beats.find(b => b.id === "echo_roof");
 roof.prompt = { fr: "Qu’est-ce que je fais ?", en: "What do I do?" };
 roof.choices[2].label = { fr: "Lui dire que je suis désolé·e", en: "Tell Echo I’m sorry" };
 
+// Altaya only opens for a player who is close to Echo
+STORY.beats.find(b => b.id === "origins").if = { bondMin: 4 };
+STORY.beats.find(b => b.id === "origins").prompt = { fr: "Qu’est-ce que je fais ?", en: "What do I do?" };
+STORY.beats.find(b => b.id === "echo_altaya").prompt = { fr: "Qu’est-ce que je fais ?", en: "What do I do?" };
+
+// From the roof on, the story branches according to the choice at the door:
+//  - the player opened the door or said stop  -> Echo on the roof, the insults on Echo's back, wiping them
+//  - the player did nothing                   -> Echo alone in the hallway, then Clarisse alone, then Clarisse in the hall
+const doorBeat = STORY.beats.find(b => b.id === "door");
+doorBeat.choices[0].flag = "doorOpened"; doorBeat.choices[1].flag = "doorNothing"; doorBeat.choices[2].flag = "doorStop";
+["echo_roof", "labels", "wipe"].forEach(id => { STORY.beats.find(b => b.id === id).if = { anyFlag: ["doorOpened", "doorStop"] }; });
+["echo_hall", "clarisse", "clarisse_hall"].forEach(id => { const b = STORY.beats.find(x => x.id === id); b.if = { anyFlag: ["doorNothing"] }; b.prompt = { fr: "Qu’est-ce que je fais ?", en: "What do I do?" }; });
+STORY.beats.find(b => b.id === "echo_hall").choices[2].label = { fr: "Lui dire que je le·la trouve réel·le", en: "Tell Echo I find them real" };
+STORY.beats.find(b => b.id === "echo_hall").choices[0].label = { fr: "Regarder la ville avec Echo", en: "Look at the city with Echo" };
+STORY.beats.find(b => b.id === "clarisse_hall").choices[1].label = { fr: "Dire que ça ne me regarde pas", en: "Say it’s none of my business" };
+
 // The red thread: the scenes the game plays, in order. The other scenes stay written in this file but are not played.
 // (To play one again, add its id here, in the right place.)
-const SPINE = ["arrival", "hello", "lunch", "evening", "lesson", "door", "echo_roof", "labels", "wipe", "turnoff", "night", "friday"];
+const SPINE = ["arrival", "hello", "lunch", "evening", "lesson", "door", "echo_roof", "labels", "wipe", "echo_hall", "clarisse", "clarisse_hall", "turnoff", "origins", "echo_altaya", "night", "friday"];   // a scene with an `if` is only played when its condition holds
 STORY.beats = SPINE.map(id => STORY.beats.find(b => b.id === id)).filter(Boolean);

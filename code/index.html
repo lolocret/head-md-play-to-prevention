@@ -52,29 +52,28 @@
   <div id="app" class="on-gate">
     <!-- the welcome screen -->
     <section id="gate">
-      <p id="gateText"></p>
-<div id="profile" hidden>
-        <div id="nameRow">
-          <div class="col" id="nameCol">
-            <label id="nameLabel" for="nameInput"></label>
-            <input id="nameInput" maxlength="20" autocomplete="off">
-          </div>
-          <div class="col" id="photoCol">
-            <span id="uploadText"></span>
-            <div id="slotLine">
-              <label id="uploadBtn" class="slot">
-                <input type="file" id="photoInput" accept="image/*" hidden>
-                <span class="plus" id="slotPlus">+</span>
-                <img id="slotImg" alt="" hidden>
-              </label>
-              <button id="adjustBtn" type="button" hidden></button>
-            </div>
-          </div>
+      <div class="gateHead">
+        <b class="gateLogo">NEXUS</b>
+        <h1 id="gateText"></h1>
+        <p id="gateNote"></p>
+      </div>
+      <div id="profile" hidden>
+        <div id="photoCol">
+          <label id="uploadBtn" class="slot">
+            <input type="file" id="photoInput" accept="image/*" hidden>
+            <span class="plus" id="slotPlus"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2l1.2-2h6.6l1.2 2h2A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5z"/><circle cx="12" cy="13" r="3.4"/></svg></span>
+            <img id="slotImg" alt="" hidden>
+          </label>
+          <label for="photoInput" id="uploadText"></label>
+          <button id="adjustBtn" type="button" hidden></button>
+        </div>
+        <div id="nameCol">
+          <label id="nameLabel" for="nameInput"></label>
+          <input id="nameInput" maxlength="20" autocomplete="off" autocapitalize="words" enterkeyhint="go">
         </div>
         <small id="uploadErr" hidden></small>
       </div>
       <button id="answer"></button>
-      <p id="gateNote"></p>
     </section>
 
     <!-- once opened: the game is always the main screen; messages and journal are two small buttons -->

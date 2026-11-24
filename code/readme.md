@@ -15,7 +15,7 @@ Then open http://localhost:3000 on the computer and scan the QR code with the ph
 - **No walking, no free exploration:** the story takes the player from scene to scene by itself.
 
 ## Logging in to Nexus (on the phone): name and optional photo
-After the introduction (on the computer), the phone shows "Log in to Nexus": the player types her name and can add a photo: she frames it (drag and zoom, like on WhatsApp) and it becomes a cyberpunk portrait (`avatar.js`, `cropper.js`). The photo is processed in the browser only; it is not saved or uploaded. Only a small 96 px version of the transformed image goes to the phone, where it appears next to "NEXUS". Without a photo, nothing is shown.
+After the introduction (on the computer), the phone shows "Log in to Nexus": the player types her name and can add a photo: she frames it (drag and zoom, like on WhatsApp) and it stays a normal photo, framed in a circle (`avatar.js`, `cropper.js`; the old cyberpunk filter can be switched back on with `CYBER_FILTER` in `avatar.js`). The photo is processed in the browser only; it is not saved or uploaded. Only a small 96 px version of the transformed image goes to the phone, where it appears next to "NEXUS". Without a photo, nothing is shown.
 
 ## The story
 - Nineteen scenes, in French (add `?lang=en` for English). Echo is in some of them with a different mood: open if the bond is strong, wary if the player hurt more than helped. The scene "Echo, at Altaya" only happens if the bond is strong.
