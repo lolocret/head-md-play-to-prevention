@@ -1,17 +1,19 @@
-// Echo — a story played on a phone. The scene, the story line and the choices are all on the same screen;
-// phone.js is the Nexus part (choices, messages, journal) and talks to this file through link.js.
+// Echo — the story plays on the computer (the screen: scene, story line, gauge); the phone is the remote
+// (phone.js: choices, messages, journal) and talks to this file through link.js (the server relays).
 // French by default; add ?lang=en to the address for English
 let french = new URLSearchParams(location.search).get("lang") !== "en";
 let state, beatIndex, finished;
 const newState = () => ({ harass: 0, passive: 0, help: 0, bond: 0, flags: {}, extra: [], delayed: [] });
-let phase = "title", introIndex = 0; // title | intro | profile | phone | world | dialog | ending
-let player = { name: "", avatar: PROFILE.defaultAvatar, photo: null };   // photo: a cyberpunk portrait (optional)
+let phase = "title", introIndex = 0; // title | intro | phone | world | dialog | ending
+let player = { name: "" };   // the name is typed on the phone when the player logs in to Nexus
 
 const $ = id => document.getElementById(id);
 // {name} in any text becomes the player’s name, to make the story personal
 const fill = s => String(s).replace(/\{name\}/g, (typeof player !== "undefined" && player.name) || "");
 const L = t => fill(french ? t.fr : t.en);
-const profileMsg = () => ({ type: "profile", name: player.name, avatar: player.avatar, photo: player.photo ? player.photo.small : null, french });
+const nexusImages = () => { const l = []; Object.values(NEXUS.beats).forEach(msgs => msgs.forEach(m => { if (m.image) l.push(m.image); })); return l; };
+const profileMsg = () => ({ type: "profile", french, preload: nexusImages(), started: phase !== "phone" });   // the phone logs in, or comes back during the game
+const readyMsg = () => ({ type: "ready", french });   // the introduction is over: the phone may log in
 
 // ---------------------------------------------------------------- flow
 
@@ -54,7 +56,7 @@ Scene.onEnter = () => { syncPhone(); maybeStartBeat(); };
 // The story takes the player to the next scene, wherever it happens
 function next() {
   Nexus.reset();                 // the messages of the scene that just ended do not arrive in the next one
-  $("notif").hidden = true;
+  Link.send({ type: "clearnotif" });
   beatIndex = nextAvailable(beatIndex + 1);
   if (beatIndex >= STORY.beats.length) { finished = true; phase = "ending"; render(); return; }
   phase = "world";
@@ -149,7 +151,7 @@ function phoneState() {
       const ix = alone ? {} : (INTERACT[beat.id] || {});
       return { mode: "choose", token, place, prompt: beat.prompt ? { fr: fill(beat.prompt.fr), en: fill(beat.prompt.en) } : empty,
         choices: choices.map((c, i) => ({ fr: fill(c.label.fr), en: fill(c.label.en), hold: (ix.hold || []).includes(i) })),
-        timer: ix.timer || 0, fallback: ix.fallback || 0, holdMs: ix.holdMs || 900, mech: ix.mech || "", seconds: ix.seconds || 0, words: ix.words || [] };
+        timer: ix.timer || 0, fallback: ix.fallback || 0, holdMs: ix.holdMs || 900, emoji: !!ix.emoji, big: ix.big || {}, spots: ix.spots || [], mech: ix.mech || "", seconds: ix.seconds || 0, words: ix.words || [] };
     }
     pending = { token, kind: "continue" };
     return { mode: "choose", token, place, prompt: empty, choices: [{ fr: "Continuer", en: "Continue" }] };
@@ -174,6 +176,7 @@ function syncPhone() {
 
 // The phone answered
 Link.onMessage = m => {
+  if (m.type === "open") { if (phase === "phone") { player.name = String(m.name || "").slice(0, 20).trim(); Link.send(profileMsg()); sentSig = null; restart(); } return; }   // the player opened Nexus on the phone: the story starts
   if (m.type !== "choose" || !pending || m.token !== pending.token) return;
   const p = pending; pending = null;
   if (p.kind === "choice") { const c = p.choices[m.index]; if (c) choose(c, typeof m.text === "string" ? m.text.slice(0, 120).trim() : "", m.index, m.stance === "support" || m.stance === "mock" ? m.stance : ""); }
@@ -181,8 +184,25 @@ Link.onMessage = m => {
   else if (p.kind === "restart") { if (m.index === 1) retryLastScene(); else restart(); }
 };
 
-// The player opened Nexus (the welcome screen): the story starts
-Phone.onOpen = () => { if (phase === "phone") { sentSig = null; restart(); } };
+// The phone connects (or comes back): it gets everything again
+Link.onPeer = ok => {
+  document.body.classList.toggle("no-phone", !ok);
+  renderLink();
+  if (!ok) return;
+  if (phase === "phone") Link.send(readyMsg()); else if (player.name) Link.send(profileMsg());
+  sentSig = null; updateJournal.sig = null;
+  syncPhone(); updateJournal();
+};
+function renderLink() {
+  const inGame = phase !== "title" && phase !== "intro" && phase !== "phone";
+  $("linkBanner").hidden = Link.connected || !inGame;
+  $("linkBanner").textContent = french ? "Le téléphone s’est déconnecté. Rouvre la page sur le téléphone (ou rescanne le QR code)." : "The phone disconnected. Reopen the page on the phone (or scan the QR code again).";
+  $("qrBox").hidden = phase !== "phone" || !(qrShown || noServer);   // the QR code is shown when the player is asked to take the phone
+  if (noServer) return;
+  $("qrText").textContent = Link.connected ? (french ? "Téléphone connecté ✓" : "Phone connected ✓") : (french ? "Scanne ce QR code avec ton téléphone." : "Scan this QR code with your phone.");
+  $("qr").classList.toggle("ok", Link.connected);
+}
+let qrShown = false, noServer = false;
 
 // ---------------------------------------------------------------- the screen
 
@@ -201,13 +221,13 @@ function showPicture(url) {
 function renderScreen() {
   $("choices").innerHTML = "";
   $("prompt").textContent = "";
-  $("profile").hidden = true;
   $("titleScreen").hidden = phase !== "title";
   if (phase === "title") { $("introBg").style.backgroundImage = `url(${Assets.url(TITLE.image)})`; $("introBg").hidden = false; }   // the title page shows the 2041 picture
-  else if (phase === "profile" || phase === "phone") showPicture(introPicture(INTRO.length - 1));                         // the last picture stays until the game starts
+  else if (phase === "phone") showPicture(introPicture(INTRO.length - 1));                         // the last picture stays until the game starts
   else if (phase !== "intro") $("introBg").hidden = true;
   document.body.classList.toggle("on-title", phase === "title");
   if (phase === "title") renderTitle();
+  renderLink();
   Scene.unlocked.altaya = state.bond >= STORY.bondToUnlock;
   Scene.french = french;
   Scene.stage = stage();
@@ -215,8 +235,8 @@ function renderScreen() {
   Scene.refresh();
   const inGame = phase === "world" || phase === "dialog" || phase === "ending";
   document.body.classList.toggle("pre-game", !inGame);   // before the game starts, no place is shown behind the pages
-  $("main").hidden = phase !== "intro" && phase !== "profile";          // the pages before the game; in the game the story line is in the Nexus panel
-  $("app").hidden = !(phase === "phone" || inGame);                     // Nexus: the welcome screen, then the game
+  $("main").hidden = phase !== "intro" && phase !== "phone";   // the pages before the game
+  $("screenText").hidden = !inGame;                                                 // in the game: the story line, at the bottom of the screen
   $("storyLine").textContent = "";
   $("echoCard").hidden = true; document.body.classList.remove("ended");
   updateGauge();
@@ -224,8 +244,8 @@ function renderScreen() {
 
   if (phase === "title") return;
   if (phase === "intro") return renderIntro();
-  if (phase === "profile") return renderProfile();
-  if (phase === "phone" || phase === "world") return;
+  if (phase === "phone") return renderPhoneWait();
+  if (phase === "world") return;
   if (finished) return renderEnding();
 
   const beat = STORY.beats[beatIndex];
@@ -246,6 +266,13 @@ function renderTitle() {
   $("credits").textContent = TITLE.credits;
 }
 
+// The introduction is over: the story waits for the player to open Nexus on the phone
+function renderPhoneWait() {
+  $("title").textContent = "";
+  $("body").textContent = french ? "Prends ton téléphone : connecte-toi à Nexus." : "Take your phone: log in to Nexus.";
+  renderLink();
+}
+
 function addButton(label, onClick) {
   const b = document.createElement("button");
   b.textContent = label;
@@ -260,52 +287,9 @@ function renderIntro() {
   $("body").textContent = L(page.text);
   addButton(french ? "Suivant" : "Next", () => {
     introIndex++;
-    if (introIndex >= INTRO.length) phase = "profile";
+    if (introIndex >= INTRO.length) { phase = "phone"; Link.send(readyMsg()); }
     render();
   });
-}
-
-// A name is required; a photo is optional (it becomes a cyberpunk portrait, framed like on WhatsApp)
-async function frame(img, previous) {
-  const res = await Cropper.open(img, { title: L(PROFILE.cropTitle), hint: L(PROFILE.cropHint), ok: L(PROFILE.cropOk), cancel: L(PROFILE.cropCancel) }, previous);
-  if (!res) return false;
-  player.photo = Cyber.exportImage(img, res.crop);
-  player.source = img; player.frame = res.state;
-  return true;
-}
-
-$("photoInput").onchange = async e => {
-  const file = e.target.files && e.target.files[0];
-  e.target.value = "";
-  if (!file) return;
-  let img;
-  try { img = await Cyber.load(file); $("uploadErr").hidden = true; }
-  catch (err) { $("uploadErr").hidden = false; return; }
-  const done = await frame(img);
-  if (!done) Cyber.release(img);
-  renderProfile();
-};
-$("adjustBtn").onclick = async () => { if (player.source) { await frame(player.source, player.frame); renderProfile(); } };
-
-function renderProfile() {
-  $("choices").innerHTML = "";
-  $("title").textContent = L(PROFILE.title);
-  $("body").textContent = "";
-  $("profile").hidden = false;
-  $("nameLabel").textContent = L(PROFILE.nameLabel);
-  $("nameInput").placeholder = L(PROFILE.namePlaceholder);
-  $("slotImg").hidden = !player.photo;
-  $("slotPlus").hidden = !!player.photo;
-  if (player.photo) $("slotImg").src = player.photo.big;
-  $("uploadText").textContent = L(player.photo ? PROFILE.uploadChange : PROFILE.upload);
-  $("adjustBtn").hidden = !player.photo;
-  $("adjustBtn").textContent = L(PROFILE.adjust);
-  $("uploadErr").textContent = L(PROFILE.uploadErr);
-  addButton(L(PROFILE.start), () => { player.name = $("nameInput").value.trim(); phase = "phone"; Link.send(profileMsg()); render(); });
-  const start = $("choices").lastChild;
-  const check = () => { start.disabled = !$("nameInput").value.trim(); };   // only the name is required
-  $("nameInput").oninput = check;
-  check();
 }
 
 // The end: Echo's card, like an identity card of the holokid, with how she is and how it ended
@@ -369,6 +353,14 @@ Scene.init($("scene"));   // nothing is drawn yet: the pictures load first (see 
     ...["couloir", "classe", "toit", "serre", "chambre", "altaya"].map(id => `images/${id}.png`),
     ...["echo", "kovasko", "clarisse", "student"].map(id => `images/characters/${id}.png`)];
   Object.values(NEXUS.beats).forEach(msgs => msgs.forEach(m => { if (m.image) list.push(m.image); }));
+  Link.start().then(info => {      // opens the room: the phone joins with the QR code
+    if (!info) { noServer = true; $("qr").hidden = true; $("qrBox").hidden = false; $("qrText").textContent = french ? "Il faut le serveur : lance « npm start » (dossier server), puis ouvre http://localhost:3000." : "The server is needed: run “npm start” (server folder), then open http://localhost:3000."; return; }
+    qrShown = true;
+    $("qr").innerHTML = "";
+    new QRCode($("qr"), { text: info.url, width: 220, height: 220, colorDark: "#0a0a1c", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
+    $("qrUrl").textContent = info.url.replace(/^https?:\/\//, "");
+    renderLink();
+  });
   Assets.preload(list, p => { $("loaderFill").style.width = Math.round(p * 100) + "%"; }).then(() => {
     render();                                   // the pictures are ready: show the title page
     $("loader").classList.add("done");

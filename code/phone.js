@@ -1,21 +1,23 @@
-// The player's phone: it is the controller of the game. One main screen (what to do now);
+// The player's phone: the remote of the game (the story plays on the computer screen). One main screen (what to do now);
 // messages and the journal are two small buttons at the top. Same on iPhone and Android.
 const Phone = (() => {
 const $ = id => document.getElementById(id);
-let french = true, openThread = null, view = "choice";
+let french = new URLSearchParams(location.search).get("lang") !== "en", openThread = null, view = "choice";
 const threads = {};                 // id -> { name, msgs: [{ from, fr, en, image, time }], unread }
 let entries = [], prompts = [], jUnread = 0;
 let journalOn = false;              // the journal is only there at the end of the story
 let chat = null;                    // the scene played in a conversation: { token, ready, answered, choices }
 let game = { mode: "wait" };        // what the story asks of the player now (sent by the computer)
 let answered = null;                // token of the choice already answered
+let ready = false;                  // the computer has sent the player's profile: Nexus can be opened
 const saved = (() => { try { return JSON.parse(localStorage.getItem("echo-journal") || "{}"); } catch (e) { return {}; } })();
 const save = () => { try { localStorage.setItem("echo-journal", JSON.stringify(saved)); } catch (e) { /* optional */ } };
 
 const TXT = {
-  calling: { fr: "Bienvenue sur Nexus", en: "Welcome to Nexus" },
-  answer: { fr: "Ouvrir", en: "Open" },
+  calling: { fr: "Connexion à Nexus", en: "Log in to Nexus" },
+  answer: { fr: "Se connecter", en: "Log in" },
   note: { fr: "", en: "" },
+  lookScreen: { fr: "Regarde l’écran de l’ordinateur.", en: "Look at the computer screen." },
   msgs: { fr: "Messages", en: "Messages" },
   jTitle: { fr: "Mon journal", en: "My journal" },
   back: { fr: "Retour au jeu", en: "Back to the game" },
@@ -57,7 +59,18 @@ const colorOf = s => COLORS[[...String(s)].reduce((a, c) => a + c.charCodeAt(0),
 function paintStatic() {
   $("gateText").textContent = T("calling");
   $("answer").textContent = T("answer");
-  $("gateNote").textContent = T("note");
+  $("gateNote").textContent = ready ? T("note") : T("lookScreen");
+  $("profile").hidden = !ready;
+  const P = k => french ? PROFILE[k].fr : PROFILE[k].en;
+  $("nameLabel").textContent = P("nameLabel");
+  $("nameInput").placeholder = P("namePlaceholder");
+  $("uploadText").textContent = P(me.photo ? "uploadChange" : "upload");
+  $("adjustBtn").textContent = P("adjust");
+  $("adjustBtn").hidden = !me.photo;
+  $("uploadErr").textContent = P("uploadErr");
+  $("slotImg").hidden = !me.photo; $("slotPlus").hidden = !!me.photo;
+  if (me.photo) $("slotImg").src = me.photo.big;
+  $("answer").disabled = !ready || !$("nameInput").value.trim();   // only the name is required
   $("closeText").textContent = T("back");
   $("btnJournal").hidden = !journalOn;
   $("btnMsgs").hidden = !journalOn;          // messages and journal are only there at the end
@@ -70,9 +83,12 @@ function paintStatic() {
 // ---------------------------------------------------------------- the story talks to the phone (in the same page)
 
 function receive(m) {
-  if (m.type === "profile") {
+  if (m.type === "clearnotif") $("notif").hidden = true;
+  else if (m.type === "ready") { french = m.french !== false; ready = true; paintStatic(); }   // the introduction is over: log in
+  else if (m.type === "profile") {
     french = m.french !== false;
-    if (m.photo) { $("mePic").src = m.photo; $("mePic").hidden = false; } else $("mePic").hidden = true;   // the cyberpunk portrait, if the player added one
+    if (m.preload) Assets.preload(m.preload);   // the pictures of the conversations are ready before they arrive
+    if (m.started && !$("gate").hidden) { ready = true; startCall(); }   // the phone came back during the game
     paintStatic(); renderGame();
   }
   else if (m.type === "msg") onMessage(m);
@@ -80,7 +96,7 @@ function receive(m) {
   else if (m.type === "prompt") onPrompt(m);
   else if (m.type === "state") onState(m);
 }
-const send = m => Link.toGame(m);
+const send = m => Link.send(m);
 
 function startCall() {
   $("app").classList.remove("on-gate");   // the small NEXUS bar appears once the welcome screen is gone
@@ -223,8 +239,11 @@ function renderGame() {
     if (answered === game.token) { stopTimer(); sent.textContent = T("sent"); sent.hidden = false; return; }
     const token = game.token;
     if (game.mech && MECH[game.mech]) { stopTimer(); stopMech(); mechFor = token; MECH[game.mech](list, token); return; }
+    list.classList.toggle("emojis", !!game.emoji);   // scene 1: four faces
     game.choices.forEach((c, i) => {
-      const b = document.createElement("button"); b.className = "choice"; b.append(pick(c));
+      const b = document.createElement("button"); b.className = game.emoji ? "choice emoji" : "choice";
+      if (game.big && game.big[i]) { b.classList.add("bigtile"); const h = document.createElement("span"); h.className = "ha"; h.textContent = game.big[i]; const s = document.createElement("small"); s.textContent = pick(c); b.append(h, s); }   // the laugh: a big tile
+      else b.append(pick(c));
       if (c.hold) holdToConfirm(b, () => answerChoice(token, i), game.holdMs);
       else b.onclick = () => answerChoice(token, i);
       list.appendChild(b);
@@ -257,8 +276,32 @@ const MECH = {
     mechStops.push(() => clearTimeout(id));
   },
 
-  // Slide yourself along the bench: next to Echo, alone, or with the group
+  // A flower sticker to move: up left = alone, far from the others; up right = near Echo; down = with the group
   drag(list, token) {
+    list.innerHTML = `<div class="stArea" id="stArea"><span class="sz szl"></span><span class="sz szr"></span><span class="sz szb"></span><div class="stFlower" id="stFlower"></div></div>`;
+    const area = $("stArea"), fl = $("stFlower");
+    const spots = game.spots && game.spots.length ? game.spots : [{ i: 2, at: "tl" }, { i: 0, at: "tr" }, { i: 1, at: "b" }];   // which choice sits where
+    const spot = at => spots.find(s => s.at === at).i;
+    area.querySelector(".szl").textContent = pick(game.choices[spot("tl")]); area.querySelector(".szr").textContent = pick(game.choices[spot("tr")]); area.querySelector(".szb").textContent = pick(game.choices[spot("b")]);
+    fl.innerHTML = Flower.svg(1, 84);
+    let x = 0.5, y = 0.52, moved = false, drag = false;
+    const zone = () => (Math.hypot(x - 0.5, y - 0.52) < 0.16 ? "" : y > 0.66 ? "szb" : x < 0.5 ? "szl" : "szr");
+    const place = () => { fl.style.left = (x * 100) + "%"; fl.style.top = (y * 100) + "%"; area.dataset.zone = zone(); };
+    const move = e => { const r = area.getBoundingClientRect(); x = Math.max(0.08, Math.min(0.92, (e.clientX - r.left) / r.width)); y = Math.max(0.1, Math.min(0.92, (e.clientY - r.top) / r.height)); moved = true; place(); };
+    fl.onpointerdown = e => { drag = true; fl.classList.add("dragging"); fl.setPointerCapture(e.pointerId); e.preventDefault(); };
+    fl.onpointermove = e => { if (drag) move(e); };
+    const end = () => {
+      if (!drag) return; drag = false; fl.classList.remove("dragging");
+      const z = zone();
+      if (!moved || !z) { x = 0.5; y = 0.52; moved = false; place(); return; }   // not far enough: the flower goes back
+      buzz(40); answerChoice(token, spot(z === "szl" ? "tl" : z === "szr" ? "tr" : "b"));
+    };
+    fl.onpointerup = end; fl.onpointercancel = end;
+    place();
+  },
+
+  // (old version) Slide yourself along the bench: next to Echo, alone, or with the group
+  dragBench(list, token) {
     list.innerHTML = `<div class="track" id="track"><span class="zl"></span><span class="zm"></span><span class="zr"></span><div class="token" id="token"></div></div>`;
     const tr = $("track"), tk = $("token");
     tr.querySelector(".zl").textContent = pick(game.choices[0]); tr.querySelector(".zm").textContent = pick(game.choices[2]); tr.querySelector(".zr").textContent = pick(game.choices[1]);
@@ -556,9 +599,41 @@ $("closeView").onclick = () => show(chat ? "chat" : "choice");
 $("sheetClose").onclick = () => { $("sheet").hidden = true; };
 $("back").onclick = () => { openThread = null; show("msgs"); };
 // A tap is needed before the browser lets the page play sounds (the same on iPhone and Android).
-$("answer").onclick = () => { unlockSound(); buzz(40); keepAwake(); startCall(); Phone.onOpen(); };
+$("answer").onclick = () => {
+  const name = $("nameInput").value.trim(); if (!name) return;
+  unlockSound(); buzz(40); keepAwake();
+  if (me.photo) { $("mePic").src = me.photo.small; $("mePic").hidden = false; } else $("mePic").hidden = true;   // the cyberpunk portrait, next to NEXUS
+  startCall(); send({ type: "open", name });
+};
+
+// Logging in: a name is required; a photo is optional (it becomes a cyberpunk portrait, framed like on WhatsApp). It stays on this phone.
+const me = { photo: null, source: null, frame: null };
+$("nameInput").oninput = paintStatic;
+async function frame(img, previous) {
+  const P = k => french ? PROFILE[k].fr : PROFILE[k].en;
+  const res = await Cropper.open(img, { title: P("cropTitle"), hint: P("cropHint"), ok: P("cropOk"), cancel: P("cropCancel") }, previous);
+  if (!res) return false;
+  me.photo = Cyber.exportImage(img, res.crop);
+  me.source = img; me.frame = res.state;
+  return true;
+}
+$("photoInput").onchange = async e => {
+  const file = e.target.files && e.target.files[0];
+  e.target.value = "";
+  if (!file) return;
+  let img;
+  try { img = await Cyber.load(file); $("uploadErr").hidden = true; }
+  catch (err) { $("uploadErr").hidden = false; return; }
+  const done = await frame(img);
+  if (!done) Cyber.release(img);
+  paintStatic();
+};
+$("adjustBtn").onclick = async () => { if (me.source) { await frame(me.source, me.frame); paintStatic(); } };
 
 paintStatic();
 
-return { receive, onOpen: () => {} };
+Link.onMessage = receive;
+Link.onPeer = ok => { document.body.classList.toggle("no-screen", !ok); };
+Assets.preload([...MEME_BGS, "images/characters/echo.png"]);
+return { receive };
 })();

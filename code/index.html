@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700;6..96,900&display=swap" rel="stylesheet">
   <meta name="theme-color" content="#08070f">
   <link rel="stylesheet" href="mobile.css">
+  <script>/* ?room=ABCD = the phone (remote); otherwise the computer (screen) */ document.documentElement.className = new URLSearchParams(location.search).get("room") ? "role-phone" : "role-screen";</script>
 </head>
 <body>
   <div id="loader"><b>ECHO</b><div id="loaderBar"><i id="loaderFill"></i></div><p id="loaderText"></p></div>
@@ -41,10 +42,37 @@
     </div>
   </div>
 
-  <div id="app" class="on-gate" hidden>
+  <!-- on the computer: the story line (and Echo's card at the end) -->
+  <section id="screenText" hidden>
+    <div id="echoCard" hidden></div>
+    <p id="storyLine"></p>
+  </section>
+  <p id="linkBanner" hidden></p>
+
+  <div id="app" class="on-gate">
     <!-- the welcome screen -->
     <section id="gate">
       <p id="gateText"></p>
+<div id="profile" hidden>
+        <div id="nameRow">
+          <div class="col" id="nameCol">
+            <label id="nameLabel" for="nameInput"></label>
+            <input id="nameInput" maxlength="20" autocomplete="off">
+          </div>
+          <div class="col" id="photoCol">
+            <span id="uploadText"></span>
+            <div id="slotLine">
+              <label id="uploadBtn" class="slot">
+                <input type="file" id="photoInput" accept="image/*" hidden>
+                <span class="plus" id="slotPlus">+</span>
+                <img id="slotImg" alt="" hidden>
+              </label>
+              <button id="adjustBtn" type="button" hidden></button>
+            </div>
+          </div>
+        </div>
+        <small id="uploadErr" hidden></small>
+      </div>
       <button id="answer"></button>
       <p id="gateNote"></p>
     </section>
@@ -72,8 +100,6 @@
     <section id="choiceView" hidden>
       <div id="echoState"><span id="bloom"></span><span id="echoName">Echo</span></div>
       <h2 id="placeName"></h2>
-      <div id="echoCard" hidden></div>
-      <p id="storyLine"></p>
       <p id="choicePrompt"></p>
       <div id="timer" hidden><i></i></div>
       <div id="choiceList"></div>
@@ -135,39 +161,22 @@
   <main id="main" hidden>
     <h1 id="title"></h1>
     <p id="body"></p>
-    <p id="prompt"></p>
-    <div id="profile" hidden>
-      <div id="nameRow">
-        <div class="col" id="nameCol">
-          <label id="nameLabel" for="nameInput"></label>
-          <input id="nameInput" maxlength="20" autocomplete="off">
-        </div>
-        <div class="col" id="photoCol">
-          <span id="uploadText"></span>
-          <div id="slotLine">
-            <label id="uploadBtn" class="slot">
-              <input type="file" id="photoInput" accept="image/*" hidden>
-              <span class="plus" id="slotPlus">+</span>
-              <img id="slotImg" alt="" hidden>
-            </label>
-            <button id="adjustBtn" type="button" hidden></button>
-          </div>
-        </div>
-      </div>
-      <small id="uploadErr" hidden></small>
+    <div id="qrBox">
+      <div id="qr"></div>
+      <p id="qrText"></p>
+      <p id="qrUrl"></p>
     </div>
+    <p id="prompt"></p>
     <div id="choices"></div>
   </main>
 
-  <script src="story.js"></script>
-  <script src="assets.js"></script>
-  <script src="flower.js"></script>
-  <script src="avatar.js"></script>
-  <script src="cropper.js"></script>
-  <script src="link.js"></script>
-  <script src="phone.js"></script>
-  <script src="nexus.js"></script>
-  <script src="scene.js"></script>
-  <script src="game.js"></script>
+  <script>
+    // The same page, two roles: the computer plays the story, the phone is the remote.
+    const files = Link_role() === "phone"
+      ? ["story.js", "assets.js", "flower.js", "avatar.js", "cropper.js", "link.js", "phone.js"]
+      : ["story.js", "assets.js", "flower.js", "avatar.js", "cropper.js", "lib/qrcode.min.js", "link.js", "nexus.js", "scene.js", "game.js"];
+    function Link_role() { return document.documentElement.className === "role-phone" ? "phone" : "host"; }
+    files.forEach(f => document.write('<script src="' + f + '"><\/script>'));
+  </script>
 </body>
 </html>

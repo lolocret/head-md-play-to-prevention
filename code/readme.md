@@ -1,21 +1,21 @@
 # Code: Echo (playable prototype)
 
-A story played **entirely on a phone**. One page, one screen: the place on top, the story line and the choices at the bottom, and two small buttons (messages, journal) in the corner. There is no computer screen and no QR code.
+A story on **two screens**: the **computer** is the screen (the place, Echo, the story line, the gauge, the end card) and the **phone** is the remote (the choices, Nexus messages, mini-games, journal). The computer shows a QR code on the title page; the phone scans it (`/?room=ABCD`) and the game can start. The server only relays messages between them.
 
 ```
 cd server
 npm install      # only the first time
 npm start
 ```
-Then open http://localhost:3000 (on a phone: your computer's address on the same Wi-Fi, or the tunnel address below). The game is only static files: any web host works, and the server is not needed once the files are online.
+Then open http://localhost:3000 on the computer and scan the QR code with the phone (same Wi-Fi, or use the tunnel below). The game is only static files: any web host works, and the server is not needed once the files are online.
 
 ## What the player sees and does
 - **Top:** the picture of the place (and Echo or others standing in it), a gauge under the NEXUS bar (a flower in bloom on the left, a wilted one on the right, a bar between). A pink dot on a button says something new arrived.
 - **Bottom:** one short line of story, then the choices. Some scenes are played inside a Nexus conversation, full screen.
 - **No walking, no free exploration:** the story takes the player from scene to scene by itself.
 
-## Profile photo (optional)
-Next to the name, the player can add a photo: she frames it (drag and zoom, like on WhatsApp) and it becomes a cyberpunk portrait (`avatar.js`, `cropper.js`). The photo is processed in the browser only; it is not saved or uploaded. Only a small 96 px version of the transformed image goes to the phone, where it appears next to "NEXUS". Without a photo, nothing is shown.
+## Logging in to Nexus (on the phone): name and optional photo
+After the introduction (on the computer), the phone shows "Log in to Nexus": the player types her name and can add a photo: she frames it (drag and zoom, like on WhatsApp) and it becomes a cyberpunk portrait (`avatar.js`, `cropper.js`). The photo is processed in the browser only; it is not saved or uploaded. Only a small 96 px version of the transformed image goes to the phone, where it appears next to "NEXUS". Without a photo, nothing is shown.
 
 ## The story
 - Nineteen scenes, in French (add `?lang=en` for English). Echo is in some of them with a different mood: open if the bond is strong, wary if the player hurt more than helped. The scene "Echo, at Altaya" only happens if the bond is strong.
@@ -26,7 +26,7 @@ Next to the name, the player can add a photo: she frames it (drag and zoom, like
 
 ## Files
 - `story.js`: all the text, choices and their points (`harass`, `passive`, `help`, `bond`), the introduction, the title page. `{name}` in any text becomes the player's name.
-- `nexus.js`: the Nexus messages and when they arrive. `scene.js`: where each scene happens and who is there. `game.js`: the flow. `phone.js`: the Nexus screen (choices, messages, journal). `link.js`: the small bridge between `game.js` and `phone.js` (same page). `mobile.css`: all the styles.
+- `nexus.js`: the Nexus messages and when they arrive. `scene.js`: where each scene happens and who is there. `game.js`: the flow. `phone.js`: the Nexus screen (choices, messages, journal). `link.js`: the link between the screen (`game.js`) and the phone (`phone.js`) through the server. `index.html` loads one or the other depending on `?room=`. `mobile.css`: all the styles.
 - `avatar.js`, `cropper.js`: the optional profile photo (cyberpunk filter, framing). `flower.js`: Echo's flowers. 
 - `../server/server.js`: only serves the files (and opens an optional tunnel).
 - `images/`: one picture per place (`couloir`, `classe`, `toit`, `serre`, `altaya`, `chambre`), the introduction pictures, the meme and the video still. Characters: `images/characters/echo.png` (and `kovasko.png`, `clarisse.png`, `student.png` if you add them).

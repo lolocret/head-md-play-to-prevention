@@ -97,9 +97,9 @@ body.on-title #gaugeBox, body.pre-game #gaugeBox { display:none; }
 @keyframes coldshake { 0%,100% { transform:none; } 20% { transform:translateY(5px); } 60% { transform:translateY(2px); } }
 section { min-height:0; }
 
-#status { flex:none; display:flex; justify-content:space-between; align-items:center; padding:8px 0 6px; color:var(--grey); }
+#status { position:relative; flex:none; display:flex; justify-content:space-between; align-items:center; padding:8px 0 6px; color:var(--grey); }
 #app.on-gate #status { display:none; }
-.brand { letter-spacing:.35em; font-size:13px; }
+.brand { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); padding-left:.35em; letter-spacing:.35em; font-size:15px; font-weight:700; color:#cfc8f5; text-shadow:0 0 12px rgba(150,120,255,.5); }
 .who { display:flex; align-items:center; gap:10px; }
 #mePic { width:36px; height:36px; border-radius:50%; object-fit:cover; border:2px solid var(--pink); box-shadow:0 0 10px rgba(255,79,195,.5); }
 .hbtns { display:flex; gap:8px; }
@@ -114,7 +114,7 @@ section { min-height:0; }
 #gateText { margin:0; font-size:34px; font-weight:700; line-height:1.15; letter-spacing:.04em; max-width:300px; color:#f4eeff;
   text-shadow:0 0 6px #fff, 0 0 18px #b87bff, 0 0 40px #ff4fc3, 0 0 70px #8a5cff; animation:neonflick 5s infinite; }
 @keyframes neonflick { 0%,92%,100% { opacity:1; } 93% { opacity:.55; } 95% { opacity:1; } 97% { opacity:.7; } }
-#answer { margin-top:16vh; font-size:21px; font-weight:700; padding:16px 38px; min-height:58px; border-radius:40px; border-color:var(--cyan); background:rgba(77,240,255,.12); box-shadow:0 0 30px rgba(77,240,255,.4); }
+#answer { margin-top:6vh; font-size:21px; font-weight:700; padding:16px 38px; min-height:58px; border-radius:40px; border-color:var(--cyan); background:rgba(77,240,255,.12); box-shadow:0 0 30px rgba(77,240,255,.4); }
 #gateNote:empty { display:none; }
 #gateNote { position:absolute; left:0; right:0; bottom:calc(18px + env(safe-area-inset-bottom)); margin:0 auto; color:var(--grey); font-size:14px; max-width:260px; }
 @media (prefers-reduced-motion: reduce) { #gateText { animation:none; } }
@@ -315,3 +315,66 @@ body.ended #choiceView { max-height:94dvh; }
 .end-harass { border-color:rgba(255,79,106,.7); box-shadow:0 0 0 1px rgba(255,79,106,.35), 0 0 34px rgba(255,79,106,.3); }
 .end-harass .ec-portrait img { opacity:.35; filter:grayscale(.6) drop-shadow(0 0 8px rgba(255,79,106,.8)); animation:flicker 1.2s infinite; }
 @media (prefers-reduced-motion: reduce) { .echoCard::after, .end-harass .ec-portrait img { animation:none; } }
+
+/* ---------- two pages: the computer is the screen, the phone is the remote ---------- */
+html.role-phone #stage, html.role-phone #gaugeBox, html.role-phone #titleScreen, html.role-phone #introBg, html.role-phone #main,
+html.role-phone #loader, html.role-phone #screenText, html.role-phone #linkBanner { display:none !important; }
+html.role-screen #app { display:none !important; }
+
+/* the phone: a quiet watermark while it waits for the story */
+html.role-phone #app:not(.on-gate):not(.overlay)::after { content:"ECHO"; position:absolute; left:0; right:0; top:34%; text-align:center; font:900 64px/1 "Bodoni Moda", "Didot", serif; letter-spacing:.08em; color:rgba(185,177,222,.07); pointer-events:none; }
+
+/* the computer */
+html.role-screen #gaugeBox { top:calc(env(safe-area-inset-top) + 16px); }
+html.role-screen #gauge { max-width:420px; }
+/* the introduction: the whole screen, text centered */
+html.role-screen #main { top:0; max-height:none; max-width:none; margin:0; padding:6dvh 8vw; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  background:radial-gradient(ellipse at center, rgba(5,4,16,.55), rgba(5,4,16,.85)); }
+html.role-screen #main > * { width:100%; max-width:820px; }
+html.role-screen #choices { align-items:center; }
+html.role-screen #prompt { text-align:center; }
+html.role-screen #nameRow { justify-content:center; text-align:left; }
+html.role-screen #nameCol { max-width:340px; }
+html.role-screen #main h1 { font-size:clamp(32px, 4.4vw, 64px); margin-bottom:22px; }
+html.role-screen #body { font-size:clamp(20px, 2.3vw, 32px); line-height:1.5; }
+#qrBox { margin:30px auto 0; text-align:center; }
+#qr { width:min(200px, 24dvh); margin:0 auto; padding:8px; border-radius:14px; background:#fff; line-height:0; box-shadow:0 0 24px rgba(77,240,255,.35); transition:box-shadow .3s, opacity .3s; }
+#qr canvas, #qr img { width:100% !important; height:auto !important; }
+#qr.ok { opacity:.35; box-shadow:0 0 24px rgba(111,230,160,.6); }
+#qrText { margin:10px 0 0; font-size:15px; color:#cfc8f5; }
+#qrUrl { margin:2px 0 0; font-size:12px; color:rgba(168,246,255,.5); word-break:break-all; }
+#qrUrl:empty { display:none; }
+
+#screenText { position:fixed; z-index:5; left:0; right:0; bottom:0; padding:60px 24px calc(28px + env(safe-area-inset-bottom)); text-align:center; pointer-events:none;
+  background:linear-gradient(transparent, rgba(5,4,16,.78) 55%); }
+#screenText #storyLine { max-width:900px; margin:0 auto; font-size:clamp(22px, 2.5vw, 34px); line-height:1.4; }
+#screenText #storyLine.long { font-size:clamp(18px, 2vw, 27px); }
+#screenText #echoCard { max-width:520px; margin:0 auto 14px; text-align:left; pointer-events:auto; }
+body.ended #screenText { top:0; display:flex; flex-direction:column; justify-content:center; background:rgba(5,4,16,.7); }
+body.ended #screenText #storyLine { display:none; }
+#linkBanner { position:fixed; z-index:30; left:50%; top:12px; transform:translateX(-50%); margin:0; padding:10px 20px; border-radius:22px; background:rgba(255,79,106,.92); color:#fff; font-size:15px; text-align:center; max-width:90vw; }
+
+/* the phone: logging in to Nexus (name and optional photo) */
+#gate #profile { width:100%; max-width:340px; text-align:left; }
+#gate #nameRow { margin-top:0; }
+
+/* one button format for the main actions: Play, Next, Log in */
+#playBtn, html.role-screen #choices button, #answer { width:auto; min-width:200px; margin-left:auto; margin-right:auto; padding:12px 38px; min-height:48px; font-size:18px; font-weight:400; letter-spacing:3px; text-transform:uppercase; border-radius:40px;
+  border:1px solid var(--cyan); color:#bfeff5; background:rgba(77,240,255,.06); box-shadow:0 0 14px rgba(77,240,255,.3); }
+#playBtn:disabled, html.role-screen #choices button:disabled, #answer:disabled { opacity:.4; }
+
+/* scene 1: four faces */
+#choiceList.emojis { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.choice.emoji { text-align:center; font-size:46px; line-height:1; min-height:92px; border-radius:24px; }
+/* scene "bench": the flower sticker */
+.stArea { position:relative; width:100%; align-self:stretch; height:min(40dvh, 320px); border-radius:22px; border:1px solid var(--line); background:rgba(255,255,255,.03); touch-action:none; overflow:hidden; }
+.sz { position:absolute; width:42%; font-size:14px; line-height:1.25; color:#cfc8f5; text-align:center; transition:color .2s, text-shadow .2s; }
+.szl { left:4%; top:8%; } .szr { right:4%; top:8%; } .szb { left:29%; bottom:7%; }
+.stArea[data-zone="szl"] .szl, .stArea[data-zone="szr"] .szr, .stArea[data-zone="szb"] .szb { color:#fff; font-weight:700; text-shadow:0 0 12px var(--cyan); }
+.stFlower { position:absolute; left:50%; top:52%; width:84px; height:84px; margin:-42px 0 0 -42px; touch-action:none; cursor:grab; filter:drop-shadow(0 0 12px rgba(255,143,216,.7)); transition:left .25s, top .25s; }
+.stFlower.dragging { transition:none; cursor:grabbing; }
+
+/* scene 4: the laugh is a big tile */
+.choice.bigtile { text-align:center; min-height:110px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-color:var(--pink); background:rgba(255,79,195,.14); }
+.choice.bigtile .ha { font:900 40px/1 "Bodoni Moda", "Didot", serif; letter-spacing:.12em; color:#ffd1f0; text-shadow:0 0 14px rgba(255,79,195,.6); }
+.choice.bigtile small { color:var(--grey); font-size:13px; letter-spacing:.04em; text-transform:none; }
