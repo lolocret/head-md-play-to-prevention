@@ -325,8 +325,8 @@ html.role-screen #app { display:none !important; }
 html.role-phone #app:not(.on-gate):not(.overlay)::after { content:"ECHO"; position:absolute; left:0; right:0; top:34%; text-align:center; font:900 64px/1 "Bodoni Moda", "Didot", serif; letter-spacing:.08em; color:rgba(185,177,222,.07); pointer-events:none; }
 
 /* the computer */
-html.role-screen #gaugeBox { top:calc(env(safe-area-inset-top) + 16px); }
-html.role-screen #gauge { max-width:420px; }
+html.role-screen #gaugeBox { top:calc(env(safe-area-inset-top) + 20px); left:auto; right:28px; width:340px; padding:0; }   /* Echo's state, top right */
+html.role-screen #gauge { max-width:none; margin:0; }
 /* the introduction: the whole screen, text centered */
 html.role-screen #main { top:0; max-height:none; max-width:none; margin:0; padding:6dvh 8vw; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
   background:radial-gradient(ellipse at center, rgba(5,4,16,.55), rgba(5,4,16,.85)); }
@@ -378,3 +378,12 @@ body.ended #screenText #storyLine { display:none; }
 .choice.bigtile { text-align:center; min-height:110px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-color:var(--pink); background:rgba(255,79,195,.14); }
 .choice.bigtile .ha { font:900 40px/1 "Bodoni Moda", "Didot", serif; letter-spacing:.12em; color:#ffd1f0; text-shadow:0 0 14px rgba(255,79,195,.6); }
 .choice.bigtile small { color:var(--grey); font-size:13px; letter-spacing:.04em; text-transform:none; }
+
+/* the phone: NEXUS a bit lower */
+html.role-phone #app { padding-top:calc(env(safe-area-inset-top) + 22px); }
+/* scene 1: the faces take the whole screen */
+#choiceView.emojiMode { flex:1; margin-top:0; max-height:none; padding-bottom:calc(16px + env(safe-area-inset-bottom)); }
+#choiceView.emojiMode #choiceList { flex:1; grid-template-rows:1fr 1fr; }
+#choiceView.emojiMode .choice.emoji { min-height:0; height:100%; font-size:min(24vw, 20dvh); }
+#choiceView.emojiMode #choiceList:not(.emojis) { display:flex; flex-direction:column; }
+#choiceView.emojiMode .stArea { flex:1; height:auto; min-height:0; }

@@ -231,8 +231,9 @@ function stopMech() { mechStops.forEach(f => f()); mechStops = []; mechFor = nul
 
 function renderGame() {
   if (game.mode === "choose" && game.mech && mechFor === game.token && answered !== game.token) return;   // a small game is running: do not restart it
+  $("choiceView").classList.toggle("emojiMode", game.mode === "choose" && (!!game.emoji || game.mech === "drag") && answered !== game.token);   // the four faces and the flower fill the whole screen
   const list = $("choiceList"), sent = $("choiceSent");
-  list.innerHTML = ""; sent.hidden = true;
+  list.innerHTML = ""; list.classList.remove("emojis"); sent.hidden = true;
   $("choicePrompt").textContent = "";
   if (game.mode === "choose") {
     $("choicePrompt").textContent = game.prompt ? pick(game.prompt) : "";
