@@ -341,8 +341,8 @@ html.role-screen #body { font-size:clamp(20px, 2.3vw, 32px); line-height:1.5; }
 #qr { width:min(200px, 24dvh); margin:0 auto; padding:8px; border-radius:14px; background:#fff; line-height:0; box-shadow:0 0 24px rgba(77,240,255,.35); transition:box-shadow .3s, opacity .3s; }
 #qr canvas, #qr img { width:100% !important; height:auto !important; }
 #qr.ok { opacity:.35; box-shadow:0 0 24px rgba(111,230,160,.6); }
-#qrText { margin:10px 0 0; font-size:15px; color:#cfc8f5; }
-#qrUrl { margin:2px 0 0; font-size:12px; color:rgba(168,246,255,.5); word-break:break-all; }
+#qrText { margin:22px 0 0; font-size:15px; color:#cfc8f5; }
+#qrUrl { margin:16px 0 0; font-size:12px; color:rgba(168,246,255,.5); word-break:break-all; }
 #qrUrl:empty { display:none; }
 
 #screenText { position:fixed; z-index:5; left:0; right:0; bottom:0; padding:60px 24px calc(28px + env(safe-area-inset-bottom)); text-align:center; pointer-events:none;

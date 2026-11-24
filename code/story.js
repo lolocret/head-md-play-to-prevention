@@ -670,29 +670,16 @@ const STORY = {
         },
         {
           "label": {
-            "fr": "Hacker la porte pour piéger Echo avec une décharge électrique, et prendre une photo",
-            "en": "Hack the door to trap Echo with an electric shock, and take a photo"
+            "fr": "Faire stop",
+            "en": "Say stop"
           },
-          "harass": 3,
+          "harass": 0,
           "passive": 0,
-          "help": 0,
-          "bond": -2,
+          "help": 2,
+          "bond": 1,
           "journal": {
-            "fr": "J’ai piraté la porte et pris la photo. Echo a pris la décharge. Je regarde la photo et je n’en suis pas fier·e.",
-            "en": "I hacked the door and took the photo. Echo took the shock. I look at the photo and I’m not proud."
-          },
-          "later": {
-            "after": 2,
-            "journal": {
-              "fr": "La photo circule. Je l’ai effacée de mon téléphone, mais pas de ceux des autres.",
-              "en": "The photo is going around. I deleted it from my phone, but not from the others’."
-            },
-            "msg": {
-              "t": "humans",
-              "from": "Lucas",
-              "fr": "merci {name}, la photo est partout",
-              "en": "thanks {name}, the photo is everywhere"
-            }
+            "fr": "J’ai dit « stop » à l’élève devant la porte. Ma voix tremblait, mais je l’ai dit.",
+            "en": "I told the student at the door to stop. My voice shook, but I said it."
           }
         }
       ],
@@ -1828,7 +1815,6 @@ lunch.choices[2].label = { fr: "Seul·e, loin des autres", en: "Alone, far from 
 
 // Scenes 4 to 6, as drawn: the phone asks in "I" too
 STORY.beats.find(b => b.id === "door").prompt = { fr: "Qu’est-ce que je fais ?", en: "What do I do?" };
-STORY.beats.find(b => b.id === "door").choices[2].label = { fr: "Hacker la porte pour piéger Echo", en: "Hack the door to trap Echo" };
 const roof = STORY.beats.find(b => b.id === "echo_roof");
 roof.prompt = { fr: "Qu’est-ce que je fais ?", en: "What do I do?" };
 roof.choices[2].label = { fr: "Lui dire que je suis désolé·e", en: "Tell Echo I’m sorry" };
