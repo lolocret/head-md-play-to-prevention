@@ -1,0 +1,10 @@
+{
+  "name": "echo-from-play-to-prevention",
+  "private": true,
+  "description": "Echo, a narrative game about cyberbullying. Run `npm start` from this folder to play.",
+  "scripts": {
+    "postinstall": "npm --prefix server install",
+    "start": "npm --prefix server start",
+    "tunnel": "npm --prefix server run tunnel"
+  }
+}

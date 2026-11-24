@@ -7,4 +7,6 @@ We are currently at the research phase of the project. During this phase, we wil
 ## Echo (student project)
 Echo is a choice-driven narrative game about cyberbullying, for ages 12–16, by Lorie Crettex and Nouria Da Ros.
 - Pitch: [process/2026-11-17](process/2026-11-17/readme.md)
-- Playable prototype: [code](code/) (open `code/index.html` in a browser)
+- Play online: <https://lolocret.github.io/head-md-play-to-prevention/code/> (the computer shows a QR code, the phone scans it and becomes the remote)
+- Play locally: run `npm start` in this folder, then open the address it prints (`npm run tunnel` also makes the phone work from any network)
+- Playable prototype: [code](code/)
