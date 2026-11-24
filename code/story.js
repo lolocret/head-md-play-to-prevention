@@ -1745,7 +1745,7 @@ const INTERACT = {
   arrival: { emoji: true },
   hello: { mech: "laugh", seconds: 5 },
   lunch: { mech: "drag", spots: [{ i: 2, at: "tl" }, { i: 0, at: "tr" }, { i: 1, at: "b" }] },
-  lesson: { hold: [1], big: { 0: "HA HA HA" } },
+  lesson: { hold: [1], big: { 0: "HA" } },
   door: { mech: "drag", spots: [{ i: 1, at: "tl" }, { i: 0, at: "tr" }, { i: 2, at: "b" }] },
   echo_roof: { hold: [1], holdMs: 3000 },
   wipe: { mech: "wipe", seconds: 8, words: [

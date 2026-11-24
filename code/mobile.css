@@ -36,7 +36,7 @@ body.pre-game #scene { opacity:0; }
 
 /* gauge: a flower in bloom, a wilted one, the bar between */
 #gaugeBox { position:fixed; z-index:5; left:0; right:0; top:calc(env(safe-area-inset-top) + 58px); padding:0 16px; pointer-events:none; }
-body.on-title #gaugeBox, body.pre-game #gaugeBox { display:none; }
+body.on-title #gaugeBox { display:none; }   /* shown as soon as the introduction starts */
 #gauge { display:flex; align-items:center; gap:10px; max-width:360px; margin:0 auto; }
 #gaugeBar { flex:1; height:12px; background:rgba(30,26,60,.7); border:1px solid rgba(138,92,255,.4); border-radius:8px; overflow:hidden; box-shadow:0 0 10px rgba(138,92,255,.25); }
 #gaugeFill { height:100%; width:0; background:#4dcc66; transition:width .4s, background .4s; }
@@ -321,11 +321,9 @@ html.role-phone #stage, html.role-phone #gaugeBox, html.role-phone #titleScreen,
 html.role-phone #loader, html.role-phone #screenText, html.role-phone #linkBanner { display:none !important; }
 html.role-screen #app { display:none !important; }
 
-/* the phone: a quiet watermark while it waits for the story */
-html.role-phone #app:not(.on-gate):not(.overlay)::after { content:"ECHO"; position:absolute; left:0; right:0; top:34%; text-align:center; font:900 64px/1 "Bodoni Moda", "Didot", serif; letter-spacing:.08em; color:rgba(185,177,222,.07); pointer-events:none; }
 
 /* the computer */
-html.role-screen #gaugeBox { top:calc(env(safe-area-inset-top) + 20px); left:auto; right:28px; width:340px; padding:0; }   /* Echo's state, top right */
+html.role-screen #gaugeBox { z-index:8; top:calc(env(safe-area-inset-top) + 20px); left:28px; right:auto; width:340px; padding:0; }   /* Echo's state, top left */
 html.role-screen #gauge { max-width:none; margin:0; }
 /* the introduction: the whole screen, text centered */
 html.role-screen #main { top:0; max-height:none; max-width:none; margin:0; padding:6dvh 8vw; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
@@ -368,7 +366,7 @@ body.ended #screenText #storyLine { display:none; }
 .choice.emoji { text-align:center; font-size:46px; line-height:1; min-height:92px; border-radius:24px; }
 /* scene "bench": the flower sticker */
 .stArea { position:relative; width:100%; align-self:stretch; height:min(40dvh, 320px); border-radius:22px; border:1px solid var(--line); background:rgba(255,255,255,.03); touch-action:none; overflow:hidden; }
-.sz { position:absolute; width:42%; font-size:14px; line-height:1.25; color:#cfc8f5; text-align:center; transition:color .2s, text-shadow .2s; }
+.sz { position:absolute; width:44%; font-size:clamp(19px, 5.4vw, 26px); font-weight:600; line-height:1.2; color:#cfc8f5; text-align:center; transition:color .2s, text-shadow .2s; }
 .szl { left:4%; top:8%; } .szr { right:4%; top:8%; } .szb { left:29%; bottom:7%; }
 .stArea[data-zone="szl"] .szl, .stArea[data-zone="szr"] .szr, .stArea[data-zone="szb"] .szb { color:#fff; font-weight:700; text-shadow:0 0 12px var(--cyan); }
 .stFlower { position:absolute; left:50%; top:52%; width:84px; height:84px; margin:-42px 0 0 -42px; touch-action:none; cursor:grab; filter:drop-shadow(0 0 12px rgba(255,143,216,.7)); transition:left .25s, top .25s; }
@@ -387,3 +385,6 @@ html.role-phone #app { padding-top:calc(env(safe-area-inset-top) + 22px); }
 #choiceView.emojiMode .choice.emoji { min-height:0; height:100%; font-size:min(24vw, 20dvh); }
 #choiceView.emojiMode #choiceList:not(.emojis) { display:flex; flex-direction:column; }
 #choiceView.emojiMode .stArea { flex:1; height:auto; min-height:0; }
+
+.choice.bigtile .ha { max-width:100%; overflow-wrap:anywhere; transition:font-size .1s; }
+.choice.bigtile.tapped { animation:pop .12s; }

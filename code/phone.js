@@ -243,7 +243,18 @@ function renderGame() {
     list.classList.toggle("emojis", !!game.emoji);   // scene 1: four faces
     game.choices.forEach((c, i) => {
       const b = document.createElement("button"); b.className = game.emoji ? "choice emoji" : "choice";
-      if (game.big && game.big[i]) { b.classList.add("bigtile"); const h = document.createElement("span"); h.className = "ha"; h.textContent = game.big[i]; const s = document.createElement("small"); s.textContent = pick(c); b.append(h, s); }   // the laugh: a big tile
+      if (game.big && game.big[i]) {   // the laugh: a big tile, one more "HA" at every tap; the laugh is sent a moment after the last tap
+        b.classList.add("bigtile");
+        const h = document.createElement("span"); h.className = "ha"; h.textContent = "…";
+        const s = document.createElement("small"); s.textContent = pick(c); b.append(h, s);
+        let n = 0, t = null;
+        b.onclick = () => {
+          n++; h.textContent = Array(n).fill("HA").join(" "); h.style.fontSize = Math.max(18, 44 - n * 2.5) + "px";
+          buzz(15); b.classList.remove("tapped"); void b.offsetWidth; b.classList.add("tapped");
+          clearTimeout(t); t = setTimeout(() => answerChoice(token, i), 1400);
+        };
+        list.appendChild(b); return;
+      }
       else b.append(pick(c));
       if (c.hold) holdToConfirm(b, () => answerChoice(token, i), game.holdMs);
       else b.onclick = () => answerChoice(token, i);
