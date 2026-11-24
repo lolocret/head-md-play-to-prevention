@@ -16,7 +16,7 @@ const NEXUS = {
     hello: [
     ],
     evening: [
-      { t: "class", from: "Sam", fr: "tes émotions c’est des fictions", en: "your emotions are fictions", at: 1000 },
+      { t: "class", from: "Sam", fr: "on veut pas de toi ici", en: "we don’t want you here", at: 1000 },
       { t: "class", from: "Maé", fr: "[mème]", en: "[meme]", image: "images/meme-echo.png", key: "meme", at: 3500 },
       { t: "humans", from: null, fr: "Maé a créé le groupe « Humains de la 3B uniquement ». Echo n’en fait pas partie.", en: "Maé created the group “Humans of 3B only”. Echo is not part of it.", at: 6000 },
     ],
@@ -40,9 +40,18 @@ const NEXUS = {
       { t: "private", from: "Clarisse", fr: "On harcèle personne, c’est juste une machine.", en: "We’re not harassing anyone, it’s just a machine.", at: 2800 },
       { t: "private", from: "Clarisse", fr: "{name}, t’es avec nous ou avec la machine ?", en: "{name}, are you with us or with the machine?", at: 5000 },
       { t: "private", from: "Clarisse", fr: "Vendredi après les cours, on l’éteint. Code : KIPE-SAFE007", en: "Friday after class, we switch it off. Code: KIPE-SAFE007", key: "plan", at: 7500 },
+      { t: "private", from: "Clarisse", fr: "{name}, merci d’avoir écouté l’autre jour. Mais là, je peux pas reculer.", en: "{name}, thanks for listening the other day. But now I can’t back out.", at: 9500, if: { flag: "clarisseListened" } },
+      { t: "private", from: "Clarisse", fr: "Arrête de dire que c’est pas la faute d’Echo. Je sais déjà.", en: "Stop saying it’s not Echo’s fault. I already know.", at: 9500, if: { flag: "clarisseToldStop" } },
+      { t: "private", from: "Clarisse", fr: "T’as ri de moi avec eux, {name}. Alors t’es avec nous ?", en: "You laughed at me with them, {name}. So are you with us?", at: 9500, if: { flag: "clarisseMocked" } },
     ],
     night: [
-      { t: "echo", from: "Echo", fr: "Je sais ce que veulent dire les mots qu’on m’a collés. Merci d’être là, {name}.", en: "I know what the words stuck on me mean. Thank you for being there, {name}.", key: "echo", at: 2000, if: { bondMin: 4 } },
+      { t: "echo", from: "Echo", fr: "Tu dors, {name} ?", en: "Are you asleep, {name}?", at: 2000, if: { bondMin: 4 } },
+    ],
+    night_echo: [
+      { t: "echo", from: "Echo", fr: "Je n’arrive pas à dormir. Merci d’être là, {name}.", en: "I can’t sleep. Thank you for being there, {name}.", at: 1500 },
+    ],
+    night_clarisse: [
+      { t: "private", from: "Clarisse", fr: "Demain, 16h30. Tu dors pas non plus ?", en: "Tomorrow, 4:30. You can’t sleep either?", at: 1500 },
     ],
     friday: [
       { t: "private", from: "Clarisse", fr: "16h30, sur le toit. Viens filmer, {name}.", en: "4:30 pm, on the roof. Come film, {name}.", at: 1500 },
@@ -66,7 +75,6 @@ const NEXUS = {
       3: [{ from: "Inès", fr: "oh ça va, c’est une blague", en: "oh come on, it’s a joke", at: 1500 }, { from: "Sam", fr: "{name} fait sa morale", en: "{name} is lecturing us", at: 3200 }],
       4: [{ from: "Lucas", fr: "haha {name} a compris la blague", en: "haha {name} gets the joke", at: 1500 }],
       5: [{ from: null, quiet: true, fr: "Tu as quitté le groupe « 3B ».", en: "You left the group “3B”.", at: 600 }],
-      "7:mock": [{ from: "Maé", fr: "ahahah celui-là est trop bien", en: "ahahah that one is so good", at: 1500 }, { from: "Lucas", fr: "{name} le roi des mèmes", en: "{name}, king of memes", at: 3200 }],
       "7:support": [{ from: "Inès", fr: "c’est quoi ce mème ?", en: "what is this meme?", at: 1500 }, { from: "Lucas", fr: "{name} fait de la morale en mème, lol", en: "{name} is moralizing in memes, lol", at: 3200 }],
     },
     labels: {
@@ -80,19 +88,28 @@ const NEXUS = {
       2: [{ from: null, quiet: true, fr: "Message envoyé à Echo.", en: "Message sent to Echo.", at: 600 }],
       3: [{ from: null, quiet: true, fr: "Tu as quitté le groupe « On harcèle personne ».", en: "You left the group “We harass nobody”.", at: 600 }],
     },
-    night: {
+    night_echo: {
       0: [{ from: "Echo", fr: "Merci. Ça fait du bien de ne pas être seul·e.", en: "Thank you. It feels good not to be alone.", at: 2000 }],
-      1: [{ from: null, quiet: true, fr: "Message envoyé à Clarisse.", en: "Message sent to Clarisse.", at: 600 }],
+      1: [{ from: "Echo", fr: "Merci. Ça fait du bien de ne pas être seul·e.", en: "Thank you. It feels good not to be alone.", at: 2000 }],
+      2: [{ from: "Echo", fr: "Le toit ? Pourquoi ? … D’accord. Je ferai attention.", en: "The roof? Why? … Okay. I’ll be careful.", at: 2000 }],
+    },
+    night_clarisse: {
+      0: [{ from: "Clarisse", fr: "Tu comprends pas. Je peux pas reculer maintenant.", en: "You don’t get it. I can’t back out now.", at: 2200 }],
+      1: [{ from: "Clarisse", fr: "Ok. Fais comme tu veux.", en: "Ok. Do what you want.", at: 2200 }],
+      2: [{ from: "Clarisse", fr: "Je savais que je pouvais compter sur toi.", en: "I knew I could count on you.", at: 2200 }],
     },
   },
 };
 
 // The scenes played inside a conversation (the player acts in it): which thread opens. In them nothing is stretched or silenced.
-const NEXUS_CHATS = { evening: "class", labels: "humans", turnoff: "private", night: "echo" };
+const NEXUS_CHATS = { evening: "class", labels: "humans", turnoff: "private", night: "echo", night_echo: "echo", night_clarisse: "private" };
 
 // Pace: in the other scenes the messages are spread out (every delay is multiplied), so the player has time to read
 const PACE = 2.6;
 const LIVE = 1.7;   // in a conversation scene the messages are slowed down too: time to read each one
+
+// A message may need a strong bond with Echo (bondMin) or a flag set by an earlier choice
+const shown = m => !m.if || typeof state === "undefined" || !(state.bond < m.if.bondMin || (m.if.flag && !state.flags[m.if.flag]));
 
 const Nexus = (() => {
   let timers = [];
@@ -105,7 +122,7 @@ const Nexus = (() => {
       const live = !!NEXUS_CHATS[id];
       // Only a scene played inside a conversation has messages: nothing pops up while the player reads the story
       (live ? NEXUS.beats[id] || [] : []).forEach((m, i) => {
-        if (m.if && typeof state !== "undefined" && state.bond < m.if.bondMin) return;   // e.g. Echo only writes if the bond is strong
+        if (!shown(m)) return;   // e.g. Echo only writes if the bond is strong; a message may need a flag
         // a quiet message just lands (a dot, no banner, no sound): only the first message of a scene and group events make noise
         timers.push(setTimeout(() => send(m, !live && i > 0), live ? m.at * LIVE : m.at * PACE));
       });
@@ -113,7 +130,7 @@ const Nexus = (() => {
       if (p) timers.push(setTimeout(() => Link.send({ type: "prompt", id, fr: fill(p.fr), en: fill(p.en) }), p.at * PACE));
     },
     // When the player has seen every message of a scene played in a conversation (the options appear then)
-    readyAt(id) { return Math.max(0, ...(NEXUS.beats[id] || []).map(m => m.at)) * LIVE + 2500; },
+    readyAt(id) { return Math.max(0, ...(NEXUS.beats[id] || []).filter(shown).map(m => m.at)) * LIVE + 2500; },
     // The player acted in the conversation `thread`: the others react (the same people, in the same place), then how long to stay
     after(id, key, thread) {
       const list = (NEXUS.after[id] && (NEXUS.after[id][key] || NEXUS.after[id][String(key).split(":")[0]])) || [];

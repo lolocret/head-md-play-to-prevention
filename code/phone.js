@@ -114,7 +114,8 @@ function startCall() {
 function onState(m) {
   const end = m.token === "end";
   if (end && !journalOn) { journalOn = true; jUnread = 1; }   // the story is over: the journal appears
-  if (!end && journalOn) { journalOn = false; jUnread = 0; if (view === "journal") show("choice"); }   // played again: hidden again
+  if (!end && journalOn) { journalOn = false; jUnread = 0; answered = null;   // played again: the end can be answered again
+    if (view === "journal") show("choice"); }   // played again: hidden again
   const wasChat = game.ui === "chat";
   const isNew = m.mode === "choose" && (game.mode !== "choose" || game.token !== m.token);
   game = m;
@@ -244,8 +245,8 @@ function renderGame() {
   $("choicePrompt").textContent = "";
   if (game.token === "end") return;   // the end: no buttons here, the journal is the screen (replay is a long press there)
   if (game.mode === "choose") {
+    if (answered === game.token) { stopTimer(); waitPanel(list); return; }   // already answered: just wait (no question shown)
     $("choicePrompt").textContent = game.prompt ? pick(game.prompt) : "";
-    if (answered === game.token) { stopTimer(); waitPanel(list); return; }
     const token = game.token;
     if (game.mech && MECH[game.mech]) { stopTimer(); stopMech(); mechFor = token; MECH[game.mech](list, token); return; }
     list.classList.toggle("emojis", !!game.emoji);   // scene 1: four faces
@@ -253,13 +254,13 @@ function renderGame() {
       const b = document.createElement("button"); b.className = game.emoji ? "choice emoji" : "choice";
       if (game.big && game.big[i]) {   // the laugh: a big tile, one more "HA" at every tap; the laugh is sent a moment after the last tap
         b.classList.add("bigtile");
-        const h = document.createElement("span"); h.className = "ha"; h.textContent = "HA";
-        const s = document.createElement("small"); s.textContent = pick(c); b.append(h, s);
-        let n = 1, t = null;   // one "HA" is already written
+        const addHA = haLayer(b); addHA();   // one "HA" is already written
+        const cap = document.createElement("small"); cap.textContent = pick(c); b.append(cap);
+        let t = null;
         b.onclick = () => {
-          n++; h.textContent = Array(n).fill("HA").join(" "); h.style.fontSize = Math.max(24, 64 - n * 4) + "px";
+          addHA();
           buzz(15); b.classList.remove("tapped"); void b.offsetWidth; b.classList.add("tapped");
-          clearTimeout(t); t = setTimeout(() => answerChoice(token, i), 1500);   // a short moment to tap again
+          clearTimeout(t); t = setTimeout(() => answerChoice(token, i), 900);   // a short moment to tap again
         };
         list.appendChild(b); return;
       }
@@ -275,6 +276,21 @@ function renderGame() {
   }
 }
 
+// Every tap writes one more "HA", laid over the others (random place, size and tilt): they pile up on top of each other
+function haLayer(el) {
+  const layer = document.createElement("span"); layer.className = "haLayer"; el.prepend(layer);
+  let n = 0;
+  return () => {
+    if (n >= 5) return;   // five "HA" at most (the first is already written)
+    const h = document.createElement("span"); h.className = "haPop"; h.textContent = "HA";
+    const first = n === 0;
+    h.style.left = first ? "50%" : (14 + Math.random() * 72) + "%"; h.style.top = first ? "40%" : (12 + Math.random() * 66) + "%";
+    h.style.setProperty("--r", (first ? 0 : Math.random() * 44 - 22) + "deg");
+    h.style.fontSize = (first ? 72 : 44 + Math.random() * 60) + "px"; h.style.opacity = first ? 1 : 0.5 + Math.random() * 0.5;
+    layer.appendChild(h); n++;
+  };
+}
+
 // Nothing to answer: a calm full page (a flower, "look at the screen") so the phone is never empty
 function waitPanel(list) {
   list.innerHTML = `<div class="waitFill"><div class="waitFlower">${Flower.svg(1, 96)}</div><p>${T("wait")}</p></div>`;
@@ -287,16 +303,17 @@ const MECH = {
   // The class laughs: tap to join in (a "HA" for every tap, no time limit), or say no
   laugh(list, token) {
     list.innerHTML = `<div class="crowd"><span>${french ? "Les autres rient…" : "The others are laughing…"}</span></div>
-      <button class="laughBtn" id="laughBtn" type="button">HA</button>
+      <button class="laughBtn" id="laughBtn" type="button"></button>
       <button class="choice" id="noLaugh" type="button"></button>`;
     $("noLaugh").textContent = pick(game.choices[1]);
-    let taps = 1, done = false, t = null;   // one "HA" is already written
+    const addHA = haLayer($("laughBtn")); addHA();   // one "HA" is already written
+    let taps = 1, done = false, t = null;
     const finish = i => { if (done) return; done = true; clearTimeout(t); answerChoice(token, i); };
     $("laughBtn").onpointerdown = e => {
       e.preventDefault(); if (done) return; taps++;
-      $("laughBtn").textContent = Array(taps).fill("HA").join(" "); $("laughBtn").style.fontSize = Math.max(16, 28 - taps * 1.5) + "px";
+      addHA();
       buzz(15); $("laughBtn").classList.remove("pop"); void $("laughBtn").offsetWidth; $("laughBtn").classList.add("pop");
-      clearTimeout(t); t = setTimeout(() => finish(0), 1500);   // the laugh is sent a moment after the last tap
+      clearTimeout(t); t = setTimeout(() => finish(0), 900);   // the laugh is sent a moment after the last tap
     };
     $("noLaugh").onclick = () => finish(1);
     mechStops.push(() => clearTimeout(t));
@@ -445,7 +462,7 @@ function renderList() {
 
 // In a conversation the player acts by tapping the message (the image): which choices that opens.
 // A scene with a message to tap puts every answer there (reply, action, reaction, meme); the other buttons stay below.
-const usesSheet = () => { const t = threads[openThread]; return !!(chat && t && t.msgs.some(m => m.key) && !chat.choices.some(c => c.kind === "write")); };
+const usesSheet = () => { const t = threads[openThread]; return !!(chat && t && t.msgs.some(m => m.key) && chat.choices.some(c => c.kind === "react" || c.kind === "meme") && !chat.choices.some(c => c.kind === "write")); };
 const sheetChoices = key => (chat ? chat.choices.map((c, i) => ({ c, i })).filter(x => (x.c.kind === "react" && x.c.msg === key) || (usesSheet() && ["reply", "action", "meme"].includes(x.c.kind))) : []);
 function renderThread() {
   const t = threads[openThread]; if (!t) return;
@@ -471,10 +488,11 @@ function renderThread() {
 const MEME_BGS = ["images/classe.png", "images/couloir.png", "images/toit.png"];
 function openMemeMaker(index) {
   const box = $("memeMaker"), cv = $("memeCanvas"), g = cv.getContext("2d");
-  let bg = MEME_BGS[0], tone = null, mine = null;   // mine: a picture imported from the phone
+  let bg = MEME_BGS[0], tone = "support", mine = null;   // mine: a picture imported from the phone
   $("memeTitle").textContent = T("memeTitle");
   $("memeTop").placeholder = T("memeTop"); $("memeBottom").placeholder = T("memeBottom");
   $("memeTop").value = ""; $("memeBottom").value = "";
+  $("memeTone").hidden = true;
   const [bMock, bSupport] = $("memeTone").children;
   bMock.textContent = T("memeMock"); bSupport.textContent = T("memeSupport");
   $("memeCancel").textContent = T("cancel"); $("memePost").textContent = T("memePost");

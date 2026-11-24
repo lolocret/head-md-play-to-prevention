@@ -19,14 +19,15 @@ const Scene = (() => {
     evening:        { place: "chambre", npcs: [] },   // midnight: the player is at home with the phone
     nextday:        { place: "classe", npcs: [{ id: "kovasko", x: 62, y: 80 }] },
     kovasko_class:  { place: "classe", npcs: [{ id: "kovasko", x: 62, y: 80 }] },
-    lesson:         { place: "classe", npcs: [{ id: "kovasko", x: 62, y: 80 }] },
+    lesson:         { place: "classe", npcs: [{ id: "kovasko", x: 66, y: 72 }, { id: "clarisse", x: 54, y: 78 }] },   // Clarisse says it
     door:           { place: "toit", npcs: [{ id: "student", x: 36, y: 82 }, { id: "echo", x: 20, y: 80 }] },
     echo_roof:      { place: "toit", npcs: [{ id: "echo", x: 24, y: 80 }] },
     wipe:           { place: "couloir", npcs: [{ id: "echo", x: 52, y: 78 }] },
     labels:         { place: "couloir", npcs: [{ id: "clarisse", x: 68, y: 74 }, { id: "echo", x: 46, y: 78 }] },
-    echo_hall:      { place: "couloir", npcs: [{ id: "echo", x: 54, y: 78 }] },
+    echo_hall:      { place: "toit", npcs: [{ id: "echo", x: 24, y: 80 }] },
     clarisse:       { place: "couloir", npcs: [{ id: "clarisse", x: 64, y: 78 }] },
     monday:         { place: "classe", npcs: [{ id: "echo", x: 48, y: 87 }] },
+    clarisse_talk:  { place: "couloir", npcs: [{ id: "clarisse", x: 64, y: 78 }] },
     clarisse_hall:  { place: "couloir", npcs: [{ id: "clarisse", x: 64, y: 78 }] },
     turnoff:        { place: "serre", npcs: [] },       // Clarisse shares her plan in La Serre
     origins:        { place: "altaya", fallback: "couloir", npcs: [{ id: "echo", x: 38, y: 86 }] },

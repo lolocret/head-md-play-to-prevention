@@ -552,8 +552,8 @@ const STORY = {
         "en": "Kovasko’s class"
       },
       "text": {
-        "fr": "Kovasko parle du respect et de la diversité. Un élève lève la main : « Monsieur, est-ce qu’Echo a le droit de voter ? » Des rires. Kovasko sourit sans comprendre et reprend son cours. Echo regarde son bureau, les fleurs refermées.",
-        "en": "Kovasko talks about respect and diversity. A student raises a hand: “Sir, is Echo allowed to vote?” Laughter. Kovasko smiles without understanding and goes on with his lesson. Echo looks at the desk, flowers closed."
+        "fr": "Kovasko parle du respect et de la diversité. Clarisse lève la main : « Monsieur, est-ce qu’Echo a le droit de voter ? » Des rires. Kovasko sourit sans comprendre et reprend son cours. Echo regarde son bureau, les fleurs refermées.",
+        "en": "Kovasko talks about respect and diversity. Clarisse raises a hand: “Sir, is Echo allowed to vote?” Laughter. Kovasko smiles without understanding and goes on with his lesson. Echo looks at the desk, flowers closed."
       },
       "prompt": {
         "fr": "",
@@ -621,8 +621,8 @@ const STORY = {
         "en": ""
       },
       "line": {
-        "fr": "Kovasko parle de respect. Un élève lance : « Echo a le droit de voter ? » Rires.",
-        "en": "Kovasko talks about respect. A student calls out: “Is Echo allowed to vote?” Laughter."
+        "fr": "Kovasko parle de respect. Clarisse lance : « Echo a le droit de voter ? » Rires.",
+        "en": "Kovasko talks about respect. Clarisse calls out: “Is Echo allowed to vote?” Laughter."
       }
     },
     {
@@ -1646,39 +1646,40 @@ const STORY = {
   "endings": [
     {
       "id": "harass",
-      "title": {
-        "fr": "Echo disjoncte",
-        "en": "Echo short-circuits"
-      },
+      "title": { "fr": "Echo dysfonctionne", "en": "Echo malfunctions" },
       "text": {
-        "fr": "Echo n’en peut plus et s’éteint. Ce n’est pas pour toujours : ce que tu fais maintenant compte encore.",
-        "en": "Echo can’t take any more and shuts down. It isn’t forever: what you do now still matters."
+        "fr": "Les mots se sont accumulés, jour après jour, et Echo n’a plus tenu. Ses images se brouillent, sa voix saute, puis tout s’éteint d’un coup. Altaya vient le·la chercher pour le·la réparer. Echo n’a fait de mal à personne : c’est iel qui a tout pris. Ce que tu fais maintenant compte encore.",
+        "en": "The words piled up, day after day, and Echo couldn’t hold on. Their image blurs, their voice cuts out, then everything shuts down at once. Altaya comes to repair them. Echo hurt nobody: Echo is the one who took it all. What you do now still matters."
       }
     },
     {
       "id": "passive",
-      "title": {
-        "fr": "Echo ne revient pas",
-        "en": "Echo doesn’t come back"
-      },
+      "title": { "fr": "Echo ne revient pas", "en": "Echo doesn’t come back" },
       "text": {
-        "fr": "Echo est éteint·e et le mème circule. Altaya le·la redémarre quelques jours plus tard, mais Echo ne revient pas en 3B. Son siège reste vide.",
-        "en": "Echo is switched off and the meme spreads. Altaya restarts Echo a few days later, but Echo doesn’t come back to 3B. Their seat stays empty."
+        "fr": "Vendredi, le plan est allé jusqu’au bout. Echo s’est éteint·e devant la porte vitrée, et la vidéo a tourné dans La Serre. Altaya l’a redémarré·e quelques jours plus tard, mais Echo n’est jamais revenu·e en 3B. Sa place est restée vide, et tout le monde a fait comme si c’était normal.",
+        "en": "On Friday, the plan went all the way. Echo shut down in front of the glass door, and the video played in La Serre. Altaya restarted them a few days later, but Echo never came back to 3B. Their seat stayed empty, and everyone acted like it was normal."
       }
     },
     {
       "id": "help",
-      "title": {
-        "fr": "Echo reste",
-        "en": "Echo stays"
-      },
+      "title": { "fr": "Echo reste", "en": "Echo stays" },
       "text": {
-        "fr": "Le plan échoue. Tu ouvres la porte à Echo, même si le groupe te rejette. Le doute s’installe chez Clarisse. Echo reste, et ça va mieux en classe.",
-        "en": "The plan fails. You open the door to Echo, even if the group rejects you. Doubt sets in for Clarisse. Echo stays, and things get better in class."
+        "fr": "Le plan a échoué. Tu as ouvert la porte à Echo, même si le groupe t’a tourné le dos. Clarisse a compris qu’il n’y avait pas de machine à combattre, seulement un groupe qui avait décidé pour tout le monde. Echo est resté·e, et iel va bien. En 3B, quelque chose a changé : on se moque moins, on se regarde plus.",
+        "en": "The plan failed. You opened the door to Echo, even though the group turned its back on you. Clarisse understood there was no machine to fight, only a group that had decided for everyone. Echo stayed, and Echo is okay. In 3B, something has changed: people mock less, and look at each other more."
       }
     }
   ]
 };
+
+// A last line added to an ending, depending on what the player did
+const ENDING_EXTRAS = {
+  filmed: { fr: "C’est ton téléphone qui a filmé, et cette image restera.", en: "It was your phone that filmed, and that image will stay." },
+  notFilmed: { fr: "Tu n’as pas dit stop, et le silence a aussi servi.", en: "You didn’t say stop, and your silence helped too." },
+  clarisse: { fr: "Clarisse, que tu avais écoutée, est la première à baisser son téléphone.", en: "Clarisse, the one you had listened to, is the first to lower her phone." },
+  clarisseMocked: { fr: "Clarisse, dont tu avais ri, a filmé sans te regarder.", en: "Clarisse, the one you had laughed at, filmed without looking at you." },
+  altaya: { fr: "À Altaya, tu as retrouvé avec Echo l’histoire de sa famille : tu n’étais pas seul·e non plus.", en: "At Altaya, you pieced Echo’s family story together with them: you weren’t alone either." },
+};
+
 
 // Introduction screens shown before the player creates their character.
 const INTRO = [
@@ -1773,26 +1774,24 @@ STORY.beats.push({
 
 // The inner voice: what the player thinks, written in "I", shown on the computer screen (it replaces the story line and partly the journal).
 const THOUGHTS = {
-  arrival: { fr: "Bon. Kovasko nous présente Echo. Un holokid, dans MA classe, genre. Tout le monde regarde, et moi je sais pas quoi faire de ma tête… Je souris ? Je fais comme les autres ?", en: "Okay. Kovasko introduces Echo. A holokid, in MY class, like. Everyone’s staring, and I don’t know what to do with my face… Do I smile? Do I do what the others do?" },
+  arrival: { fr: "C’est le nouvel élève hologramme… il est bizarre ? Tout le monde le dévisage. Je fais quoi ?", en: "It’s the new hologram student… are they weird? Everyone’s staring. What do I do?" },
   hello: { fr: "Echo tend la main à un élève… et elle passe à travers. Ça rigole. Mon ventre se serre. Si je ris pas, c’est sur moi que ça va tomber.", en: "Echo holds out a hand to a student… and it goes right through. Everyone laughs. My stomach tightens. If I don’t laugh, it’s going to land on me." },
-  lunch: { fr: "C’est midi, j’ai faim… argh. Je vois Echo, mais iel est tout·e seul·e sur le banc. Les autres rigolent plus loin. Où que je m’assoie, ça va vouloir dire un truc.", en: "It’s noon, I’m starving… ugh. I see Echo, but they’re all alone on the bench. The others laugh further away. Wherever I sit, it’s going to mean something." },
+  lunch: { fr: "J’ai trop faim, c’est déjà midi. Tiens, Echo est tout·e seul·e sur le banc. Je fais quoi ?", en: "I’m starving, it’s already noon. Look, Echo is all alone on the bench. What do I do?" },
   evening: { fr: "00:12. Mon téléphone vibre. Argh, qui m’écrit à cette heure ?! Je devrais dormir… bon, je regarde quand même.", en: "12:12 am. My phone buzzes. Ugh, who’s writing to me at this hour?! I should be asleep… fine, I look anyway." },
-  lesson: { fr: "Kovasko parle de respect, et là quelqu’un balance : « Echo a le droit de voter ? » Tout le monde éclate de rire. Et moi… je fais quoi ?", en: "Kovasko talks about respect, and then someone blurts out: “Is Echo allowed to vote?” Everyone cracks up. And me… what do I do?" },
-  door: { fr: "Récré. Tout le monde monte sur le toit, vers La Serre, comme d’hab. Echo nous suit. Et là, un élève lui barre la porte : « Réservé aux vrais. » Mon cœur cogne. Tout le monde regarde.", en: "Break. Everyone heads up to the roof, to La Serre, as usual. Echo follows us. And then a student blocks the door: “Reserved for the real ones.” My heart is pounding. Everyone’s watching." },
-  echo_roof: { moods: {
-    open: { fr: "Echo est au bord du toit, tout·e seul·e. Je m’approche. Une fleur s’ouvre : « Ici, personne ne me dit que je suis faux. » Ça me serre la gorge.", en: "Echo is on the edge of the roof, all alone. I walk up. A flower opens: “Up here, nobody tells me I’m fake.” My throat tightens." },
-    neutral: { fr: "Echo est au bord du toit. J’ose m’approcher. Iel me fixe : « Tu veux quelque chose ? » Euh… je sais pas quoi dire.", en: "Echo is on the edge of the roof. I dare to walk up. They stare at me: “Do you want something?” Uh… I don’t know what to say." },
-    wary: { fr: "Je m’approche d’Echo et ses fleurs se ferment d’un coup. « Je sais ce que tu as fait. » Là, j’ai juste envie de disparaître.", en: "I walk up to Echo and their flowers snap shut. “I know what you did.” Right now I just want to disappear." } } },
-  labels: { fr: "Oh non… des insultes s’affichent dans le dos d’Echo. Le groupe regarde. Moi aussi. Regarder sans rien faire, ça compte comme participer ?", en: "Oh no… insults appear on Echo’s back. The group is watching. So am I. Does watching and doing nothing count as taking part?" },
+  lesson: { fr: "Kovasko parle de respect, et là Clarisse balance : « Echo a le droit de voter ? » Tout le monde éclate de rire. Clarisse, celle qu’on moque pour ses fringues, parce que sa famille a pas d’argent… Tiens, c’est bizarre, c’est la première fois qu’elle se moque de quelqu’un. Et moi, je fais quoi ?", en: "Kovasko talks about respect, and then Clarisse blurts out: “Is Echo allowed to vote?” Everyone cracks up. Clarisse, the one they mock for her clothes, because her family has no money… Huh, that’s weird, it’s the first time she’s making fun of someone. And me, what do I do?" },
+  door: { fr: "Récré. Tout le monde monte sur le toit, vers La Serre, sauf Clarisse : elle a pas accès. Echo nous suit. Et là, un élève lui barre la porte : « Réservé aux vrais. » Mon cœur cogne.", en: "Break. Everyone heads up to the roof, to La Serre, except Clarisse: she has no access. Echo follows us. And then a student blocks the door: “Reserved for the real ones.” My heart is pounding." },
+  echo_roof: { fr: "Le groupe nous laisse pas entrer non plus, ni Echo ni moi. On est mis dehors tous les deux, sur le toit. Echo regarde la ville, je suis juste à côté. Je dis quoi ?", en: "The group doesn’t let us in either, neither Echo nor me. We’re both put outside, on the roof. Echo looks at the city, I’m right next to them. What do I say?" },
+  labels: { fr: "Oh non… des insultes s’affichent dans le dos d’Echo. Clarisse le traite de « voleur de vie » : pour elle, c’est à cause des holokids que sa famille est pauvre. Le groupe regarde. Moi aussi.", en: "Oh no… insults appear on Echo’s back. Clarisse calls Echo a “life thief”: for her, holokids are why her family is poor. The group is watching. So am I." },
   wipe: { fr: "Les mots restent collés sur son dos. Vite, avant que les autres arrivent ! Mes mains tremblent un peu.", en: "The words stay stuck on their back. Quick, before the others arrive! My hands are shaking a little." },
-  echo_hall: { fr: "Le couloir est vide, sauf Echo. Iel regarde la ville, une main contre la vitre. « Tu regardes toi aussi ? » Je me sens nul·le d’être resté·e planté·e devant cette porte.", en: "The hallway is empty, except for Echo. They look at the city, one hand on the glass. “You’re looking too?” I feel like garbage for just standing there at that door." },
-  clarisse: { fr: "Près des casiers, Clarisse est seule. Quelqu’un vient de se moquer de ses fringues. Là, elle a l’air toute petite… pas du tout celle qui s’en prend à Echo.", en: "By the lockers, Clarisse is alone. Someone just made fun of her clothes. Right now she looks tiny… nothing like the one who goes after Echo." },
+  echo_hall: { fr: "Je ressors de La Serre. Echo est là, dehors, à regarder dans le vide les lumières de la ville. « Tout le monde me dit que je suis faux. Mais qui suis-je, vraiment ? » Je sais pas quoi répondre.", en: "I come out of La Serre. Echo is there, outside, staring into the void at the city lights. “Everyone tells me I’m fake. But who am I, really?” I don’t know what to say." },
+  clarisse: { fr: "Près des casiers, Clarisse est seule. Quelqu’un vient de se moquer de ses fringues. Je devrais peut-être aller vers elle…", en: "By the lockers, Clarisse is alone. Someone just made fun of her clothes. Maybe I should go to her…" },
+  clarisse_talk: { fr: "Elle se confie, d’un coup. Chez elle, l’argent manque, et à La Serre on se moque d’elle pour ça. Alors elle s’en prend à Echo, comme si ça pouvait lui ouvrir la porte. Elle a l’air épuisée. Je sais pas si je dois la plaindre ou lui en vouloir.", en: "She opens up, all of a sudden. At home there’s no money, and in La Serre they mock her for it. So she goes after Echo, as if that could open the door for her. She looks exhausted. I don’t know if I should feel sorry for her or be angry." },
   clarisse_hall: { fr: "Clarisse m’attrape par la manche : « T’as vu comment ils me regardent ? Ils me parlent, enfin. » Son sourire tient mal. Elle cherche si je suis avec elle.", en: "Clarisse grabs my sleeve: “Did you see how they look at me now? They finally talk to me.” Her smile is barely holding. She’s checking if I’m with her." },
-  turnoff: { fr: "Clarisse balance son plan à La Serre : éteindre Echo. Je lis tout. Et si je dis rien… je suis avec eux ?", en: "Clarisse drops her plan in La Serre: switch Echo off. I read all of it. And if I say nothing… am I with them?" },
+  turnoff: { fr: "Clarisse balance son plan à La Serre : éteindre Echo. Pour la première fois, les populaires lui ouvrent la porte. Je lis tout. Et si je dis rien… je suis avec eux ?", en: "Clarisse drops her plan in La Serre: switch Echo off. For the first time, the popular kids let her in. I read all of it. And if I say nothing… am I with them?" },
   origins: { fr: "Cette nuit, je retrouve Echo à Altaya. Archives, souvenirs en morceaux… Jamais je me suis senti·e aussi utile. Mais j’ai peur qu’on nous découvre.", en: "Tonight I meet Echo at Altaya. Archives, memories in pieces… I’ve never felt so useful. But I’m scared we’ll get caught." },
   echo_altaya: { fr: "Dans la salle d’Altaya, Echo fixe l’écran géant : « Ici, ils m’ont donné un nom. Mais pas de parents. » Je sais pas quoi dire.", en: "In the Altaya room, Echo stares at the giant screen: “Here, they gave me a name. But no parents.” I don’t know what to say." },
-  night: { fr: "Jeudi soir, chez moi. Demain, le plan de Clarisse. Je fixe le plafond, impossible de dormir.", en: "Thursday night, at home. Tomorrow, Clarisse’s plan. I stare at the ceiling, no way I’m sleeping." },
-  friday: { fr: "Vendredi, sur le toit. Le groupe attend. Quelqu’un sort son téléphone pour filmer. Tout le monde me regarde… ou j’imagine ? Et moi, je suis qui, là-dedans ?", en: "Friday, on the roof. The group waits. Someone takes out their phone to film. Is everyone looking at me… or am I imagining it? And who am I in all this?" },
+  night: { fr: "Demain, ils vont exécuter leur plan contre Echo. Je me sens mal, j’arrive pas à dormir. Je devrais peut-être faire quelque chose.", en: "Tomorrow they carry out their plan against Echo. I feel sick, I can’t sleep. Maybe I should do something." },
+  friday: { fr: "Vendredi, sur le toit. Le groupe attend. Quelqu’un sort son téléphone pour filmer. Je ne sais pas quoi faire.", en: "Friday, on the roof. The group waits. Someone takes out their phone to film. I don’t know what to do." },
 };
 STORY.beats.forEach(b => {
   const t = THOUGHTS[b.id]; if (!t) return;
@@ -1825,11 +1824,47 @@ eve.choices[1].label = { fr: "Je n’aime pas", en: "Dislike" };
 eve.choices[1].journal = { fr: "Je n’ai pas aimé le mème. Je l’ai fait savoir, tout bas.", en: "I disliked the meme. I made it known, quietly." };
 eve.choices[6].label = { fr: "Ne pas répondre", en: "Don’t answer" };
 
+// Door scene (5): the third choice hurts Echo ("Faire un stop"): the gauge goes up and the story goes straight to Clarisse's plan
+const doorB = STORY.beats.find(b => b.id === "door");
+doorB.choices[2] = {
+  label: { fr: "Faire un stop", en: "Make a stop" },
+  harass: 3, passive: 0, help: 0, bond: -2,
+  journal: { fr: "J’ai fait un stop. Echo a pris le choc, et moi je regarde mes mains.", en: "I made a stop. Echo took the hit, and I’m looking at my hands." },
+};
+
+// After opening the door: the group does not let either of us in. We are both put outside, and we talk
+const roofB = STORY.beats.find(b => b.id === "echo_roof");
+roofB.moodLines = undefined; roofB.moodText = undefined;
+roofB.text = { fr: "Le groupe ne nous laisse pas entrer non plus, ni toi ni Echo. Vous êtes mis dehors tous les deux, sur le toit, côte à côte. Echo regarde la ville.", en: "The group doesn’t let either of you in. You’re both put outside, on the roof, side by side. Echo looks at the city." };
+roofB.choices = [
+  { label: { fr: "Lui demander si ça va", en: "Ask if they’re okay" }, harass: 0, passive: 0, help: 1, bond: 1,
+    journal: { fr: "J’ai demandé à Echo si ça allait. Echo a haussé les épaules, mais est resté·e là.", en: "I asked Echo if they were okay. Echo shrugged, but stayed." } },
+  { label: { fr: "Rester à côté, sans parler", en: "Stay next to them, without speaking" }, harass: 0, passive: 0, help: 1, bond: 1,
+    journal: { fr: "Je suis resté·e à côté d’Echo, sans parler. Le silence n’était pas lourd.", en: "I stayed next to Echo without speaking. The silence wasn’t heavy." } },
+  { label: { fr: "« T’es pas vraiment humain »", en: "“You’re not really human”" }, harass: 3, passive: 0, help: 0, bond: -2,
+    journal: { fr: "J’ai dit « t’es pas vraiment humain ». Les mots sont sortis tout seuls, et je ne peux pas les reprendre.", en: "I said “you’re not really human”. The words came out by themselves, and I can’t take them back." } },
+];
+
+// After doing nothing: I come out of La Serre and find Echo alone, staring at the city lights
+const hallB = STORY.beats.find(b => b.id === "echo_hall");
+hallB.text = { fr: "Tu ressors de La Serre. Echo est là, dehors, et regarde dans le vide les lumières de la ville. « Tout le monde me dit que je suis faux. Mais qui suis-je, vraiment ? »", en: "You come out of La Serre. Echo is there, outside, staring into the void at the city lights. “Everyone tells me I’m fake. But who am I, really?”" };
+STORY.beats.find(b => b.id === "echo_altaya").moodLines = undefined; STORY.beats.find(b => b.id === "echo_altaya").moodText = undefined;   // the inner voice is the line shown
+hallB.moodLines = undefined; hallB.moodText = undefined; hallB.alone = undefined; roofB.alone = undefined;   // no "closed" variant: these scenes are the same for everyone
+hallB.choices = [
+  { label: { fr: "Lui demander comment il·elle va", en: "Ask how they are" }, harass: 0, passive: 0, help: 1, bond: 1,
+    journal: { fr: "J’ai demandé à Echo comment iel allait.", en: "I asked Echo how they were." } },
+  { label: { fr: "Lui parler de son identité", en: "Talk about who they are" }, harass: 0, passive: 0, help: 1, bond: 2,
+    journal: { fr: "On a parlé de qui est Echo, vraiment. Je n’avais pas de réponse, mais j’ai écouté.", en: "We talked about who Echo really is. I had no answer, but I listened." } },
+  { label: { fr: "Rester là, sans rien dire", en: "Stay there, saying nothing" }, harass: 0, passive: 1, help: 0, bond: 1,
+    journal: { fr: "Je suis resté·e là, sans rien dire.", en: "I stayed there, saying nothing." } },
+  { label: { fr: "S’excuser", en: "Apologize" }, harass: 0, passive: 0, help: 1, bond: 2,
+    journal: { fr: "Je me suis excusé·e auprès d’Echo de ne rien avoir fait à la porte.", en: "I apologized to Echo for doing nothing at the door." } },
+];
+
 // Scenes 4 to 6, as drawn: the phone asks in "I" too
 STORY.beats.find(b => b.id === "door").prompt = { fr: "Qu’est-ce que je fais ?", en: "What do I do?" };
 const roof = STORY.beats.find(b => b.id === "echo_roof");
 roof.prompt = { fr: "Qu’est-ce que je fais ?", en: "What do I do?" };
-roof.choices[2].label = { fr: "Lui dire que je suis désolé·e", en: "Tell Echo I’m sorry" };
 
 // Altaya only opens for a player who is close to Echo
 STORY.beats.find(b => b.id === "origins").if = { bondMin: 4 };
@@ -1840,14 +1875,101 @@ STORY.beats.find(b => b.id === "echo_altaya").prompt = { fr: "Qu’est-ce que je
 //  - the player opened the door or said stop  -> Echo on the roof, the insults on Echo's back, wiping them
 //  - the player did nothing                   -> Echo alone in the hallway, then Clarisse alone, then Clarisse in the hall
 const doorBeat = STORY.beats.find(b => b.id === "door");
-doorBeat.choices[0].flag = "doorOpened"; doorBeat.choices[1].flag = "doorNothing"; doorBeat.choices[2].flag = "doorStop";
-["echo_roof", "labels", "wipe"].forEach(id => { STORY.beats.find(b => b.id === id).if = { anyFlag: ["doorOpened", "doorStop"] }; });
-["echo_hall", "clarisse", "clarisse_hall"].forEach(id => { const b = STORY.beats.find(x => x.id === id); b.if = { anyFlag: ["doorNothing"] }; b.prompt = { fr: "Qu’est-ce que je fais ?", en: "What do I do?" }; });
-STORY.beats.find(b => b.id === "echo_hall").choices[2].label = { fr: "Lui dire que je le·la trouve réel·le", en: "Tell Echo I find them real" };
-STORY.beats.find(b => b.id === "echo_hall").choices[0].label = { fr: "Regarder la ville avec Echo", en: "Look at the city with Echo" };
+doorBeat.choices[0].flag = "doorOpened"; doorBeat.choices[1].flag = "doorNothing"; doorBeat.choices[2].flag = "doorStop";   // "doorStop" (hurting Echo) skips these scenes and goes straight to Clarisse's plan
+["echo_roof", "labels", "wipe"].forEach(id => { STORY.beats.find(b => b.id === id).if = { anyFlag: ["doorOpened"] }; });   // door opened: both put outside, then the insults
+["echo_hall", "clarisse_hall"].forEach(id => { const b = STORY.beats.find(x => x.id === id); b.if = { anyFlag: ["doorNothing"] }; b.prompt = { fr: "Qu’est-ce que je fais ?", en: "What do I do?" }; });
 STORY.beats.find(b => b.id === "clarisse_hall").choices[1].label = { fr: "Dire que ça ne me regarde pas", en: "Say it’s none of my business" };
+
+// Friday decides how it ends: stopping the plan, or letting it go ahead (and whether the player filmed)
+const fri = STORY.beats.find(b => b.id === "friday");
+fri.choices[0].flags = ["filmed"]; fri.choices[1].flags = ["silent"];
+fri.choices[3].flags = ["planStopped"]; fri.choices[4].flags = ["planStopped"];
+
+// Clarisse, for everyone: alone near the lockers after being mocked. The player can listen, tell her to leave Echo alone, laugh with the others, or ignore her.
+// If the player listens, she opens up (next scene), and it comes back later: her messages in her plan, and the ending.
+const clar = STORY.beats.find(b => b.id === "clarisse");
+clar.if = undefined; clar.alone = undefined; clar.moodLines = undefined; clar.moodText = undefined;
+clar.text = { fr: "Dans le couloir, Clarisse est seule près des casiers. Quelqu’un vient de se moquer de ses vêtements : sa famille n’a pas d’argent, et à La Serre on le lui fait payer. Tu peux aller vers elle, ou pas.", en: "In the hallway, Clarisse is alone by the lockers. Someone just made fun of her clothes: her family has no money, and in La Serre they make her pay for it. You can go to her, or not." };
+clar.prompt = { fr: "Qu’est-ce que je fais ?", en: "What do I do?" };
+clar.choices = [
+  { label: { fr: "L’écouter sans juger", en: "Listen without judging" }, harass: 0, passive: 0, help: 1, bond: 0, flags: ["clarisseListened"],
+    journal: { fr: "Je suis allé·e vers Clarisse et je l’ai laissée parler.", en: "I went to Clarisse and let her talk." } },
+  { label: { fr: "Lui dire de laisser Echo tranquille", en: "Tell her to leave Echo alone" }, harass: 0, passive: 0, help: 1, bond: 1, flags: ["clarisseToldStop"],
+    journal: { fr: "J’ai dit à Clarisse de laisser Echo tranquille. Elle m’a regardé·e, sans répondre.", en: "I told Clarisse to leave Echo alone. She looked at me without answering." } },
+  { label: { fr: "Rire avec les autres", en: "Laugh with the others" }, harass: 2, passive: 0, help: 0, bond: -1, flags: ["clarisseMocked"],
+    journal: { fr: "J’ai ri avec les autres de Clarisse. Sur le coup c’était facile. Elle m’a vu·e.", en: "I laughed at Clarisse with the others. At the time it was easy. She saw me." } },
+  { label: { fr: "L’ignorer", en: "Ignore her" }, harass: 0, passive: 1, help: 0, bond: 0,
+    journal: { fr: "J’ai fait comme si je ne voyais pas Clarisse.", en: "I acted like I didn’t see Clarisse." } },
+];
+STORY.beats.push({
+  id: "clarisse_talk",
+  title: { fr: "Clarisse se confie", en: "Clarisse opens up" },
+  text: { fr: "Clarisse se confie : chez elle, l’argent manque, et à La Serre on se moque d’elle pour ça. Alors elle s’en prend à Echo, comme si ça pouvait lui ouvrir la porte.", en: "Clarisse opens up: at home there’s no money, and in La Serre they mock her for it. So she goes after Echo, as if that could open the door for her." },
+  prompt: { fr: "Qu’est-ce que je fais ?", en: "What do I do?" },
+  if: { anyFlag: ["clarisseListened"] },
+  choices: [
+    { label: { fr: "Lui dire que ce n’est pas la faute d’Echo", en: "Tell her it’s not Echo’s fault" }, harass: 0, passive: 0, help: 1, bond: 1, flags: ["clarisseToldStop"],
+      journal: { fr: "J’ai dit à Clarisse que ce n’était pas la faute d’Echo.", en: "I told Clarisse it wasn’t Echo’s fault." } },
+    { label: { fr: "Lui dire que ça n’excuse pas ce qu’elle fait", en: "Tell her it doesn’t excuse what she does" }, harass: 0, passive: 0, help: 1, bond: 0, flags: ["clarisseToldStop"],
+      journal: { fr: "J’ai dit à Clarisse que je comprenais, mais que ça n’excusait rien.", en: "I told Clarisse I understood, but that it didn’t excuse anything." } },
+    { label: { fr: "Juste rester avec elle", en: "Just stay with her" }, harass: 0, passive: 0, help: 0, bond: 0,
+      journal: { fr: "Je suis resté·e avec Clarisse, sans rien dire de plus.", en: "I stayed with Clarisse, without saying more." } },
+  ],
+  journal: { fr: "", en: "" },
+  line: THOUGHTS.clarisse_talk,   // the inner voice, like every other scene
+});
 
 // The red thread: the scenes the game plays, in order. The other scenes stay written in this file but are not played.
 // (To play one again, add its id here, in the right place.)
-const SPINE = ["arrival", "hello", "lunch", "evening", "lesson", "door", "echo_roof", "labels", "wipe", "echo_hall", "clarisse", "clarisse_hall", "turnoff", "origins", "echo_altaya", "night", "friday"];   // a scene with an `if` is only played when its condition holds
+// The night before the plan: first I choose who to write to (or switch the phone off), then I answer in that conversation
+const nightB = STORY.beats.find(b => b.id === "night");
+nightB.text = { fr: "Tu es dans ton lit, le téléphone allumé dans le noir. Demain, après les cours, le plan de Clarisse contre Echo.", en: "You’re in bed, the phone lit in the dark. Tomorrow, after class, Clarisse’s plan against Echo." };
+nightB.choices = [
+  { label: { fr: "Écrire à Echo", en: "Write to Echo" }, harass: 0, passive: 0, help: 0, bond: 0, flag: "nightEcho", kind: "action",
+    journal: { fr: "J’ai ouvert la conversation avec Echo.", en: "I opened the conversation with Echo." } },
+  { label: { fr: "Écrire à Clarisse", en: "Write to Clarisse" }, harass: 0, passive: 0, help: 0, bond: 0, flag: "nightClarisse", kind: "action",
+    journal: { fr: "J’ai ouvert la conversation avec Clarisse.", en: "I opened the conversation with Clarisse." } },
+  { label: { fr: "Éteindre le téléphone", en: "Switch the phone off" }, harass: 0, passive: 1, help: 0, bond: 0, kind: "ignore",
+    journal: { fr: "J’ai éteint mon téléphone. Le silence m’a fait plus peur que les messages.", en: "I switched my phone off. The silence scared me more than the messages." } },
+];
+delete INTERACT.night;
+const nightEcho = { ...nightB, id: "night_echo", if: { anyFlag: ["nightEcho"] }, chat: { thread: "echo", readyAt: 3500 },
+  line: nightB.line,
+  choices: [
+    { label: { fr: "Écrire mes mots", en: "Write my own words" }, harass: 0, passive: 0, help: 1, bond: 1, kind: "write",
+      journal: { fr: "J’ai écrit à Echo. Les mots ont mis longtemps à sortir, mais ils sont partis.", en: "I wrote to Echo. The words took a long time to come out, but they went." } },
+    { label: { fr: "Je suis là, Echo.", en: "I’m here, Echo." }, harass: 0, passive: 0, help: 1, bond: 1, kind: "reply",
+      journal: { fr: "J’ai écrit à Echo que j’étais là.", en: "I wrote to Echo that I was there." } },
+    { label: { fr: "Demain, reste loin du toit.", en: "Tomorrow, stay away from the roof." }, harass: 0, passive: 0, help: 2, bond: 2, flag: "warnedEcho", kind: "reply",
+      journal: { fr: "J’ai dit à Echo de rester loin du toit demain. Je n’ai pas tout expliqué, mais j’ai prévenu.", en: "I told Echo to stay away from the roof tomorrow. I didn’t explain everything, but I warned." } },
+  ] };
+const nightClar = { ...nightB, id: "night_clarisse", if: { anyFlag: ["nightClarisse"] }, chat: { thread: "private", readyAt: 3500 },
+  line: nightB.line,
+  choices: [
+    { label: { fr: "Arrête, s’il te plaît.", en: "Please stop." }, harass: 0, passive: 0, help: 1, bond: 0, flag: "talkedClarisse", kind: "reply",
+      journal: { fr: "J’ai demandé à Clarisse d’arrêter. Elle a lu, puis elle a répondu à peine.", en: "I asked Clarisse to stop. She read it and barely answered." } },
+    { label: { fr: "Je ne viendrai pas demain.", en: "I won’t come tomorrow." }, harass: 0, passive: 0, help: 1, bond: 0, kind: "reply",
+      journal: { fr: "J’ai dit à Clarisse que je ne viendrais pas.", en: "I told Clarisse I wouldn’t come." } },
+    { label: { fr: "Ok, je viens.", en: "Ok, I’ll come." }, harass: 0, passive: 1, help: 0, bond: -1, kind: "reply",
+      journal: { fr: "J’ai écrit « ok, je viens ». Je ne sais pas pourquoi.", en: "I wrote “ok, I’ll come”. I don’t know why." } },
+  ] };
+nightEcho.line = { fr: "Je ne sais pas quoi écrire à Echo… mais je dois lui écrire.", en: "I don’t know what to write to Echo… but I have to write." };
+nightClar.line = { fr: "Clarisse est en ligne. Je pourrais lui écrire, lui dire de ne pas le faire.", en: "Clarisse is online. I could write to her, tell her not to do it." };
+INTERACT.night_echo = { write: 0 };
+STORY.beats.push(nightEcho, nightClar);
+
+// Evening: Sam's message, the screenshot kept as proof, a meme only to defend Echo
+eve.choices[2].journal = { fr: "J’ai fait une capture d’écran du mème. Une preuve, au cas où : pour le prof.", en: "I took a screenshot of the meme. Proof, just in case: for the teacher." };
+eve.choices[2].flag = "memeProof";
+eve.choices[2].later = { after: 3, journal: { fr: "Ma capture est toujours dans mon téléphone. Une preuve pour le prof, si un jour j’ose.", en: "My screenshot is still in my phone. Proof for the teacher, if I ever dare." } };
+const memeC = eve.choices[7];
+delete memeC.mock; delete memeC.support;
+Object.assign(memeC, { label: { fr: "Créer un mème pour défendre Echo", en: "Make a meme to defend Echo" }, help: 1, bond: 1,
+  journal: { fr: "J’ai fait un mème pour défendre Echo. Personne n’a vraiment compris, mais je l’ai posté.", en: "I made a meme to defend Echo. Nobody really got it, but I posted it." } });
+
+// Door scene: the third choice is to block the door too
+doorB.choices[2].label = { fr: "Lui barrer aussi la porte", en: "Block the door too" };
+doorB.choices[2].journal = { fr: "Je lui ai barré la porte, moi aussi. Echo a pris le choc, et moi je regarde mes mains.", en: "I blocked the door too. Echo took the hit, and I’m looking at my hands." };
+
+const SPINE = ["arrival", "hello", "lunch", "evening", "lesson", "door", "echo_roof", "labels", "wipe", "echo_hall", "clarisse", "clarisse_talk", "clarisse_hall", "turnoff", "origins", "echo_altaya", "night", "night_echo", "night_clarisse", "friday"];   // a scene with an `if` is only played when its condition holds
 STORY.beats = SPINE.map(id => STORY.beats.find(b => b.id === id)).filter(Boolean);

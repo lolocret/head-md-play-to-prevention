@@ -3,6 +3,7 @@
 // French by default; add ?lang=en to the address for English
 let french = new URLSearchParams(location.search).get("lang") !== "en";
 let state, beatIndex, finished;
+let sceneSeq = 0;   // counts the scenes played (replays included)
 const newState = () => ({ harass: 0, passive: 0, help: 0, bond: 0, flags: {}, extra: [], delayed: [] });
 let phase = "title", introIndex = 0; // title | intro | phone | world | dialog | ending
 let player = { name: "" };   // the name is typed on the phone when the player logs in to Nexus
@@ -41,7 +42,7 @@ function maybeStartBeat() {
   const idx = beatIndex;
   setTimeout(() => {
     if (phase === "world" && beatIndex === idx && Scene.atBeat()) {
-      phase = "dialog";
+      phase = "dialog"; sceneSeq++;   // a new number for every scene played, so the phone never takes it for an answered one
       chatReady = false; chatAnswered = false;
       const ch = STORY.beats[idx].chat;
       if (ch) setTimeout(() => { if (phase === "dialog" && beatIndex === idx) { chatReady = true; syncPhone(); } }, Nexus.readyAt(STORY.beats[idx].id));   // once every message is in
@@ -79,9 +80,13 @@ function stage() {
   return 0;
 }
 
+// The end follows what the player did to Echo, then what they did on Friday:
+//  - the gauge went to the end                    -> Echo malfunctions and is taken back to Altaya (Echo harasses nobody)
+//  - the player opened the door or spoke up       -> the plan fails, Echo stays
+//  - the player filmed, stayed quiet or left      -> the plan goes ahead, Echo is switched off and does not come back
 function endingId() {
   if (stage() >= 3) return "harass";
-  if (state.help >= STORY.helpToSucceed && state.help >= state.passive) return "help";
+  if (state.flags.planStopped) return "help";
   return "passive";
 }
 
@@ -106,6 +111,7 @@ function choose(c, text, index, stance) {
   if (c.later) state.delayed.push({ at: beatIndex + c.later.after, later: c.later, done: false });
   for (const k of ["harass", "passive", "help", "bond"]) state[k] += c[k] || 0;
   if (c.flag) state.flags[c.flag] = true;
+  (c.flags || []).forEach(f => { state.flags[f] = true; });
   if (c.journal) state.extra.push({ beat: beatIndex, text: text && c.kind === "meme" ? { fr: c.journal.fr + " « " + text + " »", en: c.journal.en + " “" + text + "”" } : c.journal });
   if (text && c.kind !== "meme") state.extra.push({ beat: beatIndex, text: { fr: `J’ai écrit à Echo : « ${text} »`, en: `I wrote to Echo: “${text}”` } });   // her own words go in the journal
   if (chat) {                                            // stay in the conversation a moment: the others answer, then the story goes on
@@ -120,7 +126,7 @@ let lastSnap = null;   // the state at the start of the last scene (a second cha
 function retryLastScene() {
   if (!lastSnap) return;
   state = JSON.parse(JSON.stringify(lastSnap.state));
-  beatIndex = lastSnap.beatIndex; finished = false; phase = "dialog";
+  beatIndex = lastSnap.beatIndex; finished = false; phase = "dialog"; sceneSeq++;
   Nexus.reset(); Nexus.beat(STORY.beats[beatIndex].id);
   render();
 }
@@ -139,7 +145,7 @@ function phoneState() {
     const beat = STORY.beats[beatIndex];
     const alone = beat.alone && state.bond < STORY.bondToUnlock;
     const choices = alone ? (beat.alone.choices || []) : beat.choices;
-    const token = "b" + beatIndex;
+    const token = "b" + beatIndex + "." + sceneSeq;
     if (beat.chat) {                                   // the player is in the conversation and acts in it
       const thread = beat.chat.thread;
       const base = { mode: "choose", ui: "chat", token, thread, threadName: NEXUS.threads[thread], place, prompt: empty, ready: chatReady, answered: chatAnswered };
@@ -240,6 +246,7 @@ function renderScreen() {
   const inGame = phase === "world" || phase === "dialog" || phase === "ending";
   document.body.classList.toggle("pre-game", !inGame);   // before the game starts, no place is shown behind the pages
   $("main").hidden = phase !== "intro" && phase !== "phone";   // the pages before the game
+  $("main").classList.toggle("phoneStep", phase === "phone");   // the "take your phone" page: QR code on the left, text on the right
   $("screenText").hidden = !inGame;                                                 // in the game: the story line, at the bottom of the screen
   $("storyLine").textContent = "";
   $("echoCard").hidden = true; document.body.classList.remove("ended");
@@ -273,7 +280,7 @@ function renderTitle() {
 // The introduction is over: the story waits for the player to open Nexus on the phone
 function renderPhoneWait() {
   $("title").textContent = "";
-  $("body").textContent = french ? "Prends ton téléphone : connecte-toi à Nexus." : "Take your phone: log in to Nexus.";
+  $("body").textContent = french ? "Prends ton téléphone\nconnecte-toi à Nexus." : "Take your phone\nlog in to Nexus.";
   renderLink();
 }
 
@@ -300,6 +307,16 @@ function renderIntro() {
   $("main").classList.remove("turn"); void $("main").offsetWidth; $("main").classList.add("turn");   // the text rises in at every page
 }
 
+// The ending text, with a line that depends on what the player did
+function endingText(e) {
+  let t = L(e.text);
+  if (e.id === "passive") t += " " + L(state.flags.filmed ? ENDING_EXTRAS.filmed : ENDING_EXTRAS.notFilmed);
+  if (e.id === "help" && state.bond >= STORY.bondToUnlock) t += " " + L(ENDING_EXTRAS.altaya);
+  if (e.id === "help" && (state.flags.clarisseListened || state.flags.clarisseToldStop)) t += " " + L(ENDING_EXTRAS.clarisse);
+  if (e.id === "passive" && state.flags.clarisseMocked) t += " " + L(ENDING_EXTRAS.clarisseMocked);
+  return t;
+}
+
 // The end: a quiet page: how it ended for Echo, in a few words, and how their flowers are
 function renderEnding() {
   const e = STORY.endings.find(x => x.id === endingId()) || STORY.endings[0], st = stage();
@@ -312,8 +329,8 @@ function renderEnding() {
   const row = (label, v, word) => { const r = el("div", "en-row"); const m = el("div", "en-line"); const i = el("i"); i.style.width = Math.round(Math.max(0, Math.min(1, v)) * 100) + "%"; m.appendChild(i); r.append(el("span", "en-label", label), m, el("span", "en-word", word)); return r; };
   const bond = state.bond >= STORY.bondToUnlock ? (french ? "fort" : "strong") : state.bond >= 1 ? (french ? "fragile" : "fragile") : (french ? "absent" : "none");
   const rows = el("div", "en-rows");
-  rows.append(row(french ? "Notre lien" : "Our bond", state.bond / (STORY.bondToUnlock * 2), bond), row(french ? "Jauge d’Echo" : "Echo’s gauge", state.harass / Math.max(1, STORY.harassStage3), L(STORY.stages[st])));
-  card.append(el("p", "en-kicker", french ? "Fin" : "The end"), el("h3", "", L(e.title)), el("p", "en-text", L(e.text)), flowers, rows);
+  rows.append(row(french ? "Notre lien" : "Our bond", state.bond / (STORY.bondToUnlock * 2), bond), row(french ? "État d’Echo" : "Echo’s state", echoHealth(), L(STORY.stages[st])));
+  card.append(el("p", "en-kicker", french ? "Fin" : "The end"), el("h3", "", L(e.title)), el("p", "en-text", endingText(e)), flowers, rows);
   if (shared.length) {   // what the class sent anonymously
     const box = el("div", "sharedBox"); box.appendChild(el("h4", "", french ? "Réponses anonymes de la classe" : "Anonymous answers from the class"));
     shared.slice(0, 4).forEach(x => { const q = el("blockquote"); q.append(el("small", "", x.q), document.createTextNode(x.text)); box.appendChild(q); });
@@ -322,9 +339,12 @@ function renderEnding() {
 }
 
 // Gauge: a flower in bloom on the left, a wilted one on the right, the bar between them (green -> orange -> red)
+// Echo's state: 1 = fine (full gauge), 0 = the most harassed Echo can take
+const echoHealth = () => 1 - Math.min(1, state.harass / Math.max(1, STORY.harassStage3));
+
 function updateGauge() {
-  const v = Math.min(1, state.harass / Math.max(1, STORY.harassStage3));
-  const color = `hsl(${130 - 130 * v}, 75%, 50%)`;
+  const v = echoHealth();                         // full at the start, it goes down as Echo is harassed
+  const color = `hsl(${130 * v}, 75%, 50%)`;
   $("gaugeFill").style.width = (v * 100) + "%";
   $("gaugeFill").style.background = color;
   $("gFlowerOpen").innerHTML = Flower.svg(bloomValue(), 40);   // one flower that evolves: it blooms with the bond, droops with the hurt
@@ -369,7 +389,7 @@ Scene.init($("scene"));   // nothing is drawn yet: the pictures load first (see 
     if (!info) { noServer = true; $("qr").hidden = true; $("qrBox").hidden = false; $("qrText").textContent = french ? "Il faut le serveur : lance « npm start » (dossier server), puis ouvre http://localhost:3000." : "The server is needed: run “npm start” (server folder), then open http://localhost:3000."; return; }
     qrShown = true;
     $("qr").innerHTML = "";
-    new QRCode($("qr"), { text: info.url, width: 220, height: 220, colorDark: "#0a0a1c", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
+    new QRCode($("qr"), { text: info.url, width: 440, height: 440, colorDark: "#0a0a1c", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
     $("qrUrl").textContent = info.url.replace(/^https?:\/\//, "");
     renderLink();
   });

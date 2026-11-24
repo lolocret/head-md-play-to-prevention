@@ -260,6 +260,7 @@ section { min-height:0; }
 .thumb.on { border-color:var(--cyan); }
 .memebox input { height:46px; padding:0 14px; font:inherit; font-size:16px; color:#fff; background:rgba(0,0,0,.45); border:1px solid var(--line); border-radius:12px; }
 .memebox input:focus { outline:0; border-color:var(--cyan); }
+#memeTone[hidden] { display:none !important; }
 #memeTone { display:flex; gap:8px; } #memeTone button { flex:1; min-height:46px; font-size:14px; padding:6px 8px; }
 #memeTone button.on { border-color:var(--pink); background:rgba(255,79,195,.22); }
 .memeBtns { display:flex; gap:8px; } .memeBtns button { flex:1; } #memePost { border-color:var(--cyan); background:rgba(77,240,255,.18); }
@@ -507,3 +508,51 @@ html #viewBar h2 { color:#b9b4d4; }
 html .prompt.feel .feelChip { border-color:rgba(255,255,255,.2); }
 
 body.pre-game #scene { transition:none; }   /* before the game the places never flash behind the title */
+
+/* the "take your phone" page: a big QR code on the left, the text centered on the right */
+html.role-screen #main.phoneStep { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr; align-items:center; justify-items:center; column-gap:6vw; padding:6dvh 6vw; text-align:center; }
+html.role-screen #main.phoneStep > * { max-width:none; width:auto; }
+html.role-screen #main.phoneStep #qrBox { grid-column:1; grid-row:1; margin:0; display:flex; flex-direction:column; align-items:center; }
+html.role-screen #main.phoneStep #qr { width:min(44dvh, 28vw); padding:14px; border-radius:22px; }
+html.role-screen #main.phoneStep #qrText { margin-top:24px; font-size:clamp(16px, 1.6vw, 22px); }
+html.role-screen #main.phoneStep #title, html.role-screen #main.phoneStep #body, html.role-screen #main.phoneStep #prompt, html.role-screen #main.phoneStep #choices { grid-column:2; grid-row:1; }
+html.role-screen #main.phoneStep #body { font-size:clamp(28px, 3.4vw, 52px); line-height:1.25; font-family:"Bodoni Moda", "Didot", serif; font-weight:700; max-width:14em; }
+html.role-screen #main.phoneStep #qrUrl { max-width:38vw; }
+
+/* the drawn phone (turns slowly) above the text, next to the big QR code */
+.phone3d { display:none; perspective:900px; }
+html.role-screen #main.phoneStep { grid-template-rows:auto auto; align-content:center; row-gap:3.5dvh; }
+html.role-screen #main.phoneStep .phone3d { display:block; grid-column:2; grid-row:1; align-self:end; }
+html.role-screen #main.phoneStep #qrBox { grid-row:1 / span 2; }
+html.role-screen #main.phoneStep #title, html.role-screen #main.phoneStep #body, html.role-screen #main.phoneStep #prompt, html.role-screen #main.phoneStep #choices { grid-row:2; align-self:start; }
+.phone { position:relative; width:clamp(120px, 11vw, 170px); aspect-ratio:1 / 2; border-radius:28px; border:3px solid rgba(255,255,255,.6); background:linear-gradient(160deg, #1d1b30, #0a0914);
+  box-shadow:0 24px 50px rgba(0,0,0,.55), inset 0 0 0 5px rgba(255,255,255,.04); transform-style:preserve-3d; animation:phoneturn 7s ease-in-out infinite; }
+@keyframes phoneturn { 0%,100% { transform:rotateY(-26deg) rotateX(6deg); } 50% { transform:rotateY(26deg) rotateX(-3deg); } }
+.phone .notch { position:absolute; top:9px; left:50%; width:34%; height:6px; margin-left:-17%; border-radius:4px; background:rgba(255,255,255,.18); }
+.phone .screen { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; }
+.phone .logo { font-size:clamp(13px, 1.2vw, 18px); letter-spacing:.4em; padding-left:.4em; color:#f1ecff; }
+.phone .loadbar { width:46%; height:3px; border-radius:2px; background:rgba(255,255,255,.14); overflow:hidden; }
+.phone .loadbar i { display:block; height:100%; width:40%; background:#fff; animation:phoneload 1.6s ease-in-out infinite; }
+@keyframes phoneload { 0% { transform:translateX(-100%); } 100% { transform:translateX(260%); } }
+@media (prefers-reduced-motion: reduce) { .phone, .phone .loadbar i { animation:none; } }
+
+/* the laugh: the "HA" pile up on top of each other */
+.haLayer { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.haPop { position:absolute; transform:translate(-50%,-50%) rotate(var(--r, 0deg)); font:900 64px/1 "Bodoni Moda", "Didot", serif; letter-spacing:.04em; color:#fff; white-space:nowrap; animation:haIn .18s ease-out; }
+@keyframes haIn { from { transform:translate(-50%,-50%) rotate(var(--r, 0deg)) scale(1.7); opacity:0; } }
+html .choice.bigtile, html .laughBtn { position:relative; overflow:hidden; }
+html .choice.bigtile { justify-content:flex-end !important; padding:0 12px 14px !important; }
+html .choice.bigtile small { position:relative; text-align:center; }
+
+/* answers: always centered in their box, and sized in proportion to the box */
+html.role-phone #choiceView.emojiMode .choice:not(.emoji):not(.bigtile) { container-type:size; align-items:center; justify-content:center; text-align:center; padding:0 18px; font-size:clamp(17px, min(28cqh, 7.5cqw), 30px); line-height:1.2; }
+html.role-phone #choiceView.emojiMode .choice:not(.emoji):not(.bigtile) small { font-size:clamp(11px, 14cqh, 14px); text-align:center; }
+
+/* The browser's autofill turns the name field yellow: keep it white */
+#gate input:-webkit-autofill, #gate input:-webkit-autofill:hover, #gate input:-webkit-autofill:focus,
+#profile input:-webkit-autofill, #profile input:-webkit-autofill:hover, #profile input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 100px #fff inset !important; box-shadow: 0 0 0 100px #fff inset !important;
+  -webkit-text-fill-color: #1c1c1e !important; caret-color: #1c1c1e; transition: background-color 9999s ease-out 0s;
+}
+html.role-phone #nameInput, html.role-phone #nameInput:focus { background:#fff; color:#1c1c1e; caret-color:#1c1c1e; }
+html.role-phone #nameInput::placeholder { color:rgba(60,60,67,.4); }
