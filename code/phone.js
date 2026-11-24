@@ -48,7 +48,7 @@ const TXT = {
   feelOther: { fr: "Ce que j’aurais voulu faire ou dire…", en: "What I would have wanted to do or say…" },
   noteBtn: { fr: "Ajouter ma note", en: "Add my note" },
   notePh: { fr: "Ça me rappelle… / ce que je ressens…", en: "It reminds me of… / what I feel…" },
-  qIntro: { fr: "Ces questions sont pour la classe. Tu peux envoyer ta réponse anonymement : personne ne saura que c’est toi, et on en parlera ensemble. Ou la garder pour toi.", en: "These questions are for the class. You can send your answer anonymously: nobody will know it’s you, and we’ll talk about it together. Or keep it to yourself." },
+  qIntro: { fr: "Ces questions sont pour la classe. Tu peux envoyer ta réponse anonymement, personne ne saura que c’est toi, et on en parlera ensemble. Ou la garder pour toi.", en: "These questions are for the class. You can send your answer anonymously, nobody will know it’s you, and we’ll talk about it together. Or keep it to yourself." },
   qSend: { fr: "Envoyer anonymement", en: "Send anonymously" },
   qKeep: { fr: "Garder pour moi", en: "Keep it to myself" },
   qSent: { fr: "✓ Envoyée anonymement", en: "✓ Sent anonymously" },
@@ -105,7 +105,7 @@ const send = m => Link.send(m);
 
 function startCall() {
   $("app").classList.remove("on-gate");   // the small NEXUS bar appears once the welcome screen is gone
-  $("gate").hidden = true;
+  $("gate").hidden = true; document.body.classList.add("phone-in");   // the flower of Echo's state shows once logged in
   show("choice"); renderGame();
 }
 
@@ -246,12 +246,31 @@ function renderGame() {
   if (game.token === "end") return;   // the end: no buttons here, the journal is the screen (replay is a long press there)
   if (game.mode === "choose") {
     if (answered === game.token) { stopTimer(); waitPanel(list); return; }   // already answered: just wait (no question shown)
-    $("choicePrompt").textContent = game.prompt ? pick(game.prompt) : "";
+    $("choicePrompt").textContent = "";   // the question stays in the thought on the computer screen
     const token = game.token;
     if (game.mech && MECH[game.mech]) { stopTimer(); stopMech(); mechFor = token; MECH[game.mech](list, token); return; }
     list.classList.toggle("emojis", !!game.emoji);   // scene 1: four faces
     game.choices.forEach((c, i) => {
       const b = document.createElement("button"); b.className = game.emoji ? "choice emoji" : "choice";
+      if (game.icons && game.icons[i]) {   // a big emoji with its caption (looking away: a pair of eyes)
+        b.classList.add("bigtile", "iconTile");
+        const ic = document.createElement("span"); ic.className = "bigIcon"; ic.textContent = game.icons[i];
+        const cap = document.createElement("small"); cap.textContent = pick(c); b.append(ic, cap);
+        b.onclick = () => answerChoice(token, i);
+        list.appendChild(b); return;
+      }
+      if (game.big && game.big[i] === "PFF") {   // "pfff": every tap adds an "f" (a few at most), sent a moment after the last tap
+        b.classList.add("bigtile", "pffTile");
+        const word = document.createElement("span"); word.className = "bigIcon pffWord"; let k = 2; word.textContent = "pf" + "f".repeat(k - 1);
+        const cap = document.createElement("small"); cap.textContent = pick(c); b.append(word, cap);
+        let t = null;
+        b.onclick = () => {
+          if (k < 8) { k++; word.textContent = "p" + "f".repeat(k); }
+          buzz(15); b.classList.remove("tapped"); void b.offsetWidth; b.classList.add("tapped");
+          clearTimeout(t); t = setTimeout(() => answerChoice(token, i), 900);
+        };
+        list.appendChild(b); return;
+      }
       if (game.big && game.big[i]) {   // the laugh: a big tile, one more "HA" at every tap; the laugh is sent a moment after the last tap
         b.classList.add("bigtile");
         const addHA = haLayer(b); addHA();   // one "HA" is already written
@@ -302,10 +321,9 @@ function waitPanel(list) {
 const MECH = {
   // The class laughs: tap to join in (a "HA" for every tap, no time limit), or say no
   laugh(list, token) {
-    list.innerHTML = `<div class="crowd"><span>${french ? "Les autres rient…" : "The others are laughing…"}</span></div>
-      <button class="laughBtn" id="laughBtn" type="button"></button>
-      <button class="choice" id="noLaugh" type="button"></button>`;
-    $("noLaugh").textContent = pick(game.choices[1]);
+    list.innerHTML = `<button class="laughBtn" id="laughBtn" type="button"></button>
+      <button class="choice bigtile iconTile" id="noLaugh" type="button"><span class="bigIcon" id="noIcon">🤐</span><small id="noCap"></small></button>`;
+    $("noCap").textContent = pick(game.choices[1]);
     const addHA = haLayer($("laughBtn")); addHA();   // one "HA" is already written
     let taps = 1, done = false, t = null;
     const finish = i => { if (done) return; done = true; clearTimeout(t); answerChoice(token, i); };
@@ -315,7 +333,14 @@ const MECH = {
       buzz(15); $("laughBtn").classList.remove("pop"); void $("laughBtn").offsetWidth; $("laughBtn").classList.add("pop");
       clearTimeout(t); t = setTimeout(() => finish(0), 900);   // the laugh is sent a moment after the last tap
     };
-    $("noLaugh").onclick = () => finish(1);
+    let squeeze = 0;   // "no": the closed mouth grows with every tap, then the answer is sent
+    $("noLaugh").onclick = () => {
+      if (done) return;
+      if (squeeze < 5) squeeze++;
+      $("noIcon").style.fontSize = (64 + squeeze * 16) + "px";
+      buzz(15); $("noLaugh").classList.remove("tapped"); void $("noLaugh").offsetWidth; $("noLaugh").classList.add("tapped");
+      clearTimeout(t); t = setTimeout(() => finish(1), 900);
+    };
     mechStops.push(() => clearTimeout(t));
   },
 
@@ -367,7 +392,7 @@ const MECH = {
   // Insults appear on Echo's back: tap them to wipe them off before they stay
   wipe(list, token) {
     const secs = game.seconds || 8, words = game.words || [];
-    list.innerHTML = `<div class="wipeInfo"><span id="wipeCount"></span></div><div class="wipeArea" id="wipeArea"></div>`;
+    list.innerHTML = `<div class="wipeInfo"><span class="wipeHint">${french ? "Touche les mots pour les effacer" : "Tap the words to wipe them off"}</span><span id="wipeCount"></span></div><div class="wipeArea" id="wipeArea"></div>`;
     const area = $("wipeArea"); let spawned = 0, erased = 0, over = false;
     const total = Math.max(1, Math.floor(secs * 1000 / 650));
     const count = () => { $("wipeCount").textContent = erased + " / " + total; };
@@ -488,7 +513,7 @@ function renderThread() {
 const MEME_BGS = ["images/classe.png", "images/couloir.png", "images/toit.png"];
 function openMemeMaker(index) {
   const box = $("memeMaker"), cv = $("memeCanvas"), g = cv.getContext("2d");
-  let bg = MEME_BGS[0], tone = "support", mine = null;   // mine: a picture imported from the phone
+  let bg = MEME_BGS[0], tone = "mock", mine = null;   // mine: a picture imported from the phone
   $("memeTitle").textContent = T("memeTitle");
   $("memeTop").placeholder = T("memeTop"); $("memeBottom").placeholder = T("memeBottom");
   $("memeTop").value = ""; $("memeBottom").value = "";
@@ -595,9 +620,8 @@ function renderJournal() {
     const ta = document.createElement("textarea"); ta.placeholder = T("write"); ta.value = saved[q.id] || "";
     const grow = () => { ta.style.height = "auto"; ta.style.height = Math.max(130, ta.scrollHeight) + "px"; };
     const foot = document.createElement("div"); foot.className = "foot";
-    const note = document.createElement("span"); note.textContent = T("stays");
     const ok = document.createElement("span"); ok.className = "ok"; ok.textContent = "✓ " + T("saved");
-    foot.append(note, ok);
+    foot.append(ok);
     // send it anonymously to the class, or keep it to myself
     const acts = document.createElement("div"); acts.className = "qActs";
     const sendB = document.createElement("button"); sendB.type = "button"; sendB.className = "qSend";

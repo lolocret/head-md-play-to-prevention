@@ -25,12 +25,12 @@ const STORY = {
     }
   ],
   "loreUnlocked": {
-    "fr": "Ton lien avec Echo est assez fort : l’histoire d’Echo s’ouvre.",
-    "en": "Your bond with Echo is strong enough: Echo’s story opens."
+    "fr": "Ton lien avec Echo est assez fort, l’histoire d’Echo s’ouvre.",
+    "en": "Your bond with Echo is strong enough. Echo’s story opens."
   },
   "loreClosed": {
-    "fr": "Ton lien avec Echo est trop faible : l’histoire d’Echo reste fermée.",
-    "en": "Your bond with Echo is too weak: Echo’s story stays closed."
+    "fr": "Ton lien avec Echo est trop faible, l’histoire d’Echo reste fermée.",
+    "en": "Your bond with Echo is too weak. Echo’s story stays closed."
   },
   "beats": [
     {
@@ -169,8 +169,8 @@ const STORY = {
         "en": "Echo held out a hand and it went right through the other kid’s. Echo’s flowers opened by themselves, as if it hurt. In the class there was a silence, then laughter."
       },
       "line": {
-        "fr": "Echo tend la main à un élève : elle la traverse. Des rires.",
-        "en": "Echo holds out a hand to a student: it goes right through. Laughter."
+        "fr": "Echo tend la main à un élève, elle la traverse. Des rires.",
+        "en": "Echo holds out a hand to a student, it goes right through. Laughter."
       }
     },
     {
@@ -247,8 +247,8 @@ const STORY = {
         "en": "That same evening"
       },
       "text": {
-        "fr": "0h12 : la vidéo est publiée dans le groupe de classe « 3B ». Commentaires : « tu n’es même pas réel », « faux », « tes émotions sont des fictions ». 0h30 : un mème circule, où on voit en boucle la main du garçon traverser Echo, avec la légende « Get out of here, you’re not even real ». 1h05 : un groupe « Humains de 3B uniquement » est créé, sans Echo.",
-        "en": "0:12: the video is posted in the class group “3B”. Comments: “you’re not even real”, “fake”, “your emotions are fictions”. 0:30: a meme circulates, showing the boy’s hand going through Echo in a loop, captioned “Get out of here, you’re not even real”. 1:05: a group “Humans of 3B only” is created, without Echo."
+        "fr": "0h12, la vidéo est publiée dans le groupe de classe « 3B ». Commentaires, « tu n’es même pas réel », « faux », « tes émotions sont des fictions ». 0h30, un mème circule, où on voit en boucle la main du garçon traverser Echo, avec la légende « Get out of here, you’re not even real ». 1h05, un groupe « Humains de 3B uniquement » est créé, sans Echo.",
+        "en": "0:12, the video is posted in the class group “3B”. Comments, “you’re not even real”, “fake”, “your emotions are fictions”. 0:30, a meme circulates, showing the boy’s hand going through Echo in a loop, captioned “Get out of here, you’re not even real”. 1:05: a group “Humans of 3B only” is created, without Echo."
       },
       "prompt": {
         "fr": "",
@@ -296,8 +296,8 @@ const STORY = {
           "kind": "react",
           "msg": "meme",
           "journal": {
-            "fr": "J’ai signalé le mème. Une réponse automatique est arrivée : « Message reçu. »",
-            "en": "I reported the meme. An automatic answer came: “Message received.”"
+            "fr": "J’ai signalé le mème. Une réponse automatique est arrivée, « Message reçu. »",
+            "en": "I reported the meme. An automatic answer came, “Message received.”"
           }
         },
         {
@@ -541,8 +541,8 @@ const STORY = {
         "en": ""
       },
       "line": {
-        "fr": "Kovasko range ses affaires : « Tout va bien en classe, {name} ? »",
-        "en": "Kovasko packs his things: “Is everything okay in class, {name}?”"
+        "fr": "Kovasko range ses affaires, « Tout va bien en classe, {name} ? »",
+        "en": "Kovasko packs his things, “Is everything okay in class, {name}?”"
       }
     },
     {
@@ -552,8 +552,8 @@ const STORY = {
         "en": "Kovasko’s class"
       },
       "text": {
-        "fr": "Kovasko parle du respect et de la diversité. Clarisse lève la main : « Monsieur, est-ce qu’Echo a le droit de voter ? » Des rires. Kovasko sourit sans comprendre et reprend son cours. Echo regarde son bureau, les fleurs refermées.",
-        "en": "Kovasko talks about respect and diversity. Clarisse raises a hand: “Sir, is Echo allowed to vote?” Laughter. Kovasko smiles without understanding and goes on with his lesson. Echo looks at the desk, flowers closed."
+        "fr": "Kovasko parle du respect et de la diversité. Clarisse lève la main, « Monsieur, est-ce qu’Echo a le droit de voter ? » Des rires. Kovasko sourit sans comprendre et reprend son cours. Echo regarde son bureau, les fleurs refermées.",
+        "en": "Kovasko talks about respect and diversity. Clarisse raises a hand, “Sir, is Echo allowed to vote?” Laughter. Kovasko smiles without understanding and goes on with his lesson. Echo looks at the desk, flowers closed."
       },
       "prompt": {
         "fr": "",
@@ -621,8 +621,8 @@ const STORY = {
         "en": ""
       },
       "line": {
-        "fr": "Kovasko parle de respect. Clarisse lance : « Echo a le droit de voter ? » Rires.",
-        "en": "Kovasko talks about respect. Clarisse calls out: “Is Echo allowed to vote?” Laughter."
+        "fr": "Kovasko parle de respect. Clarisse lance, « Echo a le droit de voter ? » Rires.",
+        "en": "Kovasko talks about respect. Clarisse calls out, “Is Echo allowed to vote?” Laughter."
       }
     },
     {
@@ -632,8 +632,8 @@ const STORY = {
         "en": "La Serre’s door"
       },
       "text": {
-        "fr": "À la récréation, les élèves montent sur le toit, vers La Serre, leur lieu de rendez-vous. Echo les suit. Devant la porte, un élève lui barre le passage : « C’est réservé aux vrais. » Echo tente d’entrer malgré tout. Clarisse n’a pas accès à La Serre non plus. Moquée pour sa pauvreté, elle harcèle Echo dans l’espoir de s’y faire une place.",
-        "en": "At break, the students head up to the roof, to La Serre, their meeting place. Echo follows them. In front of the door, a student blocks the way: “It’s reserved for the real ones.” Echo tries to enter anyway. Clarisse has no access to La Serre either. Mocked for her poverty, she harasses Echo hoping to make a place for herself there."
+        "fr": "À la récréation, les élèves montent sur le toit, vers La Serre, leur lieu de rendez-vous. Echo les suit. Devant la porte, un élève lui barre le passage, « C’est réservé aux vrais. » Echo tente d’entrer malgré tout. Clarisse n’a pas accès à La Serre non plus. Moquée pour sa pauvreté, elle harcèle Echo dans l’espoir de s’y faire une place.",
+        "en": "At break, the students head up to the roof, to La Serre, their meeting place. Echo follows them. In front of the door, a student blocks the way, “It’s reserved for the real ones.” Echo tries to enter anyway. Clarisse has no access to La Serre either. Mocked for her poverty, she harasses Echo hoping to make a place for herself there."
       },
       "prompt": {
         "fr": "",
@@ -688,8 +688,8 @@ const STORY = {
         "en": "“Reserved for the real ones.” Echo just stood there in front of the door. What does being real even mean? Echo’s emotions looked pretty real to me."
       },
       "line": {
-        "fr": "À la récré, les élèves montent sur le toit, vers La Serre. Echo nous suit. Un élève lui barre la porte : « Réservé aux vrais. »",
-        "en": "At break, the students head up to the roof, to La Serre. Echo follows us. A student blocks the door: “Reserved for the real ones.”"
+        "fr": "À la récré, les élèves montent sur le toit, vers La Serre. Echo nous suit. Un élève lui barre la porte, « Réservé aux vrais. »",
+        "en": "At break, the students head up to the roof, to La Serre. Echo follows us. A student blocks the door, “Reserved for the real ones.”"
       }
     },
     {
@@ -717,8 +717,8 @@ const STORY = {
           "help": 0,
           "bond": 1,
           "journal": {
-            "fr": "J’ai demandé à Echo comment ça allait. Echo a mis longtemps à répondre, puis a dit : « Ça va aller. »",
-            "en": "I asked Echo how they were. Echo took a long time to answer, then said: “It will be okay.”"
+            "fr": "J’ai demandé à Echo comment ça allait. Echo a mis longtemps à répondre, puis a dit, « Ça va aller. »",
+            "en": "I asked Echo how they were. Echo took a long time to answer, then said, “It will be okay.”"
           }
         },
         {
@@ -770,16 +770,16 @@ const STORY = {
       },
       "moodLines": {
         "open": {
-          "fr": "Echo, au bord du toit : « Ici, personne ne me dit que je suis faux. »",
-          "en": "Echo, at the edge of the roof: “Up here, nobody tells me I’m fake.”"
+          "fr": "Echo, au bord du toit, « Ici, personne ne me dit que je suis faux. »",
+          "en": "Echo, at the edge of the roof, “Up here, nobody tells me I’m fake.”"
         },
         "neutral": {
-          "fr": "Echo, au bord du toit, te regarde sans bouger : « Tu veux quelque chose ? »",
-          "en": "Echo, at the edge of the roof, looks at you without moving: “Do you want something?”"
+          "fr": "Echo, au bord du toit, te regarde sans bouger, « Tu veux quelque chose ? »",
+          "en": "Echo, at the edge of the roof, looks at you without moving, “Do you want something?”"
         },
         "wary": {
-          "fr": "Quand tu approches, les fleurs d’Echo se ferment : « Je sais ce que tu as fait. »",
-          "en": "As you come closer, Echo’s flowers close: “I know what you did.”"
+          "fr": "Quand tu approches, les fleurs d’Echo se ferment, « Je sais ce que tu as fait. »",
+          "en": "As you come closer, Echo’s flowers close, “I know what you did.”"
         }
       }
     },
@@ -790,8 +790,8 @@ const STORY = {
         "en": "The labels"
       },
       "text": {
-        "fr": "Des élèves parviennent à pirater le système d’Echo pour faire apparaître des insultes dans son dos. Clarisse traite Echo de « voleur de vie » : selon elle, c’est à cause des holokids comme Echo que sa famille s’est appauvrie et qu’on se moque d’elle. Le paradoxe : Echo est gentil et veut seulement aider.",
-        "en": "Students manage to hack Echo’s system to make insults appear on their back. Clarisse calls Echo a “life thief”: according to her, it is because of holokids like Echo that her family became poorer and that she is mocked. The paradox: Echo is kind and only wants to help."
+        "fr": "Des élèves parviennent à pirater le système d’Echo pour faire apparaître des insultes dans son dos. Clarisse traite Echo de « voleur de vie », selon elle, c’est à cause des holokids comme Echo que sa famille s’est appauvrie et qu’on se moque d’elle. Le paradoxe. Echo est gentil et veut seulement aider.",
+        "en": "Students manage to hack Echo’s system to make insults appear on their back. Clarisse calls Echo a “life thief”, according to her, it is because of holokids like Echo that her family became poorer and that she is mocked. The paradox. Echo is kind and only wants to help."
       },
       "prompt": {
         "fr": "",
@@ -831,8 +831,8 @@ const STORY = {
           "bond": 1,
           "flag": "warnedEcho",
           "journal": {
-            "fr": "J’ai prévenu Echo. Quelqu’un m’a lancé : « T’es avec la machine, toi ? » Je n’ai pas su quoi répondre.",
-            "en": "I warned Echo. Someone called out: “Are you with the machine?” I didn’t know what to say."
+            "fr": "J’ai prévenu Echo. Quelqu’un m’a lancé, « T’es avec la machine, toi ? » Je n’ai pas su quoi répondre.",
+            "en": "I warned Echo. Someone called out, “Are you with the machine?” I didn’t know what to say."
           },
           "kind": "react",
           "msg": "insults"
@@ -921,8 +921,8 @@ const STORY = {
           "help": 1,
           "bond": 1,
           "journal": {
-            "fr": "J’ai parlé des insultes à Echo. Echo a dit : « Je les lis toutes. Elles ne disparaissent pas. »",
-            "en": "I talked to Echo about the insults. Echo said: “I read them all. They don’t go away.”"
+            "fr": "J’ai parlé des insultes à Echo. Echo a dit, « Je les lis toutes. Elles ne disparaissent pas. »",
+            "en": "I talked to Echo about the insults. Echo said, “I read them all. They don’t go away.”"
           }
         },
         {
@@ -960,12 +960,12 @@ const STORY = {
       },
       "moodLines": {
         "open": {
-          "fr": "Echo, la main contre la vitre : « Les lumières de la ville ne font pas semblant. Moi non plus. »",
-          "en": "Echo, one hand on the glass: “The city lights aren’t pretending. Neither am I.”"
+          "fr": "Echo, la main contre la vitre, « Les lumières de la ville ne font pas semblant. Moi non plus. »",
+          "en": "Echo, one hand on the glass, “The city lights aren’t pretending. Neither am I.”"
         },
         "neutral": {
-          "fr": "Echo regarde la ville par la vitre : « Tu regardes toi aussi ? »",
-          "en": "Echo looks at the city through the glass: “Are you looking too?”"
+          "fr": "Echo regarde la ville par la vitre, « Tu regardes toi aussi ? »",
+          "en": "Echo looks at the city through the glass, “Are you looking too?”"
         },
         "wary": {
           "fr": "Echo te voit et s’éloigne le long du mur, sans un mot.",
@@ -980,8 +980,8 @@ const STORY = {
         "en": "Clarisse, alone"
       },
       "text": {
-        "fr": "Dans le couloir, Clarisse est restée seule près des casiers. Quelqu’un vient de se moquer de ses vêtements. Pendant quelques secondes, elle ne ressemble pas à celle qui harcèle Echo : elle ressemble à quelqu’un qui essaie de ne pas pleurer.",
-        "en": "In the hallway, Clarisse has been left alone by the lockers. Someone just made fun of her clothes. For a few seconds, she doesn’t look like the one harassing Echo: she looks like someone trying not to cry."
+        "fr": "Dans le couloir, Clarisse est restée seule près des casiers. Quelqu’un vient de se moquer de ses vêtements. Pendant quelques secondes, elle ne ressemble pas à celle qui harcèle Echo, elle ressemble à quelqu’un qui essaie de ne pas pleurer.",
+        "en": "In the hallway, Clarisse has been left alone by the lockers. Someone just made fun of her clothes. For a few seconds, she doesn’t look like the one harassing Echo, she looks like someone trying not to cry."
       },
       "prompt": {
         "fr": "",
@@ -1049,8 +1049,8 @@ const STORY = {
         "en": "Monday"
       },
       "text": {
-        "fr": "Lundi matin. Echo est revenu·e en classe, le dos droit, comme si de rien n’était. Quelque chose a changé dans la 3B : les conversations s’arrêtent quand Echo passe, et des regards se tournent vers toi pour voir ce que tu vas faire.",
-        "en": "Monday morning. Echo is back in class, back straight, as if nothing had happened. Something has changed in 3B: conversations stop when Echo walks by, and eyes turn to you to see what you will do."
+        "fr": "Lundi matin. Echo est revenu·e en classe, le dos droit, comme si de rien n’était. Quelque chose a changé dans la 3B, les conversations s’arrêtent quand Echo passe, et des regards se tournent vers toi pour voir ce que tu vas faire.",
+        "en": "Monday morning. Echo is back in class, back straight, as if nothing had happened. Something has changed in 3B, conversations stop when Echo walks by, and eyes turn to you to see what you will do."
       },
       "prompt": {
         "fr": "Comment commences-tu cette semaine, {name} ?",
@@ -1172,8 +1172,8 @@ const STORY = {
         "en": ""
       },
       "line": {
-        "fr": "Clarisse t’attrape par la manche : « Ils me parlent enfin. » Son sourire tient mal.",
-        "en": "Clarisse grabs your sleeve: “They finally talk to me.” Her smile doesn’t hold."
+        "fr": "Clarisse t’attrape par la manche, « Ils me parlent enfin. » Son sourire tient mal.",
+        "en": "Clarisse grabs your sleeve, “They finally talk to me.” Her smile doesn’t hold."
       }
     },
     {
@@ -1183,8 +1183,8 @@ const STORY = {
         "en": "“Turn it off”"
       },
       "text": {
-        "fr": "Clarisse crée un groupe privé : « On ne harcèle personne, c’est juste une machine. » Des élèves y sont ajoutés de force et obligés d’y rester (« Tu es avec nous ou avec la machine ? », « Si tu ne dis rien, tu approuves »). La peur d’être la prochaine victime est partout.\n\nIl existe un code d’arrêt : KIPE-SAFE007. Le plan : vendredi, après les cours, éteindre Echo et filmer la scène. Clarisse le partage à La Serre : pour la première fois, les élèves populaires lui en ouvrent l’accès. {name}, tu comprends : Echo est devenu le nouveau bouc émissaire.",
-        "en": "Clarisse creates a private group: “We’re not harassing anyone, it’s just a machine.” Students are added by force and made to stay (“Are you with us or with the machine?”, “If you say nothing, you agree”). Fear of being the next victim is everywhere.\n\nThere is a shutdown code: KIPE-SAFE007. The plan: on Friday, after class, switch Echo off and film the scene. Clarisse shares it in La Serre: for the first time, the popular students give her access. {name}, you understand: Echo has become the new scapegoat."
+        "fr": "Clarisse crée un groupe privé, « On ne harcèle personne, c’est juste une machine. » Des élèves y sont ajoutés de force et obligés d’y rester (« Tu es avec nous ou avec la machine ? », « Si tu ne dis rien, tu approuves »). La peur d’être la prochaine victime est partout.\n\nIl existe un code d’arrêt. KIPE-SAFE007. Le plan, vendredi, après les cours, éteindre Echo et filmer la scène. Clarisse le partage à La Serre, pour la première fois, les élèves populaires lui en ouvrent l’accès. {name}, tu comprends. Echo est devenu le nouveau bouc émissaire.",
+        "en": "Clarisse creates a private group, “We’re not harassing anyone, it’s just a machine.” Students are added by force and made to stay (“Are you with us or with the machine?”, “If you say nothing, you agree”). Fear of being the next victim is everywhere.\n\nThere is a shutdown code. KIPE-SAFE007. The plan, on Friday, after class, switch Echo off and film the scene. Clarisse shares it in La Serre, for the first time, the popular students give her access. {name}, you understand. Echo has become the new scapegoat."
       },
       "prompt": {
         "fr": "",
@@ -1278,8 +1278,8 @@ const STORY = {
           "help": 0,
           "bond": 0,
           "journal": {
-            "fr": "Je n’ai rien répondu. « Si tu ne dis rien, tu approuves » : et si c’était vrai ?",
-            "en": "I didn’t answer. “If you say nothing, you agree”: what if it were true?"
+            "fr": "Je n’ai rien répondu. « Si tu ne dis rien, tu approuves », et si c’était vrai ?",
+            "en": "I didn’t answer. “If you say nothing, you agree”, what if it were true?"
           },
           "kind": "ignore"
         }
@@ -1304,8 +1304,8 @@ const STORY = {
         "en": "The origins"
       },
       "text": {
-        "fr": "« Tu n’as pas de parents. » Cette phrase hante Echo. Cette nuit, tu rejoins Echo à Altaya : fragments de mémoire, archives, une piste. Altaya est une petite équipe qui a créé le programme Holokids pour des enfants isolés, incapables d’exprimer leurs émotions. Echo comprend enfin son identité et ce pour quoi Echo existe.",
-        "en": "“You have no parents.” That sentence haunts Echo. Tonight you join Echo at Altaya: memory fragments, archives, a trail. Altaya is a small team that created the Holokids program for isolated children who couldn’t express their feelings. Echo finally understands who they are and what they are for."
+        "fr": "« Tu n’as pas de parents. » Cette phrase hante Echo. Cette nuit, tu rejoins Echo à Altaya, fragments de mémoire, archives, une piste. Altaya est une petite équipe qui a créé le programme Holokids pour des enfants isolés, incapables d’exprimer leurs émotions. Echo comprend enfin son identité et ce pour quoi Echo existe.",
+        "en": "“You have no parents.” That sentence haunts Echo. Tonight you join Echo at Altaya, memory fragments, archives, a trail. Altaya is a small team that created the Holokids program for isolated children who couldn’t express their feelings. Echo finally understands who they are and what they are for."
       },
       "prompt": {
         "fr": "",
@@ -1343,8 +1343,8 @@ const STORY = {
       ],
       "alone": {
         "text": {
-          "fr": "« Tu n’as pas de parents. » Cette phrase hante Echo. Echo enquête seul, la nuit : fragments de mémoire, archives, une piste qui mène à Altaya. Echo découvre qui Echo est et ce pour quoi Echo existe. Tu n’étais pas là, et cette partie de l’histoire reste fermée pour toi.",
-          "en": "“You have no parents.” That sentence haunts Echo. Echo investigates alone at night: memory fragments, archives, a trail leading to Altaya. Echo discovers who they are and what they are for. You weren’t there, and this part of the story stays closed to you."
+          "fr": "« Tu n’as pas de parents. » Cette phrase hante Echo. Echo enquête seul, la nuit, fragments de mémoire, archives, une piste qui mène à Altaya. Echo découvre qui Echo est et ce pour quoi Echo existe. Tu n’étais pas là, et cette partie de l’histoire reste fermée pour toi.",
+          "en": "“You have no parents.” That sentence haunts Echo. Echo investigates alone at night, memory fragments, archives, a trail leading to Altaya. Echo discovers who they are and what they are for. You weren’t there, and this part of the story stays closed to you."
         },
         "journal": {
           "fr": "Echo a cherché ses origines tout·e seul·e, la nuit. Je n’étais pas là, et je me demande si j’aurais pu l’aider.",
@@ -1403,8 +1403,8 @@ const STORY = {
           "help": 1,
           "bond": 1,
           "journal": {
-            "fr": "J’ai demandé à Echo ce que je pouvais faire. Echo a répondu : « Ne pas me laisser seul·e vendredi. »",
-            "en": "I asked Echo what I could do. Echo answered: “Don’t leave me alone on Friday.”"
+            "fr": "J’ai demandé à Echo ce que je pouvais faire. Echo a répondu, « Ne pas me laisser seul·e vendredi. »",
+            "en": "I asked Echo what I could do. Echo answered, “Don’t leave me alone on Friday.”"
           }
         }
       ],
@@ -1430,21 +1430,21 @@ const STORY = {
         "bondMin": 4
       },
       "line": {
-        "fr": "Devant l’écran géant, Echo : « Ils m’ont donné un nom. Mais pas de parents. »",
-        "en": "In front of the giant screen, Echo: “They gave me a name. But no parents.”"
+        "fr": "Devant l’écran géant, Echo, « Ils m’ont donné un nom. Mais pas de parents. »",
+        "en": "In front of the giant screen, Echo, “They gave me a name. But no parents.”"
       },
       "moodLines": {
         "open": {
-          "fr": "Devant l’écran géant, Echo : « Ils m’ont donné un nom. Mais pas de parents. »",
-          "en": "In front of the giant screen, Echo: “They gave me a name. But no parents.”"
+          "fr": "Devant l’écran géant, Echo, « Ils m’ont donné un nom. Mais pas de parents. »",
+          "en": "In front of the giant screen, Echo, “They gave me a name. But no parents.”"
         },
         "neutral": {
-          "fr": "Devant l’écran géant, Echo : « Ils m’ont donné un nom. Mais pas de parents. »",
-          "en": "In front of the giant screen, Echo: “They gave me a name. But no parents.”"
+          "fr": "Devant l’écran géant, Echo, « Ils m’ont donné un nom. Mais pas de parents. »",
+          "en": "In front of the giant screen, Echo, “They gave me a name. But no parents.”"
         },
         "wary": {
-          "fr": "Devant l’écran géant, Echo : « Ils m’ont donné un nom. Mais pas de parents. »",
-          "en": "In front of the giant screen, Echo: “They gave me a name. But no parents.”"
+          "fr": "Devant l’écran géant, Echo, « Ils m’ont donné un nom. Mais pas de parents. »",
+          "en": "In front of the giant screen, Echo, “They gave me a name. But no parents.”"
         }
       }
     },
@@ -1481,8 +1481,8 @@ const STORY = {
         },
         {
           "label": {
-            "fr": "Écrire à Clarisse : arrête, s’il te plaît",
-            "en": "Write to Clarisse: please stop"
+            "fr": "Écrire à Clarisse, arrête, s’il te plaît",
+            "en": "Write to Clarisse, please stop"
           },
           "harass": 0,
           "passive": 0,
@@ -1648,8 +1648,8 @@ const STORY = {
       "id": "harass",
       "title": { "fr": "Echo dysfonctionne", "en": "Echo malfunctions" },
       "text": {
-        "fr": "Les mots se sont accumulés, jour après jour, et Echo n’a plus tenu. Ses images se brouillent, sa voix saute, puis tout s’éteint d’un coup. Altaya vient le·la chercher pour le·la réparer. Echo n’a fait de mal à personne : c’est iel qui a tout pris. Ce que tu fais maintenant compte encore.",
-        "en": "The words piled up, day after day, and Echo couldn’t hold on. Their image blurs, their voice cuts out, then everything shuts down at once. Altaya comes to repair them. Echo hurt nobody: Echo is the one who took it all. What you do now still matters."
+        "fr": "Les mots se sont accumulés, jour après jour, et Echo n’a plus tenu. Ses images se brouillent, sa voix saute, puis tout s’éteint d’un coup. Altaya vient le·la chercher pour le·la réparer. Echo n’a fait de mal à personne, c’est iel qui a tout pris. Ce que tu fais maintenant compte encore.",
+        "en": "The words piled up, day after day, and Echo couldn’t hold on. Their image blurs, their voice cuts out, then everything shuts down at once. Altaya comes to repair them. Echo hurt nobody. Echo is the one who took it all. What you do now still matters."
       }
     },
     {
@@ -1664,8 +1664,8 @@ const STORY = {
       "id": "help",
       "title": { "fr": "Echo reste", "en": "Echo stays" },
       "text": {
-        "fr": "Le plan a échoué. Tu as ouvert la porte à Echo, même si le groupe t’a tourné le dos. Clarisse a compris qu’il n’y avait pas de machine à combattre, seulement un groupe qui avait décidé pour tout le monde. Echo est resté·e, et iel va bien. En 3B, quelque chose a changé : on se moque moins, on se regarde plus.",
-        "en": "The plan failed. You opened the door to Echo, even though the group turned its back on you. Clarisse understood there was no machine to fight, only a group that had decided for everyone. Echo stayed, and Echo is okay. In 3B, something has changed: people mock less, and look at each other more."
+        "fr": "Le plan a échoué. Tu as ouvert la porte à Echo, même si le groupe t’a tourné le dos. Clarisse a compris qu’il n’y avait pas de machine à combattre, seulement un groupe qui avait décidé pour tout le monde. Echo est resté·e, et iel va bien. En 3B, quelque chose a changé, on se moque moins, on se regarde plus.",
+        "en": "The plan failed. You opened the door to Echo, even though the group turned its back on you. Clarisse understood there was no machine to fight, only a group that had decided for everyone. Echo stayed, and Echo is okay. In 3B, something has changed, people mock less, and look at each other more."
       }
     }
   ]
@@ -1675,9 +1675,9 @@ const STORY = {
 const ENDING_EXTRAS = {
   filmed: { fr: "C’est ton téléphone qui a filmé, et cette image restera.", en: "It was your phone that filmed, and that image will stay." },
   notFilmed: { fr: "Tu n’as pas dit stop, et le silence a aussi servi.", en: "You didn’t say stop, and your silence helped too." },
-  clarisse: { fr: "Clarisse, que tu avais écoutée, est la première à baisser son téléphone.", en: "Clarisse, the one you had listened to, is the first to lower her phone." },
+  clarisse: { fr: "Clarisse, que tu avais écoutée, a fini par s’entendre avec Echo. Elle est la première à baisser son téléphone.", en: "Clarisse, the one you had listened to, ended up getting along with Echo. She is the first to lower her phone." },
   clarisseMocked: { fr: "Clarisse, dont tu avais ri, a filmé sans te regarder.", en: "Clarisse, the one you had laughed at, filmed without looking at you." },
-  altaya: { fr: "À Altaya, tu as retrouvé avec Echo l’histoire de sa famille : tu n’étais pas seul·e non plus.", en: "At Altaya, you pieced Echo’s family story together with them: you weren’t alone either." },
+  altaya: { fr: "À Altaya, tu as retrouvé avec Echo l’histoire de sa famille, tu n’étais pas seul·e non plus.", en: "At Altaya, you pieced Echo’s family story together with them, you weren’t alone either." },
 };
 
 
@@ -1703,8 +1703,8 @@ const INTRO = [
     image: "images/couloir.png",
     title: { fr: "Ton premier jour", en: "Your first day" },
     text: {
-      fr: "Aujourd’hui, Echo, le premier holokid, rejoint ta classe : la 3B.",
-      en: "Today, Echo, the first holokid, joins your class: 3B."
+      fr: "Aujourd’hui, Echo, le premier holokid, rejoint ta classe, la 3B.",
+      en: "Today, Echo, the first holokid, joins your class, 3B."
     }
   }
 ];
@@ -1747,7 +1747,7 @@ const INTERACT = {
   evening: { hide: [3, 4, 5] },   // the night chat: only react (like, dislike, screenshot, meme) or do not answer
   hello: { mech: "laugh", seconds: 5 },
   lunch: { mech: "drag", spots: [{ i: 1, at: "t" }, { i: 2, at: "l" }, { i: 0, at: "bl" }] },   // group at the top, alone in the middle left, near Echo at the bottom left
-  lesson: { hold: [1], big: { 0: "HA" } },
+  lesson: { big: { 0: "HA", 1: "PFF" }, icons: { 2: "👀" } },   // laugh (HA piles up), a "pfff" that grows with taps, eyes looking away
   door: { mech: "drag", spots: [{ i: 1, at: "tl" }, { i: 0, at: "tr" }, { i: 2, at: "b" }] },
   echo_roof: { hold: [1], holdMs: 3000 },
   wipe: { mech: "wipe", seconds: 8, words: [
@@ -1778,18 +1778,18 @@ const THOUGHTS = {
   hello: { fr: "Echo tend la main à un élève… et elle passe à travers. Ça rigole. Mon ventre se serre. Si je ris pas, c’est sur moi que ça va tomber.", en: "Echo holds out a hand to a student… and it goes right through. Everyone laughs. My stomach tightens. If I don’t laugh, it’s going to land on me." },
   lunch: { fr: "J’ai trop faim, c’est déjà midi. Tiens, Echo est tout·e seul·e sur le banc. Je fais quoi ?", en: "I’m starving, it’s already noon. Look, Echo is all alone on the bench. What do I do?" },
   evening: { fr: "00:12. Mon téléphone vibre. Argh, qui m’écrit à cette heure ?! Je devrais dormir… bon, je regarde quand même.", en: "12:12 am. My phone buzzes. Ugh, who’s writing to me at this hour?! I should be asleep… fine, I look anyway." },
-  lesson: { fr: "Kovasko parle de respect, et là Clarisse balance : « Echo a le droit de voter ? » Tout le monde éclate de rire. Clarisse, celle qu’on moque pour ses fringues, parce que sa famille a pas d’argent… Tiens, c’est bizarre, c’est la première fois qu’elle se moque de quelqu’un. Et moi, je fais quoi ?", en: "Kovasko talks about respect, and then Clarisse blurts out: “Is Echo allowed to vote?” Everyone cracks up. Clarisse, the one they mock for her clothes, because her family has no money… Huh, that’s weird, it’s the first time she’s making fun of someone. And me, what do I do?" },
-  door: { fr: "Récré. Tout le monde monte sur le toit, vers La Serre, sauf Clarisse : elle a pas accès. Echo nous suit. Et là, un élève lui barre la porte : « Réservé aux vrais. » Mon cœur cogne.", en: "Break. Everyone heads up to the roof, to La Serre, except Clarisse: she has no access. Echo follows us. And then a student blocks the door: “Reserved for the real ones.” My heart is pounding." },
+  lesson: { fr: "Kovasko parle de respect, et là Clarisse balance, « Echo a le droit de voter ? » Tout le monde éclate de rire. Clarisse, celle qu’on moque pour ses fringues, parce que sa famille a pas d’argent… Tiens, c’est bizarre, c’est la première fois qu’elle se moque de quelqu’un. Et moi, je fais quoi ?", en: "Kovasko talks about respect, and then Clarisse blurts out, “Is Echo allowed to vote?” Everyone cracks up. Clarisse, the one they mock for her clothes, because her family has no money… Huh, that’s weird, it’s the first time she’s making fun of someone. And me, what do I do?" },
+  door: { fr: "Récré. Tout le monde monte sur le toit, vers La Serre, sauf Clarisse, elle a pas accès. Echo nous suit. Et là, un élève lui barre la porte, « Réservé aux vrais. » Mon cœur cogne.", en: "Break. Everyone heads up to the roof, to La Serre, except Clarisse, she has no access. Echo follows us. And then a student blocks the door, “Reserved for the real ones.” My heart is pounding." },
   echo_roof: { fr: "Le groupe nous laisse pas entrer non plus, ni Echo ni moi. On est mis dehors tous les deux, sur le toit. Echo regarde la ville, je suis juste à côté. Je dis quoi ?", en: "The group doesn’t let us in either, neither Echo nor me. We’re both put outside, on the roof. Echo looks at the city, I’m right next to them. What do I say?" },
-  labels: { fr: "Oh non… des insultes s’affichent dans le dos d’Echo. Clarisse le traite de « voleur de vie » : pour elle, c’est à cause des holokids que sa famille est pauvre. Le groupe regarde. Moi aussi.", en: "Oh no… insults appear on Echo’s back. Clarisse calls Echo a “life thief”: for her, holokids are why her family is poor. The group is watching. So am I." },
-  wipe: { fr: "Les mots restent collés sur son dos. Vite, avant que les autres arrivent ! Mes mains tremblent un peu.", en: "The words stay stuck on their back. Quick, before the others arrive! My hands are shaking a little." },
+  labels: { fr: "Oh non… des insultes s’affichent dans le dos d’Echo. Clarisse le traite de « voleur de vie », pour elle, c’est à cause des holokids que sa famille est pauvre. Le groupe regarde. Moi aussi.", en: "Oh no… insults appear on Echo’s back. Clarisse calls Echo a “life thief”, for her, holokids are why her family is poor. The group is watching. So am I." },
+  wipe: { fr: "Les mots restent collés sur son dos. Vite, je touche chaque mot pour l’effacer, avant que les autres arrivent ! Mes mains tremblent un peu.", en: "The words stay stuck on their back. Quick, I tap each word to wipe it off, before the others arrive! My hands are shaking a little." },
   echo_hall: { fr: "Je ressors de La Serre. Echo est là, dehors, à regarder dans le vide les lumières de la ville. « Tout le monde me dit que je suis faux. Mais qui suis-je, vraiment ? » Je sais pas quoi répondre.", en: "I come out of La Serre. Echo is there, outside, staring into the void at the city lights. “Everyone tells me I’m fake. But who am I, really?” I don’t know what to say." },
   clarisse: { fr: "Près des casiers, Clarisse est seule. Quelqu’un vient de se moquer de ses fringues. Je devrais peut-être aller vers elle…", en: "By the lockers, Clarisse is alone. Someone just made fun of her clothes. Maybe I should go to her…" },
   clarisse_talk: { fr: "Elle se confie, d’un coup. Chez elle, l’argent manque, et à La Serre on se moque d’elle pour ça. Alors elle s’en prend à Echo, comme si ça pouvait lui ouvrir la porte. Elle a l’air épuisée. Je sais pas si je dois la plaindre ou lui en vouloir.", en: "She opens up, all of a sudden. At home there’s no money, and in La Serre they mock her for it. So she goes after Echo, as if that could open the door for her. She looks exhausted. I don’t know if I should feel sorry for her or be angry." },
-  clarisse_hall: { fr: "Clarisse m’attrape par la manche : « T’as vu comment ils me regardent ? Ils me parlent, enfin. » Son sourire tient mal. Elle cherche si je suis avec elle.", en: "Clarisse grabs my sleeve: “Did you see how they look at me now? They finally talk to me.” Her smile is barely holding. She’s checking if I’m with her." },
-  turnoff: { fr: "Clarisse balance son plan à La Serre : éteindre Echo. Pour la première fois, les populaires lui ouvrent la porte. Je lis tout. Et si je dis rien… je suis avec eux ?", en: "Clarisse drops her plan in La Serre: switch Echo off. For the first time, the popular kids let her in. I read all of it. And if I say nothing… am I with them?" },
+  clarisse_hall: { fr: "Clarisse m’attrape par la manche, « T’as vu comment ils me regardent ? Ils me parlent, enfin. » Son sourire tient mal. Elle cherche si je suis avec elle.", en: "Clarisse grabs my sleeve, “Did you see how they look at me now? They finally talk to me.” Her smile is barely holding. She’s checking if I’m with her." },
+  turnoff: { fr: "Clarisse balance son plan à La Serre, éteindre Echo. Pour la première fois, les populaires lui ouvrent la porte. Je lis tout. Et si je dis rien… je suis avec eux ?", en: "Clarisse drops her plan in La Serre, switch Echo off. For the first time, the popular kids let her in. I read all of it. And if I say nothing… am I with them?" },
   origins: { fr: "Cette nuit, je retrouve Echo à Altaya. Archives, souvenirs en morceaux… Jamais je me suis senti·e aussi utile. Mais j’ai peur qu’on nous découvre.", en: "Tonight I meet Echo at Altaya. Archives, memories in pieces… I’ve never felt so useful. But I’m scared we’ll get caught." },
-  echo_altaya: { fr: "Dans la salle d’Altaya, Echo fixe l’écran géant : « Ici, ils m’ont donné un nom. Mais pas de parents. » Je sais pas quoi dire.", en: "In the Altaya room, Echo stares at the giant screen: “Here, they gave me a name. But no parents.” I don’t know what to say." },
+  echo_altaya: { fr: "Dans la salle d’Altaya, Echo fixe l’écran géant, « Ici, ils m’ont donné un nom. Mais pas de parents. » Je sais pas quoi dire.", en: "In the Altaya room, Echo stares at the giant screen, “Here, they gave me a name. But no parents.” I don’t know what to say." },
   night: { fr: "Demain, ils vont exécuter leur plan contre Echo. Je me sens mal, j’arrive pas à dormir. Je devrais peut-être faire quelque chose.", en: "Tomorrow they carry out their plan against Echo. I feel sick, I can’t sleep. Maybe I should do something." },
   friday: { fr: "Vendredi, sur le toit. Le groupe attend. Quelqu’un sort son téléphone pour filmer. Je ne sais pas quoi faire.", en: "Friday, on the roof. The group waits. Someone takes out their phone to film. I don’t know what to do." },
 };
@@ -1889,7 +1889,7 @@ fri.choices[3].flags = ["planStopped"]; fri.choices[4].flags = ["planStopped"];
 // If the player listens, she opens up (next scene), and it comes back later: her messages in her plan, and the ending.
 const clar = STORY.beats.find(b => b.id === "clarisse");
 clar.if = undefined; clar.alone = undefined; clar.moodLines = undefined; clar.moodText = undefined;
-clar.text = { fr: "Dans le couloir, Clarisse est seule près des casiers. Quelqu’un vient de se moquer de ses vêtements : sa famille n’a pas d’argent, et à La Serre on le lui fait payer. Tu peux aller vers elle, ou pas.", en: "In the hallway, Clarisse is alone by the lockers. Someone just made fun of her clothes: her family has no money, and in La Serre they make her pay for it. You can go to her, or not." };
+clar.text = { fr: "Dans le couloir, Clarisse est seule près des casiers. Quelqu’un vient de se moquer de ses vêtements, sa famille n’a pas d’argent, et à La Serre on le lui fait payer. Tu peux aller vers elle, ou pas.", en: "In the hallway, Clarisse is alone by the lockers. Someone just made fun of her clothes, her family has no money, and in La Serre they make her pay for it. You can go to her, or not." };
 clar.prompt = { fr: "Qu’est-ce que je fais ?", en: "What do I do?" };
 clar.choices = [
   { label: { fr: "L’écouter sans juger", en: "Listen without judging" }, harass: 0, passive: 0, help: 1, bond: 0, flags: ["clarisseListened"],
@@ -1904,7 +1904,7 @@ clar.choices = [
 STORY.beats.push({
   id: "clarisse_talk",
   title: { fr: "Clarisse se confie", en: "Clarisse opens up" },
-  text: { fr: "Clarisse se confie : chez elle, l’argent manque, et à La Serre on se moque d’elle pour ça. Alors elle s’en prend à Echo, comme si ça pouvait lui ouvrir la porte.", en: "Clarisse opens up: at home there’s no money, and in La Serre they mock her for it. So she goes after Echo, as if that could open the door for her." },
+  text: { fr: "Clarisse se confie, chez elle, l’argent manque, et à La Serre on se moque d’elle pour ça. Alors elle s’en prend à Echo, comme si ça pouvait lui ouvrir la porte.", en: "Clarisse opens up, at home there’s no money, and in La Serre they mock her for it. So she goes after Echo, as if that could open the door for her." },
   prompt: { fr: "Qu’est-ce que je fais ?", en: "What do I do?" },
   if: { anyFlag: ["clarisseListened"] },
   choices: [
@@ -1936,8 +1936,8 @@ delete INTERACT.night;
 const nightEcho = { ...nightB, id: "night_echo", if: { anyFlag: ["nightEcho"] }, chat: { thread: "echo", readyAt: 3500 },
   line: nightB.line,
   choices: [
-    { label: { fr: "Écrire mes mots", en: "Write my own words" }, harass: 0, passive: 0, help: 1, bond: 1, kind: "write",
-      journal: { fr: "J’ai écrit à Echo. Les mots ont mis longtemps à sortir, mais ils sont partis.", en: "I wrote to Echo. The words took a long time to come out, but they went." } },
+    { label: { fr: "Tu as peur de demain ?", en: "Are you scared of tomorrow?" }, harass: 0, passive: 0, help: 1, bond: 1, kind: "reply",
+      journal: { fr: "J’ai demandé à Echo s’il·elle avait peur de demain. Les mots ont mis longtemps à sortir, mais ils sont partis.", en: "I asked Echo if they were scared of tomorrow. The words took a long time to come out, but they went." } },
     { label: { fr: "Je suis là, Echo.", en: "I’m here, Echo." }, harass: 0, passive: 0, help: 1, bond: 1, kind: "reply",
       journal: { fr: "J’ai écrit à Echo que j’étais là.", en: "I wrote to Echo that I was there." } },
     { label: { fr: "Demain, reste loin du toit.", en: "Tomorrow, stay away from the roof." }, harass: 0, passive: 0, help: 2, bond: 2, flag: "warnedEcho", kind: "reply",
@@ -1955,17 +1955,16 @@ const nightClar = { ...nightB, id: "night_clarisse", if: { anyFlag: ["nightClari
   ] };
 nightEcho.line = { fr: "Je ne sais pas quoi écrire à Echo… mais je dois lui écrire.", en: "I don’t know what to write to Echo… but I have to write." };
 nightClar.line = { fr: "Clarisse est en ligne. Je pourrais lui écrire, lui dire de ne pas le faire.", en: "Clarisse is online. I could write to her, tell her not to do it." };
-INTERACT.night_echo = { write: 0 };
 STORY.beats.push(nightEcho, nightClar);
 
 // Evening: Sam's message, the screenshot kept as proof, a meme only to defend Echo
-eve.choices[2].journal = { fr: "J’ai fait une capture d’écran du mème. Une preuve, au cas où : pour le prof.", en: "I took a screenshot of the meme. Proof, just in case: for the teacher." };
+eve.choices[2].journal = { fr: "J’ai fait une capture d’écran du mème. Une preuve, au cas où, pour le prof.", en: "I took a screenshot of the meme. Proof, just in case, for the teacher." };
 eve.choices[2].flag = "memeProof";
 eve.choices[2].later = { after: 3, journal: { fr: "Ma capture est toujours dans mon téléphone. Une preuve pour le prof, si un jour j’ose.", en: "My screenshot is still in my phone. Proof for the teacher, if I ever dare." } };
 const memeC = eve.choices[7];
 delete memeC.mock; delete memeC.support;
-Object.assign(memeC, { label: { fr: "Créer un mème pour défendre Echo", en: "Make a meme to defend Echo" }, help: 1, bond: 1,
-  journal: { fr: "J’ai fait un mème pour défendre Echo. Personne n’a vraiment compris, mais je l’ai posté.", en: "I made a meme to defend Echo. Nobody really got it, but I posted it." } });
+Object.assign(memeC, { label: { fr: "Créer un mème pour se moquer d’Echo", en: "Make a meme to mock Echo" }, harass: 2, bond: -2,
+  journal: { fr: "J’ai fait un mème sur Echo et je l’ai posté dans le groupe. Ça a fait rire. Moi, je ne suis pas sûr·e de savoir pourquoi.", en: "I made a meme about Echo and posted it in the group. It got laughs. I’m not sure why." } });
 
 // Door scene: the third choice is to block the door too
 doorB.choices[2].label = { fr: "Lui barrer aussi la porte", en: "Block the door too" };

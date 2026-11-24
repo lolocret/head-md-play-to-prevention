@@ -39,7 +39,7 @@ const NEXUS = {
       { t: "private", from: null, fr: "Clarisse t’a ajouté·e au groupe « On harcèle personne ».", en: "Clarisse added you to the group “We harass nobody”.", at: 800 },
       { t: "private", from: "Clarisse", fr: "On harcèle personne, c’est juste une machine.", en: "We’re not harassing anyone, it’s just a machine.", at: 2800 },
       { t: "private", from: "Clarisse", fr: "{name}, t’es avec nous ou avec la machine ?", en: "{name}, are you with us or with the machine?", at: 5000 },
-      { t: "private", from: "Clarisse", fr: "Vendredi après les cours, on l’éteint. Code : KIPE-SAFE007", en: "Friday after class, we switch it off. Code: KIPE-SAFE007", key: "plan", at: 7500 },
+      { t: "private", from: "Clarisse", fr: "Vendredi après les cours, on l’éteint. Code KIPE-SAFE007", en: "Friday after class, we switch it off. Code KIPE-SAFE007", key: "plan", at: 7500 },
       { t: "private", from: "Clarisse", fr: "{name}, merci d’avoir écouté l’autre jour. Mais là, je peux pas reculer.", en: "{name}, thanks for listening the other day. But now I can’t back out.", at: 9500, if: { flag: "clarisseListened" } },
       { t: "private", from: "Clarisse", fr: "Arrête de dire que c’est pas la faute d’Echo. Je sais déjà.", en: "Stop saying it’s not Echo’s fault. I already know.", at: 9500, if: { flag: "clarisseToldStop" } },
       { t: "private", from: "Clarisse", fr: "T’as ri de moi avec eux, {name}. Alors t’es avec nous ?", en: "You laughed at me with them, {name}. So are you with us?", at: 9500, if: { flag: "clarisseMocked" } },
@@ -75,6 +75,7 @@ const NEXUS = {
       3: [{ from: "Inès", fr: "oh ça va, c’est une blague", en: "oh come on, it’s a joke", at: 1500 }, { from: "Sam", fr: "{name} fait sa morale", en: "{name} is lecturing us", at: 3200 }],
       4: [{ from: "Lucas", fr: "haha {name} a compris la blague", en: "haha {name} gets the joke", at: 1500 }],
       5: [{ from: null, quiet: true, fr: "Tu as quitté le groupe « 3B ».", en: "You left the group “3B”.", at: 600 }],
+      "7:mock": [{ from: "Maé", fr: "ahahah celui-là est trop bien", en: "ahahah that one is so good", at: 1500 }, { from: "Lucas", fr: "{name} a fait fort", en: "{name} went all out", at: 3200 }],
       "7:support": [{ from: "Inès", fr: "c’est quoi ce mème ?", en: "what is this meme?", at: 1500 }, { from: "Lucas", fr: "{name} fait de la morale en mème, lol", en: "{name} is moralizing in memes, lol", at: 3200 }],
     },
     labels: {
@@ -89,7 +90,7 @@ const NEXUS = {
       3: [{ from: null, quiet: true, fr: "Tu as quitté le groupe « On harcèle personne ».", en: "You left the group “We harass nobody”.", at: 600 }],
     },
     night_echo: {
-      0: [{ from: "Echo", fr: "Merci. Ça fait du bien de ne pas être seul·e.", en: "Thank you. It feels good not to be alone.", at: 2000 }],
+      0: [{ from: "Echo", fr: "Un peu… mais ça va mieux, avec toi.", en: "A little… but it’s better with you.", at: 2000 }],
       1: [{ from: "Echo", fr: "Merci. Ça fait du bien de ne pas être seul·e.", en: "Thank you. It feels good not to be alone.", at: 2000 }],
       2: [{ from: "Echo", fr: "Le toit ? Pourquoi ? … D’accord. Je ferai attention.", en: "The roof? Why? … Okay. I’ll be careful.", at: 2000 }],
     },

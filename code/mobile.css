@@ -556,3 +556,26 @@ html.role-phone #choiceView.emojiMode .choice:not(.emoji):not(.bigtile) small { 
 }
 html.role-phone #nameInput, html.role-phone #nameInput:focus { background:#fff; color:#1c1c1e; caret-color:#1c1c1e; }
 html.role-phone #nameInput::placeholder { color:rgba(60,60,67,.4); }
+.wipeInfo { justify-content:space-between; } .wipeHint { color:#fff; font-size:15px; }
+/* lesson scene: the "pfff" tile and the eyes tile */
+html .choice.bigtile .bigIcon { position:relative; display:block; font-size:64px; line-height:1.1; color:#fff; text-align:center; }
+html .choice.bigtile .pffWord { font:900 56px/1 "Bodoni Moda", "Didot", serif; letter-spacing:.06em; text-transform:none; }
+html .choice.iconTile, html .choice.pffTile { justify-content:center !important; padding:0 12px !important; gap:8px; }
+
+/* The computer shows no gauge: Echo's state is a flower in the top right corner of the phone (it blooms or wilts) */
+html.role-screen #gaugeBox, html.role-screen #echoState { display:none !important; }
+html.role-phone #echoState { display:block !important; position:fixed; z-index:30; top:calc(env(safe-area-inset-top) + 12px); right:14px; width:40px; height:40px; pointer-events:none; }
+html.role-phone #echoState #bloom { display:block; width:40px; height:40px; transition:filter .6s, transform .6s; }
+html.role-phone #echoState #bloom svg { width:100%; height:100%; display:block; }
+html.role-phone body:not(.phone-in) #echoState { display:none !important; }
+
+/* top bar of the phone: photo, NEXUS, messages, journal, Echo's flower — one row, same size, same line */
+html.role-phone #status { gap:8px; }
+html.role-phone #status .who { flex:1 1 0; min-width:0; }
+html.role-phone #mePic { width:40px; height:40px; border:0; box-shadow:none; }
+html.role-phone #status .ibtn { width:40px; height:40px; }
+html.role-phone #status .hbtns { gap:8px; align-items:center; }
+html.role-phone #echoState { position:static !important; display:flex !important; align-items:center; justify-content:center; width:40px; height:40px; top:auto; right:auto; flex:none; }
+html.role-phone #echoState #bloom { width:40px; height:40px; display:flex; align-items:center; justify-content:center; }
+html.role-phone #echoState #bloom svg { width:36px; height:36px; }
+html.role-phone #app.on-gate #echoState { display:none !important; }

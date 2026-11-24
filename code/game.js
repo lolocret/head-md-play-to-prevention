@@ -113,7 +113,7 @@ function choose(c, text, index, stance) {
   if (c.flag) state.flags[c.flag] = true;
   (c.flags || []).forEach(f => { state.flags[f] = true; });
   if (c.journal) state.extra.push({ beat: beatIndex, text: text && c.kind === "meme" ? { fr: c.journal.fr + " « " + text + " »", en: c.journal.en + " “" + text + "”" } : c.journal });
-  if (text && c.kind !== "meme") state.extra.push({ beat: beatIndex, text: { fr: `J’ai écrit à Echo : « ${text} »`, en: `I wrote to Echo: “${text}”` } });   // her own words go in the journal
+  if (text && c.kind !== "meme") state.extra.push({ beat: beatIndex, text: { fr: `J’ai écrit à Echo, « ${text} »`, en: `I wrote to Echo, “${text}”` } });   // her own words go in the journal
   if (chat) {                                            // stay in the conversation a moment: the others answer, then the story goes on
     chatAnswered = true; syncPhone();
     const idx = beatIndex;
@@ -159,7 +159,7 @@ function phoneState() {
       const ix = alone ? {} : (INTERACT[beat.id] || {});
       return { mode: "choose", token, place, prompt: beat.prompt ? { fr: fill(beat.prompt.fr), en: fill(beat.prompt.en) } : empty,
         choices: choices.map((c, i) => ({ fr: fill(c.label.fr), en: fill(c.label.en), hold: (ix.hold || []).includes(i) })),
-        timer: ix.timer || 0, fallback: ix.fallback || 0, holdMs: ix.holdMs || 900, emoji: !!ix.emoji, big: ix.big || {}, spots: ix.spots || [], mech: ix.mech || "", seconds: ix.seconds || 0, words: ix.words || [] };
+        timer: ix.timer || 0, fallback: ix.fallback || 0, holdMs: ix.holdMs || 900, emoji: !!ix.emoji, big: ix.big || {}, icons: ix.icons || {}, spots: ix.spots || [], mech: ix.mech || "", seconds: ix.seconds || 0, words: ix.words || [] };
     }
     pending = { token, kind: "continue" };
     return { mode: "choose", token, place, prompt: empty, choices: [{ fr: "Continuer", en: "Continue" }] };

@@ -33,6 +33,8 @@ const Scene = (() => {
     origins:        { place: "altaya", fallback: "couloir", npcs: [{ id: "echo", x: 38, y: 86 }] },
     echo_altaya:    { place: "altaya", npcs: [{ id: "echo", x: 38, y: 86 }] },
     night:          { place: "chambre", npcs: [] },
+    night_echo:     { place: "chambre", npcs: [] },
+    night_clarisse: { place: "chambre", npcs: [] },
     friday:         { place: "toit", npcs: [{ id: "echo", x: 16, y: 80 }, { id: "clarisse", x: 28, y: 80 }, { id: "student", x: 40, y: 82 }] },
   };
 
